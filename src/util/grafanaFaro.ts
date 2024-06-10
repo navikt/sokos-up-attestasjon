@@ -1,5 +1,5 @@
-import { getEnvironment } from "./environment";
 import { getWebInstrumentations, initializeFaro } from "@grafana/faro-web-sdk";
+import { getEnvironment } from "./environment";
 
 type TelemetryCollectorURL =
   | "https://telemetry.nav.no/collect"
@@ -23,7 +23,7 @@ export function initGrafanaFaro() {
     isolate: true,
     url: getTelemetryCollectorURL(),
     app: {
-      name: "sokos-mikrofrontend-template",
+      name: "sokos-up-attestasjon",
     },
     instrumentations: [
       ...getWebInstrumentations({

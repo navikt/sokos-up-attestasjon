@@ -1,4 +1,4 @@
-# sokos-mikrofrontend-template
+# sokos-up-attestasjon
 
 Brukes som utgangspunkt for å opprette nye mikrofrontends i Utbetalingsportalen [sokos-utbetalingsportalen](https://github.com/navikt/sokos-utbetalingsportalen).
 

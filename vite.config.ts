@@ -40,7 +40,7 @@ export default () => ({
   build: {
     lib: {
       entry: resolve(__dirname, "src/App.tsx"),
-      name: "sokos-mikrofrontend-template",
+      name: "sokos-up-attestasjon",
       formats: ["es"],
       fileName: () => `bundle.js`,
     },
