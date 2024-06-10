@@ -1,4 +1,4 @@
-import { BodyLong, Heading, Loader, Table } from "@navikt/ds-react";
+import { Heading, Loader, Table } from "@navikt/ds-react";
 import RestService from "../services/rest-service";
 import styles from "./TemplatePage.module.css";
 
@@ -17,11 +17,8 @@ const TemplatePage = () => {
     <>
       <div className={styles.template__header}>
         <Heading spacing level="2" size="large">
-          Mikrofrontend Template
+          Attestasjon
         </Heading>
-        <BodyLong>
-          Dette er en template for å bygge undersider i Utbetalingsportalen
-        </BodyLong>
       </div>
       <div className={styles.template__body}>
         <Heading spacing level="2" size="medium">
