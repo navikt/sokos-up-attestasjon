@@ -17,7 +17,7 @@ const TemplatePage = () => {
     <>
       <div className={styles.template__header}>
         <Heading spacing level="2" size="large">
-          Attestasjon
+          Template page
         </Heading>
       </div>
       <div className={styles.template__body}>
