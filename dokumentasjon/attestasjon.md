@@ -70,7 +70,7 @@ flowchart TD
 "] -->|"Oppdatere
 attestert status"| B(Modul i sokos-oppdrag)
 B -->|Søk og visning| A
-B -->|skriv| C[("DB2-oppdrag")]
+B -->|Oppdater med REST-API via Z-OS connect| C[("DB2-oppdrag")]
 C -->|les| B
 ```
 
