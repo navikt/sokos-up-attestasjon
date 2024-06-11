@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import "./App.module.css";
-import TemplatePage from "./pages/TemplatePage";
+import SokPage from "./pages/SokPage";
 import { initGrafanaFaro } from "./util/grafanaFaro";
 
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
     initGrafanaFaro();
   }, []);
 
-  return <TemplatePage />;
+  return <SokPage />;
 };
 
 export default App;

@@ -1,0 +1,7 @@
+.sok_sok {
+  @apply bg-[--a-surface-alt-1-subtle] p-5;
+}
+
+.sok_inputfields {
+  @apply flex flex-col;
+}
