@@ -1,3 +1,5 @@
+import personsok from "./POST_PersonSok.json";
+
 export default [
   {
     url: "/mikrofrontend-api/api/employee",
@@ -17,4 +19,9 @@ export default [
       ];
     },
   },
+{
+  url: "/api/v1/attestasjon/personsok",
+  method: "GET",
+  response: () => personsok,
+},
 ];

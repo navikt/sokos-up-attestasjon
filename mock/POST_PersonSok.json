@@ -1,0 +1,106 @@
+[
+  {
+    "fagsystemId": "015485999",
+    "oppdragsId": 69357567,
+    "navnFagGruppe": "Kontantstøtte",
+    "navnFagOmraade": "Kontantstøtte",
+    "kjorIdag": "N",
+    "kodeStatus": "AKTI"
+  },
+  {
+    "fagsystemId": "1876419",
+    "oppdragsId": 63835213,
+    "navnFagGruppe": "Barnetrygd",
+    "navnFagOmraade": "Barnetrygd",
+    "kjorIdag": "N",
+    "kodeStatus": "AKTI"
+  },
+  {
+    "fagsystemId": "2960-skatt-20235T-00683",
+    "oppdragsId": 70097904,
+    "navnFagGruppe": "Skatteoppgjør - manuelle posteringer",
+    "navnFagOmraade": "Manuell opprydding skatt",
+    "kjorIdag": "N",
+    "kodeStatus": "PASS"
+  },
+  {
+    "fagsystemId": "000399216NS322.45.17.026880",
+    "oppdragsId": 69085529,
+    "navnFagGruppe": "Tilbakekreving",
+    "navnFagOmraade": "Foreldrepenger til innkreving",
+    "kjorIdag": "N",
+    "kodeStatus": "PASS"
+  },
+  {
+    "fagsystemId": "000399216MK22.45.16.963516",
+    "oppdragsId": 69085528,
+    "navnFagGruppe": "Tilbakekreving, betalt",
+    "navnFagOmraade": "Nedbetalt Foreldrepenger",
+    "kjorIdag": "N",
+    "kodeStatus": "PASS"
+  },
+  {
+    "fagsystemId": "000399216",
+    "oppdragsId": 69078296,
+    "navnFagGruppe": "Tilbakekreving",
+    "navnFagOmraade": "Foreldrepenger til innkreving",
+    "kjorIdag": "N",
+    "kodeStatus": "PASS"
+  },
+  {
+    "fagsystemId": "000399216",
+    "oppdragsId": 69078295,
+    "navnFagGruppe": "Tilbakekrevingskrav",
+    "navnFagOmraade": "Tilbakekrevingskrav",
+    "kjorIdag": "N",
+    "kodeStatus": "PASS"
+  },
+  {
+    "fagsystemId": "43128412345-eøs-g-120623",
+    "oppdragsId": 68275955,
+    "navnFagGruppe": "Barnetrygd",
+    "navnFagOmraade": "Barnetrygd",
+    "kjorIdag": "N",
+    "kodeStatus": "PASS"
+  },
+  {
+    "fagsystemId": "152122138100",
+    "oppdragsId": 62687964,
+    "navnFagGruppe": "Korttidsytelser",
+    "navnFagOmraade": "Foreldrepenger",
+    "kjorIdag": "N",
+    "kodeStatus": "PASS"
+  },
+  {
+    "fagsystemId": "SM00675836420210201",
+    "oppdragsId": 56638777,
+    "navnFagGruppe": "Korttidsytelser",
+    "navnFagOmraade": "Sykepenger",
+    "kjorIdag": "N",
+    "kodeStatus": "PASS"
+  },
+  {
+    "fagsystemId": "FY00675836420200501         FY",
+    "oppdragsId": 49519399,
+    "navnFagGruppe": "Korttidsytelser",
+    "navnFagOmraade": "Sykepenger",
+    "kjorIdag": "N",
+    "kodeStatus": "PASS"
+  },
+  {
+    "fagsystemId": "008912261",
+    "oppdragsId": 46755554,
+    "navnFagGruppe": "Barnetrygd",
+    "navnFagOmraade": "Barnetrygd",
+    "kjorIdag": "N",
+    "kodeStatus": "PASS"
+  },
+  {
+    "fagsystemId": "SP00675836420190325",
+    "oppdragsId": 44550926,
+    "navnFagGruppe": "Korttidsytelser",
+    "navnFagOmraade": "Sykepenger",
+    "kjorIdag": "N",
+    "kodeStatus": "PASS"
+  }
+]
