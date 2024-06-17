@@ -3,5 +3,5 @@
 }
 
 .sok_inputfields {
-  @apply flex flex-col;
+  @apply flex w-1/4 flex-col space-y-3;
 }

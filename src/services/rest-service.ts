@@ -1,15 +1,19 @@
 import axios from "axios";
 import useSWR from "swr";
+import { Oppdragegenskaper } from "../models/Oppdragsegenskaper";
 import { ApiError, HttpStatusCodeError } from "../types/errors";
-import { Employee } from "../models/Employee";
 
-const BASE_API_URL = "/mikrofrontend-api/api";
+const BASE_API_URL = "/api/v1/attestasjon";
 
 const api = axios.create({
   baseURL: BASE_API_URL,
   timeout: 30000,
   withCredentials: true,
-  headers: { Pragma: "no-cache", "Cache-Control": "no-cache", "Content-Type": "application/json" },
+  headers: {
+    Pragma: "no-cache",
+    "Cache-Control": "no-cache",
+    "Content-Type": "application/json",
+  },
   validateStatus: (status) => status < 400,
 });
 
@@ -37,13 +41,16 @@ api.interceptors.response.use(
   },
 );
 
-const useFetchEmployees = () => {
-  const { data, isLoading } = useSWR<Employee[]>("/employee", swrConfig);
+const useFetchOppdrag = () => {
+  const { data, isLoading } = useSWR<Oppdragegenskaper[]>(
+    "/personsok",
+    swrConfig,
+  );
   return { data, isLoading };
 };
 
 const RestService = {
-  useFetchEmployees,
+  useFetchOppdrag,
 };
 
 export default RestService;
