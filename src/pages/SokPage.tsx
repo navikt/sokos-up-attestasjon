@@ -2,7 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { MagnifyingGlassIcon } from "@navikt/aksel-icons";
-import { Button, Heading, Table, TextField } from "@navikt/ds-react";
+import { Button, Heading, TextField } from "@navikt/ds-react";
+import { TreffTabell } from "../components/TreffTabell";
 import {
   TrefflisteSearchParameters,
   TrefflisteSearchParametersSchema,
@@ -13,11 +14,14 @@ import { retrieveId } from "../util/commonUtils";
 import styles from "./SokPage.module.css";
 
 export default function SokPage() {
-  const oppdrag = RestService.useFetchOppdrag();
   const [trefflisteSokParameters, setTrefflisteSokParameters] =
     useState<TrefflisteSearchParameters>({
       gjelderID: retrieveId(),
     });
+
+  const { treffliste, trefflisteIsLoading } = RestService.useFetchTreffliste(
+    trefflisteSokParameters.gjelderID,
+  );
 
   const {
     register,
@@ -55,34 +59,23 @@ export default function SokPage() {
               id="gjelderID"
               error={errors.gjelderID?.message}
             />
-            <Button
-              variant="primary"
-              icon={<MagnifyingGlassIcon />}
-              iconPosition="right"
-              onClick={() => trigger()}
-            >
-              Søk
-            </Button>
+            <div className={styles.sok_button}>
+              <Button
+                variant="primary"
+                icon={<MagnifyingGlassIcon />}
+                iconPosition="right"
+                onClick={() => trigger()}
+              >
+                Søk
+              </Button>
+            </div>
           </div>
         </form>
-        <Table>
-          <Table.Header>
-            <Table.Row>
-              <Table.HeaderCell>Oppdrags ID</Table.HeaderCell>
-              <Table.HeaderCell>Faggruppe</Table.HeaderCell>
-              <Table.HeaderCell>Fagsystem ID</Table.HeaderCell>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {oppdrag.data?.map((o) => (
-              <Table.Row key={o.oppdragsId}>
-                <Table.DataCell>{o.oppdragsId}</Table.DataCell>
-                <Table.DataCell>{o.navnFagGruppe}</Table.DataCell>
-                <Table.DataCell>{o.fagsystemId}</Table.DataCell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table>
+        {trefflisteIsLoading && trefflisteSokParameters.gjelderID ? (
+          <div>Laster...</div>
+        ) : treffliste && treffliste.length > 0 ? (
+          <TreffTabell treffliste={treffliste} />
+        ) : null}
       </div>
     </>
   );

@@ -5,3 +5,7 @@
 .sok_inputfields {
   @apply flex w-1/4 flex-col space-y-3;
 }
+
+.sok_button {
+  @apply w-1/6;
+}

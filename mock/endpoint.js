@@ -21,7 +21,7 @@ export default [
   },
 {
   url: "/api/v1/attestasjon/personsok",
-  method: "GET",
+  method: "POST",
   response: () => personsok,
 },
 ];

@@ -10,4 +10,4 @@ export const OppdragsegenskaperSchema = z.object({
   kodeStatus: z.string(),
 });
 
-export type Oppdragegenskaper = z.infer<typeof OppdragsegenskaperSchema>;
+export type Oppdragsegenskaper = z.infer<typeof OppdragsegenskaperSchema>;

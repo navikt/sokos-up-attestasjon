@@ -1,6 +1,7 @@
 import axios from "axios";
+import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { Oppdragegenskaper } from "../models/Oppdragsegenskaper";
+import { Oppdragsegenskaper } from "../models/Oppdragsegenskaper";
 import { ApiError, HttpStatusCodeError } from "../types/errors";
 
 const BASE_API_URL = "/api/v1/attestasjon";
@@ -41,16 +42,47 @@ api.interceptors.response.use(
   },
 );
 
+// Brukes av omposteringer, oppdrag og treffliste for å kunne sende med fnr i requestbody
+const axiosPostFetcher = <T>(url: string, body: { gjelderId?: string }) =>
+  api.post<T>(url, body).then((res) => res.data);
+
 const useFetchOppdrag = () => {
-  const { data, isLoading } = useSWR<Oppdragegenskaper[]>(
+  const { data, isLoading } = useSWR<Oppdragsegenskaper[]>(
     "/personsok",
     swrConfig,
   );
   return { data, isLoading };
 };
 
+const useFetchTreffliste = (gjelderId?: string) => {
+  const [shouldFetch, setShouldFetch] = useState<boolean>(false);
+  useEffect(() => {
+    setShouldFetch(!!gjelderId && [9, 11].includes(gjelderId.length));
+  }, [gjelderId]);
+  const { data, error, mutate, isValidating } = useSWR<Oppdragsegenskaper[]>(
+    shouldFetch ? "/personsok" : null,
+    {
+      ...swrConfig,
+      fetcher: (url) =>
+        axiosPostFetcher<Oppdragsegenskaper[]>(url, {
+          gjelderId,
+        }),
+    },
+  );
+
+  const isLoading = (!error && !data) || isValidating;
+
+  return {
+    treffliste: data,
+    trefflisteError: error,
+    mutate,
+    trefflisteIsLoading: isLoading,
+  };
+};
+
 const RestService = {
   useFetchOppdrag,
+  useFetchTreffliste,
 };
 
 export default RestService;
