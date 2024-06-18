@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { Oppdragsegenskaper } from "../models/Oppdragsegenskaper";
 import { ApiError, HttpStatusCodeError } from "../types/errors";
 
-const BASE_API_URL = "/api/v1/attestasjon";
+const BASE_API_URL = "/oppdrag-api/api/v1/attestasjon";
 
 const api = axios.create({
   baseURL: BASE_API_URL,

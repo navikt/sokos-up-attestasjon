@@ -1,7 +1,7 @@
 {
   "name": "sokos-up-attestasjon",
   "version": "1.0.0",
-  "description": "Mikrofrontend for Utbetalingsportalen",
+  "description": "Arbeidsflate for attestasjon i Utbetalingsportalen",
   "type": "module",
   "scripts": {
     "dev": "vite",
