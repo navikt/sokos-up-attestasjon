@@ -19,7 +19,7 @@ export default function SokPage() {
       gjelderID: retrieveId(),
     });
 
-  const { treffliste, trefflisteIsLoading } = RestService.useFetchTreffliste(
+  const { treffliste, isLoading } = RestService.useFetchTreffliste(
     trefflisteSokParameters.gjelderID,
   );
 
@@ -71,7 +71,7 @@ export default function SokPage() {
             </div>
           </div>
         </form>
-        {trefflisteIsLoading && trefflisteSokParameters.gjelderID ? (
+        {isLoading && trefflisteSokParameters.gjelderID ? (
           <div>Laster...</div>
         ) : treffliste && treffliste.length > 0 ? (
           <TreffTabell treffliste={treffliste} />

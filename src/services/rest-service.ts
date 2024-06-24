@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
+import { Attestasjonsdata } from "../models/Attestasjonsdata";
 import { Oppdragsegenskaper } from "../models/Oppdragsegenskaper";
 import { ApiError, HttpStatusCodeError } from "../types/errors";
 
@@ -59,12 +60,12 @@ const useFetchTreffliste = (gjelderId?: string) => {
   useEffect(() => {
     setShouldFetch(!!gjelderId && [9, 11].includes(gjelderId.length));
   }, [gjelderId]);
-  const { data, error, mutate, isValidating } = useSWR<Oppdragsegenskaper[]>(
+  const { data, error, mutate, isValidating } = useSWR<Attestasjonsdata[]>(
     shouldFetch ? "/personsok" : null,
     {
       ...swrConfig,
       fetcher: (url) =>
-        axiosPostFetcher<Oppdragsegenskaper[]>(url, {
+        axiosPostFetcher<Attestasjonsdata[]>(url, {
           gjelderId,
         }),
     },
@@ -76,7 +77,7 @@ const useFetchTreffliste = (gjelderId?: string) => {
     treffliste: data,
     trefflisteError: error,
     mutate,
-    trefflisteIsLoading: isLoading,
+    isLoading,
   };
 };
 
