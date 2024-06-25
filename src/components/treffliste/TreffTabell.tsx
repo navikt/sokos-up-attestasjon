@@ -1,6 +1,6 @@
 import React from "react";
 import { Table } from "@navikt/ds-react";
-import { AttestasjonTreff } from "../models/AttestasjonTreff";
+import { AttestasjonTreff } from "../../models/AttestasjonTreff";
 
 interface TreffTabellProps {
   treffliste: AttestasjonTreff[];

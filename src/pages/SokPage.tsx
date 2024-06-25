@@ -3,7 +3,7 @@ import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { MagnifyingGlassIcon } from "@navikt/aksel-icons";
 import { Button, Heading, TextField } from "@navikt/ds-react";
-import { TreffTabell } from "../components/TreffTabell";
+import { TreffTabell } from "../components/treffliste/TreffTabell";
 import {
   TrefflisteSearchParameters,
   TrefflisteSearchParametersSchema,

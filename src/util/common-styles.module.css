@@ -1,3 +1,7 @@
 .pageheading {
   @apply text-center;
 }
+
+.contentloader {
+  @apply w-full py-16 text-center;
+}
