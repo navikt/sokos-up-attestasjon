@@ -1,4 +1,4 @@
-name: Manual deploy to dev
+name: Deploy application manual to dev
 
 on:
   workflow_dispatch:
@@ -76,4 +76,5 @@ jobs:
           CLUSTER: dev-gcp
           RESOURCE: .nais/naiserator-dev.yaml
           IMAGE: ${{ needs.build.outputs.image }}
+          TIMEOUT: 10m
           PRINT_PAYLOAD: true
