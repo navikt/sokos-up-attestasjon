@@ -2,9 +2,10 @@ import { useEffect } from "react";
 import { Heading } from "@navikt/ds-react";
 import ContentLoader from "../components/common/ContentLoader";
 import { TreffTabell } from "../components/treffliste/TreffTabell";
+import TrefflisteParameters from "../components/treffliste/TrefflisteParameters";
 import RestService from "../services/rest-service";
 import commonstyles from "../util/common-styles.module.css";
-import { retrieveId } from "../util/commonUtils";
+import { anyOppdragExists, retrieveId } from "../util/commonUtils";
 import { BASENAME } from "../util/constants";
 import styles from "./TrefflistePage.module.css";
 
@@ -14,9 +15,8 @@ const TrefflistePage = () => {
 
   useEffect(() => {
     if (!gjelderId) window.location.replace(BASENAME);
-
     if (isLoading) return;
-
+    if (anyOppdragExists(treffliste)) return;
     window.location.replace(BASENAME);
   }, [treffliste, isLoading, gjelderId]);
 
@@ -24,8 +24,9 @@ const TrefflistePage = () => {
     <>
       <div className={commonstyles.pageheading}>
         <Heading level="1" size="large">
-          Oppdragsinfo
+          Attestasjon
         </Heading>
+        <TrefflisteParameters gjelderId={gjelderId} />
       </div>
       <div className={styles.treffliste}>
         <div className={styles.treffliste__top}>

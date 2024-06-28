@@ -5,3 +5,11 @@
 .contentloader {
   @apply w-full py-16 text-center;
 }
+
+.bold {
+  @apply whitespace-nowrap font-bold;
+}
+
+.row {
+  @apply flex flex-row space-x-1;
+}

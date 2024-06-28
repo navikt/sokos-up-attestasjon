@@ -1,23 +1,34 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+import { useSWRConfig } from "swr";
 import { MagnifyingGlassIcon } from "@navikt/aksel-icons";
-import { Button, Heading, TextField } from "@navikt/ds-react";
-import { TreffTabell } from "../components/treffliste/TreffTabell";
+import { Alert, Button, Heading, TextField } from "@navikt/ds-react";
+import ContentLoader from "../components/common/ContentLoader";
 import {
   TrefflisteSearchParameters,
   TrefflisteSearchParametersSchema,
 } from "../models/TrefflisteSearchParameters";
 import RestService from "../services/rest-service";
 import commonstyles from "../util/common-styles.module.css";
-import { retrieveId } from "../util/commonUtils";
+import {
+  anyOppdragExists,
+  isEmpty,
+  retrieveId,
+  storeId,
+} from "../util/commonUtils";
 import styles from "./SokPage.module.css";
 
 export default function SokPage() {
+  const { mutate } = useSWRConfig();
   const [trefflisteSokParameters, setTrefflisteSokParameters] =
     useState<TrefflisteSearchParameters>({
       gjelderID: retrieveId(),
     });
+
+  const [shouldGoToTreffliste, setShouldGoToTreffliste] =
+    useState<boolean>(false);
 
   const { treffliste, isLoading } = RestService.useFetchTreffliste(
     trefflisteSokParameters.gjelderID,
@@ -36,8 +47,32 @@ export default function SokPage() {
     data,
   ) => {
     const gjelderID = data.gjelderID?.replaceAll(/[\s.]/g, "") ?? "";
+    setShouldGoToTreffliste(true);
     setTrefflisteSokParameters({ gjelderID: gjelderID });
   };
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (Array.isArray(treffliste) && !isEmpty(treffliste) && !isLoading) {
+      const gjelderId = trefflisteSokParameters.gjelderID;
+      storeId(gjelderId);
+      if (anyOppdragExists(treffliste) && shouldGoToTreffliste) {
+        navigate("/treffliste");
+        setShouldGoToTreffliste(false);
+      }
+    }
+  }, [
+    treffliste,
+    isLoading,
+    navigate,
+    trefflisteSokParameters,
+    shouldGoToTreffliste,
+  ]);
+
+  useEffect(() => {
+    mutate("/gjeldersok", []);
+  }, [trefflisteSokParameters, mutate]);
 
   return (
     <>
@@ -71,12 +106,15 @@ export default function SokPage() {
             </div>
           </div>
         </form>
-        {isLoading && trefflisteSokParameters.gjelderID ? (
-          <div>Laster...</div>
-        ) : treffliste && treffliste.length > 0 ? (
-          <TreffTabell treffliste={treffliste} />
-        ) : null}
       </div>
+      {isLoading && !!trefflisteSokParameters.gjelderID ? (
+        <ContentLoader />
+      ) : null}
+      {!isLoading && !anyOppdragExists(treffliste) && (
+        <Alert variant="info">
+          Ingen treff. Denne ID'en har ingen oppdrag.
+        </Alert>
+      )}
     </>
   );
 }

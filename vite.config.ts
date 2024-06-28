@@ -37,6 +37,7 @@ export default () => ({
     },
     terser(),
   ],
+  base: "/attestasjon",
   build: {
     lib: {
       entry: resolve(__dirname, "src/App.tsx"),

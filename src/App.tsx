@@ -9,6 +9,7 @@ import "./App.module.css";
 import ContentLoader from "./components/common/ContentLoader";
 import SokPage from "./pages/SokPage";
 import TrefflistePage from "./pages/TrefflistePage";
+import { BASENAME } from "./util/constants";
 import { initGrafanaFaro } from "./util/grafanaFaro";
 
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
               <Route path={"/treffliste"} element={<TrefflistePage />} />,
             </>,
           ),
+          { basename: BASENAME },
         )}
       />
     </Suspense>
