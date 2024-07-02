@@ -3,12 +3,12 @@ import oppdragslinjeSok from "./POST_oppdragslinjeSok.json";
 
 export default [
   {
-    url: "/attestasjon-api/api/v1/attestasjon/gjeldersok",
+    url: "/oppdrag-api/api/v1/attestasjon/gjeldersok",
     method: "POST",
     response: () => gjeldersok,
   },
   {
-  url: "/attestasjon-api/api/v1/attestasjon/oppdragslinjer/:oppdragsId",
+  url: "/oppdrag-api/api/v1/attestasjon/oppdragslinjer/:oppdragsId",
   method: "GET",
   response: () => oppdragslinjeSok,
   },

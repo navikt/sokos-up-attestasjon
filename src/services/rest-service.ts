@@ -5,7 +5,7 @@ import { AttestasjonTreff } from "../models/AttestasjonTreff";
 import { Attestasjonsdetaljer } from "../models/Attestasjonsdetaljer";
 import { ApiError, HttpStatusCodeError } from "../types/errors";
 
-const BASE_API_URL = "/attestasjon-api/api/v1/attestasjon";
+const BASE_API_URL = "/oppdrag-api/api/v1/attestasjon";
 
 const api = axios.create({
   baseURL: BASE_API_URL,
