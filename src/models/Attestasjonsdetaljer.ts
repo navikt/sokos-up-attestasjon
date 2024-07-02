@@ -7,7 +7,6 @@ export const AttestasjonsdetaljerSchema = z.object({
   satstype: z.string(),
   datoVedtakFom: z.string(),
   datoVedtakTom: z.string(),
-  attestert: z.string(),
   attestant: z.string().optional(),
   navnFagOmraade: z.string(),
   fagsystemId: z.string(),

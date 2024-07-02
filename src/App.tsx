@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import "./App.module.css";
 import ContentLoader from "./components/common/ContentLoader";
+import DetaljerPage from "./pages/DetaljerPage";
 import SokPage from "./pages/SokPage";
 import TrefflistePage from "./pages/TrefflistePage";
 import { BASENAME } from "./util/constants";
@@ -25,6 +26,11 @@ const App = () => {
             <>
               <Route path="/" element={<SokPage />} />
               <Route path={"/treffliste"} element={<TrefflistePage />} />,
+              <Route
+                path={"/oppdragslinjer/:oppdragsID"}
+                element={<DetaljerPage />}
+              />
+              ,
             </>,
           ),
           { basename: BASENAME },

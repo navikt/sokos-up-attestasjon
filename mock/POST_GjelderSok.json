@@ -1,17 +1,13 @@
 [
     {
+      "gjelderId": "12345678901",
       "navnFaggruppe": "Barnetrygd",
       "navnFagomraade": "Barnetrygd",
       "oppdragsId": 63835213,
       "fagsystemId": "1876419"
     },
     {
-      "navnFaggruppe": "Barnetrygd",
-      "navnFagomraade": "Barnetrygd",
-      "oppdragsId": 63835213,
-      "fagsystemId": "1876419"
-    },
-    {
+      "gjelderId": "98765432101",
       "navnFaggruppe": "Kontantstøtte",
       "navnFagomraade": "Kontantstøtte",
       "oppdragsId": 69357567,
