@@ -1,8 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
-import { Attestasjonsdata } from "../models/Attestasjonsdata";
-import { Oppdragsegenskaper } from "../models/Oppdragsegenskaper";
+import { AttestasjonTreff } from "../models/AttestasjonTreff";
+import { Attestasjonsdetaljer } from "../models/Attestasjonsdetaljer";
 import { ApiError, HttpStatusCodeError } from "../types/errors";
 
 const BASE_API_URL = "/oppdrag-api/api/v1/attestasjon";
@@ -47,9 +47,9 @@ api.interceptors.response.use(
 const axiosPostFetcher = <T>(url: string, body: { gjelderId?: string }) =>
   api.post<T>(url, body).then((res) => res.data);
 
-const useFetchOppdrag = () => {
-  const { data, isLoading } = useSWR<Oppdragsegenskaper[]>(
-    "/personsok",
+const useFetchOppdrag = (oppdragsID: string) => {
+  const { data, isLoading } = useSWR<Attestasjonsdetaljer[]>(
+    `/oppdragslinjer/${oppdragsID}`,
     swrConfig,
   );
   return { data, isLoading };
@@ -60,12 +60,12 @@ const useFetchTreffliste = (gjelderId?: string) => {
   useEffect(() => {
     setShouldFetch(!!gjelderId && [9, 11].includes(gjelderId.length));
   }, [gjelderId]);
-  const { data, error, mutate, isValidating } = useSWR<Attestasjonsdata[]>(
-    shouldFetch ? "/personsok" : null,
+  const { data, error, mutate, isValidating } = useSWR<AttestasjonTreff[]>(
+    shouldFetch ? "/gjeldersok" : null,
     {
       ...swrConfig,
       fetcher: (url) =>
-        axiosPostFetcher<Attestasjonsdata[]>(url, {
+        axiosPostFetcher<AttestasjonTreff[]>(url, {
           gjelderId,
         }),
     },
