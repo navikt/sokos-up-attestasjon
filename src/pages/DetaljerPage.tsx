@@ -17,7 +17,7 @@ const DetaljerPage = () => {
   return (
     <>
       <div className={commonstyles.pageheading}>
-        <Heading level="1" size="large">
+        <Heading level="1" size="large" spacing>
           Attestasjon: Detaljer
         </Heading>
       </div>
@@ -25,14 +25,17 @@ const DetaljerPage = () => {
         <>
           <div className={styles.attestasjondetaljer}>
             <LabelText
-              label="FagsystemId"
+              label="Gjelder ID"
               text={attestasjonsegenskaper[0].fagsystemId}
             />
             <LabelText
-              label="Navn Fagområde"
-              text={attestasjonsegenskaper[0].navnFagOmraade}
+              label="Fagområde"
+              text={attestasjonsegenskaper[0].navnFagomraade}
             />
-            <LabelText label="Sats" text={attestasjonsegenskaper[0].sats} />
+            <LabelText
+              label="Fagsystem ID"
+              text={attestasjonsegenskaper[0].fagsystemId}
+            />
           </div>
           <DetaljerTabell detaljerliste={attestasjonsegenskaper} />
         </>
