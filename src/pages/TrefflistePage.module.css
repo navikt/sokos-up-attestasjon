@@ -7,7 +7,7 @@
 }
 
 .treffliste__top_info {
-  @apply bg-white px-5 py-2;
+  @apply bg-[--a-surface-alt-1-subtle] px-5 py-2;
 }
 
 .treffliste__trefftabell {

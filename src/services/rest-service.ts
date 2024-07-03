@@ -61,7 +61,7 @@ const useFetchTreffliste = (gjelderId?: string) => {
     setShouldFetch(!!gjelderId && [9, 11].includes(gjelderId.length));
   }, [gjelderId]);
   const { data, error, mutate, isValidating } = useSWR<AttestasjonTreff[]>(
-    shouldFetch ? "/gjeldersok" : null,
+    shouldFetch ? "/sok" : null,
     {
       ...swrConfig,
       fetcher: (url) =>
