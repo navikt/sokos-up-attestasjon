@@ -30,7 +30,7 @@ const App = () => {
                 path={"/oppdragslinjer/:oppdragsID"}
                 element={<DetaljerPage />}
               />
-              ,
+              <Route path={"/oppdragslinjer"} element={<DetaljerPage />} />,
             </>,
           ),
           { basename: BASENAME },

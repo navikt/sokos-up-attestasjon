@@ -12,7 +12,7 @@ type AttestasjonsdetaljerParams = {
 const DetaljerPage = () => {
   const { oppdragsID = "" } = useParams<AttestasjonsdetaljerParams>();
   const { data: attestasjonsegenskaper } =
-    RestService.useFetchOppdrag(oppdragsID);
+    RestService.useFetchEnkeltOppdrag(oppdragsID);
 
   return (
     <>

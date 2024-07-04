@@ -1,5 +1,6 @@
 import gjeldersok from "./POST_GjelderSok.json";
-import oppdragslinjeSok from "./POST_oppdragslinjeSok.json";
+import oppdragslinjer from "./GET_oppdragslinjer.json";
+import flereOppdrag from "./POST_oppdragslinjer";
 
 export default [
   {
@@ -10,6 +11,11 @@ export default [
   {
   url: "/oppdrag-api/api/v1/attestasjon/oppdragslinjer/:oppdragsId",
   method: "GET",
-  response: () => oppdragslinjeSok,
+  response: () => oppdragslinjer,
   },
+  {
+    url: "/oppdrag-api/api/v1/attestasjon/oppdragslinjer",
+    method: "POST",
+    response: () => flereOppdrag,
+  }
   ];

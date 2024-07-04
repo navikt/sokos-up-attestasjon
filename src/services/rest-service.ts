@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { AttestasjonTreff } from "../models/AttestasjonTreff";
 import { Attestasjonsdetaljer } from "../models/Attestasjonsdetaljer";
+import { OppdragslisteParameters } from "../models/OppdragslisteParameters";
 import { ApiError, HttpStatusCodeError } from "../types/errors";
 
 const BASE_API_URL = "/oppdrag-api/api/v1/attestasjon";
@@ -47,7 +48,12 @@ api.interceptors.response.use(
 const axiosPostFetcher = <T>(url: string, body: { gjelderId?: string }) =>
   api.post<T>(url, body).then((res) => res.data);
 
-const useFetchOppdrag = (oppdragsID: string) => {
+const axiosPostFetcherWithParams = <T>(
+  url: string,
+  body: { oppdragsIDer: number[] },
+) => api.post<T>(url, body).then((res) => res.data);
+
+const useFetchEnkeltOppdrag = (oppdragsID: string) => {
   const { data, isLoading } = useSWR<Attestasjonsdetaljer[]>(
     `/oppdragslinjer/${oppdragsID}`,
     swrConfig,
@@ -81,9 +87,29 @@ const useFetchTreffliste = (gjelderId?: string) => {
   };
 };
 
+const useFetchFlereOppdrag = (oppdragsIDer: number[]) => {
+  const { data, error, isValidating } = useSWR<OppdragslisteParameters>(
+    "/oppdragslinjer/",
+    {
+      ...swrConfig,
+      fetcher: (url) =>
+        axiosPostFetcherWithParams<OppdragslisteParameters>(url, {
+          oppdragsIDer,
+        }),
+    },
+  );
+
+  return {
+    data,
+    error,
+    isValidating,
+  };
+};
+
 const RestService = {
-  useFetchOppdrag,
+  useFetchEnkeltOppdrag,
   useFetchTreffliste,
+  useFetchFlereOppdrag,
 };
 
 export default RestService;

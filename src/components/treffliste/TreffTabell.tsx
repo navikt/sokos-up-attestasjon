@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Checkbox, Table } from "@navikt/ds-react";
 import { AttestasjonTreff } from "../../models/AttestasjonTreff";
+import RestService from "../../services/rest-service";
 import styles from "./TreffTabell.module.css";
 
 interface TreffTabellProps {
@@ -10,6 +11,18 @@ interface TreffTabellProps {
 
 export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const navigate = useNavigate();
+  const [isDataFetched, setIsDataFetched] = useState<boolean>(false);
+
+  const { data, isValidating } = RestService.useFetchFlereOppdrag(
+    selectedRows.map(Number),
+  );
+
+  useEffect(() => {
+    if (data && isValidating) {
+      setIsDataFetched(true);
+    }
+  }, [data, isValidating]);
 
   const toggleSelectedRow = (value: string) =>
     setSelectedRows((list) =>
@@ -18,10 +31,16 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
         : [...list, value],
     );
 
+  const handleSubmit = async () => {
+    if (selectedRows.length > 0 && isDataFetched) {
+      navigate("/oppdragslinjer", { state: { oppdragsIDer: selectedRows } });
+    }
+  };
+
   return (
     <>
       <div className={styles.trefftabell__knapperad}>
-        <Button variant="secondary" size="small">
+        <Button variant="secondary" size="small" onClick={handleSubmit}>
           Vis detaljer
         </Button>
       </div>
