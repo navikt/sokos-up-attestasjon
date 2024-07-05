@@ -18,7 +18,7 @@ const DetaljerPage = () => {
   } = RestService.useFetchFlereOppdrag(oppdragsIder);
 
   if (isValidating) {
-    return ContentLoader;
+    return <ContentLoader />;
   }
 
   if (error) {
