@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Checkbox, Table } from "@navikt/ds-react";
 import { AttestasjonTreff } from "../../models/AttestasjonTreff";
-import RestService from "../../services/rest-service";
 import styles from "./TreffTabell.module.css";
 
 interface TreffTabellProps {
@@ -12,17 +11,6 @@ interface TreffTabellProps {
 export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
   const navigate = useNavigate();
-  const [isDataFetched, setIsDataFetched] = useState<boolean>(false);
-
-  const { data, isValidating } = RestService.useFetchFlereOppdrag(
-    selectedRows.map(Number),
-  );
-
-  useEffect(() => {
-    if (data && isValidating) {
-      setIsDataFetched(true);
-    }
-  }, [data, isValidating]);
 
   const toggleSelectedRow = (value: string) =>
     setSelectedRows((list) =>
@@ -32,9 +20,7 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
     );
 
   const handleSubmit = async () => {
-    if (selectedRows.length > 0 && isDataFetched) {
-      navigate("/oppdragslinjer", { state: { oppdragsIDer: selectedRows } });
-    }
+    navigate("/detaljer", { state: { oppdragsIDer: selectedRows } });
   };
 
   return (
@@ -80,8 +66,8 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
               key={oppdrag.oppdragsId}
               selected={selectedRows.includes(oppdrag.oppdragsId.toString())}
             >
-              <Table.DataCell>
-                <Link to={`/oppdragslinjer/${oppdrag.oppdragsId}`}>
+              <Table.DataCell key={oppdrag.oppdragsId}>
+                <Link to="/detaljer" state={{ oppdragsId: oppdrag.oppdragsId }}>
                   {oppdrag.gjelderId}
                 </Link>
               </Table.DataCell>

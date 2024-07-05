@@ -3,7 +3,9 @@ import { Checkbox, Table } from "@navikt/ds-react";
 import { Attestasjonsdetaljer } from "../../models/Attestasjonsdetaljer";
 
 interface DetaljerTabellProps {
+  key: number;
   detaljerliste: Attestasjonsdetaljer[];
+  fagsystemId: string;
 }
 
 export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
