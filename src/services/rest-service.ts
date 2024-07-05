@@ -47,7 +47,10 @@ api.interceptors.response.use(
 const axiosPostFetcher = <T>(url: string, body: { gjelderId?: string }) =>
   api.post<T>(url, body).then((res) => res.data);
 
-const useFetchOppdrag = (oppdragsID: string) => {
+const axiosPostFetcherWithParams = <T>(url: string, oppdragsIder: number[]) =>
+  api.post<T>(url, oppdragsIder).then((res) => res.data);
+
+const useFetchEnkeltOppdrag = (oppdragsID: string) => {
   const { data, isLoading } = useSWR<Attestasjonsdetaljer[]>(
     `/oppdragslinjer/${oppdragsID}`,
     swrConfig,
@@ -61,7 +64,7 @@ const useFetchTreffliste = (gjelderId?: string) => {
     setShouldFetch(!!gjelderId && [9, 11].includes(gjelderId.length));
   }, [gjelderId]);
   const { data, error, mutate, isValidating } = useSWR<AttestasjonTreff[]>(
-    shouldFetch ? "/gjeldersok" : null,
+    shouldFetch ? "/sok" : null,
     {
       ...swrConfig,
       fetcher: (url) =>
@@ -81,9 +84,29 @@ const useFetchTreffliste = (gjelderId?: string) => {
   };
 };
 
+const useFetchFlereOppdrag = (oppdragsIder: number[]) => {
+  const { data, error, isValidating } = useSWR<Attestasjonsdetaljer>(
+    "/oppdragslinjer",
+    {
+      ...swrConfig,
+      fetcher: (url) =>
+        axiosPostFetcherWithParams<Attestasjonsdetaljer>(url, oppdragsIder),
+    },
+  );
+
+  const isLoading = (!error && !data) || isValidating;
+
+  return {
+    data,
+    error,
+    isLoading,
+  };
+};
+
 const RestService = {
-  useFetchOppdrag,
+  useFetchEnkeltOppdrag,
   useFetchTreffliste,
+  useFetchFlereOppdrag,
 };
 
 export default RestService;

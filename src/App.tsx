@@ -26,11 +26,7 @@ const App = () => {
             <>
               <Route path="/" element={<SokPage />} />
               <Route path={"/treffliste"} element={<TrefflistePage />} />,
-              <Route
-                path={"/oppdragslinjer/:oppdragsID"}
-                element={<DetaljerPage />}
-              />
-              ,
+              <Route path={"/detaljer"} element={<DetaljerPage />} />,
             </>,
           ),
           { basename: BASENAME },

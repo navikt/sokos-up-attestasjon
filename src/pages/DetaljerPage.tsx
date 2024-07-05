@@ -1,40 +1,52 @@
-import { useParams } from "react-router-dom";
-import { Heading } from "@navikt/ds-react";
+import { useLocation } from "react-router-dom";
+import { Alert, Heading } from "@navikt/ds-react";
+import ContentLoader from "../components/common/ContentLoader";
 import LabelText from "../components/common/LabelText";
 import { DetaljerTabell } from "../components/detaljer/DetaljerTabell";
 import RestService from "../services/rest-service";
 import commonstyles from "../util/common-styles.module.css";
 import styles from "./DetaljerPage.module.css";
 
-type AttestasjonsdetaljerParams = {
-  oppdragsID: string;
-};
 const DetaljerPage = () => {
-  const { oppdragsID = "" } = useParams<AttestasjonsdetaljerParams>();
-  const { data: attestasjonsegenskaper } =
-    RestService.useFetchOppdrag(oppdragsID);
+  const location = useLocation();
+  const oppdragsIder = location.state;
+
+  const {
+    data: attestasjonsegenskaper,
+    error,
+    isLoading,
+  } = RestService.useFetchFlereOppdrag(oppdragsIder);
 
   return (
     <>
       <div className={commonstyles.pageheading}>
-        <Heading level="1" size="large">
+        <Heading level="1" size="large" spacing>
           Attestasjon: Detaljer
         </Heading>
       </div>
+      <div className={styles.attestasjondetaljer}></div>
+      {isLoading && <ContentLoader />}
+      {error && <Alert variant="error">Problemer med å hente data</Alert>}
       {attestasjonsegenskaper && (
         <>
-          <div className={styles.attestasjondetaljer}>
-            <LabelText
-              label="FagsystemId"
-              text={attestasjonsegenskaper[0].fagsystemId}
-            />
-            <LabelText
-              label="Navn Fagområde"
-              text={attestasjonsegenskaper[0].navnFagOmraade}
-            />
-            <LabelText label="Sats" text={attestasjonsegenskaper[0].sats} />
-          </div>
-          <DetaljerTabell detaljerliste={attestasjonsegenskaper} />
+          {Array.isArray(attestasjonsegenskaper) &&
+            attestasjonsegenskaper
+              .filter((egenskap, index, self) => {
+                const firstIndex = self.findIndex(
+                  (item) => item.fagsystemId === egenskap.fagsystemId,
+                );
+                return firstIndex === index;
+              })
+              .map((egenskap, index) => (
+                <>
+                  <LabelText label="Fagsystem ID" text={egenskap.fagsystemId} />
+                  <DetaljerTabell
+                    key={index}
+                    detaljerliste={attestasjonsegenskaper}
+                    fagsystemId={egenskap.fagsystemId}
+                  />
+                </>
+              ))}
         </>
       )}
     </>

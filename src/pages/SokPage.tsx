@@ -71,7 +71,7 @@ export default function SokPage() {
   ]);
 
   useEffect(() => {
-    mutate("/gjeldersok", []);
+    mutate("/sok", []);
   }, [trefflisteSokParameters, mutate]);
 
   return (

@@ -37,7 +37,11 @@ const TrefflistePage = () => {
           </div>
         </div>
         {isLoading && <ContentLoader />}
-        {!isLoading && treffliste && <TreffTabell treffliste={treffliste} />}
+        {!isLoading && treffliste && (
+          <div className={styles.treffliste__trefftabell}>
+            <TreffTabell treffliste={treffliste} />
+          </div>
+        )}
       </div>
     </>
   );

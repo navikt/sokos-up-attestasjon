@@ -1,0 +1,34 @@
+[
+  {
+    "klasse": "BATR",
+    "delytelsesId": "18764195",
+    "sats": 187,
+    "satstype": "MND",
+    "datoVedtakFom": "2023-07-01",
+    "datoVedtakTom": "2030-01-31",
+    "attestant": "VL",
+    "navnFagomraade": "Barnetrygd",
+    "fagsystemId": "1876419"
+  },
+  {
+    "klasse": "BATR",
+    "delytelsesId": "18764198",
+    "sats": 187,
+    "satstype": "MND",
+    "datoVedtakFom": "2028-03-01",
+    "datoVedtakTom": "2040-02-29",
+    "attestant": "VL",
+    "navnFagomraade": "Barnetrygd",
+    "fagsystemId": "1876419"
+  },
+  {
+    "klasse": "KSEUMB",
+    "delytelsesId": "025044923MS2023-04-01",
+    "sats": 4854,
+    "satstype": "MND",
+    "datoVedtakFom": "2023-04-01",
+    "attestant": "TTB4806",
+    "navnFagomraade": "Kontantstøtte",
+    "fagsystemId": "015485999"
+  }
+]
