@@ -5,11 +5,13 @@ import LabelText from "../components/common/LabelText";
 import { DetaljerTabell } from "../components/detaljer/DetaljerTabell";
 import RestService from "../services/rest-service";
 import commonstyles from "../util/common-styles.module.css";
+import { BASENAME } from "../util/constants";
 import styles from "./DetaljerPage.module.css";
 
 const DetaljerPage = () => {
   const location = useLocation();
   const oppdragsIder = location.state;
+  if (!oppdragsIder) window.location.replace(BASENAME);
 
   const {
     data: attestasjonsegenskaper,
