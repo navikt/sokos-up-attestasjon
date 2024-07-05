@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { Heading } from "@navikt/ds-react";
+import ContentLoader from "../components/common/ContentLoader";
 import LabelText from "../components/common/LabelText";
 import { DetaljerTabell } from "../components/detaljer/DetaljerTabell";
 import RestService from "../services/rest-service";
@@ -8,20 +9,18 @@ import styles from "./DetaljerPage.module.css";
 
 const DetaljerPage = () => {
   const location = useLocation();
-  const data = location.state;
+  const oppdragsIder = location.state;
 
   const {
     data: attestasjonsegenskaper,
     isValidating,
     error,
-  } = RestService.useFetchFlereOppdrag(data);
+  } = RestService.useFetchFlereOppdrag(oppdragsIder);
 
-  // Handle loading state
   if (isValidating) {
-    return <div>Loading...</div>;
+    return ContentLoader;
   }
 
-  // Handle error state
   if (error) {
     return <div>Error fetching data</div>;
   }
@@ -37,16 +36,23 @@ const DetaljerPage = () => {
         <>
           <div className={styles.attestasjondetaljer}></div>
           {Array.isArray(attestasjonsegenskaper) &&
-            attestasjonsegenskaper.map((egenskap, index) => (
-              <>
-                <LabelText label="Fagsystem ID" text={egenskap.fagsystemId} />
-                <DetaljerTabell
-                  key={index}
-                  detaljerliste={attestasjonsegenskaper}
-                  fagsystemId={egenskap.fagsystemId}
-                />
-              </>
-            ))}
+            attestasjonsegenskaper
+              .filter((egenskap, index, self) => {
+                const firstIndex = self.findIndex(
+                  (item) => item.fagsystemId === egenskap.fagsystemId,
+                );
+                return firstIndex === index;
+              })
+              .map((egenskap, index) => (
+                <>
+                  <LabelText label="Fagsystem ID" text={egenskap.fagsystemId} />
+                  <DetaljerTabell
+                    key={index}
+                    detaljerliste={attestasjonsegenskaper}
+                    fagsystemId={egenskap.fagsystemId}
+                  />
+                </>
+              ))}
         </>
       )}
     </>
