@@ -1,15 +1,12 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useSWRConfig } from "swr";
-import { MagnifyingGlassIcon } from "@navikt/aksel-icons";
-import { Alert, Button, Heading, TextField } from "@navikt/ds-react";
+import { Alert, Heading } from "@navikt/ds-react";
 import ContentLoader from "../components/common/ContentLoader";
-import {
-  TrefflisteSearchParameters,
-  TrefflisteSearchParametersSchema,
-} from "../models/TrefflisteSearchParameters";
+import SokForm from "../components/form/SokForm";
+import { SokeData } from "../components/form/SokeSchema";
+import { TrefflisteSearchParameters } from "../models/TrefflisteSearchParameters";
 import RestService from "../services/rest-service";
 import commonstyles from "../util/common-styles.module.css";
 import {
@@ -34,19 +31,8 @@ export default function SokPage() {
     trefflisteSokParameters.gjelderID,
   );
 
-  const {
-    register,
-    handleSubmit,
-    trigger,
-    formState: { errors },
-  } = useForm<TrefflisteSearchParameters>({
-    resolver: zodResolver(TrefflisteSearchParametersSchema),
-  });
-
-  const handleChangeGjelderId: SubmitHandler<TrefflisteSearchParameters> = (
-    data,
-  ) => {
-    const gjelderID = data.gjelderID?.replaceAll(/[\s.]/g, "") ?? "";
+  const handleChangeGjelderId: SubmitHandler<SokeData> = (data) => {
+    const gjelderID = data.gjelderId?.replaceAll(/[\s.]/g, "") ?? "";
     setShouldGoToTreffliste(true);
     setTrefflisteSokParameters({ gjelderID: gjelderID });
   };
@@ -85,27 +71,7 @@ export default function SokPage() {
         <Heading level="2" size="medium" spacing>
           Søk
         </Heading>
-        <form onSubmit={handleSubmit(handleChangeGjelderId)}>
-          <div className={styles.sok_inputfields}>
-            <TextField
-              label="Gjelder ID"
-              {...register("gjelderID")}
-              defaultValue={trefflisteSokParameters.gjelderID}
-              id="gjelderID"
-              error={errors.gjelderID?.message}
-            />
-            <div className={styles.sok_button}>
-              <Button
-                variant="primary"
-                icon={<MagnifyingGlassIcon />}
-                iconPosition="right"
-                onClick={() => trigger()}
-              >
-                Søk
-              </Button>
-            </div>
-          </div>
-        </form>
+        <SokForm onSubmit={handleChangeGjelderId} />
       </div>
       {isLoading && !!trefflisteSokParameters.gjelderID ? (
         <ContentLoader />
