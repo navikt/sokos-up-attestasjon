@@ -47,10 +47,8 @@ api.interceptors.response.use(
 const axiosPostFetcher = <T>(url: string, body: { gjelderId?: string }) =>
   api.post<T>(url, body).then((res) => res.data);
 
-const axiosPostFetcherWithParams = <T>(
-  url: string,
-  body: { oppdragsIder: number[] },
-) => api.post<T>(url, body).then((res) => res.data);
+const axiosPostFetcherWithParams = <T>(url: string, oppdragsIder: number[]) =>
+  api.post<T>(url, { oppdragsIder }).then((res) => res.data);
 
 const useFetchEnkeltOppdrag = (oppdragsID: string) => {
   const { data, isLoading } = useSWR<Attestasjonsdetaljer[]>(
@@ -92,9 +90,7 @@ const useFetchFlereOppdrag = (oppdragsIder: number[]) => {
     {
       ...swrConfig,
       fetcher: (url) =>
-        axiosPostFetcherWithParams<Attestasjonsdetaljer>(url, {
-          oppdragsIder: oppdragsIder,
-        }),
+        axiosPostFetcherWithParams<Attestasjonsdetaljer>(url, oppdragsIder),
     },
   );
 
