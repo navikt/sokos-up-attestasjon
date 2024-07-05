@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Heading } from "@navikt/ds-react";
+import { Alert, Heading } from "@navikt/ds-react";
 import ContentLoader from "../components/common/ContentLoader";
 import LabelText from "../components/common/LabelText";
 import { DetaljerTabell } from "../components/detaljer/DetaljerTabell";
@@ -17,14 +17,6 @@ const DetaljerPage = () => {
     error,
   } = RestService.useFetchFlereOppdrag(oppdragsIder);
 
-  if (isValidating) {
-    return <ContentLoader />;
-  }
-
-  if (error) {
-    return <div>Error fetching data</div>;
-  }
-
   return (
     <>
       <div className={commonstyles.pageheading}>
@@ -32,6 +24,8 @@ const DetaljerPage = () => {
           Attestasjon: Detaljer
         </Heading>
       </div>
+      {isValidating && <ContentLoader />}
+      {error && <Alert variant="error">Problemer med å hente data</Alert>}
       {attestasjonsegenskaper && (
         <>
           <div className={styles.attestasjondetaljer}></div>

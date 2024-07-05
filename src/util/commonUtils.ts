@@ -27,7 +27,6 @@ export const anyOppdragExists = (
 ): treffliste is AttestasjonTreff[] => {
   if (!treffliste) return false;
   if (!Array.isArray(treffliste) || isEmpty(treffliste)) return false;
-  //const oppdragsliste = treffliste.flatMap((t) => t.oppdragsListe);
   if (isEmpty(treffliste)) return false;
   return true;
 };
