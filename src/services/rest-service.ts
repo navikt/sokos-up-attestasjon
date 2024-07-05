@@ -94,10 +94,12 @@ const useFetchFlereOppdrag = (oppdragsIder: number[]) => {
     },
   );
 
+  const isLoading = (!error && !data) || isValidating;
+
   return {
     data,
     error,
-    isValidating,
+    isLoading,
   };
 };
 

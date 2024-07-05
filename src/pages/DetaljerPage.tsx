@@ -13,8 +13,8 @@ const DetaljerPage = () => {
 
   const {
     data: attestasjonsegenskaper,
-    isValidating,
     error,
+    isLoading,
   } = RestService.useFetchFlereOppdrag(oppdragsIder);
 
   return (
@@ -24,7 +24,7 @@ const DetaljerPage = () => {
           Attestasjon: Detaljer
         </Heading>
       </div>
-      {isValidating && <ContentLoader />}
+      {isLoading && <ContentLoader />}
       {error && <Alert variant="error">Problemer med å hente data</Alert>}
       {attestasjonsegenskaper && (
         <>
