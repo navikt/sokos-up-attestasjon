@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import useSWR from "swr";
 import { AttestasjonTreff } from "../models/AttestasjonTreff";
 import { Attestasjonsdetaljer } from "../models/Attestasjonsdetaljer";
+import { OppdragslisteParametersSchema } from "../models/OppdragslisteParameters";
 import { ApiError, HttpStatusCodeError } from "../types/errors";
 
 const BASE_API_URL = "/oppdrag-api/api/v1/attestasjon";
@@ -85,12 +86,16 @@ const useFetchTreffliste = (gjelderId?: string) => {
 };
 
 const useFetchFlereOppdrag = (oppdragsIder: number[]) => {
+  const validData = OppdragslisteParametersSchema.parse({ oppdragsIder });
   const { data, error, isValidating } = useSWR<Attestasjonsdetaljer>(
     "/oppdragslinjer",
     {
       ...swrConfig,
       fetcher: (url) =>
-        axiosPostFetcherWithParams<Attestasjonsdetaljer>(url, oppdragsIder),
+        axiosPostFetcherWithParams<Attestasjonsdetaljer>(
+          url,
+          validData.oppdragsIder,
+        ),
     },
   );
 
