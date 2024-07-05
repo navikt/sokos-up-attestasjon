@@ -93,7 +93,7 @@ const useFetchFlereOppdrag = (oppdragsIder: number[]) => {
       ...swrConfig,
       fetcher: (url) =>
         axiosPostFetcherWithParams<Attestasjonsdetaljer>(url, {
-          oppdragsIder,
+          oppdragsIder: oppdragsIder,
         }),
     },
   );

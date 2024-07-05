@@ -69,7 +69,10 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
               selected={selectedRows.includes(oppdrag.oppdragsId.toString())}
             >
               <Table.DataCell key={oppdrag.oppdragsId}>
-                <Link to="/detaljer" state={{ oppdragsId: oppdrag.oppdragsId }}>
+                <Link
+                  to="/detaljer"
+                  state={{ oppdragsIder: [oppdrag.oppdragsId] }}
+                >
                   {oppdrag.gjelderId}
                 </Link>
               </Table.DataCell>
