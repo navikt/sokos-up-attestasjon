@@ -24,11 +24,11 @@ const DetaljerPage = () => {
           Attestasjon: Detaljer
         </Heading>
       </div>
+      <div className={styles.attestasjondetaljer}></div>
       {isLoading && <ContentLoader />}
       {error && <Alert variant="error">Problemer med å hente data</Alert>}
       {attestasjonsegenskaper && (
         <>
-          <div className={styles.attestasjondetaljer}></div>
           {Array.isArray(attestasjonsegenskaper) &&
             attestasjonsegenskaper
               .filter((egenskap, index, self) => {
