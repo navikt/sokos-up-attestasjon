@@ -49,7 +49,7 @@ const axiosPostFetcher = <T>(url: string, body: { gjelderId?: string }) =>
 
 const axiosPostFetcherWithParams = <T>(
   url: string,
-  body: { oppdragsIDer: number[] },
+  body: { oppdragsIder: number[] },
 ) => api.post<T>(url, body).then((res) => res.data);
 
 const useFetchEnkeltOppdrag = (oppdragsID: string) => {
@@ -86,14 +86,14 @@ const useFetchTreffliste = (gjelderId?: string) => {
   };
 };
 
-const useFetchFlereOppdrag = (oppdragsIDer: number[]) => {
+const useFetchFlereOppdrag = (oppdragsIder: number[]) => {
   const { data, error, isValidating } = useSWR<Attestasjonsdetaljer>(
     "/oppdragslinjer",
     {
       ...swrConfig,
       fetcher: (url) =>
         axiosPostFetcherWithParams<Attestasjonsdetaljer>(url, {
-          oppdragsIDer,
+          oppdragsIder,
         }),
     },
   );

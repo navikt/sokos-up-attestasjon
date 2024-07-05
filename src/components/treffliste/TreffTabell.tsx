@@ -20,7 +20,9 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
     );
 
   const handleSubmit = async () => {
-    navigate("/detaljer", { state: { oppdragsIDer: selectedRows } });
+    navigate("/detaljer", {
+      state: { oppdragsIder: selectedRows.map((id) => parseInt(id)) },
+    });
   };
 
   return (
