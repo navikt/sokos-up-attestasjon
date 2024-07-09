@@ -1,9 +1,17 @@
+import { FieldError, UseFormRegister } from "react-hook-form";
 import { TextField } from "@navikt/ds-react";
-import { FormFieldProps } from "./SokeSchema";
+import { SokeData, ValidFieldNames } from "./SokeSchema";
+
+export type FormFieldProps = {
+  name: ValidFieldNames;
+  defaultValue?: string;
+  register: UseFormRegister<SokeData>;
+  error: FieldError | undefined;
+};
 
 const FormField: React.FC<FormFieldProps> = ({
-  placeholder,
   name,
+  defaultValue,
   register,
   error,
 }) => {
@@ -11,8 +19,10 @@ const FormField: React.FC<FormFieldProps> = ({
     <>
       <TextField
         label={name}
-        placeholder={placeholder}
+        defaultValue={defaultValue}
+        placeholder={name}
         error={error?.message}
+        id={name}
         {...register(name)}
       />
     </>

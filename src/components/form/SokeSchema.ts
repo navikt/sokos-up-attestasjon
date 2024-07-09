@@ -1,4 +1,3 @@
-import { FieldError, UseFormRegister } from "react-hook-form";
 import { ZodEffects, ZodString, z } from "zod";
 
 export type SokeData = {
@@ -6,7 +5,7 @@ export type SokeData = {
   fagsystemId: string | undefined;
   kodeFaggruppe: string | undefined;
   kodeFagomraade: string | undefined;
-  attestertStatus: string | undefined;
+  attestertStatus: string;
   kombinasjon: never;
 };
 
@@ -27,13 +26,11 @@ export const SokeSchema = z
     fagsystemId: z.optional(z.string()),
     kodeFaggruppe: z.optional(z.string()),
     kodeFagomraade: z.optional(z.string()),
-    attestertStatus: z
-      .literal("")
-      .or(
-        z
-          .string()
-          .regex(/^(true|false)$/, 'Må være enten "true" eller "false"'),
-      ),
+    attestertStatus: z.union([
+      z.literal("true"),
+      z.literal("false"),
+      z.literal("null"),
+    ]),
   })
   .refine(
     (data) => {
@@ -52,14 +49,6 @@ export const SokeSchema = z
       path: ["kombinasjon"],
     },
   );
-
-export type FormFieldProps = {
-  placeholder: string;
-  name: ValidFieldNames;
-  register: UseFormRegister<SokeData>;
-  error: FieldError | undefined;
-  valueAsNumber?: boolean;
-};
 
 export type ValidFieldNames =
   | "gjelderId"

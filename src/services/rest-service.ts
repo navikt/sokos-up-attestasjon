@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import useSWR from "swr";
+import { SokeData } from "../components/form/SokeSchema";
 import { AttestasjonTreff } from "../models/AttestasjonTreff";
 import { Attestasjonsdetaljer } from "../models/Attestasjonsdetaljer";
 import { ApiError, HttpStatusCodeError } from "../types/errors";
@@ -43,8 +44,16 @@ api.interceptors.response.use(
   },
 );
 
+type SokeRequestBody = {
+  gjelderId: string | undefined;
+  fagsystemId: string | undefined;
+  kodeFaggruppe: string | undefined;
+  kodeFagomraade: string | undefined;
+  attestert: boolean | undefined;
+};
+
 // Brukes av omposteringer, oppdrag og treffliste for å kunne sende med fnr i requestbody
-const axiosPostFetcher = <T>(url: string, body: { gjelderId?: string }) =>
+const axiosPostFetcher = <T>(url: string, body?: SokeRequestBody) =>
   api.post<T>(url, body).then((res) => res.data);
 
 const axiosPostFetcherWithParams = <T>(url: string, oppdragsIder: number[]) =>
@@ -58,19 +67,39 @@ const useFetchEnkeltOppdrag = (oppdragsID: string) => {
   return { data, isLoading };
 };
 
-const useFetchTreffliste = (gjelderId?: string) => {
+const parseAttestert = (attestertStatus: string | undefined) => {
+  if (!attestertStatus) return undefined;
+  if (attestertStatus === "null") return undefined;
+  return attestertStatus === "true";
+};
+
+const useFetchTreffliste = (sokedata?: SokeData) => {
   const [shouldFetch, setShouldFetch] = useState<boolean>(false);
   useEffect(() => {
-    setShouldFetch(!!gjelderId && [9, 11].includes(gjelderId.length));
-  }, [gjelderId]);
+    if (
+      !!sokedata &&
+      (sokedata?.gjelderId ||
+        sokedata?.fagsystemId ||
+        sokedata?.kodeFaggruppe ||
+        sokedata?.kodeFagomraade)
+    )
+      setShouldFetch(true);
+  }, [sokedata]);
+
+  const sokeRequestBody = {
+    gjelderId: sokedata?.gjelderId,
+    fagsystemId: sokedata?.fagsystemId,
+    kodeFaggruppe: sokedata?.kodeFaggruppe,
+    kodeFagomraade: sokedata?.kodeFagomraade,
+    attestert: parseAttestert(sokedata?.attestertStatus),
+  };
+
   const { data, error, mutate, isValidating } = useSWR<AttestasjonTreff[]>(
     shouldFetch ? "/sok" : null,
     {
       ...swrConfig,
       fetcher: (url) =>
-        axiosPostFetcher<AttestasjonTreff[]>(url, {
-          gjelderId,
-        }),
+        axiosPostFetcher<AttestasjonTreff[]>(url, sokeRequestBody),
     },
   );
 
