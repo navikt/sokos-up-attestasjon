@@ -9,6 +9,28 @@ export type SokeData = {
   kombinasjon: never;
 };
 
+const parseAttestert = (attestertStatus: string | undefined) => {
+  if (!attestertStatus) return undefined;
+  if (attestertStatus === "null") return undefined;
+  return attestertStatus === "true";
+};
+
+export type SokeRequestBody = {
+  gjelderId: string | undefined;
+  fagsystemId: string | undefined;
+  kodeFaggruppe: string | undefined;
+  kodeFagomraade: string | undefined;
+  attestert: boolean | undefined;
+};
+
+export const mapToSokeRequestBody = (sokedata?: SokeData) => ({
+  gjelderId: sokedata?.gjelderId,
+  fagsystemId: sokedata?.fagsystemId,
+  kodeFaggruppe: sokedata?.kodeFaggruppe,
+  kodeFagomraade: sokedata?.kodeFagomraade,
+  attestert: parseAttestert(sokedata?.attestertStatus),
+});
+
 const baretallregel: ZodString = z
   .string()
   .regex(/^[0-9\s.]*$/, "Gjelder-Id-feltet kan bare inneholde tall");
