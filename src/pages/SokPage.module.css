@@ -3,7 +3,7 @@
 }
 
 .sok_inputfields {
-  @apply flex w-1/4 flex-col space-y-3;
+  @apply flex w-1/3 flex-col space-y-3;
 }
 
 .sok_button {
