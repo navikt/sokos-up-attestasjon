@@ -1,5 +1,5 @@
-import { UseFormRegister } from "react-hook-form";
-import { SokeData } from "./SokeSchema";
+import { UseFormRegister, UseFormSetValue } from "react-hook-form";
+import { SokeData, ValidFieldNames } from "./SokeSchema";
 import styles from "./SokosCombobox.module.css";
 
 type FaggruppeComboboxProps = {
@@ -11,25 +11,36 @@ type FaggruppeComboboxProps = {
     | "attestertStatus";
   faggrupper?: string[];
   register: UseFormRegister<SokeData>;
-  handleClick: () => void;
+  setValue: UseFormSetValue<SokeData>;
 };
 
 const SokosCombobox = ({
   name,
   faggrupper,
   register,
-  handleClick,
+  setValue,
 }: FaggruppeComboboxProps) => {
   if (!faggrupper) return <></>;
+
+  const isAValidFieldName = (s: string): s is ValidFieldNames =>
+    s === "kodeFaggruppe" || s === "kodeFagomraade";
+
+  const mapToKode = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedValue = event.target.value;
+    const transformedValue = selectedValue.split("(")[1].slice(0, -1);
+    if (isAValidFieldName(event.target.name))
+      setValue(event.target.name, transformedValue);
+  };
+
   return (
     <>
       <label className={styles.combobox}>
-        Faggruppe:
+        {name.slice(4)}:
         <input
           className={styles.combobox__input}
           list={name}
           {...register(name, { required: true })}
-          onClick={handleClick}
+          onChange={mapToKode}
         />
       </label>
       <datalist id={name}>

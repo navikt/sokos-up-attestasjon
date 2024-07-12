@@ -1,7 +1,7 @@
 import { SokeData } from "../components/form/SokeSchema";
 import { AttestasjonTreff } from "../models/AttestasjonTreff";
 
-const attestasjonItemName = "attestasjon_gId";
+const attestasjonItemName = "attestasjon_sok";
 
 export const retrieveSok = () => {
   const data$ = retrieveFromStorage(attestasjonItemName);

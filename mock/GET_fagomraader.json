@@ -1,0 +1,1146 @@
+[
+  {
+    "navn": "Arbeidsavklaringspenger                           ",
+    "kode": "AAP     "
+  },
+  {
+    "navn": "Arbeidsavklaringspenger                           ",
+    "kode": "AAPARENA"
+  },
+  {
+    "navn": "Lønnskomp arbeidsgiver, permitterte               ",
+    "kode": "AGPERM  "
+  },
+  {
+    "navn": "Barnetrygd                                        ",
+    "kode": "BA      "
+  },
+  {
+    "navn": "Barnebriller                                      ",
+    "kode": "BARNBRIL"
+  },
+  {
+    "navn": "Barnepensjon                                      ",
+    "kode": "BARNEPE "
+  },
+  {
+    "navn": "Bidragsreskontro tilbakebetaling                  ",
+    "kode": "BIDRINKR"
+  },
+  {
+    "navn": "Bidragsreskontro forskudd/bidrag                  ",
+    "kode": "BIDRRESK"
+  },
+  {
+    "navn": "Bidragssystemet                                   ",
+    "kode": "BISYS   "
+  },
+  {
+    "navn": "Dagpenger                                         ",
+    "kode": "DP      "
+  },
+  {
+    "navn": "Dagpenger                                         ",
+    "kode": "DPARENA "
+  },
+  {
+    "navn": "Enslig forsørger - Barnetilsyn                    ",
+    "kode": "EFBT    "
+  },
+  {
+    "navn": "Enslig forsørger overgangsstønad                  ",
+    "kode": "EFOG    "
+  },
+  {
+    "navn": "Enslig forsørger - Overgangsstønad                ",
+    "kode": "EFOGNY  "
+  },
+  {
+    "navn": "Enslig forsørger - Skolepenger                    ",
+    "kode": "EFSP    "
+  },
+  {
+    "navn": "Apotek og bandasjistoppgjør                       ",
+    "kode": "ERESEPT "
+  },
+  {
+    "navn": "FORSKUDD til feilutbetaling                       ",
+    "kode": "FORSKRAV"
+  },
+  {
+    "navn": "Forskudd tilbakekreving                           ",
+    "kode": "FORSKTBK"
+  },
+  {
+    "navn": "Forskudd permit og dagpenger                      ",
+    "kode": "FORSKUDD"
+  },
+  {
+    "navn": "Foreldrepenger                                    ",
+    "kode": "FP      "
+  },
+  {
+    "navn": "Foreldrepenger, AG refusjon                       ",
+    "kode": "FPREF   "
+  },
+  {
+    "navn": "Egenandelsrefusjon frikort tak 1                  ",
+    "kode": "FRIKORT1"
+  },
+  {
+    "navn": "Kompensasjon inntektstap Frilanser og Næring      ",
+    "kode": "FRISINN "
+  },
+  {
+    "navn": "Helserefusjoner NAV                               ",
+    "kode": "HELSREF "
+  },
+  {
+    "navn": "Ikke trekkoppgjør                                 ",
+    "kode": "INGENOPP"
+  },
+  {
+    "navn": "Interne trekk                                     ",
+    "kode": "INTERNTR"
+  },
+  {
+    "navn": "Gravferdsstønad                                   ",
+    "kode": "ITGS    "
+  },
+  {
+    "navn": "Barnetrygd                                        ",
+    "kode": "IT05    "
+  },
+  {
+    "navn": "Kontantstøtte                                     ",
+    "kode": "IT18    "
+  },
+  {
+    "navn": "Menerstatning Yrkesskade                          ",
+    "kode": "IT24    "
+  },
+  {
+    "navn": "Tidsbegrenset uførestønad                         ",
+    "kode": "IT26    "
+  },
+  {
+    "navn": "Supplerende stønad                                ",
+    "kode": "IT27    "
+  },
+  {
+    "navn": "Grunnstønad                                       ",
+    "kode": "IT28    "
+  },
+  {
+    "navn": "Hjelpestønad                                      ",
+    "kode": "IT29    "
+  },
+  {
+    "navn": "Enslig forsørger - Barnetilsyn                    ",
+    "kode": "IT30BT  "
+  },
+  {
+    "navn": "Enslig forsørger - Tilskott til flytting          ",
+    "kode": "IT30FL  "
+  },
+  {
+    "navn": "Enslig forsørger - Overgangsstønad                ",
+    "kode": "IT30OG  "
+  },
+  {
+    "navn": "Enslig forsørger - Utdanningsstønad               ",
+    "kode": "IT30UT  "
+  },
+  {
+    "navn": "Gjenlevendepensjon Virkemidler                    ",
+    "kode": "IT31    "
+  },
+  {
+    "navn": "Familiepleier Virkemidler                         ",
+    "kode": "IT32    "
+  },
+  {
+    "navn": "Kreditoroppgjør(disponerer)                       ",
+    "kode": "KREDDISP"
+  },
+  {
+    "navn": "Kreditoroppgjør(ordinær)                          ",
+    "kode": "KREDREF "
+  },
+  {
+    "navn": "Kontantstøtte                                     ",
+    "kode": "KS      "
+  },
+  {
+    "navn": "Arbeidsavklaringspenger, manuell postering        ",
+    "kode": "MAAP    "
+  },
+  {
+    "navn": "Arbeidsavklaringspenger, manuell postering        ",
+    "kode": "MAAPAREN"
+  },
+  {
+    "navn": "Lønnskomp arbeidsgiver, permitterte - manuell     ",
+    "kode": "MAGPERM "
+  },
+  {
+    "navn": "Barnetrygd                                        ",
+    "kode": "MBA     "
+  },
+  {
+    "navn": "Barnepensjon, manuell postering                   ",
+    "kode": "MBARNEPE"
+  },
+  {
+    "navn": "Dagpenger, manuell postering                      ",
+    "kode": "MDP     "
+  },
+  {
+    "navn": "Dagpenger, manuell postering                      ",
+    "kode": "MDPARENA"
+  },
+  {
+    "navn": "Enslig forsørger - Barnetilsyn, manuell           ",
+    "kode": "MEFBT   "
+  },
+  {
+    "navn": "Enslig forsørger - Overgangsstønad - Manuell      ",
+    "kode": "MEFOGNY "
+  },
+  {
+    "navn": "Enslig forsørger - Skolepenger, manuell           ",
+    "kode": "MEFSP   "
+  },
+  {
+    "navn": "Tilbakekreving EF manuelle posteringer            ",
+    "kode": "MEFTB   "
+  },
+  {
+    "navn": "Manuell postering FORSKUDD                        ",
+    "kode": "MFORSK  "
+  },
+  {
+    "navn": "Foreldrepenger, manuell                           ",
+    "kode": "MFP     "
+  },
+  {
+    "navn": "Foreldrepenger, manuell. AG refusjon              ",
+    "kode": "MFPREF  "
+  },
+  {
+    "navn": "Kompensasjon inntektstap Frilanser og Næring      ",
+    "kode": "MFRISINN"
+  },
+  {
+    "navn": "Tilbakekreving GH manuelle posteringer            ",
+    "kode": "MGHTB   "
+  },
+  {
+    "navn": "Helserefusjoner NAV, manuell                      ",
+    "kode": "MHELSREF"
+  },
+  {
+    "navn": "Gravferdstønad manuell postering                  ",
+    "kode": "MITGS   "
+  },
+  {
+    "navn": "Barnetrygd manuell postering                      ",
+    "kode": "MIT05   "
+  },
+  {
+    "navn": "Kontantstøtte manuell postering                   ",
+    "kode": "MIT18   "
+  },
+  {
+    "navn": "Menerstatning Yrkesskade - Manuell postering      ",
+    "kode": "MIT24   "
+  },
+  {
+    "navn": "Tidsbegrenset uførestønad, manuell                ",
+    "kode": "MIT26   "
+  },
+  {
+    "navn": "Supplerende stønad manuell postering              ",
+    "kode": "MIT27   "
+  },
+  {
+    "navn": "Grunnstønad - Manuell postering                   ",
+    "kode": "MIT28   "
+  },
+  {
+    "navn": "Hjelpestønad - Manuell postering                  ",
+    "kode": "MIT29   "
+  },
+  {
+    "navn": "Enslig forsørger - Barnetilsyn - Manuell          ",
+    "kode": "MIT30BT "
+  },
+  {
+    "navn": "Enslig forsørger - Tilskott til flytting - Manuell",
+    "kode": "MIT30FL "
+  },
+  {
+    "navn": "Enslig forsørger - Overgangsstønad - Manuell      ",
+    "kode": "MIT30OG "
+  },
+  {
+    "navn": "Enslig forsørger - Utdanningsstønad - Manuell     ",
+    "kode": "MIT30UT "
+  },
+  {
+    "navn": "Gjenlevendepensjon Virkemidler manuell postering  ",
+    "kode": "MIT31   "
+  },
+  {
+    "navn": "Familiepleier Virkemidler manuell postering       ",
+    "kode": "MIT32   "
+  },
+  {
+    "navn": "Kontantstøtte, manuell postering                  ",
+    "kode": "MKS     "
+  },
+  {
+    "navn": "Kontoplan korttid                                 ",
+    "kode": "MKTALLE "
+  },
+  {
+    "navn": "Balansekonti korttid                              ",
+    "kode": "MKTBAL  "
+  },
+  {
+    "navn": "Tilbakekreving korttid                            ",
+    "kode": "MKTTB   "
+  },
+  {
+    "navn": "Omstillingsstønad                                 ",
+    "kode": "MOMSTILL"
+  },
+  {
+    "navn": "Oms-, oppl.- og pleiepenger, manuell              ",
+    "kode": "MOOP    "
+  },
+  {
+    "navn": "Oms-, oppl.- og pleiepenger man. AG refusjon      ",
+    "kode": "MOOPREF "
+  },
+  {
+    "navn": "Økonomi stønad alle                               ",
+    "kode": "MOSALLE "
+  },
+  {
+    "navn": "Avtalefestet pensjon manuell postering            ",
+    "kode": "MPENAFP "
+  },
+  {
+    "navn": "Avtalefestet pensjon i privat sektor manuell post ",
+    "kode": "MPENAFPP"
+  },
+  {
+    "navn": "Kontoplan pensjon                                 ",
+    "kode": "MPENALLE"
+  },
+  {
+    "navn": "Andre utbetalinger                                ",
+    "kode": "MPENAND "
+  },
+  {
+    "navn": "Alderspensjon manuell postering                   ",
+    "kode": "MPENAP  "
+  },
+  {
+    "navn": "Balansekonti                                      ",
+    "kode": "MPENBAL "
+  },
+  {
+    "navn": "Barnepensjon manuell postering                    ",
+    "kode": "MPENBP  "
+  },
+  {
+    "navn": "Diverse utbetalinger                              ",
+    "kode": "MPENDIV "
+  },
+  {
+    "navn": "Tidligere familiepleierpensjon manuell postering  ",
+    "kode": "MPENFP  "
+  },
+  {
+    "navn": "Gjenlevendepensjon manuell postering              ",
+    "kode": "MPENGJ  "
+  },
+  {
+    "navn": "Gammel yrkesskadepensjon manuell postering        ",
+    "kode": "MPENGY  "
+  },
+  {
+    "navn": "Krigspensjon manuell postering                    ",
+    "kode": "MPENKP  "
+  },
+  {
+    "navn": "Nødutbetaling                                     ",
+    "kode": "MPENNODU"
+  },
+  {
+    "navn": "Oslo kommune tilleggspensjon manuell postering    ",
+    "kode": "MPENOSLO"
+  },
+  {
+    "navn": "Pensjonstrygden for sjømenn manuell postering     ",
+    "kode": "MPENPTS "
+  },
+  {
+    "navn": "Statens pensjonskasse manuell postering           ",
+    "kode": "MPENSPK "
+  },
+  {
+    "navn": "Tilbakekreving PEN manuell postering              ",
+    "kode": "MPENTB  "
+  },
+  {
+    "navn": "Uførepensjon manuell postering                    ",
+    "kode": "MPENUP  "
+  },
+  {
+    "navn": "Manuell postering PERMIT                          ",
+    "kode": "MPERMIT "
+  },
+  {
+    "navn": "Ref. helseutgifter, reise. Manuell postering      ",
+    "kode": "MREFUSJ "
+  },
+  {
+    "navn": "Refusjon utgiftsdekning, manuell                  ",
+    "kode": "MREFUTG "
+  },
+  {
+    "navn": "Manuell opprydding skatt                          ",
+    "kode": "MSKATT  "
+  },
+  {
+    "navn": "Sykepenger, manuell                               ",
+    "kode": "MSP     "
+  },
+  {
+    "navn": "Sykepenger, manuell. AG refusjon                  ",
+    "kode": "MSPREF  "
+  },
+  {
+    "navn": "Kontoplan sentralisering regnskap                 ",
+    "kode": "MSRALLE "
+  },
+  {
+    "navn": "Balansekonti sentralisering regnskap              ",
+    "kode": "MSRBAL  "
+  },
+  {
+    "navn": "Tilbakekreving SR manuelle posteringer            ",
+    "kode": "MSRTB   "
+  },
+  {
+    "navn": "Supplerende stønad alder, manuell                 ",
+    "kode": "MSUALDER"
+  },
+  {
+    "navn": "Tilbakekreving SU manuelle posteringer            ",
+    "kode": "MSUTB   "
+  },
+  {
+    "navn": "Supplerende stønad uføre, manuell                 ",
+    "kode": "MSUUFORE"
+  },
+  {
+    "navn": "Svangerskapspenger, manuell                       ",
+    "kode": "MSVP    "
+  },
+  {
+    "navn": "Svangerskapspenger, manuell. AG refusjon          ",
+    "kode": "MSVPREF "
+  },
+  {
+    "navn": "Tilbakekreving ARBYT, manuelle posteringer        ",
+    "kode": "MTBBTARE"
+  },
+  {
+    "navn": "Tilleggsstønad, manuell postering                 ",
+    "kode": "MTILLST "
+  },
+  {
+    "navn": "Tiltakspenger, manuell postering                  ",
+    "kode": "MTILTPEN"
+  },
+  {
+    "navn": "Tiltakspenger, manuell postering                  ",
+    "kode": "MTPARENA"
+  },
+  {
+    "navn": "Manuell opprydding trekk                          ",
+    "kode": "MTREKK  "
+  },
+  {
+    "navn": "Tilleggstønad, manuell postering                  ",
+    "kode": "MTSTAREN"
+  },
+  {
+    "navn": "Tilbakekreving TU manuelle posteringer            ",
+    "kode": "MTUTB   "
+  },
+  {
+    "navn": "Uføretrygd manuell postering                      ",
+    "kode": "MUFOREUT"
+  },
+  {
+    "navn": "Uførepensjon fra SPK, manuell postering           ",
+    "kode": "MUFORSPK"
+  },
+  {
+    "navn": "Uføretrygd manuell postering alle                 ",
+    "kode": "MUTALLE "
+  },
+  {
+    "navn": "Uføretrygd manuell postering balanse              ",
+    "kode": "MUTBAL  "
+  },
+  {
+    "navn": "Uføretrygd nødutbetaling                          ",
+    "kode": "MUTNODU "
+  },
+  {
+    "navn": "Tilbakekreving UT manuell                         ",
+    "kode": "MUTTB   "
+  },
+  {
+    "navn": "Tilbakekreving YS manuelle posteringer            ",
+    "kode": "MYSTB   "
+  },
+  {
+    "navn": "Negative trekkoppgjør                             ",
+    "kode": "NEGKRED "
+  },
+  {
+    "navn": "Negative skatteoppgjør                            ",
+    "kode": "NEGSKATT"
+  },
+  {
+    "navn": "Nødutbetaling,arbeidsytelser                      ",
+    "kode": "NODUARB "
+  },
+  {
+    "navn": "Nødutbetaling barnetrygd                          ",
+    "kode": "NODUBA  "
+  },
+  {
+    "navn": "Nødutbetaling, korttid                            ",
+    "kode": "NODUKORT"
+  },
+  {
+    "navn": "Nødutbetaling kontantstøtte                       ",
+    "kode": "NODUKS  "
+  },
+  {
+    "navn": "Omsorgspenger                                     ",
+    "kode": "OM      "
+  },
+  {
+    "navn": "Omsorgspenger AG Refusjon                         ",
+    "kode": "OMREF   "
+  },
+  {
+    "navn": "Omstillingsstønad                                 ",
+    "kode": "OMSTILL "
+  },
+  {
+    "navn": "Oms-, oppl.- og pleiepenger                       ",
+    "kode": "OOP     "
+  },
+  {
+    "navn": "Oms-, oppl.- og pleiepenger AG refusjon           ",
+    "kode": "OOPREF  "
+  },
+  {
+    "navn": "Opplæringspenger                                  ",
+    "kode": "OPP     "
+  },
+  {
+    "navn": "Opplæringspenger AG refusjon                      ",
+    "kode": "OPPREF  "
+  },
+  {
+    "navn": "Pleiepenger barn                                  ",
+    "kode": "PB      "
+  },
+  {
+    "navn": "Pleiepenger barn AG refusjon                      ",
+    "kode": "PBREF   "
+  },
+  {
+    "navn": "Avtalefestet pensjon                              ",
+    "kode": "PENAFP  "
+  },
+  {
+    "navn": "Avtalefestet pensjon i privat sektor              ",
+    "kode": "PENAFPP "
+  },
+  {
+    "navn": "Alderspensjon                                     ",
+    "kode": "PENAP   "
+  },
+  {
+    "navn": "Barnepensjon                                      ",
+    "kode": "PENBP   "
+  },
+  {
+    "navn": "Tidligere familiepleierpensjon                    ",
+    "kode": "PENFP   "
+  },
+  {
+    "navn": "Gjenlevendepensjon                                ",
+    "kode": "PENGJ   "
+  },
+  {
+    "navn": "Gammel yrkesskadepensjon                          ",
+    "kode": "PENGY   "
+  },
+  {
+    "navn": "Krigspensjon                                      ",
+    "kode": "PENKP   "
+  },
+  {
+    "navn": "Oslo kommune tilleggspensjon                      ",
+    "kode": "PENOSLO "
+  },
+  {
+    "navn": "Pensjonstrygden for sjømenn                       ",
+    "kode": "PENPTS  "
+  },
+  {
+    "navn": "Statens pensjonskasse                             ",
+    "kode": "PENSPK  "
+  },
+  {
+    "navn": "Uførepensjon                                      ",
+    "kode": "PENUP   "
+  },
+  {
+    "navn": "Permitteringspenger, korona                       ",
+    "kode": "PERMIT  "
+  },
+  {
+    "navn": "Pleiepenger nærstående                            ",
+    "kode": "PN      "
+  },
+  {
+    "navn": "Pleiepenger nærstående AG refusjon                ",
+    "kode": "PNREF   "
+  },
+  {
+    "navn": "Interne trekk til TI                              ",
+    "kode": "PREDATOR"
+  },
+  {
+    "navn": "Refusjon utgiftsdekning                           ",
+    "kode": "REFUTG  "
+  },
+  {
+    "navn": "Behandleroppgjør                                  ",
+    "kode": "SAPO01  "
+  },
+  {
+    "navn": "Skatteoppgjør                                     ",
+    "kode": "SKATOPPG"
+  },
+  {
+    "navn": "Sykepenger                                        ",
+    "kode": "SP      "
+  },
+  {
+    "navn": "Sykepenger, AG refusjon                           ",
+    "kode": "SPREF   "
+  },
+  {
+    "navn": "Supplerende stønad alder                          ",
+    "kode": "SUALDER "
+  },
+  {
+    "navn": "Supplerende stønad uføre                          ",
+    "kode": "SUUFORE "
+  },
+  {
+    "navn": "Svalbardskatt                                     ",
+    "kode": "SVALSKAT"
+  },
+  {
+    "navn": "Svangerskapspenger                                ",
+    "kode": "SVP     "
+  },
+  {
+    "navn": "Svangerskapspenger, AG refusjon                   ",
+    "kode": "SVPREF  "
+  },
+  {
+    "navn": "AAP ikke innkreving                               ",
+    "kode": "TBAAP   "
+  },
+  {
+    "navn": "AAP til innkreving                                ",
+    "kode": "TBAAPKR "
+  },
+  {
+    "navn": "AFP ikke innkreving                               ",
+    "kode": "TBAFP   "
+  },
+  {
+    "navn": "AFP til innkreving                                ",
+    "kode": "TBAFPKR "
+  },
+  {
+    "navn": "AFP Privat ikke innkreving                        ",
+    "kode": "TBAFPP  "
+  },
+  {
+    "navn": "AFP Privat til innkreving                         ",
+    "kode": "TBAFPPKR"
+  },
+  {
+    "navn": "AGPERM ikke innkreving                            ",
+    "kode": "TBAG    "
+  },
+  {
+    "navn": "AGPERM til innkreving                             ",
+    "kode": "TBAGKR  "
+  },
+  {
+    "navn": "Alder ikke innkreving                             ",
+    "kode": "TBAP    "
+  },
+  {
+    "navn": "Alder til innkreving                              ",
+    "kode": "TBAPKR  "
+  },
+  {
+    "navn": "AAP ikke innkreving                               ",
+    "kode": "TBARENA "
+  },
+  {
+    "navn": "AAP til innkreving                                ",
+    "kode": "TBARENKR"
+  },
+  {
+    "navn": "BA ikke innkreving                                ",
+    "kode": "TBBA    "
+  },
+  {
+    "navn": "BA til innkreving                                 ",
+    "kode": "TBBAKR  "
+  },
+  {
+    "navn": "Barnepensjon ikke innkreving                      ",
+    "kode": "TBBP    "
+  },
+  {
+    "navn": "Barnepensjon til innkreving                       ",
+    "kode": "TBBPKR  "
+  },
+  {
+    "navn": "Nedbetalt AAP                                     ",
+    "kode": "TBBTAAP "
+  },
+  {
+    "navn": "Nedbetalt Avtalefestet Pensjon                    ",
+    "kode": "TBBTAFP "
+  },
+  {
+    "navn": "Nedbetalt Avtalefestet Pensjon i privat           ",
+    "kode": "TBBTAFPP"
+  },
+  {
+    "navn": "Nedbetalt Lønnskomp. arbeidsgiver                 ",
+    "kode": "TBBTAGPE"
+  },
+  {
+    "navn": "Nedbetalt Alderspensjon                           ",
+    "kode": "TBBTAP  "
+  },
+  {
+    "navn": "Nedbetalt Arenaytelser                            ",
+    "kode": "TBBTARE "
+  },
+  {
+    "navn": "Nedbetalt barnetrygd                              ",
+    "kode": "TBBTBA  "
+  },
+  {
+    "navn": "Nedbetalt Barnepensjon                            ",
+    "kode": "TBBTBP  "
+  },
+  {
+    "navn": "Nedbetalt DP                                      ",
+    "kode": "TBBTDP  "
+  },
+  {
+    "navn": "Nedbetalt enslig forsørger barnetilsyn            ",
+    "kode": "TBBTEFBT"
+  },
+  {
+    "navn": "Nedbetalt enslig forsørger overgangsstønad        ",
+    "kode": "TBBTEFOG"
+  },
+  {
+    "navn": "Nedbetalt Foreldrepenger                          ",
+    "kode": "TBBTFOP "
+  },
+  {
+    "navn": "Nedbetalt Tidligere familiepleierpensjon          ",
+    "kode": "TBBTFP  "
+  },
+  {
+    "navn": "Nedbetalt Komp. inntektstap Frilanser og Næring   ",
+    "kode": "TBBTFRIS"
+  },
+  {
+    "navn": "Nedbetalt Gjenlevendepensjon                      ",
+    "kode": "TBBTGJ  "
+  },
+  {
+    "navn": "Nedbetalt Gammel yrkeskadepensjon                 ",
+    "kode": "TBBTGY  "
+  },
+  {
+    "navn": "Nedbetalt Krigspensjon                            ",
+    "kode": "TBBTKP  "
+  },
+  {
+    "navn": "Nedbetalt kontantstøtte                           ",
+    "kode": "TBBTKS  "
+  },
+  {
+    "navn": "Nedbetalt lønnskompensasjon, PERMIT               ",
+    "kode": "TBBTLKPE"
+  },
+  {
+    "navn": "Nedbetalt enslig forsørger skolepenger            ",
+    "kode": "TBBTEFSP"
+  },
+  {
+    "navn": "Nedbetalt Omsorgspenger                           ",
+    "kode": "TBBTOM  "
+  },
+  {
+    "navn": "Nedbetalt omstillingsstønad                       ",
+    "kode": "TBBTOMST"
+  },
+  {
+    "navn": "Nedbetalt Opplæringspenger                        ",
+    "kode": "TBBTOPP "
+  },
+  {
+    "navn": "Nedbetalt pleipenger                              ",
+    "kode": "TBBTPB  "
+  },
+  {
+    "navn": "Nedbetalt pleiepenger nærstående                  ",
+    "kode": "TBBTPN  "
+  },
+  {
+    "navn": "Nedbetalt Refusjon utgiftsdekning                 ",
+    "kode": "TBBTREFU"
+  },
+  {
+    "navn": "Nedbetalt Supplerende stønad alder                ",
+    "kode": "TBBTSUAL"
+  },
+  {
+    "navn": "Nedbetalt Supplerende stønad Uføre                ",
+    "kode": "TBBTSUUF"
+  },
+  {
+    "navn": "Nedbetalt Svangerskapspenger                      ",
+    "kode": "TBBTSVP "
+  },
+  {
+    "navn": "Nedbetalt tiltakspenger                           ",
+    "kode": "TBBTTP  "
+  },
+  {
+    "navn": "Nedbetalt Tilleggsstønad                          ",
+    "kode": "TBBTTST "
+  },
+  {
+    "navn": "Nedbetalt Uførepensjon                            ",
+    "kode": "TBBTUP  "
+  },
+  {
+    "navn": "Nedbetalt uføretrygd                              ",
+    "kode": "TBBTUT  "
+  },
+  {
+    "navn": "DP ikke innkreving                                ",
+    "kode": "TBDP    "
+  },
+  {
+    "navn": "DP ikke innkreving                                ",
+    "kode": "TBDPAR  "
+  },
+  {
+    "navn": "DP til innkreving                                 ",
+    "kode": "TBDPKR  "
+  },
+  {
+    "navn": "Enslig forsørger barnetilsyn ikke innkreving      ",
+    "kode": "TBEFBT  "
+  },
+  {
+    "navn": "Enslig forsørger barnetilsyn innkreving           ",
+    "kode": "TBEFBTKR"
+  },
+  {
+    "navn": "Enslig forsørger overgangsstønad ikke innkreving  ",
+    "kode": "TBEFOG  "
+  },
+  {
+    "navn": "Enslig forsørger overgangsstønad innkreving       ",
+    "kode": "TBEFOGKR"
+  },
+  {
+    "navn": "Enslig forsørger skolepenger ikke innkreving      ",
+    "kode": "TBEFSP  "
+  },
+  {
+    "navn": "Enslig forsørger skolepenger innkreving           ",
+    "kode": "TBEFSPKR"
+  },
+  {
+    "navn": "Engangstønad ikke innkreving                      ",
+    "kode": "TBES    "
+  },
+  {
+    "navn": "Engangstønad til innkreving                       ",
+    "kode": "TBESKR  "
+  },
+  {
+    "navn": "FORSKUDD ikke innkreving                          ",
+    "kode": "TBFO    "
+  },
+  {
+    "navn": "FORSKUDD til innkreving                           ",
+    "kode": "TBFOKR  "
+  },
+  {
+    "navn": "Foreldrepenger ikke innkreving                    ",
+    "kode": "TBFORP  "
+  },
+  {
+    "navn": "Foreldrepenger til innkreving                     ",
+    "kode": "TBFORPKR"
+  },
+  {
+    "navn": "Familiepleier ikke innkreving                     ",
+    "kode": "TBFP    "
+  },
+  {
+    "navn": "Familiepleier til innkreving                      ",
+    "kode": "TBFPKR  "
+  },
+  {
+    "navn": "FRISINN ikke innkreving                           ",
+    "kode": "TBFRIS  "
+  },
+  {
+    "navn": "FRISINN til innkreving                            ",
+    "kode": "TBFRISKR"
+  },
+  {
+    "navn": "Gjenlevende ikke innkreving                       ",
+    "kode": "TBGJ    "
+  },
+  {
+    "navn": "Gjenlevende til innkreving                        ",
+    "kode": "TBGJKR  "
+  },
+  {
+    "navn": "Gammel Yrkesskade ikke innkreving                 ",
+    "kode": "TBGY    "
+  },
+  {
+    "navn": "Gammel Yrkesskade til innkreving                  ",
+    "kode": "TBGYKR  "
+  },
+  {
+    "navn": "Krigspensjon ikke innkreving                      ",
+    "kode": "TBKP    "
+  },
+  {
+    "navn": "Krigspensjon til innkreving                       ",
+    "kode": "TBKPKR  "
+  },
+  {
+    "navn": "Tilbakekrevingskrav                               ",
+    "kode": "TBKRAV  "
+  },
+  {
+    "navn": "KS ikke innkreving                                ",
+    "kode": "TBKS    "
+  },
+  {
+    "navn": "KS til innkreving                                 ",
+    "kode": "TBKSKR  "
+  },
+  {
+    "navn": "OM ikke innkreving                                ",
+    "kode": "TBOM    "
+  },
+  {
+    "navn": "OM til innkreving                                 ",
+    "kode": "TBOMKR  "
+  },
+  {
+    "navn": "Omstillingsstønad ikke innkreving                 ",
+    "kode": "TBOMST  "
+  },
+  {
+    "navn": "Omstillingsstønad til innkreving                  ",
+    "kode": "TBOMSTKR"
+  },
+  {
+    "navn": "OOP ikke innkreving                               ",
+    "kode": "TBOOP   "
+  },
+  {
+    "navn": "OOP til innkreving                                ",
+    "kode": "TBOOPKR "
+  },
+  {
+    "navn": "OPP ikke innkreving                               ",
+    "kode": "TBOPP   "
+  },
+  {
+    "navn": "OPP til innkreving                                ",
+    "kode": "TBOPPKR "
+  },
+  {
+    "navn": "PB ikke innkreving                                ",
+    "kode": "TBPB    "
+  },
+  {
+    "navn": "PB til innkreving                                 ",
+    "kode": "TBPBKR  "
+  },
+  {
+    "navn": "PERMIT ikke innkreving                            ",
+    "kode": "TBPE    "
+  },
+  {
+    "navn": "PERMIT til innkreving                             ",
+    "kode": "TBPEKR  "
+  },
+  {
+    "navn": "PN ikke innkreving                                ",
+    "kode": "TBPN    "
+  },
+  {
+    "navn": "PN til innkreving                                 ",
+    "kode": "TBPNKR  "
+  },
+  {
+    "navn": "Sykepenger ikke innkreving                        ",
+    "kode": "TBSP    "
+  },
+  {
+    "navn": "Sykepenger til innkreving                         ",
+    "kode": "TBSPKR  "
+  },
+  {
+    "navn": "Supplerende stønad alder, innkreving              ",
+    "kode": "TBSUAL  "
+  },
+  {
+    "navn": "Supplerende stønad alder, ikke innkreving         ",
+    "kode": "TBSUALKR"
+  },
+  {
+    "navn": "Supplerende stønad Uføre, innkreving              ",
+    "kode": "TBSUUFKR"
+  },
+  {
+    "navn": "Supplerende stønad Uføre, ikke innkreving         ",
+    "kode": "TBSUUFOR"
+  },
+  {
+    "navn": "Svangerskapspenger ikke innkreving                ",
+    "kode": "TBSVP   "
+  },
+  {
+    "navn": "Svangerskapspenger til innkreving                 ",
+    "kode": "TBSVPKR "
+  },
+  {
+    "navn": "Tilleggsstønad til innkreving                     ",
+    "kode": "TBTILLKR"
+  },
+  {
+    "navn": "Tilleggstønad ikke innkreving                     ",
+    "kode": "TBTILLST"
+  },
+  {
+    "navn": "Tiltakspenger til innkreving                      ",
+    "kode": "TBTILTKR"
+  },
+  {
+    "navn": "Tiltakspenger ikke innkreving                     ",
+    "kode": "TBTILTP "
+  },
+  {
+    "navn": "Tiltakspenger ikke innkreving                     ",
+    "kode": "TBTPAR  "
+  },
+  {
+    "navn": "Tilleggstønad ikke innkreving                     ",
+    "kode": "TBTSTAR "
+  },
+  {
+    "navn": "Uførepensjon ikke innkreving                      ",
+    "kode": "TBUP    "
+  },
+  {
+    "navn": "Uførepensjon til innkreving                       ",
+    "kode": "TBUPKR  "
+  },
+  {
+    "navn": "Uføretrygd ikke innkreving                        ",
+    "kode": "TBUT    "
+  },
+  {
+    "navn": "Uføretrygd til innkreving                         ",
+    "kode": "TBUTKR  "
+  },
+  {
+    "navn": "Tilleggsstønad                                    ",
+    "kode": "TILLST  "
+  },
+  {
+    "navn": "Tiltakspenger                                     ",
+    "kode": "TILTPENG"
+  },
+  {
+    "navn": "Tiltakspenger                                     ",
+    "kode": "TPARENA "
+  },
+  {
+    "navn": "Tilleggsstønad                                    ",
+    "kode": "TSTARENA"
+  },
+  {
+    "navn": "Uføretrygdede engangsutbetaling                   ",
+    "kode": "UFORENG "
+  },
+  {
+    "navn": "Uførepensjon fra SPK                              ",
+    "kode": "UFORESPK"
+  },
+  {
+    "navn": "Uføretrygd                                        ",
+    "kode": "UFOREUT "
+  },
+  {
+    "navn": "Utbetaling for mye innkrevd                       ",
+    "kode": "UTBINNKR"
+  }
+]

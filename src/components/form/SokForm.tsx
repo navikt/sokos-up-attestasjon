@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button, ErrorSummary, Radio, RadioGroup } from "@navikt/ds-react";
 import useFetchFaggrupper from "../../services/hooks/useFetchFaggrupper";
+import useFetchFagomraader from "../../services/hooks/useFetchFagomraader";
 import FormField from "./FormField";
 import styles from "./SokForm.module.css";
 import { SokeData, SokeSchema } from "./SokeSchema";
@@ -14,6 +15,7 @@ type SokFormProps = {
 
 function SokForm({ sokedata, onSubmit }: SokFormProps) {
   const { data: faggrupper } = useFetchFaggrupper();
+  const { data: fagomraader } = useFetchFagomraader();
 
   const {
     register,
@@ -25,9 +27,7 @@ function SokForm({ sokedata, onSubmit }: SokFormProps) {
   });
 
   const filteredErrors = [...Object.keys(errors)].filter((m) => m);
-  const handleClick = () => {
-    setValue("kodeFaggruppe", "");
-  };
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -48,17 +48,25 @@ function SokForm({ sokedata, onSubmit }: SokFormProps) {
             name="kodeFaggruppe"
             faggrupper={
               faggrupper
-                ? faggrupper.map((f) => f.navn + "(" + f.type + ")")
+                ? faggrupper.map(
+                    (f) => f.navn.trim() + "(" + f.type.trim() + ")",
+                  )
                 : []
             }
             register={register}
-            handleClick={handleClick}
+            setValue={setValue}
           />
-          <FormField
+          <SokosCombobox
             name="kodeFagomraade"
-            defaultValue={sokedata?.kodeFagomraade}
+            faggrupper={
+              fagomraader
+                ? fagomraader.map(
+                    (f) => f.navn.trim() + "(" + f.kode.trim() + ")",
+                  )
+                : []
+            }
             register={register}
-            error={errors.kodeFagomraade}
+            setValue={setValue}
           />
           <RadioGroup
             legend="Attestert status"
