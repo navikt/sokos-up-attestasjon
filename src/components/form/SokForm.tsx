@@ -48,9 +48,9 @@ function SokForm({ sokedata, onSubmit }: SokFormProps) {
             name="kodeFaggruppe"
             faggrupper={
               faggrupper
-                ? faggrupper.map(
-                    (f) => f.navn.trim() + "(" + f.type.trim() + ")",
-                  )
+                ? faggrupper
+                    .map((f) => f.navn.trim() + "(" + f.type.trim() + ")")
+                    .sort((a, b) => a.localeCompare(b))
                 : []
             }
             register={register}
@@ -60,9 +60,9 @@ function SokForm({ sokedata, onSubmit }: SokFormProps) {
             name="kodeFagomraade"
             faggrupper={
               fagomraader
-                ? fagomraader.map(
-                    (f) => f.navn.trim() + "(" + f.kode.trim() + ")",
-                  )
+                ? fagomraader
+                    .map((f) => f.navn.trim() + "(" + f.kode.trim() + ")")
+                    .sort((a, b) => a.localeCompare(b))
                 : []
             }
             register={register}
