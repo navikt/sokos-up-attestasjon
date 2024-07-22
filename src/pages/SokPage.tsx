@@ -28,18 +28,18 @@ export default function SokPage() {
   };
 
   useEffect(() => {
-    if (
-      Array.isArray(treffliste) &&
-      !isEmpty(treffliste) &&
-      !isLoading &&
-      shouldGoToTreffliste
-    ) {
-      navigate("/treffliste");
-      setShouldGoToTreffliste(false);
-    } else if (isEmpty(treffliste) && !isLoading && shouldGoToTreffliste) {
-      setError("Ingen treff på søket");
-      setShouldGoToTreffliste(false);
-    }
+    const handleRouting = () => {
+      if (!isLoading && shouldGoToTreffliste) {
+        if (Array.isArray(treffliste) && !isEmpty(treffliste)) {
+          navigate("/treffliste");
+        } else {
+          setError("Ingen treff på søket");
+        }
+        setShouldGoToTreffliste(false);
+      }
+    };
+
+    handleRouting();
   }, [isLoading, navigate, shouldGoToTreffliste, treffliste]);
 
   useEffect(() => {
