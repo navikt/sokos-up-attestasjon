@@ -9,3 +9,7 @@
 .sok_button {
   @apply w-1/6;
 }
+
+.sok_error {
+  @apply pt-5;
+}

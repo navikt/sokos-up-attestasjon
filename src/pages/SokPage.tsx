@@ -8,12 +8,7 @@ import SokForm from "../components/form/SokForm";
 import { SokeData } from "../components/form/SokeSchema";
 import RestService from "../services/rest-service";
 import commonstyles from "../util/common-styles.module.css";
-import {
-  anyOppdragExists,
-  isEmpty,
-  retrieveSok,
-  storeSok,
-} from "../util/commonUtils";
+import { isEmpty, retrieveSok, storeSok } from "../util/commonUtils";
 import styles from "./SokPage.module.css";
 
 export default function SokPage() {
@@ -33,7 +28,12 @@ export default function SokPage() {
   };
 
   useEffect(() => {
-    if (anyOppdragExists(treffliste) && !isLoading && shouldGoToTreffliste) {
+    if (
+      Array.isArray(treffliste) &&
+      !isEmpty(treffliste) &&
+      !isLoading &&
+      shouldGoToTreffliste
+    ) {
       navigate("/treffliste");
       setShouldGoToTreffliste(false);
     } else if (isEmpty(treffliste) && !isLoading && shouldGoToTreffliste) {
@@ -59,8 +59,12 @@ export default function SokPage() {
         </Heading>
         <SokForm sokedata={sokedata} onSubmit={handleChangeSok} />
       </div>
-      {isLoading && <ContentLoader />}
-      {error && <Alert variant="error">{error}</Alert>}
+      {sokedata && isLoading && <ContentLoader />}
+      {error && (
+        <div className={styles.sok_error}>
+          <Alert variant="info">{error}</Alert>
+        </div>
+      )}
     </>
   );
 }
