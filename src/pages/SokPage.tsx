@@ -1,24 +1,23 @@
 import { useEffect, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { useSWRConfig } from "swr";
 import { Heading } from "@navikt/ds-react";
 import SokForm from "../components/form/SokForm";
 import { SokeData } from "../components/form/SokeSchema";
-import { TreffTabell } from "../components/treffliste/TreffTabell";
-import RestService from "../services/rest-service";
 import commonstyles from "../util/common-styles.module.css";
 import { retrieveSok, storeSok } from "../util/commonUtils";
 import styles from "./SokPage.module.css";
 
 export default function SokPage() {
+  const navigate = useNavigate();
   const { mutate } = useSWRConfig();
   const [sokedata, setSokedata] = useState<SokeData | undefined>(retrieveSok);
-  const { treffliste, isLoading } =
-    RestService.useFetchTreffliste(retrieveSok());
 
   const handleChangeSok: SubmitHandler<SokeData> = (sokedata) => {
     storeSok(sokedata);
     setSokedata(sokedata);
+    navigate("/treffliste");
   };
 
   useEffect(() => {
@@ -38,11 +37,6 @@ export default function SokPage() {
         </Heading>
         <SokForm sokedata={sokedata} onSubmit={handleChangeSok} />
       </div>
-      {!isLoading && treffliste && (
-        <div className={styles.treffliste__trefftabell}>
-          <TreffTabell treffliste={treffliste} />
-        </div>
-      )}
     </>
   );
 }
