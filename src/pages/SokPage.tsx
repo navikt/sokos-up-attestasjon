@@ -17,7 +17,8 @@ export default function SokPage() {
   const [sokedata, setSokedata] = useState<SokeData | undefined>(retrieveSok);
   const [error, setError] = useState<string | undefined>(undefined);
 
-  const { treffliste, isLoading } = RestService.useFetchTreffliste(sokedata);
+  const { treffliste, isLoading } =
+    RestService.useFetchTreffliste(retrieveSok());
   const [shouldGoToTreffliste, setShouldGoToTreffliste] =
     useState<boolean>(false);
 
