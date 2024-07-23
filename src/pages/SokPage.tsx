@@ -8,40 +8,36 @@ import SokForm from "../components/form/SokForm";
 import { SokeData } from "../components/form/SokeSchema";
 import RestService from "../services/rest-service";
 import commonstyles from "../util/common-styles.module.css";
-import { isEmpty, retrieveSok, storeSok } from "../util/commonUtils";
+import { isEmpty, storeSok } from "../util/commonUtils";
 import styles from "./SokPage.module.css";
 
 export default function SokPage() {
   const navigate = useNavigate();
   const { mutate } = useSWRConfig();
-  const [sokedata, setSokedata] = useState<SokeData | undefined>(retrieveSok);
+  const [sokedata, setSokedata] = useState<SokeData | undefined>();
   const [error, setError] = useState<string | undefined>(undefined);
 
-  const { treffliste, isLoading } =
-    RestService.useFetchTreffliste(retrieveSok());
+  const { treffliste, isLoading } = RestService.useFetchTreffliste(sokedata);
   const [shouldGoToTreffliste, setShouldGoToTreffliste] =
     useState<boolean>(false);
 
   const handleChangeSok: SubmitHandler<SokeData> = (sokedata) => {
-    storeSok(sokedata);
+    setError(undefined);
     setSokedata(sokedata);
+    storeSok(sokedata);
     setShouldGoToTreffliste(true);
   };
 
   useEffect(() => {
-    const handleRouting = () => {
-      if (!isLoading && shouldGoToTreffliste) {
-        if (Array.isArray(treffliste) && !isEmpty(treffliste)) {
-          navigate("/treffliste");
-        } else {
-          setError("Ingen treff på søket");
-        }
+    if (Array.isArray(treffliste) && !isLoading && shouldGoToTreffliste) {
+      if (!isEmpty(treffliste)) {
+        navigate("/treffliste");
         setShouldGoToTreffliste(false);
+      } else {
+        setError("Ingen treff på søket");
       }
-    };
-
-    handleRouting();
-  }, [isLoading, navigate, shouldGoToTreffliste, treffliste]);
+    }
+  }, [isLoading, navigate, treffliste, shouldGoToTreffliste, sokedata]);
 
   useEffect(() => {
     mutate("/sok", []);

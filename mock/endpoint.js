@@ -8,7 +8,12 @@ export default [
   {
     url: "/oppdrag-api/api/v1/attestasjon/sok",
     method: "POST",
-    response: () => gjeldersok
+    response: (request) => {
+      if(request.body.gjelderId === "11111111111") {
+        return [];
+      }
+      return gjeldersok;
+    } 
   },
   {
     url: "/oppdrag-api/api/v1/attestasjon/oppdragslinjer/:oppdragsId",

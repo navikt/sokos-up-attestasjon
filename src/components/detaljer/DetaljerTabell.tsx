@@ -69,7 +69,6 @@ export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
                 hideLabel
                 checked={selectedRows.includes(detalj.delytelsesId)}
                 onChange={() => toggleSelectedRow(detalj.delytelsesId)}
-                aria-labelledby={`id-${detalj.delytelsesId}`}
               >
                 {" "}
               </Checkbox>

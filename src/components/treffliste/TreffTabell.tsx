@@ -86,7 +86,6 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
                   onChange={() =>
                     toggleSelectedRow(oppdrag.oppdragsId.toString())
                   }
-                  aria-labelledby={`id-${oppdrag.oppdragsId}`}
                 >
                   {" "}
                 </Checkbox>
