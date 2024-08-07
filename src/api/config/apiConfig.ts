@@ -1,5 +1,5 @@
 import axios, { CreateAxiosDefaults } from "axios";
-import { ApiError, HttpStatusCodeError } from "../../types/Errors";
+import { ApiError, HttpStatusCodeError } from "../../types/errors";
 
 export const BASE_URI = {
   ATTESTASJON: "/oppdrag-api/api/v1/attestasjon",

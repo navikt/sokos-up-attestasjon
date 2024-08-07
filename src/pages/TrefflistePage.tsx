@@ -4,7 +4,7 @@ import { TreffTabell } from "../components/treffliste/TreffTabell";
 import useSokOppdrag from "../hooks/useSokOppdrag";
 import commonstyles from "../styles/common-styles.module.css";
 import { retrieveSok } from "../util/commonUtils";
-import styles from "./TreffListePage.module.css";
+import styles from "./TrefflistePage.module.css";
 
 const TrefflistePage = () => {
   const { treffliste, isLoading } = useSokOppdrag(retrieveSok());
