@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Checkbox, Table } from "@navikt/ds-react";
-import { Attestasjonsdetaljer } from "../../models/Attestasjonsdetaljer";
+import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 
 interface DetaljerTabellProps {
   key: number;
-  detaljerliste: Attestasjonsdetaljer[];
+  detaljerliste: OppdragsDetaljer[];
   fagsystemId: string;
 }
 
@@ -38,11 +38,13 @@ export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
                 selectedRows.length !== detaljerliste.length
               }
               onChange={() => {
-                selectedRows.length
-                  ? setSelectedRows([])
-                  : setSelectedRows(
-                      detaljerliste.map(({ delytelsesId }) => delytelsesId),
-                    );
+                if (selectedRows.length > 0) {
+                  setSelectedRows([]);
+                } else {
+                  setSelectedRows(
+                    detaljerliste.map(({ delytelsesId }) => delytelsesId),
+                  );
+                }
               }}
             >
               Velg alle rader

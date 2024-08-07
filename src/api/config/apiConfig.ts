@@ -1,8 +1,24 @@
-import axios from "axios";
-import { ApiError, HttpStatusCodeError } from "../../types/errors";
-import { config } from "./config";
+import axios, { CreateAxiosDefaults } from "axios";
+import { ApiError, HttpStatusCodeError } from "../../types/Errors";
 
-export const api = (baseUri: string) => {
+export const BASE_URI = {
+  ATTESTASJON: "/oppdrag-api/api/v1/attestasjon",
+  OPPDRAGSINFO: "/oppdrag-api/api/v1/oppdragsinfo",
+};
+
+const config = (baseUri: string): CreateAxiosDefaults => ({
+  baseURL: baseUri,
+  timeout: 30000,
+  withCredentials: true,
+  headers: {
+    Pragma: "no-cache",
+    "Cache-Control": "no-cache",
+    "Content-Type": "application/json",
+  },
+  validateStatus: (status) => status < 400,
+});
+
+const api = (baseUri: string) => {
   const instance = axios.create(config(baseUri));
 
   instance.interceptors.response.use(
@@ -36,7 +52,7 @@ export const axiosPostFetcher = <T, U>(
     .post<U>(url, body)
     .then((res) => res.data);
 
-export const swr = <T>(fetcher: (uri: string) => Promise<T>) => ({
+export const swrConfig = <T>(fetcher: (uri: string) => Promise<T>) => ({
   fetcher,
   suspense: true,
   revalidateOnFocus: false,

@@ -3,8 +3,8 @@ import { Alert, Heading } from "@navikt/ds-react";
 import ContentLoader from "../components/common/ContentLoader";
 import LabelText from "../components/common/LabelText";
 import { DetaljerTabell } from "../components/detaljer/DetaljerTabell";
-import RestService from "../services/rest-service";
-import commonstyles from "../util/common-styles.module.css";
+import useOppdragsDetaljer from "../hooks/useOppdragDetaljer";
+import commonstyles from "../styles/common-styles.module.css";
 import { BASENAME } from "../util/constants";
 import styles from "./DetaljerPage.module.css";
 
@@ -17,7 +17,7 @@ const DetaljerPage = () => {
     data: attestasjonsegenskaper,
     error,
     isLoading,
-  } = RestService.useFetchFlereOppdrag(oppdragsIder);
+  } = useOppdragsDetaljer(oppdragsIder);
 
   return (
     <>

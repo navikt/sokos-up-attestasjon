@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import useSWR from "swr";
+import { BASE_URI, axiosPostFetcher, swrConfig } from "../api/config/apiConfig";
 import {
   SokeData,
   SokeRequestBody,
   mapToSokeRequestBody,
-} from "../../components/form/SokeSchema";
-import { AttestasjonTreff } from "../../models/AttestasjonTreff";
-import { axiosPostFetcher, swr } from "../config/api";
-import { BASE_URI } from "../config/config";
+} from "../components/form/SokeSchema";
+import { Oppdrag } from "../types/Oppdrag";
 
-const useFetchTreffliste = (sokedata?: SokeData) => {
+const useSokOppdrag = (sokedata?: SokeData) => {
   const [shouldFetch, setShouldFetch] = useState<boolean>(false);
   useEffect(() => {
     if (
@@ -24,10 +23,10 @@ const useFetchTreffliste = (sokedata?: SokeData) => {
 
   const sokeRequestBody = mapToSokeRequestBody(sokedata);
 
-  const { data, error, mutate, isValidating } = useSWR<AttestasjonTreff[]>(
+  const { data, error, mutate, isValidating } = useSWR<Oppdrag[]>(
     shouldFetch ? "/sok" : null,
-    swr<AttestasjonTreff[]>((url) =>
-      axiosPostFetcher<SokeRequestBody, AttestasjonTreff[]>(
+    swrConfig<Oppdrag[]>((url) =>
+      axiosPostFetcher<SokeRequestBody, Oppdrag[]>(
         BASE_URI.ATTESTASJON,
         url,
         sokeRequestBody,
@@ -44,4 +43,5 @@ const useFetchTreffliste = (sokedata?: SokeData) => {
     isLoading,
   };
 };
-export default useFetchTreffliste;
+
+export default useSokOppdrag;

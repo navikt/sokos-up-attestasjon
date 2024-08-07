@@ -1,14 +1,13 @@
 import { Heading } from "@navikt/ds-react";
 import ContentLoader from "../components/common/ContentLoader";
 import { TreffTabell } from "../components/treffliste/TreffTabell";
-import RestService from "../services/rest-service";
-import commonstyles from "../util/common-styles.module.css";
+import useSokOppdrag from "../hooks/useSokOppdrag";
+import commonstyles from "../styles/common-styles.module.css";
 import { retrieveSok } from "../util/commonUtils";
-import styles from "./TrefflistePage.module.css";
+import styles from "./TreffListePage.module.css";
 
 const TrefflistePage = () => {
-  const { treffliste, isLoading } =
-    RestService.useFetchTreffliste(retrieveSok());
+  const { treffliste, isLoading } = useSokOppdrag(retrieveSok());
 
   return (
     <>

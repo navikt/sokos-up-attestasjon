@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Button, ErrorSummary, Radio, RadioGroup } from "@navikt/ds-react";
-import useFetchFaggrupper from "../../services/hooks/useFetchFaggrupper";
-import useFetchFagomraader from "../../services/hooks/useFetchFagomraader";
+import useFetchFaggrupper from "../../hooks/useFetchFaggrupper";
+import useFetchFagomraader from "../../hooks/useFetchFagomraader";
 import FormField from "./FormField";
 import styles from "./SokForm.module.css";
 import { SokeData, SokeSchema } from "./SokeSchema";

@@ -5,4 +5,4 @@ export const FaggruppeSchema = z.object({
   type: z.string(),
 });
 
-export type Faggruppe = z.infer<typeof FaggruppeSchema>;
+export type FagGruppe = z.infer<typeof FaggruppeSchema>;

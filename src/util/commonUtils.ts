@@ -1,5 +1,5 @@
 import { SokeData } from "../components/form/SokeSchema";
-import { AttestasjonTreff } from "../models/AttestasjonTreff";
+import { Oppdrag } from "../types/Oppdrag";
 
 const attestasjonItemName = "attestasjon_sok";
 
@@ -18,12 +18,11 @@ export const retrieveFromStorage = (key: string) => {
 };
 
 export const storeSok = (sokedata?: SokeData) => {
-  sokedata
-    ? sessionStorage.setItem(
-        attestasjonItemName,
-        btoa(JSON.stringify(sokedata)),
-      )
-    : sessionStorage.removeItem(attestasjonItemName);
+  if (sokedata) {
+    sessionStorage.setItem(attestasjonItemName, btoa(JSON.stringify(sokedata)));
+  } else {
+    sessionStorage.removeItem(attestasjonItemName);
+  }
 };
 
 export const isEmpty = (array: Array<unknown> | undefined | null) =>
@@ -32,8 +31,8 @@ export const isEmpty = (array: Array<unknown> | undefined | null) =>
 export const firstOf = <T>(ar: Array<T>) => ar.reduce((a) => a);
 
 export const anyOppdragExists = (
-  treffliste?: AttestasjonTreff[],
-): treffliste is AttestasjonTreff[] => {
+  treffliste?: Oppdrag[],
+): treffliste is Oppdrag[] => {
   return !(!treffliste || !Array.isArray(treffliste) || isEmpty(treffliste));
 };
 

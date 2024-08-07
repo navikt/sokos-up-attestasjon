@@ -6,8 +6,8 @@ import { Alert, Heading } from "@navikt/ds-react";
 import ContentLoader from "../components/common/ContentLoader";
 import SokForm from "../components/form/SokForm";
 import { SokeData } from "../components/form/SokeSchema";
-import RestService from "../services/rest-service";
-import commonstyles from "../util/common-styles.module.css";
+import useSokOppdrag from "../hooks/useSokOppdrag";
+import commonstyles from "../styles/common-styles.module.css";
 import { isEmpty, storeSok } from "../util/commonUtils";
 import styles from "./SokPage.module.css";
 
@@ -17,7 +17,7 @@ export default function SokPage() {
   const [sokedata, setSokedata] = useState<SokeData | undefined>();
   const [error, setError] = useState<string | undefined>(undefined);
 
-  const { treffliste, isLoading } = RestService.useFetchTreffliste(sokedata);
+  const { treffliste, isLoading } = useSokOppdrag(sokedata);
   const [shouldGoToTreffliste, setShouldGoToTreffliste] =
     useState<boolean>(false);
 

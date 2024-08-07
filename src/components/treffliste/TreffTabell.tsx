@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Checkbox, Table } from "@navikt/ds-react";
-import { AttestasjonTreff } from "../../models/AttestasjonTreff";
+import { Oppdrag } from "../../types/Oppdrag";
 import styles from "./TreffTabell.module.css";
 
 interface TreffTabellProps {
-  treffliste: AttestasjonTreff[];
+  treffliste: Oppdrag[];
 }
 
 export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
@@ -47,13 +47,13 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
                   selectedRows.length !== treffliste.length
                 }
                 onChange={() => {
-                  selectedRows.length
-                    ? setSelectedRows([])
-                    : setSelectedRows(
-                        treffliste.map(({ oppdragsId }) =>
-                          oppdragsId.toString(),
-                        ),
-                      );
+                  if (selectedRows.length) {
+                    setSelectedRows([]);
+                  } else {
+                    setSelectedRows(
+                      treffliste.map(({ oppdragsId }) => oppdragsId.toString()),
+                    );
+                  }
                 }}
                 hideLabel
               >
@@ -76,9 +76,9 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
                   {oppdrag.gjelderId}
                 </Link>
               </Table.DataCell>
-              <Table.DataCell>{oppdrag.navnFaggruppe}</Table.DataCell>
+              <Table.DataCell>{oppdrag.navnFagGruppe}</Table.DataCell>
               <Table.DataCell>{oppdrag.fagsystemId}</Table.DataCell>
-              <Table.DataCell>{oppdrag.navnFagomraade}</Table.DataCell>
+              <Table.DataCell>{oppdrag.navnFagOmraade}</Table.DataCell>
               <Table.DataCell>
                 <Checkbox
                   hideLabel

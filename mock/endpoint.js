@@ -1,8 +1,7 @@
-import gjeldersok from "./POST_GjelderSok.json";
-import oppdragslinjer from "./GET_oppdragslinjer.json";
-import oppdrag from "./POST_oppdragslinjer.json";
 import faggrupper from "./GET_faggrupper.json";
 import fagomraader from "./GET_fagomraader.json";
+import oppdragDetaljer from "./POST_oppdragsDetaljer.json";
+import sok from "./POST_sok.json";
 
 export default [
   {
@@ -12,27 +11,22 @@ export default [
       if(request.body.gjelderId === "11111111111") {
         return [];
       }
-      return gjeldersok;
-    } 
+      return sok;
+    }
   },
   {
-    url: "/oppdrag-api/api/v1/attestasjon/oppdragslinjer/:oppdragsId",
-    method: "GET",
-    response: () => oppdragslinjer
-  },
-  {
-    url: "/oppdrag-api/api/v1/attestasjon/oppdragslinjer",
+    url: "/oppdrag-api/api/v1/attestasjon/oppdragsdetaljer",
     method: "POST",
-    response: () => oppdrag
+    response: () => oppdragDetaljer
   },
   {
     method: "GET",
-    /*.....*/ url: "/oppdrag-api/api/v1/oppdragsinfo/faggrupper",
-    /*............*/ response: () => faggrupper
+    url: "/oppdrag-api/api/v1/oppdragsinfo/faggrupper",
+    response: () => faggrupper
   },
   {
     method: "GET",
-    /*.....*/ url: "/oppdrag-api/api/v1/attestasjon/fagomraader",
-    /*............*/ response: () => fagomraader
+    url: "/oppdrag-api/api/v1/attestasjon/fagomraader",
+    response: () => fagomraader
   }
 ];

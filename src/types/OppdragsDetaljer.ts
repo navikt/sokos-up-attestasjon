@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const AttestasjonsdetaljerSchema = z.object({
+export const OppdragsDetaljerSchema = z.object({
   klasse: z.string(),
   delytelsesId: z.string(),
   sats: z.number(),
@@ -8,8 +8,8 @@ export const AttestasjonsdetaljerSchema = z.object({
   datoVedtakFom: z.string(),
   datoVedtakTom: z.string(),
   attestant: z.string().optional(),
-  navnFagomraade: z.string(),
+  navnFagOmraade: z.string(),
   fagsystemId: z.string(),
 });
 
-export type Attestasjonsdetaljer = z.infer<typeof AttestasjonsdetaljerSchema>;
+export type OppdragsDetaljer = z.infer<typeof OppdragsDetaljerSchema>;
