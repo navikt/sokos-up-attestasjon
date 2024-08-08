@@ -28,7 +28,12 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
   return (
     <>
       <div className={styles.trefftabell__knapperad}>
-        <Button variant="secondary" size="small" onClick={handleSubmit}>
+        <Button
+          variant="secondary"
+          disabled={selectedRows.length < 1}
+          size="small"
+          onClick={handleSubmit}
+        >
           Vis detaljer
         </Button>
       </div>
