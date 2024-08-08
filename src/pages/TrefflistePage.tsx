@@ -1,6 +1,7 @@
 import { Heading } from "@navikt/ds-react";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
+import SokeParameterVisning from "../components/treffliste/SokeParameterVisning";
 import { TreffTabell } from "../components/treffliste/TreffTabell";
 import useSokOppdrag from "../hooks/useSokOppdrag";
 import commonstyles from "../styles/common-styles.module.css";
@@ -9,6 +10,7 @@ import styles from "./TrefflistePage.module.css";
 
 const TrefflistePage = () => {
   const { treffliste, isLoading } = useSokOppdrag(retrieveSok());
+  const sokeData = retrieveSok();
 
   return (
     <>
@@ -24,6 +26,13 @@ const TrefflistePage = () => {
             <Heading level="2" size="medium">
               Treffliste
             </Heading>
+            <SokeParameterVisning
+              gjelderId={sokeData?.gjelderId}
+              fagsystemId={sokeData?.fagsystemId}
+              kodeFaggruppe={sokeData?.kodeFaggruppe}
+              kodeFagomraade={sokeData?.kodeFagomraade}
+              attestertStatus={sokeData?.attestertStatus}
+            />
           </div>
         </div>
         {isLoading && <ContentLoader />}
