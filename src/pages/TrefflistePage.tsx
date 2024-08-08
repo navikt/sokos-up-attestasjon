@@ -1,4 +1,5 @@
 import { Heading } from "@navikt/ds-react";
+import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
 import { TreffTabell } from "../components/treffliste/TreffTabell";
 import useSokOppdrag from "../hooks/useSokOppdrag";
@@ -18,6 +19,7 @@ const TrefflistePage = () => {
       </div>
       <div className={styles.treffliste}>
         <div className={styles.treffliste__top}>
+          <Breadcrumbs searchLink treffliste />
           <div className={styles.treffliste__top_info}>
             <Heading level="2" size="medium">
               Treffliste

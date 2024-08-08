@@ -25,6 +25,13 @@ export const storeSok = (sokedata?: SokeData) => {
   }
 };
 
+export const storeId = (id?: string) =>
+  id
+    ? sessionStorage.setItem("oppdragsinfo_gId", btoa(id))
+    : sessionStorage.removeItem("oppdragsinfo_gId");
+export const retrieveId = () => retrieveFromStorage("oppdragsinfo_gId") ?? "";
+export const clearId = () => storeId();
+
 export const isEmpty = (array: Array<unknown> | undefined | null) =>
   !array || !Array.isArray(array) || !array.length;
 

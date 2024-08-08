@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
+import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
 import LabelText from "../components/common/LabelText";
 import { DetaljerTabell } from "../components/detaljer/DetaljerTabell";
@@ -26,7 +27,11 @@ const DetaljerPage = () => {
           Attestasjon: Detaljer
         </Heading>
       </div>
-      <div className={styles.attestasjondetaljer}></div>
+      <div className={styles.attestasjondetaljer}>
+        <div className={styles.attestasjondetaljer__top}>
+          <Breadcrumbs searchLink trefflistelink detaljer />
+        </div>
+      </div>
       {isLoading && <ContentLoader />}
       {error && <Alert variant="error">Problemer med å hente data</Alert>}
       {attestasjonsegenskaper && (

@@ -1,3 +1,7 @@
 .attestasjondetaljer {
-  @apply m-5 flex flex-row space-x-12 bg-[--a-surface-alt-1-subtle] p-10;
+  @apply mx-auto my-3 mt-6 space-y-6;
+}
+
+.attestasjondetaljer__top {
+  @apply mx-auto min-w-1024 max-w-[1440px] space-y-5;
 }
