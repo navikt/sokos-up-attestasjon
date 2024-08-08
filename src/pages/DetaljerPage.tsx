@@ -32,7 +32,6 @@ const DetaljerPage = () => {
           <Breadcrumbs searchLink trefflistelink detaljer />
         </div>
       </div>
-      {isLoading && <ContentLoader />}
       {error && <Alert variant="error">Problemer med å hente data</Alert>}
       {attestasjonsegenskaper && (
         <>
@@ -56,6 +55,7 @@ const DetaljerPage = () => {
               ))}
         </>
       )}
+      {isLoading && <ContentLoader />}
     </>
   );
 };
