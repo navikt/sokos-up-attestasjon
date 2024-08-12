@@ -1,7 +1,19 @@
-.attestasjondetaljer {
+.detaljer {
   @apply mx-auto my-3 mt-6 space-y-6;
 }
 
-.attestasjondetaljer__top {
+.detaljer__top {
   @apply mx-auto min-w-1024 max-w-[1440px] space-y-5;
+}
+
+.detaljer__tabell {
+  @apply mx-10;
+}
+
+.detaljer__label {
+  @apply pt-5;
+}
+
+.detaljer__knapperad {
+  @apply flex justify-end pr-32 pt-5;
 }

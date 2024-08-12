@@ -1,8 +1,7 @@
 import { useLocation } from "react-router-dom";
-import { Alert, Heading } from "@navikt/ds-react";
+import { Alert, Button, Heading } from "@navikt/ds-react";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
-import LabelText from "../components/common/LabelText";
 import { DetaljerTabell } from "../components/detaljer/DetaljerTabell";
 import useOppdragsDetaljer from "../hooks/useOppdragDetaljer";
 import commonstyles from "../styles/common-styles.module.css";
@@ -27,12 +26,16 @@ const DetaljerPage = () => {
           Attestasjon: Detaljer
         </Heading>
       </div>
-      <div className={styles.attestasjondetaljer}>
-        <div className={styles.attestasjondetaljer__top}>
+      <div className={styles.detaljer}>
+        <div className={styles.detaljer__top}>
           <Breadcrumbs searchLink trefflistelink detaljer />
         </div>
       </div>
-      {error && <Alert variant="error">Problemer med å hente data</Alert>}
+      <div className={styles.detaljer__knapperad}>
+        <Button variant="secondary" size="small">
+          Oppdater
+        </Button>
+      </div>
       {attestasjonsegenskaper && (
         <>
           {Array.isArray(attestasjonsegenskaper) &&
@@ -44,18 +47,23 @@ const DetaljerPage = () => {
                 return firstIndex === index;
               })
               .map((egenskap, index) => (
-                <>
-                  <LabelText label="Fagsystem ID" text={egenskap.fagsystemId} />
+                <div className={styles.detaljer__tabell}>
+                  <div className={styles.detaljer__label}>
+                    <Heading level="2" size="small">
+                      Fagsystem ID: {egenskap.fagsystemId}
+                    </Heading>
+                  </div>
                   <DetaljerTabell
                     key={index}
                     detaljerliste={attestasjonsegenskaper}
                     fagsystemId={egenskap.fagsystemId}
                   />
-                </>
+                </div>
               ))}
         </>
       )}
       {isLoading && <ContentLoader />}
+      {error && <Alert variant="error">Problemer med å hente data</Alert>}
     </>
   );
 };
