@@ -44,6 +44,8 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
             <Table.HeaderCell>Faggruppe</Table.HeaderCell>
             <Table.HeaderCell>Fagsystem ID</Table.HeaderCell>
             <Table.HeaderCell>Fagområde</Table.HeaderCell>
+            <Table.HeaderCell>Kostnadssted</Table.HeaderCell>
+            <Table.HeaderCell>Ansvarssted</Table.HeaderCell>
             <Table.DataCell>
               <Checkbox
                 checked={selectedRows.length === treffliste.length}
@@ -84,6 +86,8 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
               <Table.DataCell>{oppdrag.navnFagGruppe}</Table.DataCell>
               <Table.DataCell>{oppdrag.fagsystemId}</Table.DataCell>
               <Table.DataCell>{oppdrag.navnFagOmraade}</Table.DataCell>
+              <Table.DataCell>{oppdrag.kostnadsSted}</Table.DataCell>
+              <Table.DataCell>{oppdrag.ansvarsSted}</Table.DataCell>
               <Table.DataCell>
                 <Checkbox
                   hideLabel

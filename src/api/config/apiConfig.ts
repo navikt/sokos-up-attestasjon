@@ -24,15 +24,14 @@ const api = (baseUri: string) => {
   instance.interceptors.response.use(
     (response) => response,
     (error) => {
-      if (error.response?.status === 400) {
-        // her kan vi legge feilkoder også som vi fra backend
-        throw new HttpStatusCodeError(error.response?.status);
+      switch (error.response?.status) {
+        case 400:
+          throw new HttpStatusCodeError(error.response?.status);
+        case 401 | 403:
+          return Promise.reject(error);
+        default:
+          throw new ApiError("Issues with connection to backend");
       }
-      if (error.response?.status === 401 || error.response?.status === 403) {
-        // Uinnlogget - vil ikke skje i miljø da appen er beskyttet
-        return Promise.reject(error);
-      }
-      throw new ApiError("Issues with connection to backend");
     },
   );
   return instance;
