@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Checkbox, Table } from "@navikt/ds-react";
+import { Checkbox, Table, TextField } from "@navikt/ds-react";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import styles from "./DetaljerTabell.module.css";
 
 interface DetaljerTabellProps {
   key: number;
@@ -12,6 +13,9 @@ export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
   detaljerliste,
 }) => {
   const [selectedRows, setSelectedRows] = useState<string[]>([]);
+  const [enabledTextFields, setEnabledTextFields] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   const toggleSelectedRow = (value: string) =>
     setSelectedRows((list) =>
@@ -19,6 +23,28 @@ export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
         ? list.filter((id) => id !== value)
         : [...list, value],
     );
+
+  const handleCheckboxChange = (delytelsesId: string) => {
+    toggleSelectedRow(delytelsesId);
+    setEnabledTextFields((prev) => ({
+      ...prev,
+      [delytelsesId]: !prev[delytelsesId],
+    }));
+  };
+
+  const handleSelectAll = () => {
+    const allSelected = selectedRows.length === detaljerliste.length;
+    const newSelectedRows = allSelected
+      ? []
+      : detaljerliste.map((detalj) => detalj.delytelsesId);
+    setSelectedRows(newSelectedRows);
+    const newEnabledTextFields = allSelected
+      ? {}
+      : Object.fromEntries(
+          detaljerliste.map((detalj) => [detalj.delytelsesId, true]),
+        );
+    setEnabledTextFields(newEnabledTextFields);
+  };
 
   return (
     <>
@@ -31,26 +57,19 @@ export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
             <Table.HeaderCell>Type</Table.HeaderCell>
             <Table.HeaderCell>Periode(r)</Table.HeaderCell>
             <Table.HeaderCell>Attestant</Table.HeaderCell>
-            <Table.DataCell>
+            <Table.HeaderCell>
               <Checkbox
                 checked={selectedRows.length === detaljerliste.length}
                 indeterminate={
                   selectedRows.length > 0 &&
                   selectedRows.length !== detaljerliste.length
                 }
-                onChange={() => {
-                  if (selectedRows.length > 0) {
-                    setSelectedRows([]);
-                  } else {
-                    setSelectedRows(
-                      detaljerliste.map(({ delytelsesId }) => delytelsesId),
-                    );
-                  }
-                }}
+                onChange={handleSelectAll}
               >
                 Velg alle
               </Checkbox>
-            </Table.DataCell>
+            </Table.HeaderCell>
+            <Table.HeaderCell>Ugyldig FOM</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -68,12 +87,49 @@ export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
               </Table.DataCell>
               <Table.DataCell>{detalj.attestant}</Table.DataCell>
               <Table.DataCell>
-                <Checkbox
-                  checked={selectedRows.includes(detalj.delytelsesId)}
-                  onChange={() => toggleSelectedRow(detalj.delytelsesId)}
-                >
-                  {detalj.attestant ? "Fjern" : "Attester"}
-                </Checkbox>
+                {detalj.attestant ? (
+                  <>
+                    <div className={styles.checkbox_container}>
+                      <Checkbox
+                        checked={selectedRows.includes(detalj.delytelsesId)}
+                        onChange={() =>
+                          handleCheckboxChange(detalj.delytelsesId)
+                        }
+                      >
+                        Fjern
+                      </Checkbox>
+                      <div className={styles.ugyldig_textfield}>
+                        <TextField
+                          size="small"
+                          label={undefined}
+                          value={"31.12.9999"}
+                          disabled={!enabledTextFields[detalj.delytelsesId]}
+                        />
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className={styles.checkbox_container}>
+                      <Checkbox
+                        checked={selectedRows.includes(detalj.delytelsesId)}
+                        onChange={() =>
+                          handleCheckboxChange(detalj.delytelsesId)
+                        }
+                      >
+                        Attester
+                      </Checkbox>
+                      <Checkbox
+                        checked={selectedRows.includes(detalj.delytelsesId)}
+                        onChange={() =>
+                          handleCheckboxChange(detalj.delytelsesId)
+                        }
+                      >
+                        Utbetales nå
+                      </Checkbox>
+                    </div>
+                  </>
+                )}
               </Table.DataCell>
             </Table.Row>
           ))}

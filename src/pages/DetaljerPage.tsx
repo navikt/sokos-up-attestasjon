@@ -42,7 +42,7 @@ const DetaljerPage = () => {
             attestasjonsegenskaper
               .filter((egenskap, index, self) => {
                 const firstIndex = self.findIndex(
-                  (item) => item.fagsystemId === egenskap.fagsystemId,
+                  (item) => item.fagSystemId === egenskap.fagSystemId,
                 );
                 return firstIndex === index;
               })
@@ -50,13 +50,13 @@ const DetaljerPage = () => {
                 <div className={styles.detaljer__tabell}>
                   <div className={styles.detaljer__label}>
                     <Heading level="2" size="small">
-                      Fagsystem ID: {egenskap.fagsystemId}
+                      Fagsystem ID: {egenskap.fagSystemId}
                     </Heading>
                   </div>
                   <DetaljerTabell
                     key={index}
                     detaljerliste={attestasjonsegenskaper}
-                    fagsystemId={egenskap.fagsystemId}
+                    fagsystemId={egenskap.fagSystemId}
                   />
                 </div>
               ))}
