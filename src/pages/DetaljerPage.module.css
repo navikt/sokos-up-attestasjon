@@ -11,9 +11,17 @@
 }
 
 .detaljer__label {
-  @apply pt-5;
+  @apply flex gap-3 pt-5;
 }
 
 .detaljer__knapperad {
   @apply flex justify-end pr-32 pt-5;
+}
+
+.detaljer__columns {
+  @apply flex w-11/12 flex-row justify-between space-x-16;
+}
+
+.detaljer__column {
+  @apply flex flex-col space-y-3;
 }

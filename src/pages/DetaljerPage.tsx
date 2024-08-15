@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { Alert, Button, Heading } from "@navikt/ds-react";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
+import LabelText from "../components/common/LabelText";
 import { DetaljerTabell } from "../components/detaljer/DetaljerTabell";
 import useOppdragsDetaljer from "../hooks/useOppdragDetaljer";
 import commonstyles from "../styles/common-styles.module.css";
@@ -32,7 +33,7 @@ const DetaljerPage = () => {
         </div>
       </div>
       <div className={styles.detaljer__knapperad}>
-        <Button variant="secondary" size="small">
+        <Button variant="primary" size="medium">
           Oppdater
         </Button>
       </div>
@@ -49,9 +50,15 @@ const DetaljerPage = () => {
               .map((egenskap, index) => (
                 <div className={styles.detaljer__tabell}>
                   <div className={styles.detaljer__label}>
-                    <Heading level="2" size="small">
-                      Fagsystem ID: {egenskap.fagSystemId}
-                    </Heading>
+                    <LabelText
+                      label="Fagsystem ID"
+                      text={egenskap.fagSystemId}
+                    />
+
+                    <LabelText
+                      label="Ansvarssted"
+                      text={egenskap.ansvarsSted}
+                    />
                   </div>
                   <DetaljerTabell
                     key={index}

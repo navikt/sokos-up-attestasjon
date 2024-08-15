@@ -56,6 +56,8 @@ export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
             <Table.HeaderCell>Sats</Table.HeaderCell>
             <Table.HeaderCell>Type</Table.HeaderCell>
             <Table.HeaderCell>Periode(r)</Table.HeaderCell>
+            <Table.HeaderCell>Kostnadssted</Table.HeaderCell>
+            <Table.HeaderCell>Ansvarssted</Table.HeaderCell>
             <Table.HeaderCell>Attestant</Table.HeaderCell>
             <Table.HeaderCell>
               <Checkbox
@@ -85,6 +87,8 @@ export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
               <Table.DataCell>
                 {detalj.datoVedtakFom} - {detalj.datoVedtakTom}
               </Table.DataCell>
+              <Table.DataCell>{detalj.kostnadsSted}</Table.DataCell>
+              <Table.DataCell>{detalj.ansvarsSted}</Table.DataCell>
               <Table.DataCell>{detalj.attestant}</Table.DataCell>
               <Table.DataCell>
                 {detalj.attestant ? (
