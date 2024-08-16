@@ -1,16 +1,20 @@
 [
-    {
-      "gjelderId": "12345678901",
-      "navnFaggruppe": "Barnetrygd",
-      "navnFagomraade": "Barnetrygd",
-      "oppdragsId": 63835213,
-      "fagsystemId": "1876419"
-    },
-    {
-      "gjelderId": "98765432101",
-      "navnFaggruppe": "Kontantstøtte",
-      "navnFagomraade": "Kontantstøtte",
-      "oppdragsId": 69357567,
-      "fagsystemId": "015485999"
-    }
-  ]
+  {
+    "ansvarsSted": "8020",
+    "fagsystemId": "200054553",
+    "gjelderId": "12345612345",
+    "kostnadsSted": "8020         ",
+    "navnFagGruppe": "Enslig forsørger - Virkemidler",
+    "navnFagOmraade": "Enslig forsørger - Barnetilsyn",
+    "oppdragsId": 12343244
+  },
+  {
+    "ansvarsSted": "4819",
+    "fagsystemId": "22479409483",
+    "gjelderId": "12345612345",
+    "kostnadsSted": "4819         ",
+    "navnFagGruppe": "Pensjoner",
+    "navnFagOmraade": "Alderspensjon manuell postering",
+    "oppdragsId": 23432342
+  }
+]
