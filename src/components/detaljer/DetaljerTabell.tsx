@@ -80,15 +80,19 @@ export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
               key={detalj.delytelsesId}
               selected={selectedRows.includes(detalj.delytelsesId)}
             >
-              <Table.DataCell>{detalj.klasse}</Table.DataCell>
+              <Table.DataCell>{detalj.kodeKlasse}</Table.DataCell>
               <Table.DataCell>{detalj.delytelsesId}</Table.DataCell>
               <Table.DataCell>{detalj.sats}</Table.DataCell>
               <Table.DataCell>{detalj.satstype}</Table.DataCell>
               <Table.DataCell>
                 {detalj.datoVedtakFom} - {detalj.datoVedtakTom}
               </Table.DataCell>
-              <Table.DataCell>{detalj.kostnadsSted}</Table.DataCell>
-              <Table.DataCell>{detalj.ansvarsSted}</Table.DataCell>
+              <Table.DataCell>
+                {detalj.kostnadsStedForOppdragsLinje}
+              </Table.DataCell>
+              <Table.DataCell>
+                {detalj.ansvarsStedForOppdragsLinje}
+              </Table.DataCell>
               <Table.DataCell>{detalj.attestant}</Table.DataCell>
               <Table.DataCell>
                 {detalj.attestant ? (

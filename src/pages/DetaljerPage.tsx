@@ -51,13 +51,22 @@ const DetaljerPage = () => {
                 <div className={styles.detaljer__tabell}>
                   <div className={styles.detaljer__label}>
                     <LabelText
+                      label="Gjelder ID"
+                      text={egenskap.oppdragGjelderId}
+                    />
+
+                    <LabelText
                       label="Fagsystem ID"
                       text={egenskap.fagSystemId}
                     />
 
                     <LabelText
                       label="Ansvarssted"
-                      text={egenskap.ansvarsSted}
+                      text={egenskap.ansvarsStedForOppdrag || ""}
+                    />
+                    <LabelText
+                      label="Fagområde"
+                      text={egenskap.navnFagOmraade}
                     />
                   </div>
                   <DetaljerTabell
