@@ -14,11 +14,9 @@ const DetaljerPage = () => {
   const oppdragsIder = location.state;
   if (!oppdragsIder) window.location.replace(BASENAME);
 
-  const {
-    data: attestasjonsegenskaper,
-    error,
-    isLoading,
-  } = useOppdragsDetaljer(oppdragsIder);
+  const { data, error, isLoading } = useOppdragsDetaljer(oppdragsIder);
+
+  const egenskap = data?.reduce((a) => a);
 
   return (
     <>
@@ -37,46 +35,21 @@ const DetaljerPage = () => {
           Oppdater
         </Button>
       </div>
-      {attestasjonsegenskaper && (
-        <>
-          {Array.isArray(attestasjonsegenskaper) &&
-            attestasjonsegenskaper
-              .filter((egenskap, index, self) => {
-                const firstIndex = self.findIndex(
-                  (item) => item.fagSystemId === egenskap.fagSystemId,
-                );
-                return firstIndex === index;
-              })
-              .map((egenskap, index) => (
-                <div className={styles.detaljer__tabell}>
-                  <div className={styles.detaljer__label}>
-                    <LabelText
-                      label="Gjelder ID"
-                      text={egenskap.oppdragGjelderId}
-                    />
+      {egenskap && (
+        <div className={styles.detaljer__tabell}>
+          <div className={styles.detaljer__label}>
+            <LabelText label="Gjelder ID" text={egenskap.oppdragGjelderId} />
 
-                    <LabelText
-                      label="Fagsystem ID"
-                      text={egenskap.fagSystemId}
-                    />
+            <LabelText label="Fagsystem ID" text={egenskap.fagSystemId} />
 
-                    <LabelText
-                      label="Ansvarssted"
-                      text={egenskap.ansvarsStedForOppdrag || ""}
-                    />
-                    <LabelText
-                      label="Fagområde"
-                      text={egenskap.navnFagOmraade}
-                    />
-                  </div>
-                  <DetaljerTabell
-                    key={index}
-                    detaljerliste={attestasjonsegenskaper}
-                    fagsystemId={egenskap.fagSystemId}
-                  />
-                </div>
-              ))}
-        </>
+            <LabelText
+              label="Ansvarssted"
+              text={egenskap.ansvarsStedForOppdrag || ""}
+            />
+            <LabelText label="Fagområde" text={egenskap.navnFagOmraade} />
+          </div>
+          {data && <DetaljerTabell oppdragsdetaljer={data} />}
+        </div>
       )}
       {isLoading && <ContentLoader />}
       {error && <Alert variant="error">Problemer med å hente data</Alert>}

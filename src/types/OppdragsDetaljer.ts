@@ -13,11 +13,11 @@ export const OppdragsDetaljerSchema = z.object({
   kodeKlasse: z.string(),
   kostnadsStedForOppdrag: z.string(),
   kostnadsStedForOppdragsLinje: z.string().optional(),
-  linjeId: z.string(),
+  linjeId: z.number(),
   navnFagGruppe: z.string(),
   navnFagOmraade: z.string(),
   oppdragGjelderId: z.string(),
-  oppdragsId: z.string(),
+  oppdragsId: z.number(),
   sats: z.number(),
   satstype: z.string(),
 });

@@ -4,47 +4,54 @@ import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 import styles from "./DetaljerTabell.module.css";
 
 interface DetaljerTabellProps {
-  key: number;
-  detaljerliste: OppdragsDetaljer[];
-  fagsystemId: string;
+  oppdragsdetaljer: OppdragsDetaljer[];
 }
 
-export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
-  detaljerliste,
-}) => {
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
-  const [enabledTextFields, setEnabledTextFields] = useState<{
-    [key: string]: boolean;
-  }>({});
+type Linjetype = "fjern" | "attester";
 
-  const toggleSelectedRow = (value: string) =>
-    setSelectedRows((list) =>
-      list.includes(value)
-        ? list.filter((id) => id !== value)
-        : [...list, value],
+export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+
+  function toggleSelectedRow(id: number) {
+    setSelectedRows((prev) =>
+      prev.includes(id) ? prev.filter((i) => id !== i) : [...prev, id],
+    );
+  }
+
+  function lines(type: Linjetype) {
+    return type === "attester"
+      ? oppdragsdetaljer.filter((linje) => !linje.attestant)
+      : /* type === "fjern"   */ oppdragsdetaljer.filter(
+          (linje) => linje.attestant,
+        );
+  }
+
+  function ids(type: Linjetype) {
+    return lines(type).map((l) => l.linjeId);
+  }
+
+  function checkedStatus(type: Linjetype) {
+    const alle: boolean = !lines(type).some(
+      (linje) => !selectedRows.includes(linje.linjeId),
+    );
+    const noen: boolean = lines(type).some((linje) =>
+      selectedRows.includes(linje.linjeId),
     );
 
-  const handleCheckboxChange = (delytelsesId: string) => {
-    toggleSelectedRow(delytelsesId);
-    setEnabledTextFields((prev) => ({
-      ...prev,
-      [delytelsesId]: !prev[delytelsesId],
-    }));
-  };
+    if (alle) return "alle";
+    else if (noen) return "noen";
+    else return "ingen";
+  }
 
-  const handleSelectAll = () => {
-    const allSelected = selectedRows.length === detaljerliste.length;
-    const newSelectedRows = allSelected
-      ? []
-      : detaljerliste.map((detalj) => detalj.delytelsesId);
-    setSelectedRows(newSelectedRows);
-    const newEnabledTextFields = allSelected
-      ? {}
-      : Object.fromEntries(
-          detaljerliste.map((detalj) => [detalj.delytelsesId, true]),
-        );
-    setEnabledTextFields(newEnabledTextFields);
-  };
+  function handleToggleAll(type: Linjetype) {
+    // alle var huket av fra før
+    if (checkedStatus(type) === "alle") {
+      setSelectedRows(selectedRows.filter((id) => !ids(type).includes(id)));
+    }
+    // ingen var huket av fra før
+    // noen var huket av fra før
+    else setSelectedRows((prev) => [...prev, ...ids(type)]);
+  }
 
   return (
     <>
@@ -61,82 +68,61 @@ export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
             <Table.HeaderCell>Attestant</Table.HeaderCell>
             <Table.HeaderCell>
               <Checkbox
-                checked={selectedRows.length === detaljerliste.length}
-                indeterminate={
-                  selectedRows.length > 0 &&
-                  selectedRows.length !== detaljerliste.length
-                }
-                onChange={handleSelectAll}
+                checked={checkedStatus("attester") === "alle"}
+                indeterminate={checkedStatus("attester") === "noen"}
+                onChange={() => handleToggleAll("attester")}
               >
-                Velg alle
+                Attester alle
+              </Checkbox>
+              <Checkbox
+                checked={checkedStatus("fjern") === "alle"}
+                indeterminate={checkedStatus("fjern") === "noen"}
+                onChange={() => handleToggleAll("fjern")}
+              >
+                Fjern alle
               </Checkbox>
             </Table.HeaderCell>
             <Table.HeaderCell>Ugyldig FOM</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {detaljerliste.map((detalj) => (
+          {oppdragsdetaljer.map((linje) => (
             <Table.Row
-              key={detalj.delytelsesId}
-              selected={selectedRows.includes(detalj.delytelsesId)}
+              key={linje.linjeId}
+              selected={selectedRows.includes(linje.linjeId)}
             >
-              <Table.DataCell>{detalj.kodeKlasse}</Table.DataCell>
-              <Table.DataCell>{detalj.delytelsesId}</Table.DataCell>
-              <Table.DataCell>{detalj.sats}</Table.DataCell>
-              <Table.DataCell>{detalj.satstype}</Table.DataCell>
+              <Table.DataCell>{linje.kodeKlasse}</Table.DataCell>
+              <Table.DataCell>{linje.linjeId}</Table.DataCell>
+              <Table.DataCell>{linje.sats}</Table.DataCell>
+              <Table.DataCell>{linje.satstype}</Table.DataCell>
               <Table.DataCell>
-                {detalj.datoVedtakFom} - {detalj.datoVedtakTom}
+                {linje.datoVedtakFom} - {linje.datoVedtakTom}
               </Table.DataCell>
               <Table.DataCell>
-                {detalj.kostnadsStedForOppdragsLinje}
+                {linje.kostnadsStedForOppdragsLinje}
               </Table.DataCell>
               <Table.DataCell>
-                {detalj.ansvarsStedForOppdragsLinje}
+                {linje.ansvarsStedForOppdragsLinje}
               </Table.DataCell>
-              <Table.DataCell>{detalj.attestant}</Table.DataCell>
+              <Table.DataCell>{linje.attestant}</Table.DataCell>
               <Table.DataCell>
-                {detalj.attestant ? (
-                  <>
-                    <div className={styles.checkbox_container}>
-                      <Checkbox
-                        checked={selectedRows.includes(detalj.delytelsesId)}
-                        onChange={() =>
-                          handleCheckboxChange(detalj.delytelsesId)
-                        }
-                      >
-                        Fjern
-                      </Checkbox>
-                      <div className={styles.ugyldig_textfield}>
-                        <TextField
-                          size="small"
-                          label={undefined}
-                          value={"31.12.9999"}
-                          disabled={!enabledTextFields[detalj.delytelsesId]}
-                        />
-                      </div>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <div className={styles.checkbox_container}>
-                      <Checkbox
-                        checked={selectedRows.includes(detalj.delytelsesId)}
-                        onChange={() =>
-                          handleCheckboxChange(detalj.delytelsesId)
-                        }
-                      >
-                        Attester
-                      </Checkbox>
-                      <Checkbox
-                        checked={selectedRows.includes(detalj.delytelsesId)}
-                        onChange={() =>
-                          handleCheckboxChange(detalj.delytelsesId)
-                        }
-                      >
-                        Utbetales nå
-                      </Checkbox>
-                    </div>
-                  </>
+                <Checkbox
+                  checked={selectedRows.includes(linje.linjeId)}
+                  onChange={() => toggleSelectedRow(linje.linjeId)}
+                >
+                  {linje.attestant ? "Fjern" : "Attester"}
+                </Checkbox>
+              </Table.DataCell>
+              <Table.DataCell>
+                {linje.attestant && (
+                  <div className={styles.ugyldig_textfield}>
+                    <TextField
+                      size="small"
+                      label={undefined}
+                      value={"31.12.9999"}
+                      disabled={!selectedRows.includes(linje.linjeId)}
+                    />
+                  </div>
                 )}
               </Table.DataCell>
             </Table.Row>
