@@ -28,6 +28,17 @@ const DetaljerPage = () => {
       <div className={styles.detaljer}>
         <div className={styles.detaljer__top}>
           <Breadcrumbs searchLink trefflistelink detaljer />
+          {egenskap && (
+            <div className={styles.detaljer__label}>
+              <LabelText label="Gjelder ID" text={egenskap.oppdragGjelderId} />
+              <LabelText label="Fagsystem ID" text={egenskap.fagSystemId} />
+              <LabelText
+                label="Ansvarssted"
+                text={egenskap.ansvarsStedForOppdrag || ""}
+              />
+              <LabelText label="Fagområde" text={egenskap.navnFagOmraade} />
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.detaljer__knapperad}>
@@ -35,22 +46,9 @@ const DetaljerPage = () => {
           Oppdater
         </Button>
       </div>
-      {egenskap && (
-        <div className={styles.detaljer__tabell}>
-          <div className={styles.detaljer__label}>
-            <LabelText label="Gjelder ID" text={egenskap.oppdragGjelderId} />
-
-            <LabelText label="Fagsystem ID" text={egenskap.fagSystemId} />
-
-            <LabelText
-              label="Ansvarssted"
-              text={egenskap.ansvarsStedForOppdrag || ""}
-            />
-            <LabelText label="Fagområde" text={egenskap.navnFagOmraade} />
-          </div>
-          {data && <DetaljerTabell oppdragsdetaljer={data} />}
-        </div>
-      )}
+      <div className={styles.detaljer__tabell}>
+        {data && <DetaljerTabell oppdragsdetaljer={data} />}
+      </div>
       {isLoading && <ContentLoader />}
       {error && <Alert variant="error">Problemer med å hente data</Alert>}
     </>

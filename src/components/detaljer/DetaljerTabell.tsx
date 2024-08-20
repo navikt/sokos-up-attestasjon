@@ -66,23 +66,26 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
             <Table.HeaderCell>Kostnadssted</Table.HeaderCell>
             <Table.HeaderCell>Ansvarssted</Table.HeaderCell>
             <Table.HeaderCell>Attestant</Table.HeaderCell>
+            <Table.HeaderCell>Ugyldig FOM</Table.HeaderCell>
+            <Table.HeaderCell>Aksjon</Table.HeaderCell>
             <Table.HeaderCell>
               <Checkbox
                 checked={checkedStatus("attester") === "alle"}
                 indeterminate={checkedStatus("attester") === "noen"}
                 onChange={() => handleToggleAll("attester")}
               >
-                Attester alle
+                Velg alle attesterte
               </Checkbox>
+            </Table.HeaderCell>
+            <Table.HeaderCell>
               <Checkbox
                 checked={checkedStatus("fjern") === "alle"}
                 indeterminate={checkedStatus("fjern") === "noen"}
                 onChange={() => handleToggleAll("fjern")}
               >
-                Fjern alle
+                Velg alle uattesterte
               </Checkbox>
             </Table.HeaderCell>
-            <Table.HeaderCell>Ugyldig FOM</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -106,14 +109,6 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
               </Table.DataCell>
               <Table.DataCell>{linje.attestant}</Table.DataCell>
               <Table.DataCell>
-                <Checkbox
-                  checked={selectedRows.includes(linje.linjeId)}
-                  onChange={() => toggleSelectedRow(linje.linjeId)}
-                >
-                  {linje.attestant ? "Fjern" : "Attester"}
-                </Checkbox>
-              </Table.DataCell>
-              <Table.DataCell>
                 {linje.attestant && (
                   <div className={styles.ugyldig_textfield}>
                     <TextField
@@ -125,6 +120,16 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
                   </div>
                 )}
               </Table.DataCell>
+              <Table.DataCell>
+                <Checkbox
+                  checked={selectedRows.includes(linje.linjeId)}
+                  onChange={() => toggleSelectedRow(linje.linjeId)}
+                >
+                  {linje.attestant ? "Fjern" : "Attester"}
+                </Checkbox>
+              </Table.DataCell>
+              <Table.DataCell />
+              <Table.DataCell />
             </Table.Row>
           ))}
         </Table.Body>
