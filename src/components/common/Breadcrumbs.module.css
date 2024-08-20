@@ -19,5 +19,5 @@
 }
 
 .breadcrumbs__crumb {
-  @apply ml-1;
+  @apply ml-2;
 }

@@ -58,17 +58,21 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
       <Table>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Klasse</Table.HeaderCell>
-            <Table.HeaderCell>Delytelses Id</Table.HeaderCell>
-            <Table.HeaderCell>Sats</Table.HeaderCell>
-            <Table.HeaderCell>Type</Table.HeaderCell>
-            <Table.HeaderCell>Periode(r)</Table.HeaderCell>
-            <Table.HeaderCell>Kostnadssted</Table.HeaderCell>
-            <Table.HeaderCell>Ansvarssted</Table.HeaderCell>
-            <Table.HeaderCell>Attestant</Table.HeaderCell>
-            <Table.HeaderCell>Ugyldig FOM</Table.HeaderCell>
-            <Table.HeaderCell>Aksjon</Table.HeaderCell>
-            <Table.HeaderCell>
+            <Table.HeaderCell scope="col">Klasse</Table.HeaderCell>
+            <Table.HeaderCell scope="col" align="right">
+              Delytelses Id
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col" align="right">
+              Sats
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">Type</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Periode(r)</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Kostnadssted</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Ansvarssted</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Attestant</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Ugyldig FOM</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
+            <Table.HeaderCell scope="col">
               <Checkbox
                 checked={checkedStatus("attester") === "alle"}
                 indeterminate={checkedStatus("attester") === "noen"}
@@ -77,7 +81,7 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
                 Velg alle attesterte
               </Checkbox>
             </Table.HeaderCell>
-            <Table.HeaderCell>
+            <Table.HeaderCell scope="col">
               <Checkbox
                 checked={checkedStatus("fjern") === "alle"}
                 indeterminate={checkedStatus("fjern") === "noen"}
@@ -95,8 +99,8 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
               selected={selectedRows.includes(linje.linjeId)}
             >
               <Table.DataCell>{linje.kodeKlasse}</Table.DataCell>
-              <Table.DataCell>{linje.linjeId}</Table.DataCell>
-              <Table.DataCell>{linje.sats}</Table.DataCell>
+              <Table.DataCell align="center">{linje.linjeId}</Table.DataCell>
+              <Table.DataCell align="center">{linje.sats}</Table.DataCell>
               <Table.DataCell>{linje.satstype}</Table.DataCell>
               <Table.DataCell>
                 {linje.datoVedtakFom} - {linje.datoVedtakTom}
