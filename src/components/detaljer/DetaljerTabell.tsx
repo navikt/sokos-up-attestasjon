@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { Checkbox, Table, TextField } from "@navikt/ds-react";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 import styles from "./DetaljerTabell.module.css";
@@ -9,13 +9,42 @@ interface DetaljerTabellProps {
 
 type Linjetype = "fjern" | "attester";
 
+type LinjeEndring = {
+  checked: boolean;
+  activelyChangedDatoUgyldigFom?: string;
+  suggestedDatoUgyldigFom?: string;
+};
+
 export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [changes, setChanges] = useState<{ [linjeId: number]: LinjeEndring }>(
+    {},
+  );
 
-  function toggleSelectedRow(id: number) {
+  function toggleSelectedRow(
+    event: ChangeEvent<HTMLInputElement>,
+    linje: OppdragsDetaljer,
+  ) {
+    const id = linje.linjeId;
     setSelectedRows((prev) =>
       prev.includes(id) ? prev.filter((i) => id !== i) : [...prev, id],
     );
+    setChanges((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        suggestedDatoUgyldigFom: event.target.checked
+          ? new Date().toISOString().split("T")[0]
+          : undefined,
+      },
+    }));
+  }
+
+  function handleTextFieldChange(id: number, value: string) {
+    setChanges((previousChanges) => ({
+      ...previousChanges,
+      [id]: { ...previousChanges[id], activelyChangedDatoUgyldigFom: value },
+    }));
   }
 
   function lines(type: Linjetype) {
@@ -78,7 +107,7 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
                 indeterminate={checkedStatus("attester") === "noen"}
                 onChange={() => handleToggleAll("attester")}
               >
-                Velg alle attesterte
+                Attester alle
               </Checkbox>
             </Table.HeaderCell>
             <Table.HeaderCell scope="col">
@@ -87,7 +116,7 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
                 indeterminate={checkedStatus("fjern") === "noen"}
                 onChange={() => handleToggleAll("fjern")}
               >
-                Velg alle uattesterte
+                Avattester alle
               </Checkbox>
             </Table.HeaderCell>
           </Table.Row>
@@ -117,8 +146,18 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
                   <div className={styles.ugyldig_textfield}>
                     <TextField
                       size="small"
-                      label={undefined}
-                      value={"31.12.9999"}
+                      label="Ugyldig FOM"
+                      hideLabel
+                      value={
+                        changes[linje.linjeId]?.activelyChangedDatoUgyldigFom ||
+                        (selectedRows.includes(linje.linjeId) &&
+                          changes[linje.linjeId]?.suggestedDatoUgyldigFom) ||
+                        linje.datoUgyldigFom
+                      }
+                      onChange={(e) =>
+                        handleTextFieldChange(linje.linjeId, e.target.value)
+                      }
+                      defaultValue={linje.datoUgyldigFom}
                       disabled={!selectedRows.includes(linje.linjeId)}
                     />
                   </div>
@@ -127,7 +166,7 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
               <Table.DataCell>
                 <Checkbox
                   checked={selectedRows.includes(linje.linjeId)}
-                  onChange={() => toggleSelectedRow(linje.linjeId)}
+                  onChange={(e) => toggleSelectedRow(e, linje)}
                 >
                   {linje.attestant ? "Fjern" : "Attester"}
                 </Checkbox>
