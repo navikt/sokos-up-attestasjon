@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Alert, Heading } from "@navikt/ds-react";
+import { Alert, Button, Heading } from "@navikt/ds-react";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
 import LabelText from "../components/common/LabelText";
@@ -14,11 +14,9 @@ const DetaljerPage = () => {
   const oppdragsIder = location.state;
   if (!oppdragsIder) window.location.replace(BASENAME);
 
-  const {
-    data: attestasjonsegenskaper,
-    error,
-    isLoading,
-  } = useOppdragsDetaljer(oppdragsIder);
+  const { data, error, isLoading } = useOppdragsDetaljer(oppdragsIder);
+
+  const egenskap = data?.reduce((a) => a);
 
   return (
     <>
@@ -27,35 +25,32 @@ const DetaljerPage = () => {
           Attestasjon: Detaljer
         </Heading>
       </div>
-      <div className={styles.attestasjondetaljer}>
-        <div className={styles.attestasjondetaljer__top}>
+      <div className={styles.detaljer}>
+        <div className={styles.detaljer__top}>
           <Breadcrumbs searchLink trefflistelink detaljer />
+          {egenskap && (
+            <div className={styles.detaljer__label}>
+              <LabelText label="Gjelder ID" text={egenskap.oppdragGjelderId} />
+              <LabelText label="Fagsystem ID" text={egenskap.fagSystemId} />
+              <LabelText
+                label="Ansvarssted"
+                text={egenskap.ansvarsStedForOppdrag || ""}
+              />
+              <LabelText label="Fagområde" text={egenskap.navnFagOmraade} />
+            </div>
+          )}
         </div>
       </div>
-      {error && <Alert variant="error">Problemer med å hente data</Alert>}
-      {attestasjonsegenskaper && (
-        <>
-          {Array.isArray(attestasjonsegenskaper) &&
-            attestasjonsegenskaper
-              .filter((egenskap, index, self) => {
-                const firstIndex = self.findIndex(
-                  (item) => item.fagsystemId === egenskap.fagsystemId,
-                );
-                return firstIndex === index;
-              })
-              .map((egenskap, index) => (
-                <>
-                  <LabelText label="Fagsystem ID" text={egenskap.fagsystemId} />
-                  <DetaljerTabell
-                    key={index}
-                    detaljerliste={attestasjonsegenskaper}
-                    fagsystemId={egenskap.fagsystemId}
-                  />
-                </>
-              ))}
-        </>
-      )}
+      <div className={styles.detaljer__knapperad}>
+        <Button variant="primary" size="medium">
+          Oppdater
+        </Button>
+      </div>
+      <div className={styles.detaljer__tabell}>
+        {data && <DetaljerTabell oppdragsdetaljer={data} />}
+      </div>
       {isLoading && <ContentLoader />}
+      {error && <Alert variant="error">Problemer med å hente data</Alert>}
     </>
   );
 };

@@ -1,83 +1,182 @@
-import React, { useState } from "react";
-import { Checkbox, Table } from "@navikt/ds-react";
+import React, { ChangeEvent, useState } from "react";
+import { Checkbox, Table, TextField } from "@navikt/ds-react";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import styles from "./DetaljerTabell.module.css";
 
 interface DetaljerTabellProps {
-  key: number;
-  detaljerliste: OppdragsDetaljer[];
-  fagsystemId: string;
+  oppdragsdetaljer: OppdragsDetaljer[];
 }
 
-export const DetaljerTabell: React.FC<DetaljerTabellProps> = ({
-  detaljerliste,
-}) => {
-  const [selectedRows, setSelectedRows] = useState<string[]>([]);
+type Linjetype = "fjern" | "attester";
 
-  const toggleSelectedRow = (value: string) =>
-    setSelectedRows((list) =>
-      list.includes(value)
-        ? list.filter((id) => id !== value)
-        : [...list, value],
+type LinjeEndring = {
+  checked: boolean;
+  activelyChangedDatoUgyldigFom?: string;
+  suggestedDatoUgyldigFom?: string;
+};
+
+export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
+  const [selectedRows, setSelectedRows] = useState<number[]>([]);
+  const [changes, setChanges] = useState<{ [linjeId: number]: LinjeEndring }>(
+    {},
+  );
+
+  function toggleSelectedRow(
+    event: ChangeEvent<HTMLInputElement>,
+    linje: OppdragsDetaljer,
+  ) {
+    const id = linje.linjeId;
+    setSelectedRows((prev) =>
+      prev.includes(id) ? prev.filter((i) => id !== i) : [...prev, id],
+    );
+    setChanges((prev) => ({
+      ...prev,
+      [id]: {
+        ...prev[id],
+        suggestedDatoUgyldigFom: event.target.checked
+          ? new Date().toISOString().split("T")[0]
+          : undefined,
+      },
+    }));
+  }
+
+  function handleTextFieldChange(id: number, value: string) {
+    setChanges((previousChanges) => ({
+      ...previousChanges,
+      [id]: { ...previousChanges[id], activelyChangedDatoUgyldigFom: value },
+    }));
+  }
+
+  function lines(type: Linjetype) {
+    return type === "attester"
+      ? oppdragsdetaljer.filter((linje) => !linje.attestant)
+      : /* type === "fjern"   */ oppdragsdetaljer.filter(
+          (linje) => linje.attestant,
+        );
+  }
+
+  function ids(type: Linjetype) {
+    return lines(type).map((l) => l.linjeId);
+  }
+
+  function checkedStatus(type: Linjetype) {
+    const alle: boolean = !lines(type).some(
+      (linje) => !selectedRows.includes(linje.linjeId),
+    );
+    const noen: boolean = lines(type).some((linje) =>
+      selectedRows.includes(linje.linjeId),
     );
 
+    if (alle) return "alle";
+    else if (noen) return "noen";
+    else return "ingen";
+  }
+
+  function handleToggleAll(type: Linjetype) {
+    // alle var huket av fra før
+    if (checkedStatus(type) === "alle") {
+      setSelectedRows(selectedRows.filter((id) => !ids(type).includes(id)));
+    }
+    // ingen var huket av fra før
+    // noen var huket av fra før
+    else setSelectedRows((prev) => [...prev, ...ids(type)]);
+  }
+
   return (
-    <Table>
-      <Table.Header>
-        <Table.Row>
-          <Table.HeaderCell>Klasse</Table.HeaderCell>
-          <Table.HeaderCell>Delytelses Id</Table.HeaderCell>
-          <Table.HeaderCell>Sats</Table.HeaderCell>
-          <Table.HeaderCell>Type</Table.HeaderCell>
-          <Table.HeaderCell>Periode(r)</Table.HeaderCell>
-          <Table.HeaderCell>Attestant</Table.HeaderCell>
-          <Table.DataCell>
-            <Checkbox
-              checked={selectedRows.length === detaljerliste.length}
-              indeterminate={
-                selectedRows.length > 0 &&
-                selectedRows.length !== detaljerliste.length
-              }
-              onChange={() => {
-                if (selectedRows.length > 0) {
-                  setSelectedRows([]);
-                } else {
-                  setSelectedRows(
-                    detaljerliste.map(({ delytelsesId }) => delytelsesId),
-                  );
-                }
-              }}
-            >
-              Velg alle rader
-            </Checkbox>
-          </Table.DataCell>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {detaljerliste.map((detalj, i) => (
-          <Table.Row
-            key={i + detalj.fagsystemId}
-            selected={selectedRows.includes(detalj.delytelsesId)}
-          >
-            <Table.DataCell>{detalj.klasse}</Table.DataCell>
-            <Table.DataCell>{detalj.delytelsesId}</Table.DataCell>
-            <Table.DataCell>{detalj.sats}</Table.DataCell>
-            <Table.DataCell>{detalj.satstype}</Table.DataCell>
-            <Table.DataCell>
-              {detalj.datoVedtakFom} - {detalj.datoVedtakTom}
-            </Table.DataCell>
-            <Table.DataCell>{detalj.attestant}</Table.DataCell>
-            <Table.DataCell>
+    <>
+      <Table>
+        <Table.Header>
+          <Table.Row>
+            <Table.HeaderCell scope="col">Klasse</Table.HeaderCell>
+            <Table.HeaderCell scope="col" align="right">
+              Delytelses Id
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col" align="right">
+              Sats
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">Type</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Periode(r)</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Kostnadssted</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Ansvarssted</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Attestant</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Ugyldig FOM</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
+            <Table.HeaderCell scope="col">
               <Checkbox
-                hideLabel
-                checked={selectedRows.includes(detalj.delytelsesId)}
-                onChange={() => toggleSelectedRow(detalj.delytelsesId)}
+                checked={checkedStatus("attester") === "alle"}
+                indeterminate={checkedStatus("attester") === "noen"}
+                onChange={() => handleToggleAll("attester")}
               >
-                {" "}
+                Attester alle
               </Checkbox>
-            </Table.DataCell>
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <Checkbox
+                checked={checkedStatus("fjern") === "alle"}
+                indeterminate={checkedStatus("fjern") === "noen"}
+                onChange={() => handleToggleAll("fjern")}
+              >
+                Avattester alle
+              </Checkbox>
+            </Table.HeaderCell>
           </Table.Row>
-        ))}
-      </Table.Body>
-    </Table>
+        </Table.Header>
+        <Table.Body>
+          {oppdragsdetaljer.map((linje) => (
+            <Table.Row
+              key={linje.linjeId}
+              selected={selectedRows.includes(linje.linjeId)}
+            >
+              <Table.DataCell>{linje.kodeKlasse}</Table.DataCell>
+              <Table.DataCell align="center">{linje.linjeId}</Table.DataCell>
+              <Table.DataCell align="center">{linje.sats}</Table.DataCell>
+              <Table.DataCell>{linje.satstype}</Table.DataCell>
+              <Table.DataCell>
+                {linje.datoVedtakFom} - {linje.datoVedtakTom}
+              </Table.DataCell>
+              <Table.DataCell>
+                {linje.kostnadsStedForOppdragsLinje}
+              </Table.DataCell>
+              <Table.DataCell>
+                {linje.ansvarsStedForOppdragsLinje}
+              </Table.DataCell>
+              <Table.DataCell>{linje.attestant}</Table.DataCell>
+              <Table.DataCell>
+                {linje.attestant && (
+                  <div className={styles.ugyldig_textfield}>
+                    <TextField
+                      size="small"
+                      label="Ugyldig FOM"
+                      hideLabel
+                      value={
+                        changes[linje.linjeId]?.activelyChangedDatoUgyldigFom ||
+                        (selectedRows.includes(linje.linjeId) &&
+                          changes[linje.linjeId]?.suggestedDatoUgyldigFom) ||
+                        linje.datoUgyldigFom
+                      }
+                      onChange={(e) =>
+                        handleTextFieldChange(linje.linjeId, e.target.value)
+                      }
+                      defaultValue={linje.datoUgyldigFom}
+                      disabled={!selectedRows.includes(linje.linjeId)}
+                    />
+                  </div>
+                )}
+              </Table.DataCell>
+              <Table.DataCell>
+                <Checkbox
+                  checked={selectedRows.includes(linje.linjeId)}
+                  onChange={(e) => toggleSelectedRow(e, linje)}
+                >
+                  {linje.attestant ? "Fjern" : "Attester"}
+                </Checkbox>
+              </Table.DataCell>
+              <Table.DataCell />
+              <Table.DataCell />
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table>
+    </>
   );
 };

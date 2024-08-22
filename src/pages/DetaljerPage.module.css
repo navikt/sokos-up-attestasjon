@@ -1,7 +1,27 @@
-.attestasjondetaljer {
-  @apply mx-auto my-3 mt-6 space-y-6;
+.detaljer {
+  @apply mx-auto my-3 space-y-6;
 }
 
-.attestasjondetaljer__top {
+.detaljer__top {
   @apply mx-auto min-w-1024 max-w-[1440px] space-y-5;
+}
+
+.detaljer__tabell {
+  @apply mx-10 min-w-1024 rounded-lg bg-white;
+}
+
+.detaljer__label {
+  @apply flex gap-16 rounded-lg bg-white pb-5 pl-5 pt-5;
+}
+
+.detaljer__knapperad {
+  @apply mx-10 flex justify-end pb-5 pt-5;
+}
+
+.detaljer__columns {
+  @apply flex w-11/12 flex-row justify-between space-x-16;
+}
+
+.detaljer__column {
+  @apply flex flex-col space-y-3;
 }

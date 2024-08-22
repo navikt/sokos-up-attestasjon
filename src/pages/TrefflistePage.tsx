@@ -22,18 +22,13 @@ const TrefflistePage = () => {
       <div className={styles.treffliste}>
         <div className={styles.treffliste__top}>
           <Breadcrumbs searchLink treffliste />
-          <div className={styles.treffliste__top_info}>
-            <Heading level="2" size="medium">
-              Treffliste
-            </Heading>
-            <SokeParameterVisning
-              gjelderId={sokeData?.gjelderId}
-              fagsystemId={sokeData?.fagsystemId}
-              kodeFaggruppe={sokeData?.kodeFaggruppe}
-              kodeFagomraade={sokeData?.kodeFagomraade}
-              attestertStatus={sokeData?.attestertStatus}
-            />
-          </div>
+          <SokeParameterVisning
+            gjelderId={sokeData?.gjelderId}
+            fagsystemId={sokeData?.fagsystemId}
+            kodeFaggruppe={sokeData?.kodeFaggruppe}
+            kodeFagomraade={sokeData?.kodeFagomraade}
+            attestertStatus={sokeData?.attestertStatus}
+          />
         </div>
         {isLoading && <ContentLoader />}
         {!isLoading && treffliste && (

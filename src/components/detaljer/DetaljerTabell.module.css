@@ -1,0 +1,7 @@
+.ugyldig_textfield {
+  @apply w-32;
+}
+
+.checkbox_container {
+  @apply flex items-center gap-6;
+}
