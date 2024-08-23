@@ -25,11 +25,18 @@ export const storeSok = (sokedata?: SokeData) => {
   }
 };
 
+export const storeNavn = (navn?: string) =>
+  navn
+    ? sessionStorage.setItem("attestasjon_navn", btoa(navn))
+    : sessionStorage.removeItem("attestasjon_navn");
+export const retrieveNavn = () => retrieveFromStorage("attestasjon_navn") ?? "";
+export const clearNavn = () => storeId();
+
 export const storeId = (id?: string) =>
   id
-    ? sessionStorage.setItem("oppdragsinfo_gId", btoa(id))
-    : sessionStorage.removeItem("oppdragsinfo_gId");
-export const retrieveId = () => retrieveFromStorage("oppdragsinfo_gId") ?? "";
+    ? sessionStorage.setItem("attestasjon_gId", btoa(id))
+    : sessionStorage.removeItem("attestasjon_gId");
+export const retrieveId = () => retrieveFromStorage("attestasjon_gId") ?? "";
 export const clearId = () => storeId();
 
 export const isEmpty = (array: Array<unknown> | undefined | null) =>
