@@ -1,5 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { MagnifyingGlassIcon } from "@navikt/aksel-icons";
 import { Button, ErrorSummary, Radio, RadioGroup } from "@navikt/ds-react";
 import useFetchFaggrupper from "../../hooks/useFetchFaggrupper";
 import useFetchFagomraader from "../../hooks/useFetchFagomraader";
@@ -34,12 +35,15 @@ function SokForm({ sokedata, onSubmit }: SokFormProps) {
         <div className={styles.sok}>
           <FormField
             name="gjelderId"
+            label="Gjelder ID"
+            placeholder={"Fødselsnummer eller organisasjonsnummer"}
             defaultValue={sokedata?.gjelderId}
             register={register}
             error={errors.gjelderId}
           />
           <FormField
             name="fagsystemId"
+            label="Fagsystem ID"
             defaultValue={sokedata?.fagsystemId}
             register={register}
             error={errors.fagsystemId}
@@ -69,33 +73,46 @@ function SokForm({ sokedata, onSubmit }: SokFormProps) {
             setValue={setValue}
           />
           <RadioGroup
-            legend="Attestert status"
+            legend="Status"
             name="attestertStatus"
             defaultValue={sokedata?.attestertStatus ?? "null"}
           >
             <Radio value="true" {...register("attestertStatus")}>
-              attestert
+              Attestert
             </Radio>
             <Radio value="false" {...register("attestertStatus")}>
-              ikke attestert
+              Ikke attestert
             </Radio>
             <Radio value="null" {...register("attestertStatus")}>
-              alle
+              Alle
             </Radio>
           </RadioGroup>
         </div>
         {filteredErrors.length > 0 && (
-          <ErrorSummary
-            heading={"Du må fikse disse feilene før du kan fortsette"}
-          >
-            {filteredErrors.map((e) => (
-              <ErrorSummary.Item key={e}>
-                {(errors as { [key: string]: { message: string } })[e].message}
-              </ErrorSummary.Item>
-            ))}
-          </ErrorSummary>
+          <div className={styles.error_summary}>
+            <ErrorSummary
+              heading={"Du må fikse disse feilene før du kan fortsette"}
+            >
+              {filteredErrors.map((e) => (
+                <ErrorSummary.Item key={e}>
+                  {
+                    (errors as { [key: string]: { message: string } })[e]
+                      .message
+                  }
+                </ErrorSummary.Item>
+              ))}
+            </ErrorSummary>
+          </div>
         )}
-        <Button type="submit">Søk</Button>
+        <div className={styles.sok__button}>
+          <Button
+            type="submit"
+            icon={<MagnifyingGlassIcon />}
+            iconPosition="right"
+          >
+            Søk
+          </Button>
+        </div>
       </form>
     </>
   );

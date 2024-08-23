@@ -1,3 +1,4 @@
+import React from "react";
 import { UseFormRegister, UseFormSetValue } from "react-hook-form";
 import { SokeData, ValidFieldNames } from "./SokeSchema";
 import styles from "./SokosCombobox.module.css";
@@ -35,7 +36,7 @@ const SokosCombobox = ({
   return (
     <>
       <label className={styles.combobox}>
-        {name.slice(4)}:
+        {<b>{name.slice(4)}</b>}
         <input
           className={styles.combobox__input}
           list={name}

@@ -1,3 +1,11 @@
 .sok {
   @apply w-1/3 space-y-3;
 }
+
+.error_summary {
+  @apply max-w-2xl pt-2;
+}
+
+.sok__button {
+  @apply pt-5;
+}
