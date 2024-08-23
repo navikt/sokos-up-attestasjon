@@ -87,19 +87,19 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
       <Table>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell scope="col">Klasse</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Klassekode</Table.HeaderCell>
             <Table.HeaderCell scope="col" align="right">
-              Delytelses Id
+              Delytelse
             </Table.HeaderCell>
             <Table.HeaderCell scope="col" align="right">
               Sats
             </Table.HeaderCell>
-            <Table.HeaderCell scope="col">Type</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Periode(r)</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Satstype</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
             <Table.HeaderCell scope="col">Kostnadssted</Table.HeaderCell>
             <Table.HeaderCell scope="col">Ansvarssted</Table.HeaderCell>
             <Table.HeaderCell scope="col">Attestant</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Ugyldig FOM</Table.HeaderCell>
+            <Table.HeaderCell scope="col">Ugyldig f.o.m</Table.HeaderCell>
             <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
             <Table.HeaderCell scope="col">
               <Checkbox

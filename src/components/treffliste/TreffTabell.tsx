@@ -13,7 +13,7 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
       <Table>
         <Table.Header>
           <Table.Row>
-            <Table.HeaderCell>Gjelder ID</Table.HeaderCell>
+            <Table.HeaderCell>Gjelder</Table.HeaderCell>
             <Table.HeaderCell>Faggruppe</Table.HeaderCell>
             <Table.HeaderCell>Fagsystem ID</Table.HeaderCell>
             <Table.HeaderCell>Fagområde</Table.HeaderCell>

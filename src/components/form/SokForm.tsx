@@ -35,7 +35,7 @@ function SokForm({ sokedata, onSubmit }: SokFormProps) {
         <div className={styles.sok}>
           <FormField
             name="gjelderId"
-            label="Gjelder ID"
+            label="Gjelder"
             placeholder={"Fødselsnummer eller organisasjonsnummer"}
             defaultValue={sokedata?.gjelderId}
             register={register}
@@ -50,6 +50,7 @@ function SokForm({ sokedata, onSubmit }: SokFormProps) {
           />
           <SokosCombobox
             name="kodeFaggruppe"
+            label={"Faggruppe"}
             faggrupper={
               faggrupper
                 ? faggrupper
@@ -62,6 +63,7 @@ function SokForm({ sokedata, onSubmit }: SokFormProps) {
           />
           <SokosCombobox
             name="kodeFagomraade"
+            label={"Fagområde"}
             faggrupper={
               fagomraader
                 ? fagomraader

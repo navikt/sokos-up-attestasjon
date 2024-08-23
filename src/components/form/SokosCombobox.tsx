@@ -11,12 +11,14 @@ type FaggruppeComboboxProps = {
     | "kodeFagomraade"
     | "attestertStatus";
   faggrupper?: string[];
+  label: string;
   register: UseFormRegister<SokeData>;
   setValue: UseFormSetValue<SokeData>;
 };
 
 const SokosCombobox = ({
   name,
+  label,
   faggrupper,
   register,
   setValue,
@@ -36,7 +38,7 @@ const SokosCombobox = ({
   return (
     <>
       <label className={styles.combobox}>
-        {<b>{name.slice(4)}</b>}
+        {<b>{label}</b>}
         <input
           className={styles.combobox__input}
           list={name}
