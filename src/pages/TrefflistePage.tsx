@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Heading } from "@navikt/ds-react";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
@@ -7,7 +7,7 @@ import { TreffTabell } from "../components/treffliste/TreffTabell";
 import { useHentNavn } from "../hooks/useHentNavn";
 import useSokOppdrag from "../hooks/useSokOppdrag";
 import commonstyles from "../styles/common-styles.module.css";
-import { retrieveNavn, retrieveSok, storeNavn } from "../util/commonUtils";
+import { retrieveSok } from "../util/commonUtils";
 import { BASENAME } from "../util/constants";
 import styles from "./TrefflistePage.module.css";
 
@@ -16,14 +16,14 @@ const TrefflistePage = () => {
   if (!sokeData) window.location.replace(BASENAME);
   const { treffliste, isLoading } = useSokOppdrag(retrieveSok());
   const gjelderId = retrieveSok()?.gjelderId;
-  const gjelderNavn = retrieveNavn();
+  const [gjelderNavn, setGjelderNavn] = useState<string>("");
 
   const hentNavn = useHentNavn({ gjelderId });
 
   useEffect(() => {
     if (gjelderNavn === "") {
       hentNavn.then((response) => {
-        storeNavn(response.navn);
+        setGjelderNavn(response.navn);
       });
     }
   }, [gjelderNavn, hentNavn]);
