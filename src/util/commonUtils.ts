@@ -1,5 +1,4 @@
 import { SokeData } from "../components/form/SokeSchema";
-import { Oppdrag } from "../types/Oppdrag";
 
 const attestasjonItemName = "attestasjon_sok";
 
@@ -27,21 +26,10 @@ export const storeSok = (sokedata?: SokeData) => {
 
 export const storeId = (id?: string) =>
   id
-    ? sessionStorage.setItem("oppdragsinfo_gId", btoa(id))
-    : sessionStorage.removeItem("oppdragsinfo_gId");
-export const retrieveId = () => retrieveFromStorage("oppdragsinfo_gId") ?? "";
+    ? sessionStorage.setItem("attestasjon_gId", btoa(id))
+    : sessionStorage.removeItem("attestasjon_gId");
+export const retrieveId = () => retrieveFromStorage("attestasjon_gId") ?? "";
 export const clearId = () => storeId();
 
 export const isEmpty = (array: Array<unknown> | undefined | null) =>
   !array || !Array.isArray(array) || !array.length;
-
-export const firstOf = <T>(ar: Array<T>) => ar.reduce((a) => a);
-
-export const anyOppdragExists = (
-  treffliste?: Oppdrag[],
-): treffliste is Oppdrag[] => {
-  return !(!treffliste || !Array.isArray(treffliste) || isEmpty(treffliste));
-};
-
-export const capitalize = (str: string) =>
-  str.charAt(0).toUpperCase() + str.slice(1);

@@ -3,6 +3,7 @@ import { ApiError, HttpStatusCodeError } from "../../types/errors";
 
 export const BASE_URI = {
   ATTESTASJON: "/oppdrag-api/api/v1/attestasjon",
+  INTEGRATION: "/oppdrag-api/api/v1/integration",
   OPPDRAGSINFO: "/oppdrag-api/api/v1/oppdragsinfo",
 };
 

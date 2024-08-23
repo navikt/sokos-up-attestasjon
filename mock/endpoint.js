@@ -15,6 +15,11 @@ export default [
     }
   },
   {
+    url: "/oppdrag-api/api/v1/integration/hentnavn",
+    method: "POST",
+    response: () => ({ navn: "Test Testesen" })
+  },
+  {
     url: "/oppdrag-api/api/v1/attestasjon/oppdragsdetaljer",
     method: "POST",
     response: () => oppdragDetaljer
