@@ -7,12 +7,7 @@ import { TreffTabell } from "../components/treffliste/TreffTabell";
 import { useHentNavn } from "../hooks/useHentNavn";
 import useSokOppdrag from "../hooks/useSokOppdrag";
 import commonstyles from "../styles/common-styles.module.css";
-import {
-  retrieveId,
-  retrieveNavn,
-  retrieveSok,
-  storeNavn,
-} from "../util/commonUtils";
+import { retrieveNavn, retrieveSok, storeNavn } from "../util/commonUtils";
 import { BASENAME } from "../util/constants";
 import styles from "./TrefflistePage.module.css";
 
@@ -20,15 +15,15 @@ const TrefflistePage = () => {
   const sokeData = retrieveSok();
   if (!sokeData) window.location.replace(BASENAME);
   const { treffliste, isLoading } = useSokOppdrag(retrieveSok());
-  const gjelderId = retrieveId();
+  const gjelderId = retrieveSok()?.gjelderId;
   const gjelderNavn = retrieveNavn();
 
   const hentNavn = useHentNavn({ gjelderId });
 
   useEffect(() => {
     if (gjelderNavn === "") {
-      hentNavn.then((navn) => {
-        storeNavn(navn.navn);
+      hentNavn.then((response) => {
+        storeNavn(response.navn);
       });
     }
   }, [gjelderNavn, hentNavn]);
