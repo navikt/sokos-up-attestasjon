@@ -11,10 +11,10 @@ import styles from "./DetaljerPage.module.css";
 
 const DetaljerPage = () => {
   const location = useLocation();
-  const oppdragsIder = location.state;
-  if (!oppdragsIder) window.location.replace(BASENAME);
+  const oppdragsId = location.state;
+  if (!oppdragsId) window.location.replace(BASENAME);
 
-  const { data, error, isLoading } = useOppdragsDetaljer(oppdragsIder);
+  const { data, error, isLoading } = useOppdragsDetaljer(oppdragsId.oppdragsId);
 
   const egenskap = data?.reduce((a) => a);
 

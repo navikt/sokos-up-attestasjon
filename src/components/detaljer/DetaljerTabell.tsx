@@ -103,18 +103,25 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
             <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
             <Table.HeaderCell scope="col">
               <Checkbox
-                checked={checkedStatus("attester") === "alle"}
+                checked={
+                  lines("attester").length > 0 &&
+                  checkedStatus("attester") === "alle"
+                }
                 indeterminate={checkedStatus("attester") === "noen"}
                 onChange={() => handleToggleAll("attester")}
+                disabled={lines("attester").length === 0}
               >
                 Attester alle
               </Checkbox>
             </Table.HeaderCell>
             <Table.HeaderCell scope="col">
               <Checkbox
-                checked={checkedStatus("fjern") === "alle"}
+                checked={
+                  lines("fjern").length > 0 && checkedStatus("fjern") === "alle"
+                }
                 indeterminate={checkedStatus("fjern") === "noen"}
                 onChange={() => handleToggleAll("fjern")}
+                disabled={lines("fjern").length === 0}
               >
                 Avattester alle
               </Checkbox>
@@ -157,7 +164,6 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
                       onChange={(e) =>
                         handleTextFieldChange(linje.linjeId, e.target.value)
                       }
-                      defaultValue={linje.datoUgyldigFom}
                       disabled={!selectedRows.includes(linje.linjeId)}
                     />
                   </div>

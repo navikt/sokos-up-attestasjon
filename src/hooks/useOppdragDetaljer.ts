@@ -1,17 +1,12 @@
 import useSWR from "swr";
-import { BASE_URI, axiosPostFetcher, swrConfig } from "../api/config/apiConfig";
-import { OppdragsIdRequest } from "../api/models/OppdragsIdRequest";
+import { BASE_URI, axiosFetcher, swrConfig } from "../api/config/apiConfig";
 import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
 
-const useOppdragsDetaljer = (oppdragsIder: OppdragsIdRequest) => {
+const useOppdragsDetaljer = (oppdragsId: number) => {
   const { data, error, isValidating } = useSWR<OppdragsDetaljer[]>(
-    "/oppdragsdetaljer",
+    `/oppdragsdetaljer/${oppdragsId.toString()}`,
     swrConfig<OppdragsDetaljer[]>((url) =>
-      axiosPostFetcher<OppdragsIdRequest, OppdragsDetaljer[]>(
-        BASE_URI.ATTESTASJON,
-        url,
-        oppdragsIder,
-      ),
+      axiosFetcher<OppdragsDetaljer[]>(BASE_URI.ATTESTASJON, url),
     ),
   );
 

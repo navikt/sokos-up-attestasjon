@@ -20,8 +20,8 @@ export default [
     response: () => ({ navn: "Test Testesen" })
   },
   {
-    url: "/oppdrag-api/api/v1/attestasjon/oppdragsdetaljer",
-    method: "POST",
+    url: "/oppdrag-api/api/v1/attestasjon/oppdragsdetaljer/:oppdragsId",
+    method: "GET",
     response: () => oppdragDetaljer
   },
   {
