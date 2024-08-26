@@ -1,6 +1,6 @@
 import faggrupper from "./GET_faggrupper.json";
 import fagomraader from "./GET_fagomraader.json";
-import oppdragDetaljer from "./POST_oppdragsDetaljer.json";
+import oppdragDetaljer from "./GET_oppdragsDetaljer.json";
 import sok from "./POST_sok.json";
 
 export default [

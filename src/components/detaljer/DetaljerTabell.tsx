@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { Checkbox, Table, TextField } from "@navikt/ds-react";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import { dagensDato, isoDatoTilNorskDato } from "../../util/DatoUtil";
 import styles from "./DetaljerTabell.module.css";
 
 interface DetaljerTabellProps {
@@ -34,7 +35,7 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
       [id]: {
         ...prev[id],
         suggestedDatoUgyldigFom: event.target.checked
-          ? new Date().toISOString().split("T")[0]
+          ? dagensDato()
           : undefined,
       },
     }));
@@ -139,7 +140,8 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
               <Table.DataCell align="center">{linje.sats}</Table.DataCell>
               <Table.DataCell>{linje.satstype}</Table.DataCell>
               <Table.DataCell>
-                {linje.datoVedtakFom} - {linje.datoVedtakTom}
+                {isoDatoTilNorskDato(linje.datoVedtakFom)} -{" "}
+                {isoDatoTilNorskDato(linje.datoVedtakTom)}
               </Table.DataCell>
               <Table.DataCell>
                 {linje.kostnadsStedForOppdragsLinje}
@@ -159,7 +161,7 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
                         changes[linje.linjeId]?.activelyChangedDatoUgyldigFom ||
                         (selectedRows.includes(linje.linjeId) &&
                           changes[linje.linjeId]?.suggestedDatoUgyldigFom) ||
-                        linje.datoUgyldigFom
+                        isoDatoTilNorskDato(linje.datoUgyldigFom)
                       }
                       onChange={(e) =>
                         handleTextFieldChange(linje.linjeId, e.target.value)
