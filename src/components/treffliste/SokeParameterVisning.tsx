@@ -1,3 +1,4 @@
+import { Heading } from "@navikt/ds-react";
 import LabelText from "../common/LabelText";
 import styles from "./SokeParameterVisning.module.css";
 
@@ -32,12 +33,21 @@ const SokeParameterVisning = ({
   return (
     <>
       <div className={styles.sokekriterier}>
+        <Heading size={"small"} level={"2"}>
+          Søkekriterier benyttet:
+        </Heading>
         <div className={styles.sokekriterier__content}>
-          <LabelText label={"Gjelder ID"} text={gjelderId ?? ""} />
-          <LabelText label={"Navn"} text={navn ?? ""} />
-          <LabelText label={"Fagsystem ID"} text={fagsystemId ?? ""} />
-          <LabelText label={"Faggruppe"} text={kodeFaggruppe ?? ""} />
-          <LabelText label={"Fagområde"} text={kodeFagomraade ?? ""} />
+          {gjelderId && <LabelText label={"Gjelder ID"} text={gjelderId} />}
+          {navn && <LabelText label={"Navn"} text={navn} />}
+          {fagsystemId && (
+            <LabelText label={"Fagsystem ID"} text={fagsystemId} />
+          )}
+          {kodeFaggruppe && (
+            <LabelText label={"Faggruppe"} text={kodeFaggruppe} />
+          )}
+          {kodeFagomraade && (
+            <LabelText label={"Fagområde"} text={kodeFagomraade} />
+          )}
           <LabelText label={"Attestert status"} text={attestertStatusText} />
         </div>
       </div>

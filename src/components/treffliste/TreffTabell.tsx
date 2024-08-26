@@ -25,10 +25,7 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
           {treffliste.map((oppdrag) => (
             <Table.Row>
               <Table.DataCell key={oppdrag.oppdragsId}>
-                <Link
-                  to="/detaljer"
-                  state={{ oppdragsIder: [oppdrag.oppdragsId] }}
-                >
+                <Link to="/detaljer" state={{ oppdragsId: oppdrag.oppdragsId }}>
                   {oppdrag.gjelderId}
                 </Link>
               </Table.DataCell>

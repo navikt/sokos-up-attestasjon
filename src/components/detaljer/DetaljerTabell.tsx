@@ -1,6 +1,7 @@
 import React, { ChangeEvent, useState } from "react";
 import { Checkbox, Table, TextField } from "@navikt/ds-react";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import { dagensDato, isoDatoTilNorskDato } from "../../util/DatoUtil";
 import styles from "./DetaljerTabell.module.css";
 
 interface DetaljerTabellProps {
@@ -34,7 +35,7 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
       [id]: {
         ...prev[id],
         suggestedDatoUgyldigFom: event.target.checked
-          ? new Date().toISOString().split("T")[0]
+          ? dagensDato()
           : undefined,
       },
     }));
@@ -103,18 +104,25 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
             <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
             <Table.HeaderCell scope="col">
               <Checkbox
-                checked={checkedStatus("attester") === "alle"}
+                checked={
+                  lines("attester").length > 0 &&
+                  checkedStatus("attester") === "alle"
+                }
                 indeterminate={checkedStatus("attester") === "noen"}
                 onChange={() => handleToggleAll("attester")}
+                disabled={lines("attester").length === 0}
               >
                 Attester alle
               </Checkbox>
             </Table.HeaderCell>
             <Table.HeaderCell scope="col">
               <Checkbox
-                checked={checkedStatus("fjern") === "alle"}
+                checked={
+                  lines("fjern").length > 0 && checkedStatus("fjern") === "alle"
+                }
                 indeterminate={checkedStatus("fjern") === "noen"}
                 onChange={() => handleToggleAll("fjern")}
+                disabled={lines("fjern").length === 0}
               >
                 Avattester alle
               </Checkbox>
@@ -132,7 +140,8 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
               <Table.DataCell align="center">{linje.sats}</Table.DataCell>
               <Table.DataCell>{linje.satstype}</Table.DataCell>
               <Table.DataCell>
-                {linje.datoVedtakFom} - {linje.datoVedtakTom}
+                {isoDatoTilNorskDato(linje.datoVedtakFom)} -{" "}
+                {isoDatoTilNorskDato(linje.datoVedtakTom)}
               </Table.DataCell>
               <Table.DataCell>
                 {linje.kostnadsStedForOppdragsLinje}
@@ -152,12 +161,11 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
                         changes[linje.linjeId]?.activelyChangedDatoUgyldigFom ||
                         (selectedRows.includes(linje.linjeId) &&
                           changes[linje.linjeId]?.suggestedDatoUgyldigFom) ||
-                        linje.datoUgyldigFom
+                        isoDatoTilNorskDato(linje.datoUgyldigFom)
                       }
                       onChange={(e) =>
                         handleTextFieldChange(linje.linjeId, e.target.value)
                       }
-                      defaultValue={linje.datoUgyldigFom}
                       disabled={!selectedRows.includes(linje.linjeId)}
                     />
                   </div>

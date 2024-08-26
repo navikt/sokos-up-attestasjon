@@ -11,12 +11,12 @@ import styles from "./DetaljerPage.module.css";
 
 const DetaljerPage = () => {
   const location = useLocation();
-  const oppdragsIder = location.state;
-  if (!oppdragsIder) window.location.replace(BASENAME);
+  const oppdragsId = location.state;
+  if (!oppdragsId) window.location.replace(BASENAME);
 
-  const { data, error, isLoading } = useOppdragsDetaljer(oppdragsIder);
+  const { data, error, isLoading } = useOppdragsDetaljer(oppdragsId.oppdragsId);
 
-  const egenskap = data?.reduce((a) => a);
+  const firstEgenskap = data?.reduce((a) => a);
 
   return (
     <>
@@ -28,15 +28,28 @@ const DetaljerPage = () => {
       <div className={styles.detaljer}>
         <div className={styles.detaljer__top}>
           <Breadcrumbs searchLink trefflistelink detaljer />
-          {egenskap && (
+          {firstEgenskap && (
             <div className={styles.detaljer__label}>
-              <LabelText label="Gjelder ID" text={egenskap.oppdragGjelderId} />
-              <LabelText label="Fagsystem ID" text={egenskap.fagSystemId} />
+              <LabelText
+                label="Gjelder ID"
+                text={firstEgenskap.oppdragGjelderId}
+              />
+              <LabelText
+                label="Fagsystem ID"
+                text={firstEgenskap.fagSystemId}
+              />
               <LabelText
                 label="Ansvarssted"
-                text={egenskap.ansvarsStedForOppdrag || ""}
+                text={firstEgenskap.ansvarsStedForOppdrag || ""}
               />
-              <LabelText label="Fagområde" text={egenskap.navnFagOmraade} />
+              <LabelText
+                label="Kostnadssted"
+                text={firstEgenskap.kostnadsStedForOppdrag || ""}
+              />
+              <LabelText
+                label="Fagområde"
+                text={firstEgenskap.navnFagOmraade}
+              />
             </div>
           )}
         </div>
