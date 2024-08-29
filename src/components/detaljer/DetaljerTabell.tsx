@@ -117,7 +117,7 @@ export const DetaljerTabell = ({
 
     try {
       const response = await axios.post(
-        `${BASE_URI.ATTESTASJON}/oppdater`,
+        `${BASE_URI.ATTESTASJON}/attestere`,
         payload,
       );
       setResponse(response.data);
