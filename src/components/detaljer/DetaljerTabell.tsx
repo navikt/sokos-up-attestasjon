@@ -1,26 +1,42 @@
+import axios from "axios";
 import React, { ChangeEvent, useState } from "react";
-import { Checkbox, Table, TextField } from "@navikt/ds-react";
+import { Alert, Button, Checkbox, Table, TextField } from "@navikt/ds-react";
+import { BASE_URI } from "../../api/config/apiConfig";
+import { OppdaterAttestasjonResponse } from "../../types/OppdaterAttestasjonResponse";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 import { dagensDato, isoDatoTilNorskDato } from "../../util/DatoUtil";
+import { createRequestPayload } from "../../util/createRequestPayload";
 import styles from "./DetaljerTabell.module.css";
 
 interface DetaljerTabellProps {
   oppdragsdetaljer: OppdragsDetaljer[];
+  oppdragGjelderId: string | undefined;
+  fagSystemId: string | undefined;
+  navnFagOmraade: string | undefined;
+  oppdragsId: number;
 }
 
 type Linjetype = "fjern" | "attester";
 
-type LinjeEndring = {
+export type LinjeEndring = {
   checked: boolean;
   activelyChangedDatoUgyldigFom?: string;
   suggestedDatoUgyldigFom?: string;
 };
 
-export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
+export const DetaljerTabell = ({
+  oppdragsdetaljer,
+  oppdragGjelderId,
+  fagSystemId,
+  navnFagOmraade,
+  oppdragsId,
+}: DetaljerTabellProps) => {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
   const [changes, setChanges] = useState<{ [linjeId: number]: LinjeEndring }>(
     {},
   );
+  const [error, setError] = useState<string | null>(null);
+  const [response, setResponse] = useState<OppdaterAttestasjonResponse>();
 
   function toggleSelectedRow(
     event: ChangeEvent<HTMLInputElement>,
@@ -83,8 +99,46 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
     else setSelectedRows((prev) => [...prev, ...ids(type)]);
   }
 
+  const handleSubmit = async () => {
+    if (!oppdragGjelderId || !fagSystemId || !navnFagOmraade) {
+      setError("Mangler oppdragGjelderId, fagSystemId eller navnFagOmraade");
+      return;
+    }
+    const payload = createRequestPayload(
+      oppdragsdetaljer,
+      selectedRows,
+      oppdragGjelderId,
+      navnFagOmraade,
+      oppdragsId,
+      "someBrukerId",
+      true,
+      changes,
+    );
+
+    try {
+      const response = await axios.post(
+        `${BASE_URI.ATTESTASJON}/oppdater`,
+        payload,
+      );
+      setResponse(response.data);
+      setError(null);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setError("Error:" + error.message);
+      } else {
+        setError("En uforventet feil har skjedd");
+      }
+    }
+  };
+
   return (
     <>
+      {error && <Alert variant="error">{error}</Alert>}
+      {response && (
+        <Alert variant="success">
+          Oppdatering vellykket. {response.AntLinjerMottatt} linjer oppdatert.
+        </Alert>
+      )}
       <Table>
         <Table.Header>
           <Table.Row>
@@ -126,6 +180,11 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
               >
                 Avattester alle
               </Checkbox>
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <Button type={"submit"} size={"medium"} onClick={handleSubmit}>
+                Oppdater
+              </Button>{" "}
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
@@ -179,6 +238,7 @@ export const DetaljerTabell = ({ oppdragsdetaljer }: DetaljerTabellProps) => {
                   {linje.attestant ? "Fjern" : "Attester"}
                 </Checkbox>
               </Table.DataCell>
+              <Table.DataCell />
               <Table.DataCell />
               <Table.DataCell />
             </Table.Row>

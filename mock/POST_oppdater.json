@@ -1,0 +1,13 @@
+{
+  "OSAttestasjonOperationResponse": {
+    "Attestasjonskvittering": {
+      "ResponsAttestasjon": {
+        "GjelderId": "string",
+        "OppdragsId": 58308587,
+        "AntLinjerMottatt": 1,
+        "Statuskode": 0,
+        "Melding": ""
+      }
+    }
+  }
+}

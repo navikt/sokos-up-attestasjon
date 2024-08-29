@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { Alert, Button, Heading } from "@navikt/ds-react";
+import { Alert, Heading } from "@navikt/ds-react";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
 import LabelText from "../components/common/LabelText";
@@ -54,13 +54,16 @@ const DetaljerPage = () => {
           )}
         </div>
       </div>
-      <div className={styles.detaljer__knapperad}>
-        <Button variant="primary" size="medium">
-          Oppdater
-        </Button>
-      </div>
       <div className={styles.detaljer__tabell}>
-        {data && <DetaljerTabell oppdragsdetaljer={data} />}
+        {data && (
+          <DetaljerTabell
+            oppdragsdetaljer={data}
+            oppdragGjelderId={firstEgenskap?.oppdragGjelderId}
+            fagSystemId={firstEgenskap?.fagSystemId}
+            navnFagOmraade={firstEgenskap?.navnFagOmraade}
+            oppdragsId={oppdragsId.oppdragsId}
+          />
+        )}
       </div>
       {isLoading && <ContentLoader />}
       {error && <Alert variant="error">Problemer med å hente data</Alert>}
