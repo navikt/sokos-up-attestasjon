@@ -15,7 +15,6 @@ const config = (baseUri: string): CreateAxiosDefaults => ({
     Pragma: "no-cache",
     "Cache-Control": "no-cache",
     "Content-Type": "application/json",
-    Accept: "application/json",
   },
   validateStatus: (status) => status < 400,
 });

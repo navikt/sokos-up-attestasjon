@@ -4,8 +4,8 @@
   "description": "Arbeidsflate for attestasjon i Utbetalingsportalen",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:backend": "NODE_ENV=development-local vite",
+    "dev": "vite --mode local-mock",
+    "dev:backend": "vite --mode local-dev",
     "build": "tsc && vite build",
     "test": "vitest",
     "lint": "eslint",
