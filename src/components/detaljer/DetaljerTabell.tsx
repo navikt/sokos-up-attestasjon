@@ -1,6 +1,13 @@
 import axios from "axios";
 import React, { ChangeEvent, useState } from "react";
-import { Alert, Button, Checkbox, Table, TextField } from "@navikt/ds-react";
+import {
+  Alert,
+  Button,
+  Checkbox,
+  Loader,
+  Table,
+  TextField,
+} from "@navikt/ds-react";
 import { BASE_URI } from "../../api/config/apiConfig";
 import { OppdaterAttestasjonResponse } from "../../types/OppdaterAttestasjonResponse";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
@@ -37,6 +44,7 @@ export const DetaljerTabell = ({
   );
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<OppdaterAttestasjonResponse>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   function toggleSelectedRow(
     event: ChangeEvent<HTMLInputElement>,
@@ -115,6 +123,7 @@ export const DetaljerTabell = ({
       changes,
     );
 
+    setLoading(true);
     try {
       const response = await axios.post(
         `${BASE_URI.ATTESTASJON}/attestere`,
@@ -128,6 +137,8 @@ export const DetaljerTabell = ({
       } else {
         setError("En uforventet feil har skjedd");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -182,9 +193,14 @@ export const DetaljerTabell = ({
               </Checkbox>
             </Table.HeaderCell>
             <Table.HeaderCell scope="col">
-              <Button type={"submit"} size={"medium"} onClick={handleSubmit}>
-                Oppdater
-              </Button>{" "}
+              <Button
+                type={"submit"}
+                size={"medium"}
+                onClick={handleSubmit}
+                disabled={loading}
+              >
+                {loading ? <Loader size={"small"} /> : "Oppdater"}
+              </Button>
             </Table.HeaderCell>
           </Table.Row>
         </Table.Header>

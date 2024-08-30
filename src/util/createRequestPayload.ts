@@ -1,6 +1,7 @@
 import { LinjeEndring } from "../components/detaljer/DetaljerTabell";
 import { OppdaterAttestasjon } from "../types/OppdaterAttestasjon";
 import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
+import { norskDatoTilIsoDato } from "./DatoUtil";
 
 export function createRequestPayload(
   oppdragsdetaljer: OppdragsDetaljer[],
@@ -24,9 +25,13 @@ export function createRequestPayload(
       attestantId: linje.attestant || "",
       datoUgyldigFom: !linje.attestant
         ? ""
-        : changes[linje.linjeId]?.activelyChangedDatoUgyldigFom ||
-          changes[linje.linjeId]?.suggestedDatoUgyldigFom ||
-          linje.datoUgyldigFom ||
+        : norskDatoTilIsoDato(
+            changes[linje.linjeId]?.activelyChangedDatoUgyldigFom,
+          ) ||
+          norskDatoTilIsoDato(
+            changes[linje.linjeId]?.suggestedDatoUgyldigFom,
+          ) ||
+          norskDatoTilIsoDato(linje.datoUgyldigFom) ||
           "",
     }));
 
