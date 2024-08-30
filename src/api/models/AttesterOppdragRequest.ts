@@ -7,11 +7,7 @@ const linjerSchema = z.object({
 });
 
 export const OppdaterSchema = z.object({
-  gjelderId: z.string().max(11),
-  fagOmraade: z.string().max(8),
   oppdragsId: z.number().min(0).max(999_999_999),
-  brukerId: z.string().max(8),
-  kjorIdag: z.boolean(),
   linjer: z.array(linjerSchema).max(2000).min(0),
 });
 

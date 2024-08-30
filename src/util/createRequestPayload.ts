@@ -6,14 +6,10 @@ import { norskDatoTilIsoDato } from "./DatoUtil";
 export function createRequestPayload(
   oppdragsdetaljer: OppdragsDetaljer[],
   selectedRows: number[],
-  gjelderId: string,
-  fagOmraade: string,
   oppdragsId: number,
-  brukerId: string,
-  kjorIdag: boolean,
   changes: { [linjeId: number]: LinjeEndring },
 ): AttesterOppdragRequest {
-  const LinjeTab = oppdragsdetaljer
+  const linjer = oppdragsdetaljer
     .filter(
       (linje) =>
         selectedRows.includes(linje.linjeId) &&
@@ -36,11 +32,7 @@ export function createRequestPayload(
     }));
 
   return {
-    gjelderId: gjelderId,
-    fagOmraade: fagOmraade,
     oppdragsId: oppdragsId,
-    brukerId: brukerId,
-    kjorIdag: kjorIdag,
-    linjer: LinjeTab,
+    linjer: linjer,
   };
 }
