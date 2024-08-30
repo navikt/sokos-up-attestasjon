@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Alert,
@@ -8,7 +7,7 @@ import {
   Table,
   TextField,
 } from "@navikt/ds-react";
-import { BASE_URI } from "../../api/config/apiConfig";
+import { BASE_URI, axiosPostFetcher } from "../../api/config/apiConfig";
 import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
 import useFetchFagomraader from "../../hooks/useFetchFagomraader";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
@@ -140,22 +139,13 @@ export const DetaljerTabell = ({
     );
 
     setLoading(true);
-    try {
-      const response = await axios.post(
-        `${BASE_URI.ATTESTASJON}/attestere`,
-        payload,
-      );
-      setResponse(response.data);
-      setError(null);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setError("Error:" + error.message);
-      } else {
-        setError("En uforventet feil har skjedd");
-      }
-    } finally {
-      setLoading(false);
-    }
+    const response: AttesterOppdragResponse = await axiosPostFetcher(
+      BASE_URI.ATTESTASJON,
+      "/attestere",
+      payload,
+    );
+    setResponse(response);
+    setLoading(false);
   };
 
   return (
