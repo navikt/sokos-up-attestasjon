@@ -15,4 +15,4 @@ export const OppdaterSchema = z.object({
   linjer: z.array(linjerSchema).max(2000).min(0),
 });
 
-export type OppdaterAttestasjon = z.infer<typeof OppdaterSchema>;
+export type AttesterOppdragRequest = z.infer<typeof OppdaterSchema>;

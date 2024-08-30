@@ -8,4 +8,4 @@ export const OppdaterResponsSchema = z.object({
   Melding: z.string().max(100),
 });
 
-export type OppdaterAttestasjonResponse = z.infer<typeof OppdaterResponsSchema>;
+export type AttesterOppdragResponse = z.infer<typeof OppdaterResponsSchema>;

@@ -1,5 +1,5 @@
+import { AttesterOppdragRequest } from "../api/models/AttesterOppdragRequest";
 import { LinjeEndring } from "../components/detaljer/DetaljerTabell";
-import { OppdaterAttestasjon } from "../types/OppdaterAttestasjon";
 import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
 import { norskDatoTilIsoDato } from "./DatoUtil";
 
@@ -12,7 +12,7 @@ export function createRequestPayload(
   brukerId: string,
   kjorIdag: boolean,
   changes: { [linjeId: number]: LinjeEndring },
-): OppdaterAttestasjon {
+): AttesterOppdragRequest {
   const LinjeTab = oppdragsdetaljer
     .filter(
       (linje) =>
@@ -21,7 +21,7 @@ export function createRequestPayload(
           changes[linje.linjeId]?.suggestedDatoUgyldigFom),
     )
     .map((linje) => ({
-      linjeId: linje.linjeId,
+      linjeId: Number(linje.linjeId),
       attestantId: linje.attestant || "",
       datoUgyldigFom: !linje.attestant
         ? ""
@@ -35,7 +35,7 @@ export function createRequestPayload(
           "",
     }));
 
-  const payload: OppdaterAttestasjon = {
+  return {
     gjelderId: gjelderId,
     fagOmraade: fagOmraade,
     oppdragsId: oppdragsId,
@@ -43,6 +43,4 @@ export function createRequestPayload(
     kjorIdag: kjorIdag,
     linjer: LinjeTab,
   };
-
-  return payload;
 }

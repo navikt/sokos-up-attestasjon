@@ -9,7 +9,7 @@ import {
   TextField,
 } from "@navikt/ds-react";
 import { BASE_URI } from "../../api/config/apiConfig";
-import { OppdaterAttestasjonResponse } from "../../types/OppdaterAttestasjonResponse";
+import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 import { dagensDato, isoDatoTilNorskDato } from "../../util/DatoUtil";
 import { createRequestPayload } from "../../util/createRequestPayload";
@@ -43,7 +43,7 @@ export const DetaljerTabell = ({
     {},
   );
   const [error, setError] = useState<string | null>(null);
-  const [response, setResponse] = useState<OppdaterAttestasjonResponse>();
+  const [response, setResponse] = useState<AttesterOppdragResponse>();
   const [loading, setLoading] = useState<boolean>(false);
 
   function toggleSelectedRow(
@@ -118,7 +118,7 @@ export const DetaljerTabell = ({
       oppdragGjelderId,
       navnFagOmraade,
       oppdragsId,
-      "someBrukerId",
+      "testbruker",
       true,
       changes,
     );
