@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { ChangeEvent, useState } from "react";
 import {
   Alert,
@@ -119,13 +120,23 @@ export const DetaljerTabell = ({
     );
 
     setLoading(true);
-    const response: AttesterOppdragResponse = await axiosPostFetcher(
-      BASE_URI.ATTESTASJON,
-      "/attestere",
-      payload,
-    );
-    setResponse(response);
-    setLoading(false);
+    try {
+      const response = await axiosPostFetcher<
+        typeof payload,
+        AttesterOppdragResponse
+      >(BASE_URI.ATTESTASJON, "/attestere", payload);
+
+      setResponse(response);
+      setError(null);
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        setError(`Error: ${error.message}`);
+      } else {
+        setError("En uforventet feil har skjedd");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
