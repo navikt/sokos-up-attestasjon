@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Alert,
   Button,
@@ -10,6 +10,7 @@ import {
 } from "@navikt/ds-react";
 import { BASE_URI } from "../../api/config/apiConfig";
 import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
+import useFetchFagomraader from "../../hooks/useFetchFagomraader";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 import { dagensDato, isoDatoTilNorskDato } from "../../util/DatoUtil";
 import { createRequestPayload } from "../../util/createRequestPayload";
@@ -45,6 +46,21 @@ export const DetaljerTabell = ({
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<AttesterOppdragResponse>();
   const [loading, setLoading] = useState<boolean>(false);
+  const { data: fagOmraader } = useFetchFagomraader();
+  const [fagOmraadeKode, setFagOmraadeKode] = useState<string | undefined>(
+    undefined,
+  );
+
+  useEffect(() => {
+    if (fagOmraader && navnFagOmraade) {
+      const matchedFagOmraade = fagOmraader.find(
+        (f) => f.navn === navnFagOmraade,
+      );
+      if (matchedFagOmraade) {
+        setFagOmraadeKode(matchedFagOmraade.kode);
+      }
+    }
+  }, [fagOmraader, navnFagOmraade]);
 
   function toggleSelectedRow(
     event: ChangeEvent<HTMLInputElement>,
@@ -116,7 +132,7 @@ export const DetaljerTabell = ({
       oppdragsdetaljer,
       selectedRows,
       oppdragGjelderId,
-      navnFagOmraade,
+      fagOmraadeKode || "",
       oppdragsId,
       "testbruker",
       true,
