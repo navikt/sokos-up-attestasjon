@@ -37,7 +37,7 @@ export default [
   },
   {
     method: "POST",
-    url: "/oppdrag-api/api/v1/attestasjon/oppdater",
+    url: "/oppdrag-api/api/v1/attestasjon/attestere",
     response: () => oppdater
   }
 ];

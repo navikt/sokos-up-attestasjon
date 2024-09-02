@@ -1,7 +1,8 @@
 import axios from "axios";
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import {
   Alert,
+  AlertProps,
   Button,
   Checkbox,
   Loader,
@@ -21,11 +22,13 @@ interface DetaljerTabellProps {
   fagSystemId: string | undefined;
   navnFagOmraade: string | undefined;
   oppdragsId: number;
+  mutate: () => void;
 }
 
 type Linjetype = "fjern" | "attester";
 
 export type LinjeEndring = {
+  linjeId: number;
   checked: boolean;
   activelyChangedDatoUgyldigFom?: string;
   suggestedDatoUgyldigFom?: string;
@@ -37,14 +40,18 @@ export const DetaljerTabell = ({
   fagSystemId,
   navnFagOmraade,
   oppdragsId,
+  mutate,
 }: DetaljerTabellProps) => {
   const [selectedRows, setSelectedRows] = useState<number[]>([]);
-  const [changes, setChanges] = useState<{ [linjeId: number]: LinjeEndring }>(
-    {},
-  );
+  const [changes, setChanges] = useState<LinjeEndring[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<AttesterOppdragResponse>();
   const [loading, setLoading] = useState<boolean>(false);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (showAlert) setTimeout(() => setShowAlert(false), 10000);
+  }, [showAlert]);
 
   function toggleSelectedRow(
     event: ChangeEvent<HTMLInputElement>,
@@ -54,22 +61,27 @@ export const DetaljerTabell = ({
     setSelectedRows((prev) =>
       prev.includes(id) ? prev.filter((i) => id !== i) : [...prev, id],
     );
-    setChanges((prev) => ({
-      ...prev,
-      [id]: {
-        ...prev[id],
-        suggestedDatoUgyldigFom: event.target.checked
-          ? dagensDato()
-          : undefined,
-      },
-    }));
+
+    const newChange: LinjeEndring = {
+      checked: event.target.checked,
+      suggestedDatoUgyldigFom: event.target.checked ? dagensDato() : undefined,
+      linjeId: id,
+    };
+
+    setChanges((prev) => {
+      return [...prev, newChange];
+    });
   }
 
   function handleTextFieldChange(id: number, value: string) {
-    setChanges((previousChanges) => ({
-      ...previousChanges,
-      [id]: { ...previousChanges[id], activelyChangedDatoUgyldigFom: value },
-    }));
+    setChanges((previousChanges) => {
+      const oldChange = previousChanges.find((c) => c.linjeId == id);
+      const newChange = !oldChange
+        ? { activelyChangedDatoUgyldigFom: value, linjeId: id, checked: true }
+        : { ...oldChange, activelyChangedDatoUgyldigFom: value };
+
+      return [...previousChanges.filter((c) => c.linjeId !== id), newChange];
+    });
   }
 
   function lines(type: Linjetype) {
@@ -101,21 +113,37 @@ export const DetaljerTabell = ({
     // alle var huket av fra før
     if (checkedStatus(type) === "alle") {
       setSelectedRows(selectedRows.filter((id) => !ids(type).includes(id)));
+      setChanges((prev) => [
+        ...prev.filter((change) => !ids(type).includes(change.linjeId)),
+      ]);
     }
     // ingen var huket av fra før
     // noen var huket av fra før
-    else setSelectedRows((prev) => [...prev, ...ids(type)]);
+    else {
+      setSelectedRows((prev) => [...prev, ...ids(type)]);
+      setChanges((prev) => [
+        ...prev,
+        ...lines(type).map((linje) => {
+          return {
+            checked: true,
+            suggestedDatoUgyldigFom: linje.attestant
+              ? dagensDato()
+              : "31.12.9999",
+            linjeId: linje.linjeId,
+          };
+        }),
+      ]);
+    }
   }
 
   const handleSubmit = async () => {
-    if (!oppdragGjelderId || !fagSystemId || !navnFagOmraade) {
-      setError("Mangler oppdragGjelderId, fagSystemId eller navnFagOmraade");
-      return;
-    }
     const payload = createRequestPayload(
+      fagSystemId ?? "",
+      navnFagOmraade ?? "",
+      oppdragGjelderId ?? "",
+      oppdragsId,
       oppdragsdetaljer,
       selectedRows,
-      oppdragsId,
       changes,
     );
 
@@ -128,6 +156,12 @@ export const DetaljerTabell = ({
 
       setResponse(response);
       setError(null);
+
+      setShowAlert(true);
+
+      setSelectedRows([]);
+      setChanges([]);
+      mutate();
     } catch (error) {
       if (axios.isAxiosError(error)) {
         setError(`Error: ${error.message}`);
@@ -142,10 +176,15 @@ export const DetaljerTabell = ({
   return (
     <>
       {error && <Alert variant="error">{error}</Alert>}
-      {response && (
-        <Alert variant="success">
-          Oppdatering vellykket. {response.AntLinjerMottatt} linjer oppdatert.
-        </Alert>
+      {response && showAlert && (
+        <AlertWithCloseButton variant="success">
+          Oppdatering vellykket.{" "}
+          {
+            response.OSAttestasjonOperationResponse.Attestasjonskvittering
+              .ResponsAttestasjon.AntLinjerMottatt
+          }{" "}
+          linjer oppdatert.
+        </AlertWithCloseButton>
       )}
       <Table>
         <Table.Header>
@@ -230,9 +269,11 @@ export const DetaljerTabell = ({
                       label="Ugyldig FOM"
                       hideLabel
                       value={
-                        changes[linje.linjeId]?.activelyChangedDatoUgyldigFom ||
+                        changes.find((c) => c.linjeId == linje.linjeId)
+                          ?.activelyChangedDatoUgyldigFom ||
                         (selectedRows.includes(linje.linjeId) &&
-                          changes[linje.linjeId]?.suggestedDatoUgyldigFom) ||
+                          changes.find((c) => c.linjeId == linje.linjeId)
+                            ?.suggestedDatoUgyldigFom) ||
                         isoDatoTilNorskDato(linje.datoUgyldigFom)
                       }
                       onChange={(e) =>
@@ -260,4 +301,20 @@ export const DetaljerTabell = ({
       </Table>
     </>
   );
+};
+
+const AlertWithCloseButton = ({
+  children,
+  variant,
+}: {
+  children?: React.ReactNode;
+  variant: AlertProps["variant"];
+}) => {
+  const [show, setShow] = React.useState(true);
+
+  return show ? (
+    <Alert variant={variant} closeButton onClose={() => setShow(false)}>
+      {children || "Content"}
+    </Alert>
+  ) : null;
 };

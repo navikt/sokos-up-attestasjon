@@ -14,7 +14,9 @@ const DetaljerPage = () => {
   const oppdragsId = location.state;
   if (!oppdragsId) window.location.replace(BASENAME);
 
-  const { data, error, isLoading } = useOppdragsDetaljer(oppdragsId.oppdragsId);
+  const { data, error, isLoading, mutate } = useOppdragsDetaljer(
+    oppdragsId.oppdragsId,
+  );
 
   const firstEgenskap = data?.reduce((a) => a);
 
@@ -62,6 +64,7 @@ const DetaljerPage = () => {
             fagSystemId={firstEgenskap?.fagSystemId}
             navnFagOmraade={firstEgenskap?.navnFagOmraade}
             oppdragsId={oppdragsId.oppdragsId}
+            mutate={mutate}
           />
         )}
       </div>
