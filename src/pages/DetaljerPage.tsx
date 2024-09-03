@@ -18,7 +18,7 @@ const DetaljerPage = () => {
     oppdragsId.oppdragsId,
   );
 
-  const firstEgenskap = data?.reduce((a) => a);
+  const oppdragsdetalj = data?.at(0);
 
   return (
     <>
@@ -30,28 +30,22 @@ const DetaljerPage = () => {
       <div className={styles.detaljer}>
         <div className={styles.detaljer__top}>
           <Breadcrumbs searchLink trefflistelink detaljer />
-          {firstEgenskap && (
+          {oppdragsdetalj && (
             <div className={styles.detaljer__label}>
-              <LabelText
-                label="Gjelder ID"
-                text={firstEgenskap.oppdragGjelderId}
-              />
+              <LabelText label="Gjelder ID" text={oppdragsdetalj.gjelderId} />
               <LabelText
                 label="Fagsystem ID"
-                text={firstEgenskap.fagSystemId}
+                text={oppdragsdetalj.fagSystemId}
               />
               <LabelText
                 label="Ansvarssted"
-                text={firstEgenskap.ansvarsStedForOppdrag || ""}
+                text={oppdragsdetalj.ansvarsStedForOppdrag || ""}
               />
               <LabelText
                 label="Kostnadssted"
-                text={firstEgenskap.kostnadsStedForOppdrag || ""}
+                text={oppdragsdetalj.kostnadsStedForOppdrag || ""}
               />
-              <LabelText
-                label="Fagområde"
-                text={firstEgenskap.navnFagOmraade}
-              />
+              <LabelText label="Fagområde" text={oppdragsdetalj.fagOmraade} />
             </div>
           )}
         </div>
@@ -60,9 +54,9 @@ const DetaljerPage = () => {
         {data && (
           <DetaljerTabell
             oppdragsdetaljer={data}
-            oppdragGjelderId={firstEgenskap?.oppdragGjelderId}
-            fagSystemId={firstEgenskap?.fagSystemId}
-            navnFagOmraade={firstEgenskap?.navnFagOmraade}
+            gjelderId={oppdragsdetalj?.gjelderId}
+            fagSystemId={oppdragsdetalj?.fagSystemId}
+            kodeFagOmraade={oppdragsdetalj?.kodeFagOmraade}
             oppdragsId={oppdragsId.oppdragsId}
             mutate={mutate}
           />

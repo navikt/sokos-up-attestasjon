@@ -5,8 +5,8 @@ import { norskDatoTilIsoDato } from "./DatoUtil";
 
 export function createRequestPayload(
   fagSystemId: string,
-  navnFagOmraade: string,
-  oppdragGjelderId: string,
+  kodeFagOmraade: string,
+  gjelderId: string,
   oppdragsId: number,
   oppdragsdetaljer: OppdragsDetaljer[],
   selectedRows: number[],
@@ -15,8 +15,8 @@ export function createRequestPayload(
   return {
     oppdragsId: oppdragsId,
     fagSystemId: fagSystemId,
-    navnFagOmraade: navnFagOmraade,
-    oppdragGjelderId: oppdragGjelderId,
+    kodeFagOmraade: kodeFagOmraade,
+    gjelderId: gjelderId,
     linjer:
       selectedRows
         .map((id) => {

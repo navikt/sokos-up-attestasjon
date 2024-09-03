@@ -29,9 +29,9 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
                   {oppdrag.gjelderId}
                 </Link>
               </Table.DataCell>
-              <Table.DataCell>{oppdrag.navnFagGruppe}</Table.DataCell>
+              <Table.DataCell>{oppdrag.fagGruppe}</Table.DataCell>
               <Table.DataCell>{oppdrag.fagsystemId}</Table.DataCell>
-              <Table.DataCell>{oppdrag.navnFagOmraade}</Table.DataCell>
+              <Table.DataCell>{oppdrag.fagOmraade}</Table.DataCell>
               <Table.DataCell>{oppdrag.kostnadsSted}</Table.DataCell>
               <Table.DataCell>{oppdrag.ansvarsSted}</Table.DataCell>
             </Table.Row>

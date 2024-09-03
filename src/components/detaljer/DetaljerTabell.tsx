@@ -18,9 +18,9 @@ import styles from "./DetaljerTabell.module.css";
 
 interface DetaljerTabellProps {
   oppdragsdetaljer: OppdragsDetaljer[];
-  oppdragGjelderId: string | undefined;
+  gjelderId: string | undefined;
   fagSystemId: string | undefined;
-  navnFagOmraade: string | undefined;
+  kodeFagOmraade: string | undefined;
   oppdragsId: number;
   mutate: () => void;
 }
@@ -36,9 +36,9 @@ export type LinjeEndring = {
 
 export const DetaljerTabell = ({
   oppdragsdetaljer,
-  oppdragGjelderId,
+  gjelderId,
   fagSystemId,
-  navnFagOmraade,
+  kodeFagOmraade,
   oppdragsId,
   mutate,
 }: DetaljerTabellProps) => {
@@ -139,8 +139,8 @@ export const DetaljerTabell = ({
   const handleSubmit = async () => {
     const payload = createRequestPayload(
       fagSystemId ?? "",
-      navnFagOmraade ?? "",
-      oppdragGjelderId ?? "",
+      kodeFagOmraade ?? "",
+      gjelderId ?? "",
       oppdragsId,
       oppdragsdetaljer,
       selectedRows,
