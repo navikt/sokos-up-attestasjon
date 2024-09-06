@@ -28,7 +28,7 @@ const api = (baseUri: string) => {
       switch (error.response?.status) {
         case 400:
           throw new HttpStatusCodeError(error.response?.status);
-        case 401 | 403:
+        case 401 | 403 | 500:
           return Promise.reject(error);
         default:
           throw new ApiError("Issues with connection to backend");
