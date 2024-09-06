@@ -2,6 +2,7 @@ import { z } from "zod";
 
 const linjerSchema = z.object({
   linjeId: z.number().min(0).max(99999),
+  attestantIdent: z.string(),
   datoUgyldigFom: z.string().max(10).optional(),
 });
 
