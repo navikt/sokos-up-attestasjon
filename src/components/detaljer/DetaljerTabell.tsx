@@ -178,7 +178,7 @@ export const DetaljerTabell = ({
       {error && <Alert variant="error">{error}</Alert>}
       {response && showAlert && (
         <AlertWithCloseButton variant="success">
-          Oppdatering vellykket.{" "}
+          Oppdatering vellykket.
           {
             response.OSAttestasjonOperationResponse.Attestasjonskvittering
               .ResponsAttestasjon.AntLinjerMottatt

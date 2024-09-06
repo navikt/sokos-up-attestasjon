@@ -27,7 +27,7 @@ export function createRequestPayload(
 
           return {
             linjeId: Number(linje.linjeId),
-            attestantIdent: linje.attestant || "",
+            attestantIdent: linje.attestant || undefined,
             datoUgyldigFom: !linje.attestant
               ? undefined
               : norskDatoTilIsoDato(change?.activelyChangedDatoUgyldigFom) ||
