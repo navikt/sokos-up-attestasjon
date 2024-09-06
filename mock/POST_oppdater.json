@@ -1,0 +1,13 @@
+{
+  "OSAttestasjonOperationResponse": {
+    "Attestasjonskvittering": {
+      "ResponsAttestasjon": {
+        "AntLinjerMottatt": 6,
+        "GjelderId": "x999999",
+        "Melding": "Dette er en liten melding",
+        "OppdragsId": 58308587,
+        "Statuskode": 0
+      }
+    }
+  }
+}

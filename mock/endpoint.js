@@ -1,6 +1,7 @@
 import faggrupper from "./GET_faggrupper.json";
 import fagomraader from "./GET_fagomraader.json";
 import oppdragDetaljer from "./GET_oppdragsDetaljer.json";
+import oppdater from "./POST_oppdater.json";
 import sok from "./POST_sok.json";
 
 export default [
@@ -33,5 +34,10 @@ export default [
     method: "GET",
     url: "/oppdrag-api/api/v1/attestasjon/fagomraader",
     response: () => fagomraader
+  },
+  {
+    method: "POST",
+    url: "/oppdrag-api/api/v1/attestasjon/attestere",
+    response: () => oppdater
   }
 ];
