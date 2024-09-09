@@ -11,7 +11,7 @@ const useSokOppdrag = (sokedata?: SokeData) => {
   const sokeRequestBody = mapToSokeRequestBody(sokedata);
 
   const { data, error, isLoading } = useSWRImmutable<Oppdrag[]>(
-    "/sok",
+    sokedata ? "/sok" : null,
     swrConfig<Oppdrag[]>((url) =>
       axiosPostFetcher<SokeRequestBody, Oppdrag[]>(
         BASE_URI.ATTESTASJON,
