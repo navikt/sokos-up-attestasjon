@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useSWRConfig } from "swr";
 import { Alert, Heading } from "@navikt/ds-react";
 import ContentLoader from "../components/common/ContentLoader";
 import SokForm from "../components/form/SokForm";
@@ -13,35 +12,29 @@ import styles from "./SokPage.module.css";
 
 export default function SokPage() {
   const navigate = useNavigate();
-  const { mutate } = useSWRConfig();
   const [sokedata, setSokedata] = useState<SokeData | undefined>();
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [error] = useState<string | undefined>(undefined);
 
-  const { treffliste, isLoading } = useSokOppdrag(sokedata);
+  const { data, isLoading } = useSokOppdrag(sokedata);
   const [shouldGoToTreffliste, setShouldGoToTreffliste] =
     useState<boolean>(false);
 
   const handleChangeSok: SubmitHandler<SokeData> = (sokedata) => {
-    setError(undefined);
     setSokedata(sokedata);
     storeSok(sokedata);
     setShouldGoToTreffliste(true);
   };
 
   useEffect(() => {
-    if (Array.isArray(treffliste) && !isLoading && shouldGoToTreffliste) {
-      if (!isEmpty(treffliste)) {
-        navigate("/treffliste");
-        setShouldGoToTreffliste(false);
-      } else {
-        setError("Ingen treff på søket");
-      }
+    if (
+      Array.isArray(data) &&
+      !isLoading &&
+      shouldGoToTreffliste &&
+      !isEmpty(data)
+    ) {
+      navigate("/treffliste");
     }
-  }, [isLoading, navigate, treffliste, shouldGoToTreffliste, sokedata]);
-
-  useEffect(() => {
-    mutate("/sok", []);
-  }, [sokedata, mutate]);
+  }, [navigate, data, isLoading, shouldGoToTreffliste]);
 
   return (
     <>

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import { BASE_URI, axiosPostFetcher, swrConfig } from "../api/config/apiConfig";
 import {
   SokeData,
@@ -9,22 +8,10 @@ import {
 import { Oppdrag } from "../types/Oppdrag";
 
 const useSokOppdrag = (sokedata?: SokeData) => {
-  const [shouldFetch, setShouldFetch] = useState<boolean>(false);
-  useEffect(() => {
-    if (
-      !!sokedata &&
-      (sokedata?.gjelderId ||
-        sokedata?.fagsystemId ||
-        sokedata?.kodeFaggruppe ||
-        sokedata?.kodeFagomraade)
-    )
-      setShouldFetch(true);
-  }, [sokedata]);
-
   const sokeRequestBody = mapToSokeRequestBody(sokedata);
 
-  const { data, error, mutate, isValidating } = useSWR<Oppdrag[]>(
-    shouldFetch ? "/sok" : null,
+  const { data, error, isLoading } = useSWRImmutable<Oppdrag[]>(
+    "/sok",
     swrConfig<Oppdrag[]>((url) =>
       axiosPostFetcher<SokeRequestBody, Oppdrag[]>(
         BASE_URI.ATTESTASJON,
@@ -34,12 +21,9 @@ const useSokOppdrag = (sokedata?: SokeData) => {
     ),
   );
 
-  const isLoading = (!error && !data) || isValidating;
-
   return {
-    treffliste: data,
-    trefflisteError: error,
-    mutate,
+    data,
+    error,
     isLoading,
   };
 };
