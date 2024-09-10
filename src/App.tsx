@@ -11,10 +11,11 @@ import DetaljerPage from "./pages/DetaljerPage";
 import SokPage from "./pages/SokPage";
 import TrefflistePage from "./pages/TrefflistePage";
 import { BASENAME } from "./util/constants";
+import { initGrafanaFaro } from "./util/grafanaFaro";
 
 const App = () => {
   useEffect(() => {
-    // initGrafanaFaro();
+    initGrafanaFaro();
   }, []);
 
   return (
