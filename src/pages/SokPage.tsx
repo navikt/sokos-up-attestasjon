@@ -3,7 +3,6 @@ import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
 import { hentOppdrag } from "../api/config/apiService";
-import ContentLoader from "../components/common/ContentLoader";
 import SokForm from "../components/form/SokForm";
 import { SokeData } from "../components/form/SokeSchema";
 import commonstyles from "../styles/common-styles.module.css";
@@ -55,7 +54,6 @@ export default function SokPage() {
           onSubmit={handleChangeSok}
         />
       </div>
-      {sokedata && loading && <ContentLoader />}
       {error && (
         <div className={styles.sok_error}>
           <Alert variant="info">{error}</Alert>
