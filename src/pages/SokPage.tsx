@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
+import { hentOppdrag } from "../api/config/apiService";
 import ContentLoader from "../components/common/ContentLoader";
 import SokForm from "../components/form/SokForm";
 import { SokeData } from "../components/form/SokeSchema";
-import useSokOppdrag from "../hooks/useSokOppdrag";
 import commonstyles from "../styles/common-styles.module.css";
 import { isEmpty, storeSok } from "../util/commonUtils";
 import styles from "./SokPage.module.css";
@@ -13,28 +13,30 @@ import styles from "./SokPage.module.css";
 export default function SokPage() {
   const navigate = useNavigate();
   const [sokedata, setSokedata] = useState<SokeData | undefined>();
-  const [error] = useState<string | undefined>(undefined);
-
-  const { data, isLoading } = useSokOppdrag(sokedata);
-  const [shouldGoToTreffliste, setShouldGoToTreffliste] =
-    useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
+  const [laster, setLaster] = useState<boolean>(false);
 
   const handleChangeSok: SubmitHandler<SokeData> = (sokedata) => {
     setSokedata(sokedata);
     storeSok(sokedata);
-    setShouldGoToTreffliste(true);
-  };
 
-  useEffect(() => {
-    if (
-      Array.isArray(data) &&
-      !isLoading &&
-      shouldGoToTreffliste &&
-      !isEmpty(data)
-    ) {
-      navigate("/treffliste");
-    }
-  }, [navigate, data, isLoading, shouldGoToTreffliste]);
+    hentOppdrag(sokedata)
+      .then((response) => {
+        setLaster(true);
+        if (!isEmpty(response)) {
+          navigate("/treffliste");
+        } else {
+          setError("Ingen treff på søket. Prøv igjen med andre søkekriterier.");
+          setLaster(false);
+        }
+      })
+      .catch((error) => {
+        setError(
+          "Noe gikk galt. Prøv igjen senere. Feilmelding: " + error.message,
+        );
+        setLaster(false);
+      });
+  };
 
   return (
     <>
@@ -49,7 +51,7 @@ export default function SokPage() {
         </Heading>
         <SokForm sokedata={sokedata} onSubmit={handleChangeSok} />
       </div>
-      {sokedata && isLoading && <ContentLoader />}
+      {sokedata && laster && <ContentLoader />}
       {error && (
         <div className={styles.sok_error}>
           <Alert variant="info">{error}</Alert>
