@@ -14,27 +14,27 @@ export default function SokPage() {
   const navigate = useNavigate();
   const [sokedata, setSokedata] = useState<SokeData | undefined>();
   const [error, setError] = useState<string | undefined>(undefined);
-  const [laster, setLaster] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleChangeSok: SubmitHandler<SokeData> = (sokedata) => {
     setSokedata(sokedata);
     storeSok(sokedata);
+    setLoading(true);
 
     hentOppdrag(sokedata)
       .then((response) => {
-        setLaster(true);
         if (!isEmpty(response)) {
           navigate("/treffliste");
         } else {
           setError("Ingen treff på søket. Prøv igjen med andre søkekriterier.");
-          setLaster(false);
+          setLoading(false);
         }
       })
       .catch((error) => {
         setError(
           "Noe gikk galt. Prøv igjen senere. Feilmelding: " + error.message,
         );
-        setLaster(false);
+        setLoading(false);
       });
   };
 
@@ -49,9 +49,13 @@ export default function SokPage() {
         <Heading level="2" size="medium" spacing>
           Søk
         </Heading>
-        <SokForm sokedata={sokedata} onSubmit={handleChangeSok} />
+        <SokForm
+          sokedata={sokedata}
+          loading={loading}
+          onSubmit={handleChangeSok}
+        />
       </div>
-      {sokedata && laster && <ContentLoader />}
+      {sokedata && loading && <ContentLoader />}
       {error && (
         <div className={styles.sok_error}>
           <Alert variant="info">{error}</Alert>

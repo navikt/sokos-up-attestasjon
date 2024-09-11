@@ -1,7 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { MagnifyingGlassIcon } from "@navikt/aksel-icons";
-import { Button, ErrorSummary, Radio, RadioGroup } from "@navikt/ds-react";
+import {
+  Button,
+  ErrorSummary,
+  Loader,
+  Radio,
+  RadioGroup,
+} from "@navikt/ds-react";
 import useFetchFaggrupper from "../../hooks/useFetchFaggrupper";
 import useFetchFagomraader from "../../hooks/useFetchFagomraader";
 import FormField from "./FormField";
@@ -11,10 +17,11 @@ import SokosCombobox from "./SokosCombobox";
 
 type SokFormProps = {
   sokedata: SokeData | undefined;
+  loading?: boolean;
   onSubmit: (data: SokeData) => void;
 };
 
-function SokForm({ sokedata, onSubmit }: SokFormProps) {
+function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
   const { data: faggrupper } = useFetchFaggrupper();
   const { data: fagomraader } = useFetchFagomraader();
 
@@ -109,10 +116,12 @@ function SokForm({ sokedata, onSubmit }: SokFormProps) {
         <div className={styles.sok__button}>
           <Button
             type="submit"
-            icon={<MagnifyingGlassIcon />}
+            icon={
+              loading ? <Loader title={"Søker..."} /> : <MagnifyingGlassIcon />
+            }
             iconPosition="right"
           >
-            Søk
+            {loading ? "Søker..." : "Søk"}
           </Button>
         </div>
       </form>
