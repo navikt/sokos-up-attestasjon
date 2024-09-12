@@ -7,8 +7,8 @@ type FaggruppeComboboxProps = {
   name:
     | "gjelderId"
     | "fagsystemId"
-    | "kodeFaggruppe"
-    | "kodeFagomraade"
+    | "kodeFagGruppe"
+    | "kodeFagOmraade"
     | "attestertStatus";
   faggrupper?: string[];
   label: string;
@@ -26,7 +26,7 @@ const SokosCombobox = ({
   if (!faggrupper) return <></>;
 
   const isAValidFieldName = (s: string): s is ValidFieldNames =>
-    s === "kodeFaggruppe" || s === "kodeFagomraade";
+    s === "kodeFagGruppe" || s === "kodeFagOmraade";
 
   const mapToKode = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedValue = event.target.value;
