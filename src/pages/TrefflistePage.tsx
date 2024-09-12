@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Heading } from "@navikt/ds-react";
+import { Alert, Heading } from "@navikt/ds-react";
 import { BASE_URI, axiosPostFetcher } from "../api/config/apiConfig";
+import { hentOppdrag } from "../api/config/apiService";
 import { GjelderIdRequest } from "../api/models/GjelderIdRequest";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
 import { SokeData } from "../components/form/SokeSchema";
 import SokeParameterVisning from "../components/treffliste/SokeParameterVisning";
 import { TreffTabell } from "../components/treffliste/TreffTabell";
-import useSokOppdrag from "../hooks/useSokOppdrag";
 import commonstyles from "../styles/common-styles.module.css";
 import { GjelderNavn } from "../types/GjelderNavn";
+import { Oppdrag } from "../types/Oppdrag";
 import { retrieveSok } from "../util/commonUtils";
 import { BASENAME } from "../util/constants";
 import styles from "./TrefflistePage.module.css";
@@ -21,20 +22,32 @@ const TrefflistePage = () => {
   const [sokeData] = useState<SokeData | undefined>(
     location.state?.sokeData || retrieveSok(),
   );
+  const [oppdrag, setOppdrag] = useState<Oppdrag[] | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     if (!sokeData) {
       window.location.replace(BASENAME);
     } else {
+      setIsLoading(true);
       axiosPostFetcher<GjelderIdRequest, GjelderNavn>(
         BASE_URI.INTEGRATION,
         "/hentnavn",
         { gjelderId: sokeData?.gjelderId },
       ).then((resp) => setGjelderNavn(resp.navn));
+
+      hentOppdrag(sokeData)
+        .then((response) => {
+          setOppdrag(response);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setError(error.message);
+        });
     }
   }, [sokeData]);
-
-  const { data, isLoading } = useSokOppdrag(sokeData);
 
   return (
     <>
@@ -56,9 +69,14 @@ const TrefflistePage = () => {
           />
         </div>
         {isLoading && <ContentLoader />}
-        {!isLoading && data && (
+        {error && (
+          <div className={styles.treffliste__error}>
+            <Alert variant="info">{error}</Alert>
+          </div>
+        )}
+        {!isLoading && oppdrag && (
           <div className={styles.treffliste__trefftabell}>
-            <TreffTabell treffliste={data} />
+            <TreffTabell treffliste={oppdrag || []} />
           </div>
         )}
       </div>

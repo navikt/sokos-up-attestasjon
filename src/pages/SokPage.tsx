@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
@@ -6,7 +6,7 @@ import { hentOppdrag } from "../api/config/apiService";
 import SokForm from "../components/form/SokForm";
 import { SokeData } from "../components/form/SokeSchema";
 import commonstyles from "../styles/common-styles.module.css";
-import { clearSok, isEmpty, storeSok } from "../util/commonUtils";
+import { isEmpty, storeSok } from "../util/commonUtils";
 import styles from "./SokPage.module.css";
 
 export default function SokPage() {
@@ -14,10 +14,6 @@ export default function SokPage() {
   const [sokeData, setSokeData] = useState<SokeData | undefined>();
   const [error, setError] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    clearSok();
-  }, []);
 
   const handleChangeSok: SubmitHandler<SokeData> = (sokeData) => {
     setSokeData(sokeData);
