@@ -1,4 +1,4 @@
-import useSWRImmutable from "swr/immutable";
+import useSWR from "swr";
 import { BASE_URI, axiosPostFetcher, swrConfig } from "../api/config/apiConfig";
 import {
   SokeData,
@@ -10,7 +10,7 @@ import { Oppdrag } from "../types/Oppdrag";
 const useSokOppdrag = (sokedata?: SokeData) => {
   const sokeRequestBody = mapToSokeRequestBody(sokedata);
 
-  const { data, error, isLoading } = useSWRImmutable<Oppdrag[]>(
+  const { data, error, isLoading } = useSWR<Oppdrag[]>(
     sokedata ? "/sok" : null,
     swrConfig<Oppdrag[]>((url) =>
       axiosPostFetcher<SokeRequestBody, Oppdrag[]>(
