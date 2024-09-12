@@ -69,8 +69,8 @@ const TrefflistePage = () => {
             gjelderId={sokeData?.gjelderId}
             navn={gjelderNavn}
             fagsystemId={sokeData?.fagsystemId}
-            kodeFaggruppe={sokeData?.kodeFaggruppe}
-            kodeFagomraade={sokeData?.kodeFagomraade}
+            kodeFaggruppe={sokeData?.kodeFagGruppe}
+            kodeFagomraade={sokeData?.kodeFagOmraade}
             attestertStatus={sokeData?.attestertStatus}
           />
         </div>
