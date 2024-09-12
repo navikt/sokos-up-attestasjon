@@ -18,20 +18,21 @@ import styles from "./TrefflistePage.module.css";
 const TrefflistePage = () => {
   const location = useLocation();
   const [gjelderNavn, setGjelderNavn] = useState<string>("");
-  const [sokeData, setSokeData] = useState<SokeData | undefined>(
-    location.state?.sokeData,
+  const [sokeData] = useState<SokeData | undefined>(
+    location.state?.sokeData || retrieveSok(),
   );
 
   useEffect(() => {
-    const storedSokeData = retrieveSok();
-    if (!storedSokeData) window.location.replace(BASENAME);
-    axiosPostFetcher<GjelderIdRequest, GjelderNavn>(
-      BASE_URI.INTEGRATION,
-      "/hentnavn",
-      { gjelderId: storedSokeData?.gjelderId },
-    ).then((resp) => setGjelderNavn(resp.navn));
-    setSokeData(storedSokeData);
-  }, []);
+    if (!sokeData) {
+      window.location.replace(BASENAME);
+    } else {
+      axiosPostFetcher<GjelderIdRequest, GjelderNavn>(
+        BASE_URI.INTEGRATION,
+        "/hentnavn",
+        { gjelderId: sokeData?.gjelderId },
+      ).then((resp) => setGjelderNavn(resp.navn));
+    }
+  }, [sokeData]);
 
   const { data, isLoading } = useSokOppdrag(sokeData);
 
