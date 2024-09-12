@@ -1,32 +1,35 @@
 import { useEffect, useState } from "react";
 import { Heading } from "@navikt/ds-react";
+import { BASE_URI, axiosPostFetcher } from "../api/config/apiConfig";
+import { GjelderIdRequest } from "../api/models/GjelderIdRequest";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
+import { SokeData } from "../components/form/SokeSchema";
 import SokeParameterVisning from "../components/treffliste/SokeParameterVisning";
 import { TreffTabell } from "../components/treffliste/TreffTabell";
-import { useHentNavn } from "../hooks/useHentNavn";
 import useSokOppdrag from "../hooks/useSokOppdrag";
 import commonstyles from "../styles/common-styles.module.css";
+import { GjelderNavn } from "../types/GjelderNavn";
 import { retrieveSok } from "../util/commonUtils";
 import { BASENAME } from "../util/constants";
 import styles from "./TrefflistePage.module.css";
 
 const TrefflistePage = () => {
-  const sokeData = retrieveSok();
-  if (!sokeData) window.location.replace(BASENAME);
-  const { treffliste, isLoading } = useSokOppdrag(retrieveSok());
-  const gjelderId = retrieveSok()?.gjelderId;
   const [gjelderNavn, setGjelderNavn] = useState<string>("");
-
-  const hentNavn = useHentNavn({ gjelderId });
+  const [sokeData, setSokeData] = useState<SokeData | undefined>(undefined);
 
   useEffect(() => {
-    if (gjelderNavn === "") {
-      hentNavn.then((response) => {
-        setGjelderNavn(response.navn);
-      });
-    }
-  }, [gjelderNavn, hentNavn]);
+    const storedSokeData = retrieveSok();
+    if (!storedSokeData) window.location.replace(BASENAME);
+    axiosPostFetcher<GjelderIdRequest, GjelderNavn>(
+      BASE_URI.INTEGRATION,
+      "/hentnavn",
+      { gjelderId: storedSokeData?.gjelderId },
+    ).then((resp) => setGjelderNavn(resp.navn));
+    setSokeData(storedSokeData);
+  }, []);
+
+  const { data, isLoading } = useSokOppdrag(sokeData);
 
   return (
     <>
@@ -48,9 +51,9 @@ const TrefflistePage = () => {
           />
         </div>
         {isLoading && <ContentLoader />}
-        {!isLoading && treffliste && (
+        {!isLoading && data && (
           <div className={styles.treffliste__trefftabell}>
-            <TreffTabell treffliste={treffliste} />
+            <TreffTabell treffliste={data} />
           </div>
         )}
       </div>

@@ -23,8 +23,8 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
         </Table.Header>
         <Table.Body>
           {treffliste.map((oppdrag) => (
-            <Table.Row>
-              <Table.DataCell key={oppdrag.oppdragsId}>
+            <Table.Row key={oppdrag.oppdragsId}>
+              <Table.DataCell>
                 <Link to="/detaljer" state={{ oppdragsId: oppdrag.oppdragsId }}>
                   {oppdrag.gjelderId}
                 </Link>
