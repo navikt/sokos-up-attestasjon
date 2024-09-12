@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
@@ -13,27 +13,33 @@ export default function SokPage() {
   const navigate = useNavigate();
   const [sokeData, setSokeData] = useState<SokeData | undefined>();
   const [error, setError] = useState<string | undefined>(undefined);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    setSokeData(undefined);
+    storeSok();
+  }, []);
 
   const handleChangeSok: SubmitHandler<SokeData> = (sokeData) => {
     setSokeData(sokeData);
     storeSok(sokeData);
-    setLoading(true);
+    setIsLoading(true);
+    setError(undefined);
 
     hentOppdrag(sokeData)
       .then((response) => {
         if (!isEmpty(response)) {
-          navigate("/treffliste", { state: { sokeData } });
+          navigate("/treffliste", { state: { sokeData, oppdrag: response } });
         } else {
           setError("Ingen treff på søket. Prøv igjen med andre søkekriterier.");
-          setLoading(false);
+          setIsLoading(false);
         }
       })
       .catch((error) => {
         setError(
           "Noe gikk galt. Prøv igjen senere. Feilmelding: " + error.message,
         );
-        setLoading(false);
+        setIsLoading(false);
       });
   };
 
@@ -50,7 +56,7 @@ export default function SokPage() {
         </Heading>
         <SokForm
           sokedata={sokeData}
-          loading={loading}
+          loading={isLoading}
           onSubmit={handleChangeSok}
         />
       </div>

@@ -22,21 +22,17 @@ const TrefflistePage = () => {
   const [sokeData] = useState<SokeData | undefined>(
     location.state?.sokeData || retrieveSok(),
   );
-  const [oppdrag, setOppdrag] = useState<Oppdrag[] | undefined>(undefined);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [oppdrag, setOppdrag] = useState<Oppdrag[] | undefined>(
+    location.state?.oppdrag,
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(!oppdrag);
   const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
     if (!sokeData) {
       window.location.replace(BASENAME);
-    } else {
+    } else if (!oppdrag) {
       setIsLoading(true);
-      axiosPostFetcher<GjelderIdRequest, GjelderNavn>(
-        BASE_URI.INTEGRATION,
-        "/hentnavn",
-        { gjelderId: sokeData?.gjelderId },
-      ).then((resp) => setGjelderNavn(resp.navn));
-
       hentOppdrag(sokeData)
         .then((response) => {
           setOppdrag(response);
@@ -46,6 +42,16 @@ const TrefflistePage = () => {
           setIsLoading(false);
           setError(error.message);
         });
+    }
+  }, [sokeData, oppdrag]);
+
+  useEffect(() => {
+    if (sokeData) {
+      axiosPostFetcher<GjelderIdRequest, GjelderNavn>(
+        BASE_URI.INTEGRATION,
+        "/hentnavn",
+        { gjelderId: sokeData?.gjelderId },
+      ).then((response) => setGjelderNavn(response.navn));
     }
   }, [sokeData]);
 
