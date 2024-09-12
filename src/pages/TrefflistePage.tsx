@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Heading } from "@navikt/ds-react";
 import { BASE_URI, axiosPostFetcher } from "../api/config/apiConfig";
 import { GjelderIdRequest } from "../api/models/GjelderIdRequest";
@@ -15,8 +16,11 @@ import { BASENAME } from "../util/constants";
 import styles from "./TrefflistePage.module.css";
 
 const TrefflistePage = () => {
+  const location = useLocation();
   const [gjelderNavn, setGjelderNavn] = useState<string>("");
-  const [sokeData, setSokeData] = useState<SokeData | undefined>(undefined);
+  const [sokeData, setSokeData] = useState<SokeData | undefined>(
+    location.state?.sokeData,
+  );
 
   useEffect(() => {
     const storedSokeData = retrieveSok();
