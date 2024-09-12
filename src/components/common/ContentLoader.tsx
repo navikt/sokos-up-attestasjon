@@ -6,7 +6,7 @@ const ContentLoader = ({ width }: { width?: string }) => (
     className={commonstyles.contentloader}
     style={{ width: width ? width + "" : "100%" }}
   >
-    <Loader size="2xlarge" title="Laster ..." />
+    <Loader size="2xlarge" title="Laster ..." variant="interaction" />
   </div>
 );
 
