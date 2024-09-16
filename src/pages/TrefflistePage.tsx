@@ -1,35 +1,59 @@
 import { useEffect, useState } from "react";
-import { Heading } from "@navikt/ds-react";
+import { useLocation } from "react-router-dom";
+import { Alert, Heading } from "@navikt/ds-react";
 import { BASE_URI, axiosPostFetcher } from "../api/config/apiConfig";
+import { hentOppdrag } from "../api/config/apiService";
 import { GjelderIdRequest } from "../api/models/GjelderIdRequest";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
 import { SokeData } from "../components/form/SokeSchema";
 import SokeParameterVisning from "../components/treffliste/SokeParameterVisning";
 import { TreffTabell } from "../components/treffliste/TreffTabell";
-import useSokOppdrag from "../hooks/useSokOppdrag";
 import commonstyles from "../styles/common-styles.module.css";
 import { GjelderNavn } from "../types/GjelderNavn";
+import { Oppdrag } from "../types/Oppdrag";
 import { retrieveSok } from "../util/commonUtils";
 import { BASENAME } from "../util/constants";
 import styles from "./TrefflistePage.module.css";
 
 const TrefflistePage = () => {
+  const location = useLocation();
   const [gjelderNavn, setGjelderNavn] = useState<string>("");
-  const [sokeData, setSokeData] = useState<SokeData | undefined>(undefined);
+  const [sokeData] = useState<SokeData | undefined>(
+    location.state?.sokeData || retrieveSok(),
+  );
+  const [oppdrag, setOppdrag] = useState<Oppdrag[] | undefined>(
+    location.state?.oppdrag,
+  );
+  const [isLoading, setIsLoading] = useState<boolean>(!oppdrag);
+  const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    const storedSokeData = retrieveSok();
-    if (!storedSokeData) window.location.replace(BASENAME);
-    axiosPostFetcher<GjelderIdRequest, GjelderNavn>(
-      BASE_URI.INTEGRATION,
-      "/hentnavn",
-      { gjelderId: storedSokeData?.gjelderId },
-    ).then((resp) => setGjelderNavn(resp.navn));
-    setSokeData(storedSokeData);
-  }, []);
+    if (!sokeData) {
+      window.location.replace(BASENAME);
+    } else if (!oppdrag) {
+      setIsLoading(true);
+      hentOppdrag(sokeData)
+        .then((response) => {
+          setOppdrag(response);
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          setIsLoading(false);
+          setError(error.message);
+        });
+    }
+  }, [sokeData, oppdrag]);
 
-  const { data, isLoading } = useSokOppdrag(sokeData);
+  useEffect(() => {
+    if (sokeData) {
+      axiosPostFetcher<GjelderIdRequest, GjelderNavn>(
+        BASE_URI.INTEGRATION,
+        "/hentnavn",
+        { gjelderId: sokeData?.gjelderId },
+      ).then((response) => setGjelderNavn(response.navn));
+    }
+  }, [sokeData]);
 
   return (
     <>
@@ -45,15 +69,20 @@ const TrefflistePage = () => {
             gjelderId={sokeData?.gjelderId}
             navn={gjelderNavn}
             fagsystemId={sokeData?.fagsystemId}
-            kodeFaggruppe={sokeData?.kodeFaggruppe}
-            kodeFagomraade={sokeData?.kodeFagomraade}
+            kodeFaggruppe={sokeData?.kodeFagGruppe}
+            kodeFagomraade={sokeData?.kodeFagOmraade}
             attestertStatus={sokeData?.attestertStatus}
           />
         </div>
         {isLoading && <ContentLoader />}
-        {!isLoading && data && (
+        {error && (
+          <div className={styles.treffliste__error}>
+            <Alert variant="info">{error}</Alert>
+          </div>
+        )}
+        {!isLoading && oppdrag && (
           <div className={styles.treffliste__trefftabell}>
-            <TreffTabell treffliste={data} />
+            <TreffTabell treffliste={oppdrag || []} />
           </div>
         )}
       </div>

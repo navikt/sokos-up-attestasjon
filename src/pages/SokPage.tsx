@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
@@ -11,29 +11,35 @@ import styles from "./SokPage.module.css";
 
 export default function SokPage() {
   const navigate = useNavigate();
-  const [sokedata, setSokedata] = useState<SokeData | undefined>();
+  const [sokeData, setSokeData] = useState<SokeData | undefined>();
   const [error, setError] = useState<string | undefined>(undefined);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const handleChangeSok: SubmitHandler<SokeData> = (sokedata) => {
-    setSokedata(sokedata);
-    storeSok(sokedata);
-    setLoading(true);
+  useEffect(() => {
+    setSokeData(undefined);
+    storeSok();
+  }, []);
 
-    hentOppdrag(sokedata)
+  const handleChangeSok: SubmitHandler<SokeData> = (sokeData) => {
+    setSokeData(sokeData);
+    storeSok(sokeData);
+    setIsLoading(true);
+    setError(undefined);
+
+    hentOppdrag(sokeData)
       .then((response) => {
         if (!isEmpty(response)) {
-          navigate("/treffliste");
+          navigate("/treffliste", { state: { sokeData, oppdrag: response } });
         } else {
           setError("Ingen treff på søket. Prøv igjen med andre søkekriterier.");
-          setLoading(false);
+          setIsLoading(false);
         }
       })
       .catch((error) => {
         setError(
           "Noe gikk galt. Prøv igjen senere. Feilmelding: " + error.message,
         );
-        setLoading(false);
+        setIsLoading(false);
       });
   };
 
@@ -49,8 +55,8 @@ export default function SokPage() {
           Søk
         </Heading>
         <SokForm
-          sokedata={sokedata}
-          loading={loading}
+          sokedata={sokeData}
+          loading={isLoading}
           onSubmit={handleChangeSok}
         />
       </div>

@@ -13,3 +13,7 @@
 .treffliste__trefftabell {
   @apply mx-10 min-w-1024 rounded-lg bg-white;
 }
+
+.treffliste__error {
+  @apply pt-5;
+}

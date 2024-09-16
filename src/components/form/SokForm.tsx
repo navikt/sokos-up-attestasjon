@@ -56,7 +56,7 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
             error={errors.fagsystemId}
           />
           <SokosCombobox
-            name="kodeFaggruppe"
+            name="kodeFagGruppe"
             label={"Faggruppe"}
             faggrupper={
               faggrupper
@@ -69,7 +69,7 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
             setValue={setValue}
           />
           <SokosCombobox
-            name="kodeFagomraade"
+            name="kodeFagOmraade"
             label={"Fagområde"}
             faggrupper={
               fagomraader
