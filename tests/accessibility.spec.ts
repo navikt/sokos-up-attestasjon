@@ -13,6 +13,7 @@ test.describe("Axe a11y", () => {
       page,
     }) => {
       await page.goto(url);
+      await page.waitForLoadState("networkidle");
 
       const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
 
