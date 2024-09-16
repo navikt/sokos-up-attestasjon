@@ -1,17 +1,22 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
-// 1
+const pagesToTest = [
+  "/attestasjon",
+  "/attestasjon/treffliste",
+  "/attestasjon/detaljer",
+];
 
-test.describe("homepage", () => {
-  // 2
-  test("should not have any automatically detectable accessibility issues", async ({
-    page,
-  }) => {
-    await page.goto("https://your-site.com/"); // 3
+test.describe("Axe a11y", () => {
+  pagesToTest.forEach((url) => {
+    test(`should not have any automatically detectable accessibility issues on ${url}`, async ({
+      page,
+    }) => {
+      await page.goto(url);
 
-    const accessibilityScanResults = await new AxeBuilder({ page }).analyze(); // 4
+      const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
 
-    expect(accessibilityScanResults.violations).toEqual([]); // 5
+      expect(accessibilityScanResults.violations).toEqual([]);
+    });
   });
 });
