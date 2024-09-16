@@ -117,7 +117,11 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
           <Button
             type="submit"
             icon={
-              loading ? <Loader title={"Søker..."} /> : <MagnifyingGlassIcon />
+              loading ? (
+                <Loader title={"Søker..."} />
+              ) : (
+                <MagnifyingGlassIcon title="Ikon som viser et forstørrelsesglass" />
+              )
             }
             iconPosition="right"
           >
