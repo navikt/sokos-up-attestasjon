@@ -32,9 +32,9 @@ const DetaljerPage = () => {
           <Breadcrumbs searchLink trefflistelink detaljer />
           {oppdragsdetalj && (
             <div className={styles.detaljer__label}>
-              <LabelText label="Gjelder ID" text={oppdragsdetalj.gjelderId} />
+              <LabelText label="Gjelder" text={oppdragsdetalj.gjelderId} />
               <LabelText
-                label="Fagsystem ID"
+                label="Fagsystem id"
                 text={oppdragsdetalj.fagSystemId}
               />
               <LabelText

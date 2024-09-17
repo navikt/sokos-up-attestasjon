@@ -37,10 +37,10 @@ const SokeParameterVisning = ({
           Søkekriterier benyttet:
         </Heading>
         <div className={styles.sokekriterier__content}>
-          {gjelderId && <LabelText label={"Gjelder ID"} text={gjelderId} />}
+          {gjelderId && <LabelText label={"Gjelder"} text={gjelderId} />}
           {navn && <LabelText label={"Navn"} text={navn} />}
           {fagsystemId && (
-            <LabelText label={"Fagsystem ID"} text={fagsystemId} />
+            <LabelText label={"Fagsystem id"} text={fagsystemId} />
           )}
           {kodeFaggruppe && (
             <LabelText label={"Faggruppe"} text={kodeFaggruppe} />

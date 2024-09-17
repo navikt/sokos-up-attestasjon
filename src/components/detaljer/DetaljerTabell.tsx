@@ -153,12 +153,9 @@ export const DetaljerTabell = ({
         typeof payload,
         AttesterOppdragResponse
       >(BASE_URI.ATTESTASJON, "/attestere", payload);
-
       setResponse(response);
       setError(null);
-
       setShowAlert(true);
-
       setSelectedRows([]);
       setChanges([]);
       mutate();
@@ -175,16 +172,22 @@ export const DetaljerTabell = ({
 
   return (
     <>
-      {error && <Alert variant="error">{error}</Alert>}
+      {error && (
+        <div className={styles.detaljer__alert}>
+          <Alert variant="error">{error}</Alert>
+        </div>
+      )}
       {response && showAlert && (
-        <AlertWithCloseButton variant="success">
-          Oppdatering vellykket.
-          {
-            response.OSAttestasjonOperationResponse.Attestasjonskvittering
-              .ResponsAttestasjon.AntLinjerMottatt
-          }{" "}
-          linjer oppdatert.
-        </AlertWithCloseButton>
+        <div className={styles.detaljer__alert}>
+          <AlertWithCloseButton variant="success">
+            Oppdatering vellykket.
+            {
+              response.OSAttestasjonOperationResponse.Attestasjonskvittering
+                .ResponsAttestasjon.AntLinjerMottatt
+            }{" "}
+            linjer oppdatert.
+          </AlertWithCloseButton>
+        </div>
       )}
       <Table>
         <Table.Header>

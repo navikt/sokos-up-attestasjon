@@ -50,7 +50,7 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
           />
           <FormField
             name="fagsystemId"
-            label="Fagsystem ID"
+            label="Fagsystem id"
             defaultValue={sokedata?.fagsystemId}
             register={register}
             error={errors.fagsystemId}
