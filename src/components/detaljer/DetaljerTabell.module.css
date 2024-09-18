@@ -5,3 +5,7 @@
 .checkbox_container {
   @apply flex items-center gap-6;
 }
+
+.detaljer__alert {
+  @apply pb-3;
+}

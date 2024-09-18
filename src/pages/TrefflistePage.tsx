@@ -68,7 +68,7 @@ const TrefflistePage = () => {
           <SokeParameterVisning
             gjelderId={sokeData?.gjelderId}
             navn={gjelderNavn}
-            fagsystemId={sokeData?.fagsystemId}
+            fagSystemId={sokeData?.fagSystemId}
             kodeFaggruppe={sokeData?.kodeFagGruppe}
             kodeFagomraade={sokeData?.kodeFagOmraade}
             attestertStatus={sokeData?.attestertStatus}

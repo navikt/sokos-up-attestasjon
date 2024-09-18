@@ -49,11 +49,11 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
             error={errors.gjelderId}
           />
           <FormField
-            name="fagsystemId"
-            label="Fagsystem ID"
-            defaultValue={sokedata?.fagsystemId}
+            name="fagSystemId"
+            label="Fagsystem id"
+            defaultValue={sokedata?.fagSystemId}
             register={register}
-            error={errors.fagsystemId}
+            error={errors.fagSystemId}
           />
           <SokosCombobox
             name="kodeFagGruppe"
@@ -84,7 +84,7 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
           <RadioGroup
             legend="Status"
             name="attestertStatus"
-            defaultValue={sokedata?.attestertStatus ?? "null"}
+            defaultValue={"false"}
           >
             <Radio value="true" {...register("attestertStatus")}>
               Attestert

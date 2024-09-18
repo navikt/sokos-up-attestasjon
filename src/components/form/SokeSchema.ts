@@ -2,7 +2,7 @@ import { ZodEffects, ZodString, z } from "zod";
 
 export type SokeData = {
   gjelderId: string;
-  fagsystemId: string | undefined;
+  fagSystemId: string | undefined;
   kodeFagGruppe: string | undefined;
   kodeFagOmraade: string | undefined;
   attestertStatus: string;
@@ -17,7 +17,7 @@ const parseAttestert = (attestertStatus: string | undefined) => {
 
 export type SokeRequestBody = {
   gjelderId: string | undefined;
-  fagsystemId: string | undefined;
+  fagSystemId: string | undefined;
   kodeFagGruppe: string | undefined;
   kodeFagOmraade: string | undefined;
   attestert: boolean | undefined;
@@ -25,7 +25,7 @@ export type SokeRequestBody = {
 
 export const mapToSokeRequestBody = (sokedata?: SokeData) => ({
   gjelderId: sokedata?.gjelderId,
-  fagsystemId: sokedata?.fagsystemId,
+  fagSystemId: sokedata?.fagSystemId,
   kodeFagGruppe: sokedata?.kodeFagGruppe,
   kodeFagOmraade: sokedata?.kodeFagOmraade,
   attestert: parseAttestert(sokedata?.attestertStatus),
@@ -45,7 +45,7 @@ const lengderegel: ZodEffects<ZodString, string, string> = z
 export const SokeSchema = z
   .object({
     gjelderId: z.literal("").or(baretallregel.pipe(lengderegel)),
-    fagsystemId: z.optional(z.string()),
+    fagSystemId: z.optional(z.string()),
     kodeFagGruppe: z.optional(z.string()),
     kodeFagOmraade: z.optional(z.string()),
     attestertStatus: z.union([
@@ -61,7 +61,7 @@ export const SokeSchema = z
       if (data.kodeFagOmraade?.length !== 0 && data.attestertStatus === "false")
         return true;
       if (data.gjelderId?.length !== 0) return true;
-      if (data.fagsystemId?.length !== 0 && data.kodeFagOmraade?.length !== 0)
+      if (data.fagSystemId?.length !== 0 && data.kodeFagOmraade?.length !== 0)
         return true;
 
       return false;
@@ -74,7 +74,7 @@ export const SokeSchema = z
 
 export type ValidFieldNames =
   | "gjelderId"
-  | "fagsystemId"
+  | "fagSystemId"
   | "kodeFagGruppe"
   | "kodeFagOmraade"
   | "attestertStatus";

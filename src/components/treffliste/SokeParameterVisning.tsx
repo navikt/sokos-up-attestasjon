@@ -5,7 +5,7 @@ import styles from "./SokeParameterVisning.module.css";
 type SokekriterierProps = {
   gjelderId?: string;
   navn?: string;
-  fagsystemId?: string;
+  fagSystemId?: string;
   kodeFaggruppe?: string;
   kodeFagomraade?: string;
   attestertStatus?: string;
@@ -14,7 +14,7 @@ type SokekriterierProps = {
 const SokeParameterVisning = ({
   gjelderId,
   navn,
-  fagsystemId,
+  fagSystemId,
   kodeFaggruppe,
   kodeFagomraade,
   attestertStatus,
@@ -37,10 +37,10 @@ const SokeParameterVisning = ({
           Søkekriterier benyttet:
         </Heading>
         <div className={styles.sokekriterier__content}>
-          {gjelderId && <LabelText label={"Gjelder ID"} text={gjelderId} />}
+          {gjelderId && <LabelText label={"Gjelder"} text={gjelderId} />}
           {navn && <LabelText label={"Navn"} text={navn} />}
-          {fagsystemId && (
-            <LabelText label={"Fagsystem ID"} text={fagsystemId} />
+          {fagSystemId && (
+            <LabelText label={"Fagsystem id"} text={fagSystemId} />
           )}
           {kodeFaggruppe && (
             <LabelText label={"Faggruppe"} text={kodeFaggruppe} />

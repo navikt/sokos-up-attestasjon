@@ -5,7 +5,7 @@ export const OppdragSchema = z.object({
   fagGruppe: z.string(),
   fagOmraade: z.string(),
   oppdragsId: z.number().int(),
-  fagsystemId: z.string(),
+  fagSystemId: z.string(),
   kostnadsSted: z.string(),
   ansvarsSted: z.string(),
 });

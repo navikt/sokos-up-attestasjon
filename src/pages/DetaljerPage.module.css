@@ -7,15 +7,11 @@
 }
 
 .detaljer__tabell {
-  @apply mx-10 min-w-1024 rounded-lg bg-white;
+  @apply mx-auto min-w-[1600px] max-w-fit rounded-lg bg-white;
 }
 
 .detaljer__label {
   @apply flex gap-16 rounded-lg bg-white pb-5 pl-5 pt-5;
-}
-
-.detaljer__knapperad {
-  @apply mx-10 flex justify-end pb-5 pt-5;
 }
 
 .detaljer__columns {
