@@ -17,7 +17,7 @@ const parseAttestert = (attestertStatus: string | undefined) => {
 
 export type SokeRequestBody = {
   gjelderId: string | undefined;
-  fagsystemId: string | undefined;
+  fagSystemId: string | undefined;
   kodeFagGruppe: string | undefined;
   kodeFagOmraade: string | undefined;
   attestert: boolean | undefined;

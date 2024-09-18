@@ -30,7 +30,7 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
                 </Link>
               </Table.DataCell>
               <Table.DataCell>{oppdrag.fagGruppe}</Table.DataCell>
-              <Table.DataCell>{oppdrag.fagsystemId}</Table.DataCell>
+              <Table.DataCell>{oppdrag.fagSystemId}</Table.DataCell>
               <Table.DataCell>{oppdrag.fagOmraade}</Table.DataCell>
               <Table.DataCell>{oppdrag.kostnadsSted}</Table.DataCell>
               <Table.DataCell>{oppdrag.ansvarsSted}</Table.DataCell>
