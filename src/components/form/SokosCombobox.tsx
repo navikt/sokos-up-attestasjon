@@ -6,7 +6,7 @@ import styles from "./SokosCombobox.module.css";
 type FaggruppeComboboxProps = {
   name:
     | "gjelderId"
-    | "fagsystemId"
+    | "fagSystemId"
     | "kodeFagGruppe"
     | "kodeFagOmraade"
     | "attestertStatus";

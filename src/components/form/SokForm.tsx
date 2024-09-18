@@ -49,11 +49,11 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
             error={errors.gjelderId}
           />
           <FormField
-            name="fagsystemId"
+            name="fagSystemId"
             label="Fagsystem id"
-            defaultValue={sokedata?.fagsystemId}
+            defaultValue={sokedata?.fagSystemId}
             register={register}
-            error={errors.fagsystemId}
+            error={errors.fagSystemId}
           />
           <SokosCombobox
             name="kodeFagGruppe"
