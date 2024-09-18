@@ -84,7 +84,7 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
           <RadioGroup
             legend="Status"
             name="attestertStatus"
-            defaultValue={sokedata?.attestertStatus ?? "null"}
+            defaultValue={"false"}
           >
             <Radio value="true" {...register("attestertStatus")}>
               Attestert
