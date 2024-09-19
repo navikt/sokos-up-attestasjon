@@ -17,7 +17,7 @@ import { createRequestPayload } from "../../util/createRequestPayload";
 import styles from "./DetaljerTabell.module.css";
 
 interface DetaljerTabellProps {
-  oppdragsdetaljer: OppdragsLinje[];
+  oppdragslinjer: OppdragsLinje[];
   gjelderId: string | undefined;
   fagSystemId: string | undefined;
   kodeFagOmraade: string | undefined;
@@ -35,7 +35,7 @@ export type LinjeEndring = {
 };
 
 export const DetaljerTabell = ({
-  oppdragsdetaljer,
+  oppdragslinjer,
   gjelderId,
   fagSystemId,
   kodeFagOmraade,
@@ -86,8 +86,8 @@ export const DetaljerTabell = ({
 
   function lines(type: Linjetype) {
     return type === "attester"
-      ? oppdragsdetaljer.filter((linje) => !linje.attestasjoner[0].attestant)
-      : /* type === "fjern"   */ oppdragsdetaljer.filter(
+      ? oppdragslinjer.filter((linje) => !linje.attestasjoner[0].attestant)
+      : /* type === "fjern"   */ oppdragslinjer.filter(
           (linje) => linje.attestasjoner[0].attestant,
         );
   }
@@ -142,7 +142,7 @@ export const DetaljerTabell = ({
       kodeFagOmraade ?? "",
       gjelderId ?? "",
       oppdragsId,
-      oppdragsdetaljer,
+      oppdragslinjer,
       selectedRows,
       changes,
     );
@@ -242,7 +242,7 @@ export const DetaljerTabell = ({
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {oppdragsdetaljer.map((linje) => (
+          {oppdragslinjer.map((linje) => (
             <Table.Row
               key={linje.oppdragsLinje.linjeId}
               selected={selectedRows.includes(linje.oppdragsLinje.linjeId)}
@@ -252,7 +252,7 @@ export const DetaljerTabell = ({
                 {linje.oppdragsLinje.delytelseId}
               </Table.DataCell>
               <Table.DataCell align="center">
-                {linje.oppdragsLinje.sats}
+                {linje.oppdragsLinje.sats.toFixed(2)}
               </Table.DataCell>
               <Table.DataCell>{linje.oppdragsLinje.typeSats}</Table.DataCell>
               <Table.DataCell>

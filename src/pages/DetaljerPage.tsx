@@ -53,7 +53,7 @@ const DetaljerPage = () => {
       <div className={styles.detaljer__tabell}>
         {data && (
           <DetaljerTabell
-            oppdragsdetaljer={data.reduce((a) => a).linjer}
+            oppdragslinjer={data.reduce((a) => a).linjer}
             gjelderId={oppdragsdetalj?.gjelderId}
             fagSystemId={oppdragsdetalj?.fagSystemId}
             kodeFagOmraade={oppdragsdetalj?.kodeFagOmraade}
