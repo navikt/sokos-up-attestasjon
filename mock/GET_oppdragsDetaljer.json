@@ -1,127 +1,53 @@
 [
   {
-    "ansvarsSted": "8020",
     "antallAttestanter": 1,
-    "attestant": "D125478",
-    "datoUgyldigFom": "9999-12-31",
-    "datoVedtakFom": "2022-04-01",
-    "datoVedtakTom": "2023-02-28",
-    "delytelsesId": "18764193",
-    "fagGruppe": "Barnetrygd",
-    "fagOmraade": "Barnetrygd",
-    "fagSystemId": "1876419",
-    "kodeKlasse": "BATR",
-    "kostnadsSted": "8020",
-    "linjeId": "4",
-    "ansvarsStedForOppdrag":  "1337",
-    "ansvarsStedForOppdragsLinje": "1905",
-    "kostnadsStedForOppdrag":  "1828",
-    "kostnadsStedForOppdragsLinje": "8128",
-    "gjelderId": "43128412345",
-    "sats": 553,
-    "satstype": "MND"
-  },
-  {
-    "ansvarsSted": "8020",
-    "antallAttestanter": 1,
-    "attestant": "",
-    "datoUgyldigFom": "9999-12-31",
-    "datoVedtakFom": "2023-07-01",
-    "datoVedtakTom": "2030-01-31",
-    "delytelsesId": "18764195",
-    "fagGruppe": "Barnetrygd",
-    "fagOmraade": "Barnetrygd",
-    "fagSystemId": "1876419",
-    "kodeKlasse": "BATR",
-    "kostnadsSted": "8020",
-    "linjeId": "6",
-    "gjelderId": "43128412345",
-    "sats": 187,
-    "satstype": "MND",
-    "ansvarsStedForOppdrag":  "1337",
-    "ansvarsStedForOppdragsLinje": "1905",
-    "kostnadsStedForOppdrag":  "1828",
-    "kostnadsStedForOppdragsLinje": "8128"
-  },
-  {
-    "ansvarsSted": "8020",
-    "antallAttestanter": 1,
-    "attestant": "VL",
-    "datoUgyldigFom": "9999-12-31",
-    "datoVedtakFom": "2023-03-01",
-    "datoVedtakTom": "2023-06-30",
-    "delytelsesId": "18764196",
-    "fagGruppe": "Barnetrygd",
-    "fagOmraade": "Barnetrygd",
-    "fagSystemId": "1876419",
-    "kodeKlasse": "BATR",
-    "kostnadsSted": "8020",
-    "linjeId": "7",
-    "gjelderId": "43128412345",
-    "sats": 600,
-    "satstype": "MND",
-    "ansvarsStedForOppdrag":  "1337",
-    "ansvarsStedForOppdragsLinje": "1905",
-    "kostnadsStedForOppdrag":  "1828",
-    "kostnadsStedForOppdragsLinje": "8128"
-  },
-  {
-    "ansvarsSted": "8020",
-    "antallAttestanter": 1,
-    "attestant": "",
-    "datoUgyldigFom": "9999-12-31",
-    "datoVedtakFom": "2023-07-01",
-    "datoVedtakTom": "2028-02-29",
-    "delytelsesId": "18764197",
-    "fagGruppe": "Barnetrygd",
-    "fagOmraade": "Barnetrygd",
-    "fagSystemId": "1876419",
-    "kodeKlasse": "BATR",
-    "kostnadsSted": "8020",
-    "linjeId": "8",
-    "gjelderId": "43128412345",
-    "sats": 643,
-    "satstype": "MND",
-    "ansvarsStedForOppdrag":  "1337",
-    "kostnadsStedForOppdrag":  "1828"
-  },
-  {
-    "ansvarsSted": "8020",
-    "antallAttestanter": 1,
-    "attestant": "VL",
-    "datoUgyldigFom": "9999-12-31",
-    "datoVedtakFom": "2028-03-01",
-    "datoVedtakTom": "2040-02-29",
-    "delytelsesId": "18764198",
-    "fagGruppe": "Barnetrygd",
-    "fagOmraade": "Barnetrygd",
-    "fagSystemId": "1876419",
-    "kodeKlasse": "BATR",
-    "kostnadsSted": "8020",
-    "linjeId": "9",
-    "gjelderId": "43128412345",
-    "sats": 187,
-    "satstype": "MND"
-  },
-  {
-    "ansvarsSted": "8020",
-    "antallAttestanter": 1,
-    "attestant": "TTB4806",
-    "datoUgyldigFom": "9999-12-31",
-    "datoVedtakFom": "2023-04-01",
-    "delytelsesId": "025044923MS2023-04-01",
-    "fagGruppe": "Kontantstøtte",
-    "fagOmraade": "Kontantstøtte",
-    "fagSystemId": "015485999",
-    "kodeKlasse": "KSEUMB",
-    "kostnadsSted": "8020",
-    "linjeId": "1",
-    "gjelderId": "43128412345",
-    "sats": 4854,
-    "satstype": "MND",
-    "ansvarsStedForOppdrag":  "1337",
-    "ansvarsStedForOppdragsLinje": "1492",
-    "kostnadsStedForOppdrag":  "1828",
-    "kostnadsStedForOppdragsLinje": "1234"
+    "fagGruppe": "Korttidsytelser",
+    "fagOmraade": "Sykepenger",
+    "fagSystemId": "FY00724748120170501         FY",
+    "gjelderId": "12345612345",
+    "kodeFagOmraade": "SP",
+    "ansvarsStedForOppdrag": "8128",
+    "kostnadsStedForOppdrag": "8020",
+    "oppdragsId": "32464186",
+    "linjer": [
+      {
+        "oppdragsLinje": {
+          "attestert": true,
+          "datoVedtakFom": "2017-05-01",
+          "datoVedtakTom": "2017-05-31",
+          "delytelseId": "FYL20170501007247481 79947001",
+          "kodeKlasse": "SPATFER",
+          "linjeId": 1,
+          "oppdragsId": 32464186,
+          "sats": 1009,
+          "typeSats": "ENG"
+        },
+        "attestasjoner": [
+          {
+            "attestant": "K2786FPW",
+            "datoUgyldigFom": "9999-12-31"
+          }
+        ]
+      },
+      {
+        "oppdragsLinje": {
+          "attestert": true,
+          "datoVedtakFom": "2017-05-01",
+          "datoVedtakTom": "2017-05-31",
+          "delytelseId": "FYL20170501007247481 99736201",
+          "kodeKlasse": "SPATFER",
+          "linjeId": 2,
+          "oppdragsId": 32464186,
+          "sats": 1155,
+          "typeSats": "ENG"
+        },
+        "attestasjoner": [
+          {
+            "attestant": "K2786FPW",
+            "datoUgyldigFom": "9999-12-31"
+          }
+        ]
+      }
+    ]
   }
 ]
