@@ -86,9 +86,9 @@ export const DetaljerTabell = ({
 
   function lines(type: Linjetype) {
     return type === "attester"
-      ? oppdragslinjer.filter((linje) => !linje.attestasjoner[0].attestant)
+      ? oppdragslinjer.filter((linje) => !linje.attestasjoner[0]?.attestant)
       : /* type === "fjern"   */ oppdragslinjer.filter(
-          (linje) => linje.attestasjoner[0].attestant,
+          (linje) => linje.attestasjoner[0]?.attestant,
         );
   }
 
@@ -126,7 +126,7 @@ export const DetaljerTabell = ({
         ...lines(type).map((linje) => {
           return {
             checked: true,
-            suggestedDatoUgyldigFom: linje.attestasjoner[0].attestant
+            suggestedDatoUgyldigFom: linje.attestasjoner[0]?.attestant
               ? dagensDato()
               : "31.12.9999",
             linjeId: linje.oppdragsLinje.linjeId,
@@ -260,10 +260,10 @@ export const DetaljerTabell = ({
                 {isoDatoTilNorskDato(linje.oppdragsLinje.datoVedtakTom)}
               </Table.DataCell>
               <Table.DataCell>
-                {linje.attestasjoner[0].attestant}
+                {linje.attestasjoner[0]?.attestant}
               </Table.DataCell>
               <Table.DataCell>
-                {linje.attestasjoner[0].attestant && (
+                {linje.oppdragsLinje.attestert && (
                   <div className={styles.ugyldig_textfield}>
                     <TextField
                       size="small"
@@ -278,7 +278,7 @@ export const DetaljerTabell = ({
                             (c) => c.linjeId == linje.oppdragsLinje.linjeId,
                           )?.suggestedDatoUgyldigFom) ||
                         isoDatoTilNorskDato(
-                          linje.attestasjoner[0].datoUgyldigFom,
+                          linje.attestasjoner[0]?.datoUgyldigFom,
                         )
                       }
                       onChange={(e) =>
@@ -299,7 +299,7 @@ export const DetaljerTabell = ({
                   checked={selectedRows.includes(linje.oppdragsLinje.linjeId)}
                   onChange={(e) => toggleSelectedRow(e, linje)}
                 >
-                  {linje.attestasjoner[0].attestant ? "Fjern" : "Attester"}
+                  {linje.oppdragsLinje.attestert ? "Fjern" : "Attester"}
                 </Checkbox>
               </Table.DataCell>
               <Table.DataCell />

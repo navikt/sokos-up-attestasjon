@@ -29,12 +29,12 @@ export function createRequestPayload(
 
           return {
             linjeId: Number(linje.oppdragsLinje.linjeId),
-            attestantIdent: linje.attestasjoner[0].attestant || undefined,
-            datoUgyldigFom: !linje.attestasjoner[0].attestant
+            attestantIdent: linje.attestasjoner[0]?.attestant || undefined,
+            datoUgyldigFom: !linje.oppdragsLinje.attestert
               ? undefined
               : norskDatoTilIsoDato(change?.activelyChangedDatoUgyldigFom) ||
                 norskDatoTilIsoDato(change?.suggestedDatoUgyldigFom) ||
-                norskDatoTilIsoDato(linje.attestasjoner[0].datoUgyldigFom) ||
+                norskDatoTilIsoDato(linje.attestasjoner[0]?.datoUgyldigFom) ||
                 "",
           };
         })
