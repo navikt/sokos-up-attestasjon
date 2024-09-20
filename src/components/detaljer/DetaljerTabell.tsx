@@ -11,13 +11,13 @@ import {
 } from "@navikt/ds-react";
 import { BASE_URI, axiosPostFetcher } from "../../api/config/apiConfig";
 import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
-import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import { OppdragsLinje } from "../../types/OppdragsDetaljer";
 import { dagensDato, isoDatoTilNorskDato } from "../../util/DatoUtil";
 import { createRequestPayload } from "../../util/createRequestPayload";
 import styles from "./DetaljerTabell.module.css";
 
 interface DetaljerTabellProps {
-  oppdragsdetaljer: OppdragsDetaljer[];
+  oppdragslinjer: OppdragsLinje[];
   gjelderId: string | undefined;
   fagSystemId: string | undefined;
   kodeFagOmraade: string | undefined;
@@ -35,7 +35,7 @@ export type LinjeEndring = {
 };
 
 export const DetaljerTabell = ({
-  oppdragsdetaljer,
+  oppdragslinjer,
   gjelderId,
   fagSystemId,
   kodeFagOmraade,
@@ -55,9 +55,9 @@ export const DetaljerTabell = ({
 
   function toggleSelectedRow(
     event: ChangeEvent<HTMLInputElement>,
-    linje: OppdragsDetaljer,
+    linje: OppdragsLinje,
   ) {
-    const id = linje.linjeId;
+    const id = linje.oppdragsLinje.linjeId;
     setSelectedRows((prev) =>
       prev.includes(id) ? prev.filter((i) => id !== i) : [...prev, id],
     );
@@ -86,22 +86,22 @@ export const DetaljerTabell = ({
 
   function lines(type: Linjetype) {
     return type === "attester"
-      ? oppdragsdetaljer.filter((linje) => !linje.attestant)
-      : /* type === "fjern"   */ oppdragsdetaljer.filter(
-          (linje) => linje.attestant,
+      ? oppdragslinjer.filter((linje) => !linje.attestasjoner[0]?.attestant)
+      : /* type === "fjern"   */ oppdragslinjer.filter(
+          (linje) => linje.attestasjoner[0]?.attestant,
         );
   }
 
   function ids(type: Linjetype) {
-    return lines(type).map((l) => l.linjeId);
+    return lines(type).map((l) => l.oppdragsLinje.linjeId);
   }
 
   function checkedStatus(type: Linjetype) {
     const alle: boolean = !lines(type).some(
-      (linje) => !selectedRows.includes(linje.linjeId),
+      (linje) => !selectedRows.includes(linje.oppdragsLinje.linjeId),
     );
     const noen: boolean = lines(type).some((linje) =>
-      selectedRows.includes(linje.linjeId),
+      selectedRows.includes(linje.oppdragsLinje.linjeId),
     );
 
     if (alle) return "alle";
@@ -126,10 +126,10 @@ export const DetaljerTabell = ({
         ...lines(type).map((linje) => {
           return {
             checked: true,
-            suggestedDatoUgyldigFom: linje.attestant
+            suggestedDatoUgyldigFom: linje.attestasjoner[0]?.attestant
               ? dagensDato()
               : "31.12.9999",
-            linjeId: linje.linjeId,
+            linjeId: linje.oppdragsLinje.linjeId,
           };
         }),
       ]);
@@ -142,7 +142,7 @@ export const DetaljerTabell = ({
       kodeFagOmraade ?? "",
       gjelderId ?? "",
       oppdragsId,
-      oppdragsdetaljer,
+      oppdragslinjer,
       selectedRows,
       changes,
     );
@@ -201,8 +201,6 @@ export const DetaljerTabell = ({
             </Table.HeaderCell>
             <Table.HeaderCell scope="col">Satstype</Table.HeaderCell>
             <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Kostnadssted</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Ansvarssted</Table.HeaderCell>
             <Table.HeaderCell scope="col">Attestant</Table.HeaderCell>
             <Table.HeaderCell scope="col">Ugyldig f.o.m</Table.HeaderCell>
             <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
@@ -244,55 +242,64 @@ export const DetaljerTabell = ({
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {oppdragsdetaljer.map((linje) => (
+          {oppdragslinjer.map((linje) => (
             <Table.Row
-              key={linje.linjeId}
-              selected={selectedRows.includes(linje.linjeId)}
+              key={linje.oppdragsLinje.linjeId}
+              selected={selectedRows.includes(linje.oppdragsLinje.linjeId)}
             >
-              <Table.DataCell>{linje.kodeKlasse}</Table.DataCell>
-              <Table.DataCell align="center">{linje.linjeId}</Table.DataCell>
-              <Table.DataCell align="center">{linje.sats}</Table.DataCell>
-              <Table.DataCell>{linje.satstype}</Table.DataCell>
+              <Table.DataCell>{linje.oppdragsLinje.kodeKlasse}</Table.DataCell>
+              <Table.DataCell align="center">
+                {linje.oppdragsLinje.delytelseId}
+              </Table.DataCell>
+              <Table.DataCell align="center">
+                {linje.oppdragsLinje.sats.toFixed(2)}
+              </Table.DataCell>
+              <Table.DataCell>{linje.oppdragsLinje.typeSats}</Table.DataCell>
               <Table.DataCell>
-                {isoDatoTilNorskDato(linje.datoVedtakFom)} -{" "}
-                {isoDatoTilNorskDato(linje.datoVedtakTom)}
+                {isoDatoTilNorskDato(linje.oppdragsLinje.datoVedtakFom)} -{" "}
+                {isoDatoTilNorskDato(linje.oppdragsLinje.datoVedtakTom)}
               </Table.DataCell>
               <Table.DataCell>
-                {linje.kostnadsStedForOppdragsLinje}
+                {linje.attestasjoner[0]?.attestant}
               </Table.DataCell>
               <Table.DataCell>
-                {linje.ansvarsStedForOppdragsLinje}
-              </Table.DataCell>
-              <Table.DataCell>{linje.attestant}</Table.DataCell>
-              <Table.DataCell>
-                {linje.attestant && (
+                {linje.oppdragsLinje.attestert && (
                   <div className={styles.ugyldig_textfield}>
                     <TextField
                       size="small"
                       label="Ugyldig FOM"
                       hideLabel
                       value={
-                        changes.find((c) => c.linjeId == linje.linjeId)
-                          ?.activelyChangedDatoUgyldigFom ||
-                        (selectedRows.includes(linje.linjeId) &&
-                          changes.find((c) => c.linjeId == linje.linjeId)
-                            ?.suggestedDatoUgyldigFom) ||
-                        isoDatoTilNorskDato(linje.datoUgyldigFom)
+                        changes.find(
+                          (c) => c.linjeId == linje.oppdragsLinje.linjeId,
+                        )?.activelyChangedDatoUgyldigFom ||
+                        (selectedRows.includes(linje.oppdragsLinje.linjeId) &&
+                          changes.find(
+                            (c) => c.linjeId == linje.oppdragsLinje.linjeId,
+                          )?.suggestedDatoUgyldigFom) ||
+                        isoDatoTilNorskDato(
+                          linje.attestasjoner[0]?.datoUgyldigFom,
+                        )
                       }
                       onChange={(e) =>
-                        handleTextFieldChange(linje.linjeId, e.target.value)
+                        handleTextFieldChange(
+                          linje.oppdragsLinje.linjeId,
+                          e.target.value,
+                        )
                       }
-                      disabled={!selectedRows.includes(linje.linjeId)}
+                      disabled={
+                        !selectedRows.includes(linje.oppdragsLinje.linjeId)
+                      }
                     />
                   </div>
                 )}
               </Table.DataCell>
               <Table.DataCell>
                 <Checkbox
-                  checked={selectedRows.includes(linje.linjeId)}
+                  checked={selectedRows.includes(linje.oppdragsLinje.linjeId)}
                   onChange={(e) => toggleSelectedRow(e, linje)}
                 >
-                  {linje.attestant ? "Fjern" : "Attester"}
+                  {linje.oppdragsLinje.attestert ? "Fjern" : "Attester"}
                 </Checkbox>
               </Table.DataCell>
               <Table.DataCell />

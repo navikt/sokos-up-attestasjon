@@ -1,6 +1,6 @@
 import { AttesterOppdragRequest } from "../api/models/AttesterOppdragRequest";
 import { LinjeEndring } from "../components/detaljer/DetaljerTabell";
-import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
+import { OppdragsLinje } from "../types/OppdragsDetaljer";
 import { norskDatoTilIsoDato } from "./DatoUtil";
 
 export function createRequestPayload(
@@ -8,7 +8,7 @@ export function createRequestPayload(
   kodeFagOmraade: string,
   gjelderId: string,
   oppdragsId: number,
-  oppdragsdetaljer: OppdragsDetaljer[],
+  oppdragsdetaljer: OppdragsLinje[],
   selectedRows: number[],
   changes: LinjeEndring[],
 ): AttesterOppdragRequest {
@@ -20,19 +20,21 @@ export function createRequestPayload(
     linjer:
       selectedRows
         .map((id) => {
-          const linje = oppdragsdetaljer.find((l) => l.linjeId == id);
+          const linje = oppdragsdetaljer.find(
+            (l) => l.oppdragsLinje.linjeId == id,
+          );
           const change = changes.find((c) => c.linjeId == id);
 
           if (!linje) return;
 
           return {
-            linjeId: Number(linje.linjeId),
-            attestantIdent: linje.attestant || undefined,
-            datoUgyldigFom: !linje.attestant
+            linjeId: Number(linje.oppdragsLinje.linjeId),
+            attestantIdent: linje.attestasjoner[0]?.attestant || undefined,
+            datoUgyldigFom: !linje.oppdragsLinje.attestert
               ? undefined
               : norskDatoTilIsoDato(change?.activelyChangedDatoUgyldigFom) ||
                 norskDatoTilIsoDato(change?.suggestedDatoUgyldigFom) ||
-                norskDatoTilIsoDato(linje.datoUgyldigFom) ||
+                norskDatoTilIsoDato(linje.attestasjoner[0]?.datoUgyldigFom) ||
                 "",
           };
         })
