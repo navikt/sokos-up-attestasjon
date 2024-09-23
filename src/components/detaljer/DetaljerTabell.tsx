@@ -180,9 +180,9 @@ export const DetaljerTabell = ({
       mutate();
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setError(`Error: ${error.message}`);
+        setError(`Error: ${error.response?.data?.message}`);
       } else {
-        setError("En uforventet feil har skjedd");
+        setError("En uventet feil har skjedd");
       }
     } finally {
       setIsLoading(false);
