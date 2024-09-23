@@ -19,7 +19,14 @@ export function dagensDato(): string {
   return dayjs().format(datoFormatNorsk);
 }
 
-export function validerDatoFormat(norskDato: string): boolean {
+export function isInvalidDateFormat(norskDato: string): boolean {
   dayjs.extend(customParseFormat);
-  return dayjs(norskDato, datoFormatNorsk, true).isValid();
+  const oppgittDato = dayjs(norskDato, datoFormatNorsk, true);
+  return !oppgittDato.isValid();
+}
+
+export function isDateInThePast(norskDato: string): boolean {
+  dayjs.extend(customParseFormat);
+  const oppgittDato = dayjs(norskDato, datoFormatNorsk, true);
+  return oppgittDato.isBefore(dayjs().startOf("day"));
 }
