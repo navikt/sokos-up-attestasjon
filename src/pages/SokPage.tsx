@@ -36,8 +36,9 @@ export default function SokPage() {
         }
       })
       .catch((error) => {
+        const errorMessage = error.response?.data?.message || error.message;
         setError(
-          "Noe gikk galt. Prøv igjen senere. Feilmelding: " + error.message,
+          "Noe gikk galt. Prøv igjen senere. Feilmelding: " + errorMessage,
         );
         setIsLoading(false);
       });
