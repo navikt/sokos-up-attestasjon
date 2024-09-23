@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
 const datoFormatNorsk = "DD.MM.YYYY";
 
@@ -16,4 +17,9 @@ export function norskDatoTilIsoDato(norskDato?: string): string {
 
 export function dagensDato(): string {
   return dayjs().format(datoFormatNorsk);
+}
+
+export function validerDatoFormat(norskDato: string): boolean {
+  dayjs.extend(customParseFormat);
+  return dayjs(norskDato, datoFormatNorsk, true).isValid();
 }
