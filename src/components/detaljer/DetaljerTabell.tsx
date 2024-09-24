@@ -98,7 +98,9 @@ export const DetaljerTabell = ({
 
   function lines(type: Linjetype) {
     return type === "attester"
-      ? oppdragslinjer.filter((linje) => linje.attestasjoner.length === 0)
+      ? linjerMedEndringer.filter(
+          (linje) => linje.linje.attestasjoner.length === 0,
+        )
       : /* type === "fjern"   */ oppdragslinjer.filter(
           (linje) => linje.attestasjoner.length > 0,
         );
