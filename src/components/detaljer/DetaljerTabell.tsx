@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { ChangeEvent, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Alert,
   AlertProps,
@@ -7,21 +7,17 @@ import {
   Checkbox,
   Loader,
   Table,
-  TextField,
 } from "@navikt/ds-react";
 import { BASE_URI, axiosPostFetcher } from "../../api/config/apiConfig";
 import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
 import { OppdragsLinje } from "../../types/OppdragsDetaljer";
-import {
-  dagensDato,
-  isDateInThePast,
-  isInvalidDateFormat,
-  isoDatoTilNorskDato,
-} from "../../util/DatoUtil";
+import { dagensDato } from "../../util/DatoUtil";
 import { createRequestPayload } from "../../util/createRequestPayload";
 import styles from "./DetaljerTabell.module.css";
+import DetaljerTabellRow from "./DetaljerTabellRow";
 
 interface DetaljerTabellProps {
+  antallAttestanter: number;
   oppdragslinjer: OppdragsLinje[];
   gjelderId: string | undefined;
   fagSystemId: string | undefined;
@@ -32,14 +28,18 @@ interface DetaljerTabellProps {
 
 type Linjetype = "fjern" | "attester";
 
-export type LinjeEndring = {
-  linjeId: number;
-  checked: boolean;
+export type StatefulLinje = {
   activelyChangedDatoUgyldigFom?: string;
+  attester: boolean;
+  linje: OppdragsLinje;
+  error?: string;
+  fjern: boolean;
   suggestedDatoUgyldigFom?: string;
+  vises: boolean;
 };
 
 export const DetaljerTabell = ({
+  antallAttestanter,
   oppdragslinjer,
   gjelderId,
   fagSystemId,
@@ -47,117 +47,100 @@ export const DetaljerTabell = ({
   oppdragsId,
   mutate,
 }: DetaljerTabellProps) => {
-  const [selectedRows, setSelectedRows] = useState<number[]>([]);
-  const [changes, setChanges] = useState<LinjeEndring[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<AttesterOppdragResponse>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [dateErrors, setDateErrors] = useState<{ [key: number]: string }>({});
+
+  const [linjerMedEndringer, setLinjerMedEndringer] = useState(
+    oppdragslinjer.map(enLinjePerAttestasjon).flatMap(setOnlyFirstVisible),
+  );
+
+  function enLinjePerAttestasjon(linje: OppdragsLinje): OppdragsLinje[] {
+    const enLinjeForHverEksisterendeAttestasjon: OppdragsLinje[] =
+      linje.attestasjoner.map((a) => ({
+        ...linje,
+        attestasjoner: [a],
+      }));
+    const enLinjeUtenAttestasjon: OppdragsLinje = {
+      ...linje,
+      attestasjoner: [],
+    };
+
+    return antallAttestanter > 1
+      ? [...enLinjeForHverEksisterendeAttestasjon, enLinjeUtenAttestasjon]
+      : [linje];
+  }
+
+  function setOnlyFirstVisible(linjer: OppdragsLinje[]): StatefulLinje[] {
+    return linjer.map((l, index) => ({
+      activelyChangedDatoUgyldigFom: "",
+      attester: false,
+      error: "",
+      linje: l,
+      fjern: false,
+      suggestedDatoUgyldigFom: "",
+      vises: index == 0,
+    }));
+  }
+
+  const handleStateChange = (index: number, newState: StatefulLinje) => {
+    setLinjerMedEndringer(
+      linjerMedEndringer.map((component, i) =>
+        i === index ? newState : component,
+      ),
+    );
+  };
 
   useEffect(() => {
     if (showAlert) setTimeout(() => setShowAlert(false), 10000);
   }, [showAlert]);
 
-  function toggleSelectedRow(
-    event: ChangeEvent<HTMLInputElement>,
-    linje: OppdragsLinje,
-  ) {
-    const id = linje.oppdragsLinje.linjeId;
-    setSelectedRows((prev) =>
-      prev.includes(id) ? prev.filter((i) => id !== i) : [...prev, id],
-    );
-
-    const newChange: LinjeEndring = {
-      checked: event.target.checked,
-      suggestedDatoUgyldigFom: event.target.checked ? dagensDato() : undefined,
-      linjeId: id,
-    };
-
-    setChanges((prev) => {
-      return [...prev, newChange];
-    });
-  }
-
-  function handleTextFieldChange(id: number, value: string) {
-    setChanges((previousChanges) => {
-      const oldChange = previousChanges.find((c) => c.linjeId == id);
-      const newChange = !oldChange
-        ? { activelyChangedDatoUgyldigFom: value, linjeId: id, checked: true }
-        : { ...oldChange, activelyChangedDatoUgyldigFom: value };
-
-      return [...previousChanges.filter((c) => c.linjeId !== id), newChange];
-    });
-
-    if (isInvalidDateFormat(value)) {
-      setDateErrors((prev) => ({ ...prev, [id]: "Ugyldig datoformat" }));
-    } else if (isDateInThePast(value)) {
-      setDateErrors((prev) => ({
-        ...prev,
-        [id]: "Dato kan ikke være i fortid",
-      }));
-    } else {
-      setDateErrors((prev) => {
-        delete prev[id];
-        return prev;
-      });
-    }
-  }
-
   function lines(type: Linjetype) {
     return type === "attester"
-      ? oppdragslinjer.filter((linje) => !linje.oppdragsLinje.attestert)
+      ? oppdragslinjer.filter((linje) => linje.attestasjoner.length === 0)
       : /* type === "fjern"   */ oppdragslinjer.filter(
-          (linje) => linje.oppdragsLinje.attestert,
+          (linje) => linje.attestasjoner.length > 0,
         );
   }
 
-  function ids(type: Linjetype) {
-    return lines(type).map((l) => l.oppdragsLinje.linjeId);
-  }
-
   function checkedStatus(type: Linjetype) {
-    const alle: boolean = !lines(type).some(
-      (linje) => !selectedRows.includes(linje.oppdragsLinje.linjeId),
+    const numberOfChecked = linjerMedEndringer.filter((l) =>
+      type == "fjern" ? l.fjern : l.attester,
     );
-    const noen: boolean = lines(type).some((linje) =>
-      selectedRows.includes(linje.oppdragsLinje.linjeId),
-    );
-
-    if (alle) return "alle";
-    else if (noen) return "noen";
+    if (numberOfChecked.length === lines(type).length) return "alle";
+    else if (numberOfChecked.length > 1) return "noen";
     else return "ingen";
   }
 
   function handleToggleAll(type: Linjetype) {
-    // alle var huket av fra før
     if (checkedStatus(type) === "alle") {
-      setSelectedRows(selectedRows.filter((id) => !ids(type).includes(id)));
-      setChanges((prev) => [
-        ...prev.filter((change) => !ids(type).includes(change.linjeId)),
-      ]);
-    }
-    // ingen var huket av fra før
-    // noen var huket av fra før
-    else {
-      setSelectedRows((prev) => [...prev, ...ids(type)]);
-      setChanges((prev) => [
-        ...prev,
-        ...lines(type).map((linje) => {
-          return {
-            checked: true,
-            suggestedDatoUgyldigFom: linje.oppdragsLinje.attestert
-              ? dagensDato()
-              : "31.12.9999",
-            linjeId: linje.oppdragsLinje.linjeId,
-          };
-        }),
-      ]);
+      // alle var huket av fra før
+      setLinjerMedEndringer((prev) =>
+        prev.map((l) => ({
+          ...l,
+          attester: type === "attester" ? false : l.attester,
+          fjern: type === "fjern" ? false : l.fjern,
+        })),
+      );
+    } else {
+      // ingen var huket av fra før
+      // noen var huket av fra før
+      setLinjerMedEndringer((prev) =>
+        prev.map((l) => ({
+          ...l,
+          attester: type === "attester" ? true : l.attester,
+          fjern: type === "fjern" ? true : l.fjern,
+          suggestedDatoUgyldigFom: l.linje.oppdragsLinje.attestert
+            ? dagensDato()
+            : "31.12.9999",
+        })),
+      );
     }
   }
 
   const handleSubmit = async () => {
-    if (Object.keys(dateErrors).length > 0) {
+    if (linjerMedEndringer.filter((l) => !!l.error).length > 0) {
       setError("Du må rette feil i datoformat før du kan oppdatere");
       return;
     }
@@ -168,8 +151,7 @@ export const DetaljerTabell = ({
       gjelderId ?? "",
       oppdragsId,
       oppdragslinjer,
-      selectedRows,
-      changes,
+      linjerMedEndringer,
     );
 
     setIsLoading(true);
@@ -181,8 +163,6 @@ export const DetaljerTabell = ({
       setResponse(response);
       setError(null);
       setShowAlert(true);
-      setSelectedRows([]);
-      setChanges([]);
       mutate();
     } catch (error) {
       if (axios.isAxiosError(error)) {
@@ -267,72 +247,12 @@ export const DetaljerTabell = ({
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {oppdragslinjer.map((linje) => (
-            <Table.Row
-              key={linje.oppdragsLinje.linjeId}
-              selected={selectedRows.includes(linje.oppdragsLinje.linjeId)}
-            >
-              <Table.DataCell>{linje.oppdragsLinje.kodeKlasse}</Table.DataCell>
-              <Table.DataCell align="center">
-                {linje.oppdragsLinje.delytelseId}
-              </Table.DataCell>
-              <Table.DataCell align="center">
-                {linje.oppdragsLinje.sats.toFixed(2)}
-              </Table.DataCell>
-              <Table.DataCell>{linje.oppdragsLinje.typeSats}</Table.DataCell>
-              <Table.DataCell>
-                {isoDatoTilNorskDato(linje.oppdragsLinje.datoVedtakFom)} -{" "}
-                {isoDatoTilNorskDato(linje.oppdragsLinje.datoVedtakTom)}
-              </Table.DataCell>
-              <Table.DataCell>
-                {linje.oppdragsLinje.attestert &&
-                  linje.attestasjoner[0]?.attestant}
-              </Table.DataCell>
-              <Table.DataCell>
-                {linje.oppdragsLinje.attestert && (
-                  <div className={styles.ugyldig_textfield}>
-                    <TextField
-                      size="small"
-                      label="Ugyldig FOM"
-                      hideLabel
-                      value={
-                        changes.find(
-                          (c) => c.linjeId == linje.oppdragsLinje.linjeId,
-                        )?.activelyChangedDatoUgyldigFom ||
-                        (selectedRows.includes(linje.oppdragsLinje.linjeId) &&
-                          changes.find(
-                            (c) => c.linjeId == linje.oppdragsLinje.linjeId,
-                          )?.suggestedDatoUgyldigFom) ||
-                        isoDatoTilNorskDato(
-                          linje.attestasjoner[0]?.datoUgyldigFom,
-                        )
-                      }
-                      onChange={(e) =>
-                        handleTextFieldChange(
-                          linje.oppdragsLinje.linjeId,
-                          e.target.value,
-                        )
-                      }
-                      error={dateErrors[linje.oppdragsLinje.linjeId]}
-                      disabled={
-                        !selectedRows.includes(linje.oppdragsLinje.linjeId)
-                      }
-                    />
-                  </div>
-                )}
-              </Table.DataCell>
-              <Table.DataCell>
-                <Checkbox
-                  checked={selectedRows.includes(linje.oppdragsLinje.linjeId)}
-                  onChange={(e) => toggleSelectedRow(e, linje)}
-                >
-                  {linje.oppdragsLinje.attestert ? "Fjern" : "Attester"}
-                </Checkbox>
-              </Table.DataCell>
-              <Table.DataCell />
-              <Table.DataCell />
-              <Table.DataCell />
-            </Table.Row>
+          {linjerMedEndringer.map((le, index) => (
+            <DetaljerTabellRow
+              linjeMedEndring={le}
+              handleStateChange={handleStateChange}
+              index={index}
+            />
           ))}
         </Table.Body>
       </Table>

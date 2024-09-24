@@ -64,6 +64,7 @@ const DetaljerPage = () => {
             fagSystemId={oppdragsdetalj?.fagSystemId}
             kodeFagOmraade={oppdragsdetalj?.kodeFagOmraade}
             oppdragsId={oppdragsId.oppdragsId}
+            antallAttestanter={oppdragsdetalj?.antallAttestanter ?? 1}
             mutate={mutate}
           />
         )}
