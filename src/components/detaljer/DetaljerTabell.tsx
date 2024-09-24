@@ -12,7 +12,12 @@ import {
 import { BASE_URI, axiosPostFetcher } from "../../api/config/apiConfig";
 import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
 import { OppdragsLinje } from "../../types/OppdragsDetaljer";
-import { dagensDato, isoDatoTilNorskDato } from "../../util/DatoUtil";
+import {
+  dagensDato,
+  isDateInThePast,
+  isInvalidDateFormat,
+  isoDatoTilNorskDato,
+} from "../../util/DatoUtil";
 import { createRequestPayload } from "../../util/createRequestPayload";
 import styles from "./DetaljerTabell.module.css";
 
@@ -46,8 +51,9 @@ export const DetaljerTabell = ({
   const [changes, setChanges] = useState<LinjeEndring[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<AttesterOppdragResponse>();
-  const [loading, setLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [dateErrors, setDateErrors] = useState<{ [key: number]: string }>({});
 
   useEffect(() => {
     if (showAlert) setTimeout(() => setShowAlert(false), 10000);
@@ -82,13 +88,27 @@ export const DetaljerTabell = ({
 
       return [...previousChanges.filter((c) => c.linjeId !== id), newChange];
     });
+
+    if (isInvalidDateFormat(value)) {
+      setDateErrors((prev) => ({ ...prev, [id]: "Ugyldig datoformat" }));
+    } else if (isDateInThePast(value)) {
+      setDateErrors((prev) => ({
+        ...prev,
+        [id]: "Dato kan ikke være i fortid",
+      }));
+    } else {
+      setDateErrors((prev) => {
+        delete prev[id];
+        return prev;
+      });
+    }
   }
 
   function lines(type: Linjetype) {
     return type === "attester"
-      ? oppdragslinjer.filter((linje) => !linje.attestasjoner[0]?.attestant)
+      ? oppdragslinjer.filter((linje) => !linje.oppdragsLinje.attestert)
       : /* type === "fjern"   */ oppdragslinjer.filter(
-          (linje) => linje.attestasjoner[0]?.attestant,
+          (linje) => linje.oppdragsLinje.attestert,
         );
   }
 
@@ -126,7 +146,7 @@ export const DetaljerTabell = ({
         ...lines(type).map((linje) => {
           return {
             checked: true,
-            suggestedDatoUgyldigFom: linje.attestasjoner[0]?.attestant
+            suggestedDatoUgyldigFom: linje.oppdragsLinje.attestert
               ? dagensDato()
               : "31.12.9999",
             linjeId: linje.oppdragsLinje.linjeId,
@@ -137,6 +157,11 @@ export const DetaljerTabell = ({
   }
 
   const handleSubmit = async () => {
+    if (Object.keys(dateErrors).length > 0) {
+      setError("Du må rette feil i datoformat før du kan oppdatere");
+      return;
+    }
+
     const payload = createRequestPayload(
       fagSystemId ?? "",
       kodeFagOmraade ?? "",
@@ -147,7 +172,7 @@ export const DetaljerTabell = ({
       changes,
     );
 
-    setLoading(true);
+    setIsLoading(true);
     try {
       const response = await axiosPostFetcher<
         typeof payload,
@@ -161,12 +186,12 @@ export const DetaljerTabell = ({
       mutate();
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setError(`Error: ${error.message}`);
+        setError(`Error: ${error.response?.data?.message}`);
       } else {
-        setError("En uforventet feil har skjedd");
+        setError("En uventet feil har skjedd");
       }
     } finally {
-      setLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -180,7 +205,7 @@ export const DetaljerTabell = ({
       {response && showAlert && (
         <div className={styles.detaljer__alert}>
           <AlertWithCloseButton variant="success">
-            Oppdatering vellykket.
+            Oppdatering vellykket.{" "}
             {
               response.OSAttestasjonOperationResponse.Attestasjonskvittering
                 .ResponsAttestasjon.AntLinjerMottatt
@@ -234,9 +259,9 @@ export const DetaljerTabell = ({
                 type={"submit"}
                 size={"medium"}
                 onClick={handleSubmit}
-                disabled={loading}
+                disabled={isLoading}
               >
-                {loading ? <Loader size={"small"} /> : "Oppdater"}
+                {isLoading ? <Loader size={"small"} /> : "Oppdater"}
               </Button>
             </Table.HeaderCell>
           </Table.Row>
@@ -260,7 +285,8 @@ export const DetaljerTabell = ({
                 {isoDatoTilNorskDato(linje.oppdragsLinje.datoVedtakTom)}
               </Table.DataCell>
               <Table.DataCell>
-                {linje.attestasjoner[0]?.attestant}
+                {linje.oppdragsLinje.attestert &&
+                  linje.attestasjoner[0]?.attestant}
               </Table.DataCell>
               <Table.DataCell>
                 {linje.oppdragsLinje.attestert && (
@@ -287,6 +313,7 @@ export const DetaljerTabell = ({
                           e.target.value,
                         )
                       }
+                      error={dateErrors[linje.oppdragsLinje.linjeId]}
                       disabled={
                         !selectedRows.includes(linje.oppdragsLinje.linjeId)
                       }

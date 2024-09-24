@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 
 const datoFormatNorsk = "DD.MM.YYYY";
 
@@ -16,4 +17,16 @@ export function norskDatoTilIsoDato(norskDato?: string): string {
 
 export function dagensDato(): string {
   return dayjs().format(datoFormatNorsk);
+}
+
+export function isInvalidDateFormat(norskDato: string): boolean {
+  dayjs.extend(customParseFormat);
+  const oppgittDato = dayjs(norskDato, datoFormatNorsk, true);
+  return !oppgittDato.isValid();
+}
+
+export function isDateInThePast(norskDato: string): boolean {
+  dayjs.extend(customParseFormat);
+  const oppgittDato = dayjs(norskDato, datoFormatNorsk, true);
+  return oppgittDato.isBefore(dayjs().startOf("day"));
 }

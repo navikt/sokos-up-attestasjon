@@ -1,5 +1,4 @@
 import axios, { CreateAxiosDefaults } from "axios";
-import { ApiError, HttpStatusCodeError } from "../../types/errors";
 
 export const BASE_URI = {
   ATTESTASJON: "/oppdrag-api/api/v1/attestasjon",
@@ -19,24 +18,7 @@ const config = (baseUri: string): CreateAxiosDefaults => ({
   validateStatus: (status) => status < 400,
 });
 
-const api = (baseUri: string) => {
-  const instance = axios.create(config(baseUri));
-
-  instance.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      switch (error.response?.status) {
-        case 400:
-          throw new HttpStatusCodeError(error.response?.status);
-        case 401 | 403 | 500:
-          return Promise.reject(error);
-        default:
-          throw new ApiError("Issues with connection to backend");
-      }
-    },
-  );
-  return instance;
-};
+const api = (baseUri: string) => axios.create(config(baseUri));
 
 export const axiosFetcher = <T>(baseUri: string, url: string) =>
   api(baseUri)

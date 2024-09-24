@@ -27,15 +27,17 @@ export function createRequestPayload(
 
           if (!linje) return;
 
+          const datoUgyldigFom = !linje.oppdragsLinje.attestert
+            ? undefined
+            : norskDatoTilIsoDato(change?.activelyChangedDatoUgyldigFom) ||
+              norskDatoTilIsoDato(change?.suggestedDatoUgyldigFom) ||
+              norskDatoTilIsoDato(linje.attestasjoner[0]?.datoUgyldigFom) ||
+              "";
+
           return {
             linjeId: Number(linje.oppdragsLinje.linjeId),
             attestantIdent: linje.attestasjoner[0]?.attestant || undefined,
-            datoUgyldigFom: !linje.oppdragsLinje.attestert
-              ? undefined
-              : norskDatoTilIsoDato(change?.activelyChangedDatoUgyldigFom) ||
-                norskDatoTilIsoDato(change?.suggestedDatoUgyldigFom) ||
-                norskDatoTilIsoDato(linje.attestasjoner[0]?.datoUgyldigFom) ||
-                "",
+            datoUgyldigFom,
           };
         })
         .filter((l) => !!l) ?? [],

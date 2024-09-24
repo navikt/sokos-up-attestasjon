@@ -45,7 +45,12 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
             label="Gjelder"
             placeholder={"Fødselsnummer eller organisasjonsnummer"}
             defaultValue={sokedata?.gjelderId}
-            register={register}
+            register={(name, options) => ({
+              ...register(name, {
+                ...options,
+                setValueAs: (value: string) => value.trim(),
+              }),
+            })}
             error={errors.gjelderId}
           />
           <FormField

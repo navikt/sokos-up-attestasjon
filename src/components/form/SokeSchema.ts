@@ -33,13 +33,13 @@ export const mapToSokeRequestBody = (sokedata?: SokeData) => ({
 
 const baretallregel: ZodString = z
   .string()
-  .regex(/^[0-9\s.]*$/, "Gjelder-Id-feltet kan bare inneholde tall");
+  .regex(/^[0-9]*$/, "Gjelder-feltet kan bare inneholde tall");
 
 const lengderegel: ZodEffects<ZodString, string, string> = z
   .string()
   .refine(
-    (s) => [9, 11].includes(s.replace(/[\s.]/g, "").length),
-    "Gjelder-Id-feltet må inneholde et orgnummer (9 siffer) eller fødselsnummer (11 siffer)",
+    (s) => [9, 11].includes(s.length),
+    "Gjelder-feltet må inneholde et orgnummer (9 siffer) eller fødselsnummer (11 siffer)",
   );
 
 export const SokeSchema = z
