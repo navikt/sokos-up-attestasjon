@@ -66,6 +66,7 @@ const DetaljerPage = () => {
             oppdragsId={oppdragsId.oppdragsId}
             antallAttestanter={oppdragsdetalj?.antallAttestanter ?? 1}
             mutate={mutate}
+            saksbehandlerIdent={oppdragsdetalj?.saksbehandlerIdent}
           />
         )}
       </div>

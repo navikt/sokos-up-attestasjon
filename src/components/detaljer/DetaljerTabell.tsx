@@ -25,7 +25,7 @@ interface DetaljerTabellProps {
   kodeFagOmraade: string | undefined;
   oppdragsId: number;
   mutate: () => void;
-  saksbehandlerIdent: string;
+  saksbehandlerIdent: string | undefined;
 }
 
 type Linjetype = "fjern" | "attester";
@@ -58,7 +58,7 @@ export const DetaljerTabell = ({
   const [linjerMedEndringer, setLinjerMedEndringer] = useState(
     oppdragslinjer
       .map((o) =>
-        enLinjePerAttestasjon(o, antallAttestanter, saksbehandlerIdent),
+        enLinjePerAttestasjon(o, antallAttestanter, saksbehandlerIdent ?? "x"),
       )
       .flatMap(setOnlyFirstVisible),
   );
