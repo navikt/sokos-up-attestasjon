@@ -23,6 +23,7 @@ const OppdragslinjeSchema = z.object({
 });
 
 export const OppdragsDetaljerSchema = z.object({
+  ansvarsStedForOppdrag: z.string().optional(),
   antallAttestanter: z.number(),
   fagGruppe: z.string(),
   fagOmraade: z.string(),
@@ -30,9 +31,9 @@ export const OppdragsDetaljerSchema = z.object({
   gjelderId: z.string(),
   kodeFagOmraade: z.string(),
   kostnadsStedForOppdrag: z.string(),
-  oppdragsId: z.number(),
-  ansvarsStedForOppdrag: z.string().optional(),
   linjer: z.array(OppdragslinjeSchema),
+  oppdragsId: z.number(),
+  saksbehandlerIdent: z.string(),
 });
 
 export type OppdragsLinje = z.infer<typeof OppdragslinjeSchema>;

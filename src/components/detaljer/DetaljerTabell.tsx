@@ -15,6 +15,7 @@ import { dagensDato } from "../../util/DatoUtil";
 import { createRequestPayload } from "../../util/createRequestPayload";
 import styles from "./DetaljerTabell.module.css";
 import DetaljerTabellRow from "./DetaljerTabellRow";
+import { enLinjePerAttestasjon } from "./detaljerUtils";
 
 interface DetaljerTabellProps {
   antallAttestanter: number;
@@ -24,6 +25,7 @@ interface DetaljerTabellProps {
   kodeFagOmraade: string | undefined;
   oppdragsId: number;
   mutate: () => void;
+  saksbehandlerIdent: string;
 }
 
 type Linjetype = "fjern" | "attester";
@@ -46,6 +48,7 @@ export const DetaljerTabell = ({
   kodeFagOmraade,
   oppdragsId,
   mutate,
+  saksbehandlerIdent,
 }: DetaljerTabellProps) => {
   const [error, setError] = useState<string | null>(null);
   const [response, setResponse] = useState<AttesterOppdragResponse>();
@@ -53,24 +56,12 @@ export const DetaljerTabell = ({
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const [linjerMedEndringer, setLinjerMedEndringer] = useState(
-    oppdragslinjer.map(enLinjePerAttestasjon).flatMap(setOnlyFirstVisible),
+    oppdragslinjer
+      .map((o) =>
+        enLinjePerAttestasjon(o, antallAttestanter, saksbehandlerIdent),
+      )
+      .flatMap(setOnlyFirstVisible),
   );
-
-  function enLinjePerAttestasjon(linje: OppdragsLinje): OppdragsLinje[] {
-    const enLinjeForHverEksisterendeAttestasjon: OppdragsLinje[] =
-      linje.attestasjoner.map((a) => ({
-        ...linje,
-        attestasjoner: [a],
-      }));
-    const enLinjeUtenAttestasjon: OppdragsLinje = {
-      ...linje,
-      attestasjoner: [],
-    };
-
-    return antallAttestanter > 1
-      ? [...enLinjeForHverEksisterendeAttestasjon, enLinjeUtenAttestasjon]
-      : [linje];
-  }
 
   function setOnlyFirstVisible(linjer: OppdragsLinje[]): StatefulLinje[] {
     return linjer.map((l, index) => ({
