@@ -48,12 +48,6 @@ const DetaljerPage = () => {
               <LabelText label="Fagområde" text={oppdragsdetalj.fagOmraade} />
             </div>
           )}
-          {oppdragsdetalj && oppdragsdetalj.antallAttestanter > 1 && (
-            <Alert variant="warning">
-              Vi jobber med å støtte fagområder som trenger mer enn 1
-              attestasjon
-            </Alert>
-          )}
         </div>
       </div>
       <div className={styles.detaljer__tabell}>
