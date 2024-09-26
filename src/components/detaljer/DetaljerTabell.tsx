@@ -90,7 +90,7 @@ export const DetaljerTabell = ({
   function lines(type: Linjetype) {
     return type === "attester"
       ? linjerMedEndringer.filter(
-          (linje) => linje.linje.attestasjoner.length === 0,
+          (linje) => linje.linje.attestasjoner.length == 0,
         )
       : /* type === "fjern"   */ oppdragslinjer.filter(
           (linje) => linje.attestasjoner.length > 0,
@@ -99,10 +99,14 @@ export const DetaljerTabell = ({
 
   function checkedStatus(type: Linjetype) {
     const numberOfChecked = linjerMedEndringer.filter((l) =>
-      type == "fjern" ? l.fjern : l.attester,
-    );
-    if (numberOfChecked.length === lines(type).length) return "alle";
-    else if (numberOfChecked.length > 1) return "noen";
+      type == "fjern"
+        ? l.fjern && l.linje.attestasjoner.length > 0
+        : /* type=="attester" */ l.attester &&
+          l.linje.attestasjoner.length == 0,
+    ).length;
+
+    if (numberOfChecked == lines(type).length) return "alle";
+    else if (numberOfChecked > 0) return "noen";
     else return "ingen";
   }
 
@@ -117,13 +121,16 @@ export const DetaljerTabell = ({
         })),
       );
     } else {
-      // ingen var huket av fra før
-      // noen var huket av fra før
+      // ingen var huket av fra før - knappen er tom firkant
+      // noen var huket av fra før - knappen er et minustegn
       setLinjerMedEndringer((prev) =>
         prev.map((l) => ({
           ...l,
-          attester: type === "attester" ? true : l.attester,
-          fjern: type === "fjern" ? true : l.fjern,
+          attester:
+            type === "attester"
+              ? l.linje.attestasjoner.length == 0
+              : l.attester,
+          fjern: type === "fjern" ? l.linje.attestasjoner.length > 0 : l.fjern,
           suggestedDatoUgyldigFom: l.linje.oppdragsLinje.attestert
             ? dagensDato()
             : "31.12.9999",
@@ -167,6 +174,32 @@ export const DetaljerTabell = ({
       setIsLoading(false);
     }
   };
+
+  function avattesterAlle() {
+    return (
+      <Checkbox
+        checked={lines("fjern").length > 0 && checkedStatus("fjern") === "alle"}
+        indeterminate={checkedStatus("fjern") === "noen"}
+        onChange={() => handleToggleAll("fjern")}
+        disabled={lines("fjern").length === 0}
+      >
+        Avattester alle
+      </Checkbox>
+    );
+  }
+
+  function attesterAlle() {
+    return (
+      <Button
+        type={"submit"}
+        size={"medium"}
+        onClick={handleSubmit}
+        disabled={isLoading}
+      >
+        {isLoading ? <Loader size={"small"} /> : "Oppdater"}
+      </Button>
+    );
+  }
 
   return (
     <>
@@ -215,28 +248,8 @@ export const DetaljerTabell = ({
                 Attester alle
               </Checkbox>
             </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Checkbox
-                checked={
-                  lines("fjern").length > 0 && checkedStatus("fjern") === "alle"
-                }
-                indeterminate={checkedStatus("fjern") === "noen"}
-                onChange={() => handleToggleAll("fjern")}
-                disabled={lines("fjern").length === 0}
-              >
-                Avattester alle
-              </Checkbox>
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Button
-                type={"submit"}
-                size={"medium"}
-                onClick={handleSubmit}
-                disabled={isLoading}
-              >
-                {isLoading ? <Loader size={"small"} /> : "Oppdater"}
-              </Button>
-            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">{avattesterAlle()}</Table.HeaderCell>
+            <Table.HeaderCell scope="col">{attesterAlle()}</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
