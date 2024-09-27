@@ -1,31 +1,16 @@
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import {
-  Alert,
-  AlertProps,
-  Button,
-  Checkbox,
-  Loader,
-  Table,
-} from "@navikt/ds-react";
-import { BASE_URI, axiosPostFetcher } from "../../api/config/apiConfig";
-import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
+import React, { useState } from "react";
+import { Button, Checkbox, Loader, Table } from "@navikt/ds-react";
 import { OppdragsLinje } from "../../types/OppdragsDetaljer";
 import { dagensDato } from "../../util/DatoUtil";
-import { createRequestPayload } from "../../util/createRequestPayload";
-import styles from "./DetaljerTabell.module.css";
 import DetaljerTabellRow from "./DetaljerTabellRow";
 import { enLinjePerAttestasjon } from "./detaljerUtils";
 
 interface DetaljerTabellProps {
   antallAttestanter: number;
   oppdragslinjer: OppdragsLinje[];
-  gjelderId: string | undefined;
-  fagSystemId: string | undefined;
-  kodeFagOmraade: string | undefined;
-  oppdragsId: number;
-  mutate: () => void;
   saksbehandlerIdent: string | undefined;
+  handleSubmit: (linjer: StatefulLinje[]) => void;
+  isLoading: boolean;
 }
 
 type Linjetype = "fjern" | "attester";
@@ -43,18 +28,10 @@ export type StatefulLinje = {
 export const DetaljerTabell = ({
   antallAttestanter,
   oppdragslinjer,
-  gjelderId,
-  fagSystemId,
-  kodeFagOmraade,
-  oppdragsId,
-  mutate,
+  handleSubmit,
   saksbehandlerIdent,
+  isLoading,
 }: DetaljerTabellProps) => {
-  const [error, setError] = useState<string | null>(null);
-  const [response, setResponse] = useState<AttesterOppdragResponse>();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [showAlert, setShowAlert] = useState<boolean>(false);
-
   const [linjerMedEndringer, setLinjerMedEndringer] = useState(
     oppdragslinjer
       .map((o) =>
@@ -82,10 +59,6 @@ export const DetaljerTabell = ({
       ),
     );
   };
-
-  useEffect(() => {
-    if (showAlert) setTimeout(() => setShowAlert(false), 10000);
-  }, [showAlert]);
 
   function lines(type: Linjetype) {
     return type === "attester"
@@ -139,42 +112,6 @@ export const DetaljerTabell = ({
     }
   }
 
-  const handleSubmit = async () => {
-    if (linjerMedEndringer.filter((l) => !!l.error).length > 0) {
-      setError("Du må rette feil i datoformat før du kan oppdatere");
-      return;
-    }
-
-    const payload = createRequestPayload(
-      fagSystemId ?? "",
-      kodeFagOmraade ?? "",
-      gjelderId ?? "",
-      oppdragsId,
-      oppdragslinjer,
-      linjerMedEndringer,
-    );
-
-    setIsLoading(true);
-    try {
-      const response = await axiosPostFetcher<
-        typeof payload,
-        AttesterOppdragResponse
-      >(BASE_URI.ATTESTASJON, "/attestere", payload);
-      setResponse(response);
-      setError(null);
-      setShowAlert(true);
-      mutate();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setError(`Error: ${error.response?.data?.message}`);
-      } else {
-        setError("En uventet feil har skjedd");
-      }
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   function avattesterAlle() {
     return (
       <Checkbox
@@ -193,7 +130,7 @@ export const DetaljerTabell = ({
       <Button
         type={"submit"}
         size={"medium"}
-        onClick={handleSubmit}
+        onClick={() => handleSubmit(linjerMedEndringer)}
         disabled={isLoading}
       >
         {isLoading ? <Loader size={"small"} /> : "Oppdater"}
@@ -203,23 +140,6 @@ export const DetaljerTabell = ({
 
   return (
     <>
-      {error && (
-        <div className={styles.detaljer__alert}>
-          <Alert variant="error">{error}</Alert>
-        </div>
-      )}
-      {response && showAlert && (
-        <div className={styles.detaljer__alert}>
-          <AlertWithCloseButton variant="success">
-            Oppdatering vellykket.{" "}
-            {
-              response.OSAttestasjonOperationResponse.Attestasjonskvittering
-                .ResponsAttestasjon.AntLinjerMottatt
-            }{" "}
-            linjer oppdatert.
-          </AlertWithCloseButton>
-        </div>
-      )}
       <Table>
         <Table.Header>
           <Table.Row>
@@ -264,20 +184,4 @@ export const DetaljerTabell = ({
       </Table>
     </>
   );
-};
-
-const AlertWithCloseButton = ({
-  children,
-  variant,
-}: {
-  children?: React.ReactNode;
-  variant: AlertProps["variant"];
-}) => {
-  const [show, setShow] = React.useState(true);
-
-  return show ? (
-    <Alert variant={variant} closeButton onClose={() => setShow(false)}>
-      {children || "Content"}
-    </Alert>
-  ) : null;
 };

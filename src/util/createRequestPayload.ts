@@ -12,10 +12,10 @@ export function createRequestPayload(
   changes: StatefulLinje[],
 ): AttesterOppdragRequest {
   return {
-    oppdragsId: oppdragsId,
-    fagSystemId: fagSystemId,
-    kodeFagOmraade: kodeFagOmraade,
-    gjelderId: gjelderId,
+    oppdragsId,
+    fagSystemId,
+    kodeFagOmraade,
+    gjelderId,
     linjer:
       changes
         .filter((le) => le.attester || le.fjern)
