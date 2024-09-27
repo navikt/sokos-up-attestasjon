@@ -25,7 +25,7 @@ function DetaljerTabellRow({
     handleStateChange(index, {
       ...linjeMedEndring,
       activelyChangedDatoUgyldigFom: value,
-      error: isInvalidDateFormat(value)
+      dateError: isInvalidDateFormat(value)
         ? "Ugyldig datoformat"
         : isDateInThePast(value)
           ? "Dato kan ikke være i fortid"
@@ -100,7 +100,7 @@ function DetaljerTabellRow({
                 )
               }
               onChange={handleTextFieldChange}
-              error={linjeMedEndring.error}
+              error={linjeMedEndring.dateError}
               disabled={!linjeMedEndring.fjern}
             />
           </div>

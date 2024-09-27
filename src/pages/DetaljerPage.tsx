@@ -21,9 +21,9 @@ import styles from "./DetaljerPage.module.css";
 const DetaljerPage = () => {
   const location = useLocation();
   const oppdragsId = location.state.oppdragsId;
-  const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [zosError, setZosError] = useState<string | null>(null);
+  const [alertError, setAlertError] = useState<string | null>(null);
+  const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
   const [zosResponse, setResponse] = useState<AttesterOppdragResponse>();
   useEffect(() => {
     if (showAlert) setTimeout(() => setShowAlert(false), 10000);
@@ -35,8 +35,13 @@ const DetaljerPage = () => {
 
   const oppdragsdetalj = data?.at(0);
   const handleSubmit = async (linjerMedEndringer: StatefulLinje[]) => {
-    if (linjerMedEndringer.filter((l) => !!l.error).length > 0) {
-      setZosError("Du må rette feil i datoformat før du kan oppdatere");
+    if (linjerMedEndringer.filter((l) => !!l.dateError).length > 0) {
+      setAlertError("Du må rette feil i datoformat før du kan oppdatere");
+      return;
+    }
+
+    if (linjerMedEndringer.filter((l) => l.fjern || l.attester).length === 0) {
+      setAlertError("Du må velge minst en linje før du kan oppdatere");
       return;
     }
 
@@ -45,7 +50,6 @@ const DetaljerPage = () => {
       oppdragsdetalj?.kodeFagOmraade ?? "",
       oppdragsdetalj?.gjelderId ?? "",
       oppdragsId,
-      linjerMedEndringer.map((l) => l.linje),
       linjerMedEndringer,
     );
 
@@ -56,14 +60,14 @@ const DetaljerPage = () => {
         AttesterOppdragResponse
       >(BASE_URI.ATTESTASJON, "/attestere", payload);
       setResponse(response);
-      setZosError(null);
+      setAlertError(null);
       setShowAlert(true);
       mutate();
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        setZosError(`Error: ${error.response?.data?.message}`);
+        setAlertError(`Error: ${error.response?.data?.message}`);
       } else {
-        setZosError("En uventet feil har skjedd");
+        setAlertError("En uventet feil har skjedd");
       }
     } finally {
       setIsZosLoading(false);
@@ -77,18 +81,6 @@ const DetaljerPage = () => {
           Attestasjon: Detaljer
         </Heading>
       </div>
-      {zosResponse && showAlert && (
-        <div className={styles.detaljer__alert}>
-          <AlertWithCloseButton variant="success">
-            Oppdatering vellykket.{" "}
-            {
-              zosResponse.OSAttestasjonOperationResponse.Attestasjonskvittering
-                .ResponsAttestasjon.AntLinjerMottatt
-            }{" "}
-            linjer oppdatert.
-          </AlertWithCloseButton>
-        </div>
-      )}
       <div className={styles.detaljer}>
         <div className={styles.detaljer__top}>
           <Breadcrumbs searchLink trefflistelink detaljer />
@@ -110,12 +102,24 @@ const DetaljerPage = () => {
               <LabelText label="Fagområde" text={oppdragsdetalj.fagOmraade} />
             </div>
           )}
+          {zosResponse && showAlert && (
+            <div className={styles.detaljer__alert}>
+              <AlertWithCloseButton variant="success">
+                Oppdatering vellykket.{" "}
+                {
+                  zosResponse.OSAttestasjonOperationResponse
+                    .Attestasjonskvittering.ResponsAttestasjon.AntLinjerMottatt
+                }{" "}
+                linjer oppdatert.
+              </AlertWithCloseButton>
+            </div>
+          )}
         </div>
       </div>
       <div className={styles.detaljer__tabell}>
-        {zosError && (
+        {!!alertError && (
           <div className={styles.detaljer__alert}>
-            <Alert variant="error">{zosError}</Alert>
+            <Alert variant="error">{alertError}</Alert>
           </div>
         )}
         {data && (
@@ -125,6 +129,7 @@ const DetaljerPage = () => {
             isLoading={isLoading || isZosLoading}
             oppdragslinjer={data.reduce((a) => a).linjer}
             saksbehandlerIdent={oppdragsdetalj?.saksbehandlerIdent}
+            setAlertError={setAlertError}
           />
         )}
       </div>

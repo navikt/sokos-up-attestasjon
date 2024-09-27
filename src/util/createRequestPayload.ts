@@ -1,6 +1,5 @@
 import { AttesterOppdragRequest } from "../api/models/AttesterOppdragRequest";
 import { StatefulLinje } from "../components/detaljer/DetaljerTabell";
-import { OppdragsLinje } from "../types/OppdragsDetaljer";
 import { norskDatoTilIsoDato } from "./DatoUtil";
 
 export function createRequestPayload(
@@ -8,7 +7,6 @@ export function createRequestPayload(
   kodeFagOmraade: string,
   gjelderId: string,
   oppdragsId: number,
-  oppdragsdetaljer: OppdragsLinje[],
   changes: StatefulLinje[],
 ): AttesterOppdragRequest {
   return {
@@ -21,8 +19,6 @@ export function createRequestPayload(
         .filter((le) => le.attester || le.fjern)
         .map((le) => {
           const linje = le.linje;
-
-          if (!linje) return;
 
           const datoUgyldigFom = le.attester
             ? undefined
@@ -39,7 +35,6 @@ export function createRequestPayload(
             attestantIdent: linje.attestasjoner[0]?.attestant || undefined,
             datoUgyldigFom,
           };
-        })
-        .filter((l) => !!l) ?? [],
+        }) ?? [],
   };
 }

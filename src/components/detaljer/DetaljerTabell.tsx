@@ -11,6 +11,7 @@ interface DetaljerTabellProps {
   saksbehandlerIdent: string | undefined;
   handleSubmit: (linjer: StatefulLinje[]) => void;
   isLoading: boolean;
+  setAlertError: (value: React.SetStateAction<string | null>) => void;
 }
 
 type Linjetype = "fjern" | "attester";
@@ -19,7 +20,7 @@ export type StatefulLinje = {
   activelyChangedDatoUgyldigFom?: string;
   attester: boolean;
   linje: OppdragsLinje;
-  error?: string;
+  dateError?: string;
   fjern: boolean;
   suggestedDatoUgyldigFom?: string;
   vises: boolean;
@@ -31,6 +32,7 @@ export const DetaljerTabell = ({
   handleSubmit,
   saksbehandlerIdent,
   isLoading,
+  setAlertError,
 }: DetaljerTabellProps) => {
   const [linjerMedEndringer, setLinjerMedEndringer] = useState(
     oppdragslinjer
@@ -44,7 +46,7 @@ export const DetaljerTabell = ({
     return linjer.map((l, index) => ({
       activelyChangedDatoUgyldigFom: "",
       attester: false,
-      error: "",
+      dateError: "",
       linje: l,
       fjern: false,
       suggestedDatoUgyldigFom: "",
@@ -53,11 +55,24 @@ export const DetaljerTabell = ({
   }
 
   const handleStateChange = (index: number, newState: StatefulLinje) => {
-    setLinjerMedEndringer(
-      linjerMedEndringer.map((component, i) =>
-        i === index ? newState : component,
-      ),
+    const newLinjer = linjerMedEndringer.map((component, i) =>
+      i === index ? newState : component,
     );
+    if (!newLinjer.some((l) => l.dateError))
+      setAlertError((oldAlert) =>
+        !!oldAlert &&
+        oldAlert == "Du må rette feil i datoformat før du kan oppdatere"
+          ? null
+          : oldAlert,
+      );
+    if (newLinjer.some((l) => l.attester || l.fjern))
+      setAlertError((oldAlert) =>
+        !!oldAlert &&
+        oldAlert == "Du må velge minst en linje før du kan oppdatere"
+          ? null
+          : oldAlert,
+      );
+    setLinjerMedEndringer(newLinjer);
   };
 
   function lines(type: Linjetype) {
@@ -65,8 +80,8 @@ export const DetaljerTabell = ({
       ? linjerMedEndringer.filter(
           (linje) => linje.linje.attestasjoner.length == 0,
         )
-      : /* type === "fjern"   */ oppdragslinjer.filter(
-          (linje) => linje.attestasjoner.length > 0,
+      : /* type === "fjern"   */ linjerMedEndringer.filter(
+          (linje) => linje.linje.attestasjoner.length > 0,
         );
   }
 
@@ -74,8 +89,7 @@ export const DetaljerTabell = ({
     const numberOfChecked = linjerMedEndringer.filter((l) =>
       type == "fjern"
         ? l.fjern && l.linje.attestasjoner.length > 0
-        : /* type=="attester" */ l.attester &&
-          l.linje.attestasjoner.length == 0,
+        : l.attester && l.linje.attestasjoner.length == 0,
     ).length;
 
     if (numberOfChecked == lines(type).length) return "alle";
@@ -89,8 +103,9 @@ export const DetaljerTabell = ({
       setLinjerMedEndringer((prev) =>
         prev.map((l) => ({
           ...l,
-          attester: type === "attester" ? false : l.attester,
-          fjern: type === "fjern" ? false : l.fjern,
+          attester:
+            type === "attester" ? l.linje.attestasjoner.length > 0 : l.attester,
+          fjern: type === "fjern" ? l.linje.attestasjoner.length == 0 : l.fjern,
         })),
       );
     } else {
@@ -127,6 +142,21 @@ export const DetaljerTabell = ({
 
   function attesterAlle() {
     return (
+      <Checkbox
+        checked={
+          lines("attester").length > 0 && checkedStatus("attester") === "alle"
+        }
+        indeterminate={checkedStatus("attester") === "noen"}
+        onChange={() => handleToggleAll("attester")}
+        disabled={lines("attester").length === 0}
+      >
+        Attester alle
+      </Checkbox>
+    );
+  }
+
+  function submitButton() {
+    return (
       <Button
         type={"submit"}
         size={"medium"}
@@ -155,21 +185,9 @@ export const DetaljerTabell = ({
             <Table.HeaderCell scope="col">Attestant</Table.HeaderCell>
             <Table.HeaderCell scope="col">Ugyldig f.o.m</Table.HeaderCell>
             <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Checkbox
-                checked={
-                  lines("attester").length > 0 &&
-                  checkedStatus("attester") === "alle"
-                }
-                indeterminate={checkedStatus("attester") === "noen"}
-                onChange={() => handleToggleAll("attester")}
-                disabled={lines("attester").length === 0}
-              >
-                Attester alle
-              </Checkbox>
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">{avattesterAlle()}</Table.HeaderCell>
             <Table.HeaderCell scope="col">{attesterAlle()}</Table.HeaderCell>
+            <Table.HeaderCell scope="col">{avattesterAlle()}</Table.HeaderCell>
+            <Table.HeaderCell scope="col">{submitButton()}</Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -178,6 +196,7 @@ export const DetaljerTabell = ({
               linjeMedEndring={le}
               handleStateChange={handleStateChange}
               index={index}
+              key={index}
             />
           ))}
         </Table.Body>
