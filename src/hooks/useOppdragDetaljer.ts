@@ -1,16 +1,28 @@
-import useSWR from "swr";
-import { BASE_URI, axiosFetcher, swrConfig } from "../api/config/apiConfig";
+import { useCallback, useEffect, useState } from "react";
+import { BASE_URI, axiosFetcher } from "../api/config/apiConfig";
 import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
 
 const useOppdragsDetaljer = (oppdragsId: number) => {
-  const { data, error, isValidating, mutate } = useSWR<OppdragsDetaljer[]>(
-    `/oppdragsdetaljer/${oppdragsId.toString()}`,
-    swrConfig<OppdragsDetaljer[]>((url) =>
-      axiosFetcher<OppdragsDetaljer[]>(BASE_URI.ATTESTASJON, url),
-    ),
-  );
+  const [data, setData] = useState<Array<OppdragsDetaljer>>();
+  const [error, setError] = useState();
 
-  const isLoading = (!error && !data) || isValidating;
+  const mutate = useCallback(() => {
+    // La stå! Dette virker unødvendig, men det trigges ikke rerender av alt som
+    // kommer fra arrayen om man ikke setter data til undefined først
+    setData(() => undefined);
+    axiosFetcher<OppdragsDetaljer[]>(
+      BASE_URI.ATTESTASJON,
+      `/oppdragsdetaljer/${oppdragsId.toString()}`,
+    )
+      .then((resp) => setData(() => resp))
+      .catch((e) => setError(e));
+  }, [oppdragsId]);
+
+  useEffect(() => {
+    mutate();
+  }, [mutate]);
+
+  const isLoading = !error && !data;
 
   return { data, error, isLoading, mutate };
 };

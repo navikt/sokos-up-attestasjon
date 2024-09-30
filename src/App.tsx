@@ -15,7 +15,7 @@ import { initGrafanaFaro } from "./util/grafanaFaro";
 
 const App = () => {
   useEffect(() => {
-    initGrafanaFaro();
+    if (window.location.hostname !== "localhost") initGrafanaFaro();
   }, []);
 
   return (
