@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
 import { BASE_URI, axiosPostFetcher } from "../api/config/apiConfig";
 import { hentOppdrag } from "../api/config/apiService";
@@ -9,21 +8,21 @@ import ContentLoader from "../components/common/ContentLoader";
 import { SokeData } from "../components/form/SokeSchema";
 import SokeParameterVisning from "../components/treffliste/SokeParameterVisning";
 import { TreffTabell } from "../components/treffliste/TreffTabell";
+import { useAppState } from "../store/AppState";
 import commonstyles from "../styles/common-styles.module.css";
 import { GjelderNavn } from "../types/GjelderNavn";
 import { Oppdrag } from "../types/Oppdrag";
-import { retrieveSok } from "../util/commonUtils";
 import { BASENAME } from "../util/constants";
 import styles from "./TrefflistePage.module.css";
 
 const TrefflistePage = () => {
-  const location = useLocation();
+  //const location = useLocation();
   const [gjelderNavn, setGjelderNavn] = useState<string>("");
   const [sokeData] = useState<SokeData | undefined>(
-    location.state?.sokeData || retrieveSok(),
+    useAppState.getState().storedSokeData,
   );
   const [oppdrag, setOppdrag] = useState<Oppdrag[] | undefined>(
-    location.state?.oppdrag,
+    useAppState.getState().storedOppdrag,
   );
   const [isLoading, setIsLoading] = useState<boolean>(!oppdrag);
   const [error, setError] = useState<string | undefined>(undefined);
