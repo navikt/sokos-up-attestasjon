@@ -82,7 +82,6 @@
       "@navikt/aksel-stylelint/recommended"
     ],
     "rules": {
-      "selector-class-pattern": [],
       "aksel/design-token-no-global-override": null
     }
   },
