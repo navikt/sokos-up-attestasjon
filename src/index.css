@@ -28,3 +28,7 @@ body {
 main {
   width: 100%;
 }
+
+:root {
+  --a-text-action: #0060b8;
+}
