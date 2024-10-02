@@ -1,6 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import React from "react";
 import { useForm } from "react-hook-form";
-import { MagnifyingGlassIcon } from "@navikt/aksel-icons";
+import { EraserIcon, MagnifyingGlassIcon } from "@navikt/aksel-icons";
 import {
   Button,
   ErrorSummary,
@@ -10,6 +11,7 @@ import {
 } from "@navikt/ds-react";
 import useFetchFaggrupper from "../../hooks/useFetchFaggrupper";
 import useFetchFagomraader from "../../hooks/useFetchFagomraader";
+import { useAppState } from "../../store/AppState";
 import FormField from "./FormField";
 import styles from "./SokForm.module.css";
 import { SokeData, SokeSchema } from "./SokeSchema";
@@ -35,6 +37,13 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
   });
 
   const filteredErrors = [...Object.keys(errors)].filter((m) => m);
+
+  const { resetState } = useAppState();
+
+  function handleReset(e: React.FormEvent) {
+    e.preventDefault();
+    resetState();
+  }
 
   return (
     <>
@@ -119,6 +128,15 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
           </div>
         )}
         <div className={styles.sok__button}>
+          <Button
+            type="reset"
+            variant="secondary"
+            icon={<EraserIcon title="Nullstill søk" />}
+            iconPosition="right"
+            onClick={() => handleReset}
+          >
+            Nullstill
+          </Button>
           <Button
             type="submit"
             icon={

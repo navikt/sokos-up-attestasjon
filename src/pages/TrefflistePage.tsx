@@ -16,7 +16,6 @@ import { BASENAME } from "../util/constants";
 import styles from "./TrefflistePage.module.css";
 
 const TrefflistePage = () => {
-  //const location = useLocation();
   const [gjelderNavn, setGjelderNavn] = useState<string>("");
   const [sokeData] = useState<SokeData | undefined>(
     useAppState.getState().storedSokeData,

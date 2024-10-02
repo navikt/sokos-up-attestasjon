@@ -7,5 +7,5 @@
 }
 
 .sok__button {
-  @apply pt-5;
+  @apply flex gap-12 pt-5;
 }
