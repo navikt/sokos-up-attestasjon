@@ -11,7 +11,6 @@ import {
 } from "@navikt/ds-react";
 import useFetchFaggrupper from "../../hooks/useFetchFaggrupper";
 import useFetchFagomraader from "../../hooks/useFetchFagomraader";
-import { useAppState } from "../../store/AppState";
 import FormField from "./FormField";
 import styles from "./SokForm.module.css";
 import { SokeData, SokeSchema } from "./SokeSchema";
@@ -19,11 +18,12 @@ import SokosCombobox from "./SokosCombobox";
 
 type SokFormProps = {
   sokedata: SokeData | undefined;
-  loading?: boolean;
+  isLoading?: boolean;
   onSubmit: (data: SokeData) => void;
+  onReset?: (e: React.FormEvent) => void;
 };
 
-function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
+function SokForm({ sokedata, isLoading, onSubmit, onReset }: SokFormProps) {
   const { data: faggrupper } = useFetchFaggrupper();
   const { data: fagomraader } = useFetchFagomraader();
 
@@ -37,13 +37,6 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
   });
 
   const filteredErrors = [...Object.keys(errors)].filter((m) => m);
-
-  const { resetState } = useAppState();
-
-  function handleReset(e: React.FormEvent) {
-    e.preventDefault();
-    resetState();
-  }
 
   return (
     <>
@@ -133,14 +126,14 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
             variant="secondary"
             icon={<EraserIcon title="Nullstill søk" />}
             iconPosition="right"
-            onClick={() => handleReset}
+            onClick={() => onReset}
           >
             Nullstill
           </Button>
           <Button
             type="submit"
             icon={
-              loading ? (
+              isLoading ? (
                 <Loader title={"Søker..."} />
               ) : (
                 <MagnifyingGlassIcon title="Ikon som viser et forstørrelsesglass" />
@@ -148,7 +141,7 @@ function SokForm({ sokedata, loading, onSubmit }: SokFormProps) {
             }
             iconPosition="right"
           >
-            {loading ? "Søker..." : "Søk"}
+            {isLoading ? "Søker..." : "Søk"}
           </Button>
         </div>
       </form>

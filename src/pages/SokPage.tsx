@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
@@ -16,6 +16,7 @@ export default function SokPage() {
   const [error, setError] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { setStoredSokeData, setStoredOppdrag } = useAppState.getState();
+  const { resetState } = useAppState();
 
   const handleChangeSok: SubmitHandler<SokeData> = (sokeData) => {
     setSokeData(sokeData);
@@ -42,6 +43,12 @@ export default function SokPage() {
       });
   };
 
+  function handleReset(e: React.FormEvent) {
+    e.preventDefault();
+    resetState();
+    setError(undefined);
+  }
+
   return (
     <>
       <div className={commonstyles.pageheading}>
@@ -55,8 +62,9 @@ export default function SokPage() {
         </Heading>
         <SokForm
           sokedata={sokeData}
-          loading={isLoading}
+          isLoading={isLoading}
           onSubmit={handleChangeSok}
+          onReset={handleReset}
         />
       </div>
       {error && (

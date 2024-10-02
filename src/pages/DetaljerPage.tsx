@@ -20,7 +20,6 @@ import styles from "./DetaljerPage.module.css";
 
 const DetaljerPage = () => {
   const location = useLocation();
-  const oppdragsId = location.state.oppdragsId;
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertError, setAlertError] = useState<string | null>(null);
   const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
@@ -29,8 +28,11 @@ const DetaljerPage = () => {
     if (showAlert) setTimeout(() => setShowAlert(false), 10000);
   }, [showAlert]);
 
-  if (!oppdragsId) window.location.replace(BASENAME);
+  if (!location.state) {
+    window.location.replace(BASENAME);
+  }
 
+  const oppdragsId = location.state.oppdragsId;
   const { data, error, isLoading, mutate } = useOppdragsDetaljer(oppdragsId);
 
   const oppdragsdetalj = data?.at(0);

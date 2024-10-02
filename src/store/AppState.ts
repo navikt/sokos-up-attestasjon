@@ -21,9 +21,9 @@ type AppStateActions = {
 
 const initAppState = {
   gjelderNavn: "",
-  oppdrag: undefined,
+  storedOppdrag: undefined,
   oppdragsDetaljer: undefined,
-  sokeData: undefined,
+  storedSokeData: undefined,
 };
 
 export const useAppState = create<AppState & AppStateActions>()(

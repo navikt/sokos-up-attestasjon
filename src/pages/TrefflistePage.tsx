@@ -17,23 +17,23 @@ import styles from "./TrefflistePage.module.css";
 
 const TrefflistePage = () => {
   const [gjelderNavn, setGjelderNavn] = useState<string>("");
-  const [sokeData] = useState<SokeData | undefined>(
+  const [storedSokeData] = useState<SokeData | undefined>(
     useAppState.getState().storedSokeData,
   );
-  const [oppdrag, setOppdrag] = useState<Oppdrag[] | undefined>(
+  const [storedOppdrag, setstoredOppdrag] = useState<Oppdrag[] | undefined>(
     useAppState.getState().storedOppdrag,
   );
-  const [isLoading, setIsLoading] = useState<boolean>(!oppdrag);
+  const [isLoading, setIsLoading] = useState<boolean>(!storedOppdrag);
   const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    if (!sokeData) {
+    if (!storedSokeData) {
       window.location.replace(BASENAME);
-    } else if (!oppdrag) {
+    } else if (!storedOppdrag) {
       setIsLoading(true);
-      hentOppdrag(sokeData)
+      hentOppdrag(storedSokeData)
         .then((response) => {
-          setOppdrag(response);
+          setstoredOppdrag(response);
           setIsLoading(false);
         })
         .catch((error) => {
@@ -41,17 +41,17 @@ const TrefflistePage = () => {
           setError(error.message);
         });
     }
-  }, [sokeData, oppdrag]);
+  }, [storedSokeData, storedOppdrag]);
 
   useEffect(() => {
-    if (sokeData) {
+    if (storedSokeData) {
       axiosPostFetcher<GjelderIdRequest, GjelderNavn>(
         BASE_URI.INTEGRATION,
         "/hentnavn",
-        { gjelderId: sokeData?.gjelderId },
+        { gjelderId: storedSokeData?.gjelderId },
       ).then((response) => setGjelderNavn(response.navn));
     }
-  }, [sokeData]);
+  }, [storedSokeData]);
 
   return (
     <>
@@ -64,12 +64,12 @@ const TrefflistePage = () => {
         <div className={styles.treffliste__top}>
           <Breadcrumbs searchLink treffliste />
           <SokeParameterVisning
-            gjelderId={sokeData?.gjelderId}
+            gjelderId={storedSokeData?.gjelderId}
             navn={gjelderNavn}
-            fagSystemId={sokeData?.fagSystemId}
-            kodeFaggruppe={sokeData?.kodeFagGruppe}
-            kodeFagomraade={sokeData?.kodeFagOmraade}
-            attestertStatus={sokeData?.attestertStatus}
+            fagSystemId={storedSokeData?.fagSystemId}
+            kodeFaggruppe={storedSokeData?.kodeFagGruppe}
+            kodeFagomraade={storedSokeData?.kodeFagOmraade}
+            attestertStatus={storedSokeData?.attestertStatus}
           />
         </div>
         {isLoading && <ContentLoader />}
@@ -78,9 +78,9 @@ const TrefflistePage = () => {
             <Alert variant="info">{error}</Alert>
           </div>
         )}
-        {!isLoading && oppdrag && (
+        {!isLoading && storedOppdrag && (
           <div className={styles.treffliste__trefftabell}>
-            <TreffTabell treffliste={oppdrag || []} />
+            <TreffTabell treffliste={storedOppdrag || []} />
           </div>
         )}
       </div>
