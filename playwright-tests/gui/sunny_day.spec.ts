@@ -47,6 +47,6 @@ test.describe("Attestasjon", () => {
     await page.getByRole("button", { name: "Oppdater" }).click();
     await page.waitForLoadState("networkidle");
 
-    await expect(page.getByRole("cell", { name: "H135x685" })).toBeVisible();
+    await expect(page.getByRole("cell", { name: "H135685" })).toBeVisible();
   });
 });
