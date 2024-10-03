@@ -32,6 +32,7 @@ function SokForm({ sokedata, isLoading, onSubmit, onReset }: SokFormProps) {
     setValue,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<SokeData>({
     resolver: zodResolver(SokeSchema),
   });
@@ -126,7 +127,10 @@ function SokForm({ sokedata, isLoading, onSubmit, onReset }: SokFormProps) {
             variant="secondary"
             icon={<EraserIcon title="Nullstill søk" />}
             iconPosition="right"
-            onClick={() => onReset}
+            onClick={() => {
+              reset();
+              return onReset;
+            }}
           >
             Nullstill
           </Button>
