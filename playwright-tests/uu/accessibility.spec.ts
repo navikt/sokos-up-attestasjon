@@ -5,11 +5,11 @@ import {
   setupFagomraader,
   setupHentDetaljer,
   setupHentNavn,
-  setupSok,
 } from "../setup";
+import aTrefflisteAppState from "./aTrefflisteAppState";
 
 test.describe("Axe a11y", () => {
-  test(`should not have any automatically detectable accessibility issues on /attestasjon`, async ({
+  test(`/attestasjon should not have any automatically detectable accessibility issues`, async ({
     page,
   }) => {
     await setupFaggrupper({ page });
@@ -19,53 +19,47 @@ test.describe("Axe a11y", () => {
 
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
 
+    await expect(
+      page.getByRole("heading", { name: "Attestasjon" }),
+    ).toBeVisible();
+    await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 
-  test(`should not have any automatically detectable accessibility issues on /attestasjon/treffliste`, async ({
+  test(`/attestasjon/treffliste should not have any automatically detectable accessibility issues`, async ({
     page,
   }) => {
-    await page.context().addInitScript(() => {
-      window.sessionStorage.setItem(
-        "attestasjon_sok",
-        btoa(
-          '{"gjelderId":"12345678901","fagSystemId":"13175913","kodeFagGruppe":"PEN","kodeFagOmraade":"PENSJON","attestertStatus":"null"}',
-        ),
-      );
-    });
-    await page.waitForLoadState("networkidle");
-
-    setupSok({ page });
+    await page.context().addInitScript((appState) => {
+      window.sessionStorage.setItem("app-state", JSON.stringify(appState));
+    }, aTrefflisteAppState);
+    await setupHentNavn({ page });
     await page.goto("/attestasjon/treffliste");
     await page.waitForLoadState("networkidle");
+
+    await expect(
+      page.getByRole("heading", { name: "Attestasjon: Treffliste" }),
+    ).toBeVisible();
 
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
-
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 
-  test(`should not have any automatically detectable accessibility issues on /attestasjon/detaljer`, async ({
+  test(`/attestasjon/detaljer should not have any automatically detectable accessibility issues`, async ({
     page,
   }) => {
-    await page.context().addInitScript(() => {
-      window.sessionStorage.setItem(
-        "attestasjon_sok",
-        btoa(
-          '{"gjelderId":"12345678901","fagSystemId":"13175913","kodeFagGruppe":"PEN","kodeFagOmraade":"PENSJON","attestertStatus":"null"}',
-        ),
-      );
-    });
-    setupHentNavn({ page });
-    setupSok({ page });
-    await page.goto("/attestasjon/treffliste");
-    await page.waitForLoadState("networkidle");
+    await page.context().addInitScript((appState) => {
+      window.sessionStorage.setItem("app-state", JSON.stringify(appState));
+    }, aTrefflisteAppState);
 
-    setupHentDetaljer({ page });
-    await page
-      .getByRole("row", { name: "12345678901 Memoposteringer" })
-      .getByRole("link")
-      .click();
-    await page.waitForLoadState("networkidle");
+    await setupHentNavn({ page });
+    await page.goto("/attestasjon/treffliste");
+
+    await setupHentDetaljer({ page });
+    await page.getByRole("link", { name: "12345612345" }).click();
+
+    await expect(
+      page.getByRole("heading", { name: "Attestasjon: Detaljer" }),
+    ).toBeVisible();
 
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
 

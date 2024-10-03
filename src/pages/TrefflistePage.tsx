@@ -57,7 +57,7 @@ const TrefflistePage = () => {
     <>
       <div className={commonstyles.pageheading}>
         <Heading level="1" size="large">
-          Attestasjon
+          Attestasjon: Treffliste
         </Heading>
       </div>
       <div className={styles.treffliste}>
