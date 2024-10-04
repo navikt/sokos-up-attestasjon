@@ -100,7 +100,7 @@ export async function setupHentNavn({ page }: { page: Page }) {
 
 export async function setupHentDetaljer({ page }: { page: Page }) {
   await page.route(
-    "*/**/attestasjon/oppdragsdetaljer/98765432",
+    "*/**/attestasjon/98765432/oppdragsdetaljer",
     async (route) => {
       const json = {
         linjer: [
@@ -136,7 +136,7 @@ export async function setupHentDetaljer({ page }: { page: Page }) {
 
 export async function hentDetaljerError({ page }: { page: Page }) {
   await page.route(
-    "*/**/attestasjon/oppdragsdetaljer/98765432",
+    "*/**/attestasjon/98765432/oppdragsdetaljer",
     async (route) => {
       await route.fulfill({
         status: 401,
@@ -196,7 +196,7 @@ export async function setupAttester({ page }: { page: Page }) {
 
 export async function setupHentDetaljer2({ page }: { page: Page }) {
   await page.route(
-    "*/**/attestasjon/oppdragsdetaljer/98765432",
+    "*/**/attestasjon/98765432/oppdragsdetaljer",
     async (route) => {
       const json = {
         linjer: [
