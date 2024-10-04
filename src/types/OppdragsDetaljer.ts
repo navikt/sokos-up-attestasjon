@@ -7,8 +7,8 @@ const OppdragslinjeSchema = z.object({
     datoVedtakTom: z.string().optional(),
     delytelseId: z.string(),
     kodeKlasse: z.string(),
-    linjeId: z.number(),
-    oppdragsId: z.number(),
+    linjeId: z.number().int(),
+    oppdragsId: z.number().int(),
     sats: z.number(),
     typeSats: z.string(),
   }),
@@ -23,16 +23,7 @@ const OppdragslinjeSchema = z.object({
 });
 
 export const OppdragsDetaljerSchema = z.object({
-  ansvarsStedForOppdrag: z.string().optional(),
-  antallAttestanter: z.number(),
-  fagGruppe: z.string(),
-  fagOmraade: z.string(),
-  fagSystemId: z.string(),
-  gjelderId: z.string(),
-  kodeFagOmraade: z.string(),
-  kostnadsStedForOppdrag: z.string(),
   linjer: z.array(OppdragslinjeSchema),
-  oppdragsId: z.number(),
   saksbehandlerIdent: z.string(),
 });
 

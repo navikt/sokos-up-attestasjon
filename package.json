@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --mode local-mock",
-    "dev:backend-local": "vite --mode local-dev",
-    "dev:backend": "vite --mode local-dev-q1",
+    "dev:backend": "vite --mode local-dev",
+    "dev:backend-q1": "vite --mode local-dev-q1",
     "build": "tsc && vite build",
     "test": "vitest vite-tests",
     "lint": "eslint",

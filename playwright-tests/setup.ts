@@ -102,40 +102,30 @@ export async function setupHentDetaljer({ page }: { page: Page }) {
   await page.route(
     "*/**/attestasjon/oppdragsdetaljer/98765432",
     async (route) => {
-      const json = [
-        {
-          antallAttestanter: 2,
-          fagGruppe: "Refusjon Arbeidsgiver",
-          fagOmraade: "Sykepenger, manuell. AG refusjon",
-          fagSystemId: "detteErEtLiteOppdragTil",
-          gjelderId: "12345678901",
-          kodeFagOmraade: "MSPREF",
-          kostnadsStedForOppdrag: "5972",
-          oppdragsId: "98765432",
-          linjer: [
-            {
-              oppdragsLinje: {
-                attestert: false,
-                datoVedtakFom: "2024-05-01",
-                datoVedtakTom: "2024-05-31",
-                delytelseId: "1",
-                kodeKlasse: "SPREFAGFER-IOP",
-                linjeId: 1,
-                oppdragsId: 98765432,
-                sats: 1234.0,
-                typeSats: "ENG",
-              },
-              attestasjoner: [
-                {
-                  attestant: "G133837",
-                  datoUgyldigFom: "9999-12-31",
-                },
-              ],
+      const json = {
+        linjer: [
+          {
+            oppdragsLinje: {
+              attestert: false,
+              datoVedtakFom: "2024-05-01",
+              datoVedtakTom: "2024-05-31",
+              delytelseId: "1",
+              kodeKlasse: "SPREFAGFER-IOP",
+              linjeId: 1,
+              oppdragsId: 98765432,
+              sats: 1234.0,
+              typeSats: "ENG",
             },
-          ],
-          saksbehandlerIdent: "H135685",
-        },
-      ];
+            attestasjoner: [
+              {
+                attestant: "G133837",
+                datoUgyldigFom: "9999-12-31",
+              },
+            ],
+          },
+        ],
+        saksbehandlerIdent: "H135685",
+      };
       await route.fulfill({
         contentType: "application/json",
         body: JSON.stringify(json),
@@ -208,44 +198,34 @@ export async function setupHentDetaljer2({ page }: { page: Page }) {
   await page.route(
     "*/**/attestasjon/oppdragsdetaljer/98765432",
     async (route) => {
-      const json = [
-        {
-          antallAttestanter: 2,
-          fagGruppe: "Refusjon Arbeidsgiver",
-          fagOmraade: "Sykepenger, manuell. AG refusjon",
-          fagSystemId: "detteErEtLiteOppdragTil",
-          gjelderId: "12345678901",
-          kodeFagOmraade: "MSPREF",
-          kostnadsStedForOppdrag: "5972",
-          oppdragsId: "98765432",
-          linjer: [
-            {
-              oppdragsLinje: {
-                attestert: false,
-                datoVedtakFom: "2024-05-01",
-                datoVedtakTom: "2024-05-31",
-                delytelseId: "1",
-                kodeKlasse: "SPREFAGFER-IOP",
-                linjeId: 1,
-                oppdragsId: 98765432,
-                sats: 1234.0,
-                typeSats: "ENG",
-              },
-              attestasjoner: [
-                {
-                  attestant: "G133837",
-                  datoUgyldigFom: "9999-12-31",
-                },
-                {
-                  attestant: "H135685",
-                  datoUgyldigFom: "9999-12-31",
-                },
-              ],
+      const json = {
+        linjer: [
+          {
+            oppdragsLinje: {
+              attestert: false,
+              datoVedtakFom: "2024-05-01",
+              datoVedtakTom: "2024-05-31",
+              delytelseId: "1",
+              kodeKlasse: "SPREFAGFER-IOP",
+              linjeId: 1,
+              oppdragsId: 98765432,
+              sats: 1234.0,
+              typeSats: "ENG",
             },
-          ],
-          saksbehandlerIdent: "H135685",
-        },
-      ];
+            attestasjoner: [
+              {
+                attestant: "G133837",
+                datoUgyldigFom: "9999-12-31",
+              },
+              {
+                attestant: "H135685",
+                datoUgyldigFom: "9999-12-31",
+              },
+            ],
+          },
+        ],
+        saksbehandlerIdent: "H135685",
+      };
       await route.fulfill({
         contentType: "application/json",
         body: JSON.stringify(json),

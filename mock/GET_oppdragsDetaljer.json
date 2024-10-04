@@ -1,14 +1,5 @@
-[
+
   {
-    "antallAttestanter": 1,
-    "fagGruppe": "Korttidsytelser",
-    "fagOmraade": "Sykepenger",
-    "fagSystemId": "FY00724748120170501         FY",
-    "gjelderId": "12345612345",
-    "kodeFagOmraade": "SP",
-    "ansvarsStedForOppdrag": "8128",
-    "kostnadsStedForOppdrag": "8020",
-    "oppdragsId": "32464186",
     "linjer": [
       {
         "oppdragsLinje": {
@@ -50,4 +41,3 @@
       }
     ]
   }
-]

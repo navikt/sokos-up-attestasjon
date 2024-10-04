@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
 import { BASE_URI, axiosPostFetcher } from "../api/config/apiConfig";
@@ -13,6 +13,7 @@ import {
   StatefulLinje,
 } from "../components/detaljer/DetaljerTabell";
 import useOppdragsDetaljer from "../hooks/useOppdragDetaljer";
+import { useAppState } from "../store/AppState";
 import commonstyles from "../styles/common-styles.module.css";
 import { BASENAME } from "../util/constants";
 import { createRequestPayload } from "../util/createRequestPayload";
@@ -34,8 +35,12 @@ const DetaljerPage = () => {
 
   const oppdragsId = location.state.oppdragsId;
   const { data, error, isLoading, mutate } = useOppdragsDetaljer(oppdragsId);
+  const { storedOppdrag } = useAppState.getState();
 
-  const oppdragsdetalj = data?.at(0);
+  const oppdrag = storedOppdrag?.find(
+    (oppdrag) => oppdrag.oppdragsId === oppdragsId,
+  );
+
   const handleSubmit = async (linjerMedEndringer: StatefulLinje[]) => {
     if (linjerMedEndringer.filter((l) => !!l.dateError).length > 0) {
       setAlertError("Du må rette feil i datoformat før du kan oppdatere");
@@ -48,9 +53,9 @@ const DetaljerPage = () => {
     }
 
     const payload = createRequestPayload(
-      oppdragsdetalj?.fagSystemId ?? "",
-      oppdragsdetalj?.kodeFagOmraade ?? "",
-      oppdragsdetalj?.gjelderId ?? "",
+      oppdrag?.fagSystemId ?? "",
+      oppdrag?.kodeFagOmraade ?? "",
+      oppdrag?.gjelderId ?? "",
       oppdragsId,
       linjerMedEndringer,
     );
@@ -86,22 +91,16 @@ const DetaljerPage = () => {
       <div className={styles.detaljer}>
         <div className={styles.detaljer__top}>
           <Breadcrumbs searchLink trefflistelink detaljer />
-          {oppdragsdetalj && (
+          {oppdrag && (
             <div className={styles.detaljer__label}>
-              <LabelText label="Gjelder" text={oppdragsdetalj.gjelderId} />
-              <LabelText
-                label="Fagsystem id"
-                text={oppdragsdetalj.fagSystemId}
-              />
-              <LabelText
-                label="Ansvarssted"
-                text={oppdragsdetalj.ansvarsStedForOppdrag || ""}
-              />
+              <LabelText label="Gjelder" text={oppdrag.gjelderId} />
+              <LabelText label="Fagsystem id" text={oppdrag.fagSystemId} />
+              <LabelText label="Ansvarssted" text={oppdrag.ansvarsSted || ""} />
               <LabelText
                 label="Kostnadssted"
-                text={oppdragsdetalj.kostnadsStedForOppdrag || ""}
+                text={oppdrag.kostnadsSted || ""}
               />
-              <LabelText label="Fagområde" text={oppdragsdetalj.fagOmraade} />
+              <LabelText label="Fagområde" text={oppdrag.fagOmraade} />
             </div>
           )}
           {zosResponse && showAlert && (
@@ -126,11 +125,11 @@ const DetaljerPage = () => {
         )}
         {data && (
           <DetaljerTabell
-            antallAttestanter={oppdragsdetalj?.antallAttestanter ?? 1}
+            antallAttestanter={oppdrag?.antallAttestanter ?? 1}
             handleSubmit={handleSubmit}
             isLoading={isLoading || isZosLoading}
-            oppdragslinjer={data.reduce((a) => a).linjer}
-            saksbehandlerIdent={oppdragsdetalj?.saksbehandlerIdent}
+            oppdragslinjer={data.linjer}
+            saksbehandlerIdent={data.saksbehandlerIdent}
             setAlertError={setAlertError}
           />
         )}
