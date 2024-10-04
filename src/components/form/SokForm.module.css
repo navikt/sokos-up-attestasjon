@@ -2,10 +2,10 @@
   @apply w-full max-w-lg space-y-3;
 }
 
-.error_summary {
+.sok-error-summary {
   @apply max-w-2xl pt-2;
 }
 
-.sok__button {
-  @apply flex gap-12 pt-5;
+.sok-button {
+  @apply pt-5;
 }

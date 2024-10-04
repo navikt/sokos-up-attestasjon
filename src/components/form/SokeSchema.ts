@@ -42,10 +42,17 @@ const lengderegel: ZodEffects<ZodString, string, string> = z
     "Gjelder-feltet må inneholde et orgnummer (9 siffer) eller fødselsnummer (11 siffer)",
   );
 
+const gyldigeTegnRegel: ZodString = z
+  .string()
+  .regex(
+    /^[a-zA-Z0-9-._]*$/,
+    "Fagsystem id kan bare inneholde bokstaver, tall, bindestrek, punktum og understrek",
+  );
+
 export const SokeSchema = z
   .object({
     gjelderId: z.literal("").or(baretallregel.pipe(lengderegel)),
-    fagSystemId: z.optional(z.string()),
+    fagSystemId: z.optional(gyldigeTegnRegel),
     kodeFagGruppe: z.optional(z.string()),
     kodeFagOmraade: z.optional(z.string()),
     attestertStatus: z.union([

@@ -16,7 +16,6 @@ export default function SokPage() {
   const [error, setError] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { setStoredSokeData, setStoredOppdrag } = useAppState.getState();
-  const { resetState } = useAppState();
 
   const handleChangeSok: SubmitHandler<SokeData> = (sokeData) => {
     setSokeData(sokeData);
@@ -43,12 +42,6 @@ export default function SokPage() {
       });
   };
 
-  function handleReset(e: React.FormEvent) {
-    e.preventDefault();
-    resetState();
-    setError(undefined);
-  }
-
   return (
     <>
       <div className={commonstyles.pageheading}>
@@ -64,7 +57,6 @@ export default function SokPage() {
           sokedata={sokeData}
           isLoading={isLoading}
           onSubmit={handleChangeSok}
-          onReset={handleReset}
         />
       </div>
       {error && (

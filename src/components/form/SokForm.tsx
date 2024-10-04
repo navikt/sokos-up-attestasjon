@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
 import { useForm } from "react-hook-form";
-import { EraserIcon, MagnifyingGlassIcon } from "@navikt/aksel-icons";
+import { MagnifyingGlassIcon } from "@navikt/aksel-icons";
 import {
   Button,
   ErrorSummary,
@@ -20,10 +20,9 @@ type SokFormProps = {
   sokedata: SokeData | undefined;
   isLoading?: boolean;
   onSubmit: (data: SokeData) => void;
-  onReset?: (e: React.FormEvent) => void;
 };
 
-function SokForm({ sokedata, isLoading, onSubmit, onReset }: SokFormProps) {
+function SokForm({ sokedata, isLoading, onSubmit }: SokFormProps) {
   const { data: faggrupper } = useFetchFaggrupper();
   const { data: fagomraader } = useFetchFagomraader();
 
@@ -32,7 +31,6 @@ function SokForm({ sokedata, isLoading, onSubmit, onReset }: SokFormProps) {
     setValue,
     handleSubmit,
     formState: { errors },
-    reset,
   } = useForm<SokeData>({
     resolver: zodResolver(SokeSchema),
   });
@@ -106,7 +104,7 @@ function SokForm({ sokedata, isLoading, onSubmit, onReset }: SokFormProps) {
           </RadioGroup>
         </div>
         {filteredErrors.length > 0 && (
-          <div className={styles.error_summary}>
+          <div className={styles["sok-error-summary"]}>
             <ErrorSummary
               heading={"Du må fikse disse feilene før du kan fortsette"}
             >
@@ -121,19 +119,7 @@ function SokForm({ sokedata, isLoading, onSubmit, onReset }: SokFormProps) {
             </ErrorSummary>
           </div>
         )}
-        <div className={styles.sok__button}>
-          <Button
-            type="reset"
-            variant="secondary"
-            icon={<EraserIcon title="Nullstill søk" />}
-            iconPosition="right"
-            onClick={() => {
-              reset();
-              return onReset;
-            }}
-          >
-            Nullstill
-          </Button>
+        <div className={styles["sok-button"]}>
           <Button
             type="submit"
             icon={

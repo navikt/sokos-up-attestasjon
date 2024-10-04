@@ -85,45 +85,8 @@ test.describe("When using Sok in Attestasjoner", () => {
       .click();
     await expect(
       page
-        .getByLabel("Du må disse feilene før")
-        .getByText("Fagsystemid kan kun inneholde"),
-    ).toBeVisible();
-  });
-
-  test(`using reset button should clear both form and error`, async ({
-    page,
-  }) => {
-    await page.getByPlaceholder("Fødselsnummer eller").fill("12345a");
-
-    await page
-      .getByRole("button", { name: "Søk Ikon som viser et forstø" })
-      .click();
-    await expect(
-      page
         .getByLabel("Du må fikse disse feilene før")
-        .getByText("Gjelder-feltet kan bare"),
-    ).toBeVisible();
-    await page.getByRole("button", { name: "Nullstill Nullstill søk" }).click();
-    await expect(
-      page
-        .getByLabel("Du må fikse disse feilene før")
-        .getByText("Gjelder-feltet kan bare"),
-    ).not.toBeVisible();
-  });
-
-  test(`using reset button should clear the form`, async ({ page }) => {
-    await page.getByPlaceholder("Fødselsnummer eller").fill("12345612345");
-
-    await page
-      .getByRole("button", { name: "Søk Ikon som viser et forstø" })
-      .click();
-    await expect(page.getByText("Ingen treff på søket. Prøv")).toBeVisible();
-    await page.getByRole("button", { name: "Nullstill Nullstill søk" }).click();
-    await page
-      .getByRole("button", { name: "Søk Ikon som viser et forstø" })
-      .click();
-    await expect(
-      page.getByLabel("Du må fikse disse feilene før"),
+        .getByText("Fagsystem id kan bare"),
     ).toBeVisible();
   });
 
