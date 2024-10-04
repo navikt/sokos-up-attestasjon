@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
 import { hentOppdrag } from "../api/config/apiService";
 import SokForm from "../components/form/SokForm";
 import { SokeData } from "../components/form/SokeSchema";
+import { useAppState } from "../store/AppState";
 import commonstyles from "../styles/common-styles.module.css";
-import { isEmpty, storeSok } from "../util/commonUtils";
+import { isEmpty } from "../util/commonUtils";
 import styles from "./SokPage.module.css";
 
 export default function SokPage() {
@@ -14,22 +15,19 @@ export default function SokPage() {
   const [sokeData, setSokeData] = useState<SokeData | undefined>();
   const [error, setError] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setSokeData(undefined);
-    storeSok();
-  }, []);
+  const { setStoredSokeData, setStoredOppdrag } = useAppState.getState();
 
   const handleChangeSok: SubmitHandler<SokeData> = (sokeData) => {
     setSokeData(sokeData);
-    storeSok(sokeData);
+    setStoredSokeData(sokeData);
     setIsLoading(true);
     setError(undefined);
 
     hentOppdrag(sokeData)
       .then((response) => {
         if (!isEmpty(response)) {
-          navigate("/treffliste", { state: { sokeData, oppdrag: response } });
+          setStoredOppdrag(response);
+          navigate("/treffliste");
         } else {
           setError("Ingen treff på søket. Prøv igjen med andre søkekriterier.");
           setIsLoading(false);
@@ -57,7 +55,7 @@ export default function SokPage() {
         </Heading>
         <SokForm
           sokedata={sokeData}
-          loading={isLoading}
+          isLoading={isLoading}
           onSubmit={handleChangeSok}
         />
       </div>

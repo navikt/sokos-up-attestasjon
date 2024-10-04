@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
 import { BASE_URI, axiosPostFetcher } from "../api/config/apiConfig";
 import { hentOppdrag } from "../api/config/apiService";
@@ -9,33 +8,32 @@ import ContentLoader from "../components/common/ContentLoader";
 import { SokeData } from "../components/form/SokeSchema";
 import SokeParameterVisning from "../components/treffliste/SokeParameterVisning";
 import { TreffTabell } from "../components/treffliste/TreffTabell";
+import { useAppState } from "../store/AppState";
 import commonstyles from "../styles/common-styles.module.css";
 import { GjelderNavn } from "../types/GjelderNavn";
 import { Oppdrag } from "../types/Oppdrag";
-import { retrieveSok } from "../util/commonUtils";
 import { BASENAME } from "../util/constants";
 import styles from "./TrefflistePage.module.css";
 
 const TrefflistePage = () => {
-  const location = useLocation();
   const [gjelderNavn, setGjelderNavn] = useState<string>("");
-  const [sokeData] = useState<SokeData | undefined>(
-    location.state?.sokeData || retrieveSok(),
+  const [storedSokeData] = useState<SokeData | undefined>(
+    useAppState.getState().storedSokeData,
   );
-  const [oppdrag, setOppdrag] = useState<Oppdrag[] | undefined>(
-    location.state?.oppdrag,
+  const [storedOppdrag, setstoredOppdrag] = useState<Oppdrag[] | undefined>(
+    useAppState.getState().storedOppdrag,
   );
-  const [isLoading, setIsLoading] = useState<boolean>(!oppdrag);
+  const [isLoading, setIsLoading] = useState<boolean>(!storedOppdrag);
   const [error, setError] = useState<string | undefined>(undefined);
 
   useEffect(() => {
-    if (!sokeData) {
+    if (!storedSokeData) {
       window.location.replace(BASENAME);
-    } else if (!oppdrag) {
+    } else if (!storedOppdrag) {
       setIsLoading(true);
-      hentOppdrag(sokeData)
+      hentOppdrag(storedSokeData)
         .then((response) => {
-          setOppdrag(response);
+          setstoredOppdrag(response);
           setIsLoading(false);
         })
         .catch((error) => {
@@ -43,35 +41,35 @@ const TrefflistePage = () => {
           setError(error.message);
         });
     }
-  }, [sokeData, oppdrag]);
+  }, [storedSokeData, storedOppdrag]);
 
   useEffect(() => {
-    if (sokeData) {
+    if (storedSokeData) {
       axiosPostFetcher<GjelderIdRequest, GjelderNavn>(
         BASE_URI.INTEGRATION,
         "/hentnavn",
-        { gjelderId: sokeData?.gjelderId },
+        { gjelderId: storedSokeData?.gjelderId },
       ).then((response) => setGjelderNavn(response.navn));
     }
-  }, [sokeData]);
+  }, [storedSokeData]);
 
   return (
     <>
       <div className={commonstyles.pageheading}>
         <Heading level="1" size="large">
-          Attestasjon
+          Attestasjon: Treffliste
         </Heading>
       </div>
       <div className={styles.treffliste}>
         <div className={styles.treffliste__top}>
           <Breadcrumbs searchLink treffliste />
           <SokeParameterVisning
-            gjelderId={sokeData?.gjelderId}
+            gjelderId={storedSokeData?.gjelderId}
             navn={gjelderNavn}
-            fagSystemId={sokeData?.fagSystemId}
-            kodeFaggruppe={sokeData?.kodeFagGruppe}
-            kodeFagomraade={sokeData?.kodeFagOmraade}
-            attestertStatus={sokeData?.attestertStatus}
+            fagSystemId={storedSokeData?.fagSystemId}
+            kodeFaggruppe={storedSokeData?.kodeFagGruppe}
+            kodeFagomraade={storedSokeData?.kodeFagOmraade}
+            attestertStatus={storedSokeData?.attestertStatus}
           />
         </div>
         {isLoading && <ContentLoader />}
@@ -80,9 +78,9 @@ const TrefflistePage = () => {
             <Alert variant="info">{error}</Alert>
           </div>
         )}
-        {!isLoading && oppdrag && (
+        {!isLoading && storedOppdrag && (
           <div className={styles.treffliste__trefftabell}>
-            <TreffTabell treffliste={oppdrag || []} />
+            <TreffTabell treffliste={storedOppdrag || []} />
           </div>
         )}
       </div>

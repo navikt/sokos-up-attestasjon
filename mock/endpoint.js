@@ -21,7 +21,7 @@ export default [
     response: () => ({ navn: "Test Testesen" })
   },
   {
-    url: "/oppdrag-api/api/v1/attestasjon/oppdragsdetaljer/:oppdragsId",
+    url: "/oppdrag-api/api/v1/attestasjon/:oppdragsId/oppdragsdetaljer",
     method: "GET",
     response: () => oppdragDetaljer
   },
