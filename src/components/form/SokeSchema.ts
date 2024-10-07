@@ -2,34 +2,20 @@ import { ZodEffects, ZodString, z } from "zod";
 
 export type SokeData = {
   gjelderId: string;
-  fagSystemId: string | undefined;
-  kodeFagGruppe: string | undefined;
-  kodeFagOmraade: string | undefined;
-  attestertStatus: string;
+  fagSystemId: string;
+  kodeFagGruppe: string[];
+  kodeFagOmraade: string[];
+  attestertStatus: boolean;
   kombinasjon: never;
 };
 
-const parseAttestert = (attestertStatus: string | undefined) => {
-  if (!attestertStatus) return undefined;
-  if (attestertStatus === "null") return undefined;
-  return attestertStatus === "true";
-};
-
-export type SokeRequestBody = {
+export type SokeParameter = {
   gjelderId: string | undefined;
   fagSystemId: string | undefined;
   kodeFagGruppe: string | undefined;
   kodeFagOmraade: string | undefined;
   attestert: boolean | undefined;
 };
-
-export const mapToSokeRequestBody = (sokedata?: SokeData) => ({
-  gjelderId: sokedata?.gjelderId,
-  fagSystemId: sokedata?.fagSystemId,
-  kodeFagGruppe: sokedata?.kodeFagGruppe,
-  kodeFagOmraade: sokedata?.kodeFagOmraade,
-  attestert: parseAttestert(sokedata?.attestertStatus),
-});
 
 const baretallregel: ZodString = z
   .string()
@@ -53,19 +39,15 @@ export const SokeSchema = z
   .object({
     gjelderId: z.literal("").or(baretallregel.pipe(lengderegel)),
     fagSystemId: z.optional(gyldigeTegnRegel),
-    kodeFagGruppe: z.optional(z.string()),
-    kodeFagOmraade: z.optional(z.string()),
-    attestertStatus: z.union([
-      z.literal("true"),
-      z.literal("false"),
-      z.literal("null"),
-    ]),
+    kodeFagGruppe: z.optional(z.array(z.string())),
+    kodeFagOmraade: z.optional(z.array(z.string())),
+    attestertStatus: z.union([z.literal(true), z.literal(false), z.null()]),
   })
   .refine(
     (data) => {
-      if (data.kodeFagGruppe?.length !== 0 && data.attestertStatus === "false")
+      if (data.kodeFagGruppe?.length !== 0 && data.attestertStatus === false)
         return true;
-      if (data.kodeFagOmraade?.length !== 0 && data.attestertStatus === "false")
+      if (data.kodeFagOmraade?.length !== 0 && data.attestertStatus === false)
         return true;
       if (data.gjelderId?.length !== 0) return true;
       if (data.fagSystemId?.length !== 0 && data.kodeFagOmraade?.length !== 0)
