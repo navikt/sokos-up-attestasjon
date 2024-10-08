@@ -14,21 +14,29 @@ import {
   TextField,
   UNSAFE_Combobox,
 } from "@navikt/ds-react";
-import { hentOppdrag } from "../api/config/apiService";
-import useFetchFaggrupper from "../hooks/useFetchFaggrupper";
-import useFetchFagomraader from "../hooks/useFetchFagomraader";
-import { useAppState } from "../store/AppState";
-import commonstyles from "../styles/common-styles.module.css";
-import { SokeData, SokeDataSchema } from "../types/SokeData";
-import { SokeParameter } from "../types/SokeParameter";
-import { isEmpty } from "../util/commonUtils";
+import { hentOppdrag } from "../../api/apiService";
+import useFetchFaggrupper from "../../hooks/useFetchFaggrupper";
+import useFetchFagomraader from "../../hooks/useFetchFagomraader";
+import { useAppState } from "../../store/AppState";
+import commonstyles from "../../styles/common-styles.module.css";
+import { FagGruppe } from "../../types/FagGruppe";
+import { FagOmraade } from "../../types/FagOmraade";
+import { SokeData, SokeDataSchema } from "../../types/SokeData";
+import { SokeParameter } from "../../types/SokeParameter";
+import { isEmpty } from "../../util/commonUtils";
+import { logFaroError } from "../../util/grafanaFaro";
 import styles from "./SokPage.module.css";
 
 export default function SokPage() {
   const navigate = useNavigate();
-  const [sokeData, setSokeData] = useState<SokeData | undefined>();
   const [error, setError] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [selectedFagomraade, setSelectedFagomraade] = useState<
+    FagOmraade | undefined
+  >(undefined);
+  const [selectedFaggruppe, setSelectedFaggruppe] = useState<
+    FagGruppe | undefined
+  >(undefined);
   const { setStoredSokeData, setStoredOppdrag, resetState } =
     useAppState.getState();
 
@@ -38,7 +46,6 @@ export default function SokPage() {
   const {
     register,
     handleSubmit,
-    getValues,
     setValue,
     reset,
     formState: { errors },
@@ -47,8 +54,8 @@ export default function SokPage() {
     defaultValues: {
       attestertStatus: "false",
       gjelderId: undefined,
-      kodeFagGruppe: [],
-      kodeFagOmraade: [],
+      fagGruppe: undefined,
+      fagOmraade: undefined,
       fagSystemId: undefined,
     },
   });
@@ -59,9 +66,8 @@ export default function SokPage() {
     const result = SokeDataSchema.safeParse(sokeData);
     if (!result.success) {
       setError("Noe gikk galt. Prøv igjen senere.");
-      // Logger til Faro
+      logFaroError(result.error);
     }
-    setSokeData(sokeData);
     setStoredSokeData(sokeData);
     setIsLoading(true);
     setError(undefined);
@@ -69,8 +75,8 @@ export default function SokPage() {
     const sokeParameter: SokeParameter = {
       gjelderId: sokeData?.gjelderId,
       fagSystemId: sokeData?.fagSystemId,
-      kodeFagGruppe: sokeData?.kodeFagGruppe[0],
-      kodeFagOmraade: sokeData?.kodeFagOmraade[0],
+      kodeFagGruppe: selectedFaggruppe?.type,
+      kodeFagOmraade: selectedFagomraade?.kode,
       attestert:
         sokeData.attestertStatus === "true"
           ? true
@@ -100,6 +106,8 @@ export default function SokPage() {
 
   function handleReset(e: FormEvent) {
     e.preventDefault();
+    setSelectedFaggruppe(undefined);
+    setSelectedFagomraade(undefined);
     reset();
     resetState();
   }
@@ -121,7 +129,6 @@ export default function SokPage() {
               <TextField
                 label="Gjelder"
                 placeholder="Fødselsnummer eller organisasjonsnummer"
-                defaultValue={sokeData?.gjelderId}
                 error={errors.gjelderId?.message}
                 id="gjelderId"
                 {...register("gjelderId", {
@@ -131,31 +138,44 @@ export default function SokPage() {
               <TextField
                 id="fagSystemId"
                 label="Fagsystem id"
-                defaultValue={sokeData?.fagSystemId}
                 {...register("fagSystemId")}
                 error={errors.fagSystemId?.message}
               />
               <UNSAFE_Combobox
-                id="kodeFagGruppe"
+                id="fagGruppe"
                 label="Faggruppe"
+                clearButton={true}
                 options={
                   faggrupper?.map((faggruppe) => ({
                     value: faggruppe.type,
                     label: faggruppe.navn + "(" + faggruppe.type + ")",
                   })) || []
                 }
-                error={errors.kodeFagGruppe?.message}
+                error={errors.fagGruppe?.message}
+                selectedOptions={
+                  selectedFaggruppe
+                    ? [
+                        {
+                          value: selectedFaggruppe.type,
+                          label:
+                            selectedFaggruppe.navn +
+                            "(" +
+                            selectedFaggruppe.type +
+                            ")",
+                        },
+                      ]
+                    : []
+                }
                 onToggleSelected={(option, isSelected) => {
                   if (isSelected) {
-                    setValue("kodeFagGruppe", [
-                      ...getValues("kodeFagGruppe"),
-                      option,
-                    ]);
-                  } else {
-                    setValue(
-                      "kodeFagGruppe",
-                      getValues("kodeFagGruppe").filter((v) => v !== option),
+                    const fagGruppe = faggrupper?.find(
+                      (f) => f.type === option,
                     );
+                    setValue("fagGruppe", {
+                      navn: fagGruppe?.navn ?? "",
+                      type: option,
+                    });
+                    setSelectedFaggruppe(fagGruppe);
                   }
                 }}
               />
@@ -163,24 +183,38 @@ export default function SokPage() {
               <UNSAFE_Combobox
                 id="kodeFagOmraade"
                 label="Fagområde"
+                clearButton={true}
                 options={
                   fagomraader?.map((fagomraade) => ({
                     value: fagomraade.kode,
                     label: fagomraade.navn + "(" + fagomraade.kode + ")",
                   })) || []
                 }
-                error={errors.kodeFagOmraade?.message}
+                error={errors.fagOmraade?.message}
+                selectedOptions={
+                  selectedFagomraade
+                    ? [
+                        {
+                          value: selectedFagomraade.kode,
+                          label:
+                            selectedFagomraade.navn +
+                            "(" +
+                            selectedFagomraade.kode +
+                            ")",
+                        },
+                      ]
+                    : []
+                }
                 onToggleSelected={(option, isSelected) => {
                   if (isSelected) {
-                    setValue("kodeFagOmraade", [
-                      ...getValues("kodeFagOmraade"),
-                      option,
-                    ]);
-                  } else {
-                    setValue(
-                      "kodeFagOmraade",
-                      getValues("kodeFagOmraade").filter((v) => v !== option),
+                    const fagomraade = fagomraader?.find(
+                      (f) => f.kode === option,
                     );
+                    setValue("fagOmraade", {
+                      navn: fagomraade?.navn ?? "",
+                      kode: option,
+                    });
+                    setSelectedFagomraade(fagomraade);
                   }
                 }}
               />

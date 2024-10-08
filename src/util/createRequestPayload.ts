@@ -1,5 +1,5 @@
 import { AttesterOppdragRequest } from "../api/models/AttesterOppdragRequest";
-import { StatefulLinje } from "../components/detaljer/DetaljerTabell";
+import { StatefulLinje } from "../pages/detaljer/DetaljerTabell";
 import { norskDatoTilIsoDato } from "./DatoUtil";
 
 export function createRequestPayload(

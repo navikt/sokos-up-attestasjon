@@ -1,6 +1,6 @@
-import { SokeParameter } from "../../components/form/SokeSchema";
-import { Oppdrag } from "../../types/Oppdrag";
-import { BASE_URI, axiosPostFetcher } from "./apiConfig";
+import { Oppdrag } from "../types/Oppdrag";
+import { SokeParameter } from "../types/SokeParameter";
+import { BASE_URI, axiosPostFetcher } from "./config/apiConfig";
 
 export async function hentOppdrag(request: SokeParameter) {
   return await axiosPostFetcher<SokeParameter, Oppdrag[]>(

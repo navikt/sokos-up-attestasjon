@@ -2,22 +2,19 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
-import { BASE_URI, axiosPostFetcher } from "../api/config/apiConfig";
-import { AttesterOppdragResponse } from "../api/models/AttesterOppdragResponse";
-import AlertWithCloseButton from "../components/common/AlertWithCloseButton";
-import Breadcrumbs from "../components/common/Breadcrumbs";
-import ContentLoader from "../components/common/ContentLoader";
-import {
-  DetaljerTabell,
-  StatefulLinje,
-} from "../components/detaljer/DetaljerTabell";
-import OppdragEgenskaperVisning from "../components/detaljer/OppdragEgenskaperVisning";
-import useOppdragsDetaljer from "../hooks/useOppdragDetaljer";
-import { useAppState } from "../store/AppState";
-import commonstyles from "../styles/common-styles.module.css";
-import { BASENAME } from "../util/constants";
-import { createRequestPayload } from "../util/createRequestPayload";
+import { BASE_URI, axiosPostFetcher } from "../../api/config/apiConfig";
+import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
+import AlertWithCloseButton from "../../components/AlertWithCloseButton";
+import Breadcrumbs from "../../components/Breadcrumbs";
+import ContentLoader from "../../components/ContentLoader";
+import useOppdragsDetaljer from "../../hooks/useOppdragDetaljer";
+import { useAppState } from "../../store/AppState";
+import commonstyles from "../../styles/common-styles.module.css";
+import { BASENAME } from "../../util/constants";
+import { createRequestPayload } from "../../util/createRequestPayload";
 import styles from "./DetaljerPage.module.css";
+import { DetaljerTabell, StatefulLinje } from "./DetaljerTabell";
+import OppdragEgenskaperVisning from "./OppdragEgenskaperVisning";
 
 const DetaljerPage = () => {
   const location = useLocation();
@@ -88,34 +85,28 @@ const DetaljerPage = () => {
           Attestasjon: Detaljer
         </Heading>
       </div>
-      <div className={styles.detaljer}>
-        <div className={styles.detaljer__top}>
+      <div className={styles["detaljer"]}>
+        <div className={styles["detaljer-top"]}>
           <Breadcrumbs searchLink trefflistelink detaljer />
           {oppdrag && (
-            <div className={styles.detaljer__label}>
+            <div className={styles["detaljer-label"]}>
               <OppdragEgenskaperVisning oppdrag={oppdrag} />
             </div>
           )}
           {zosResponse && showAlert && (
-            <div className={styles.detaljer__alert}>
-              <AlertWithCloseButton variant="success">
-                Oppdatering vellykket.{" "}
-                {
-                  zosResponse.OSAttestasjonOperationResponse
-                    .Attestasjonskvittering.ResponsAttestasjon.AntLinjerMottatt
-                }{" "}
-                linjer oppdatert.
-              </AlertWithCloseButton>
-            </div>
+            <AlertWithCloseButton variant="success">
+              Oppdatering vellykket.{" "}
+              {
+                zosResponse.OSAttestasjonOperationResponse
+                  .Attestasjonskvittering.ResponsAttestasjon.AntLinjerMottatt
+              }{" "}
+              linjer oppdatert.
+            </AlertWithCloseButton>
           )}
         </div>
       </div>
-      <div className={styles.detaljer__tabell}>
-        {!!alertError && (
-          <div className={styles.detaljer__alert}>
-            <Alert variant="error">{alertError}</Alert>
-          </div>
-        )}
+      <div className={styles["detaljer-tabell"]}>
+        {!!alertError && <Alert variant="error">{alertError}</Alert>}
         {data && (
           <DetaljerTabell
             antallAttestanter={oppdrag?.antallAttestanter ?? 1}

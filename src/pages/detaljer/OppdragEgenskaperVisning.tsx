@@ -1,5 +1,5 @@
+import LabelText from "../../components/LabelText";
 import { Oppdrag } from "../../types/Oppdrag";
-import LabelText from "../common/LabelText";
 
 export default function OppdragEgenskaperVisning({
   oppdrag,

@@ -2,18 +2,18 @@
   @apply mx-auto my-3 space-y-6;
 }
 
-.treffliste__top {
+.treffliste-top {
   @apply mx-auto min-w-1024 max-w-[1440px] space-y-5;
 }
 
-.treffliste__top_info {
+.treffliste-top-info {
   @apply bg-[--a-surface-alt-1-subtle] px-5 py-2;
 }
 
-.treffliste__trefftabell {
+.treffliste-trefftabell {
   @apply mx-auto min-w-1024 max-w-[1600px] rounded-lg bg-white;
 }
 
-.treffliste__error {
+.treffliste-error {
   @apply pt-5;
 }

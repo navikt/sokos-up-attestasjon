@@ -1,8 +1,8 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
-import { SokeData } from "../components/form/SokeSchema";
 import { Oppdrag } from "../types/Oppdrag";
 import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
+import { SokeData } from "../types/SokeData";
 
 type AppState = {
   gjelderNavn: string;

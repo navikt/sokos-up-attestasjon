@@ -1,6 +1,6 @@
 import { Heading } from "@navikt/ds-react";
-import LabelText from "../common/LabelText";
-import { SokeData } from "../form/SokeSchema";
+import LabelText from "../../components/LabelText";
+import { SokeData } from "../../types/SokeData";
 import styles from "./SokeKriterierVisning.module.css";
 
 type SokeKriterierVisningProps = {
@@ -37,11 +37,11 @@ export default function SokeKriterierVisning({
           {sokeData?.fagSystemId && (
             <LabelText label={"Fagsystem id"} text={sokeData.fagSystemId} />
           )}
-          {sokeData?.kodeFagGruppe[0] && (
-            <LabelText label={"Faggruppe"} text={sokeData.kodeFagGruppe[0]} />
+          {sokeData?.fagGruppe && (
+            <LabelText label={"Faggruppe"} text={sokeData.fagGruppe.navn} />
           )}
-          {sokeData?.kodeFagOmraade[0] && (
-            <LabelText label={"Fagområde"} text={sokeData.kodeFagOmraade[0]} />
+          {sokeData?.fagOmraade && (
+            <LabelText label={"Fagområde"} text={sokeData.fagOmraade.navn} />
           )}
           <LabelText label={"Attestert status"} text={attestertStatusText} />
         </div>

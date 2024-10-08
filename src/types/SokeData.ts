@@ -1,4 +1,6 @@
 import { ZodEffects, ZodString, z } from "zod";
+import { FagGruppe, FaggruppeSchema } from "./FagGruppe";
+import { FagOmraade, FagOmraadeSchema } from "./FagOmraade";
 
 const gjelderIdRule: ZodString = z
   .string()
@@ -21,8 +23,8 @@ const fagSystemIdRule: ZodString = z
 export type SokeData = {
   gjelderId: string;
   fagSystemId: string;
-  kodeFagGruppe: string[];
-  kodeFagOmraade: string[];
+  fagGruppe: FagGruppe;
+  fagOmraade: FagOmraade;
   attestertStatus: string;
   kombinasjon: never;
 };
@@ -31,8 +33,8 @@ export const SokeDataSchema = z
   .object({
     gjelderId: z.literal("").or(gjelderIdRule.pipe(gjelderIdLengthRule)),
     fagSystemId: z.optional(fagSystemIdRule),
-    kodeFagGruppe: z.optional(z.array(z.string())),
-    kodeFagOmraade: z.optional(z.array(z.string())),
+    fagGruppe: z.optional(FaggruppeSchema),
+    fagOmraade: z.optional(FagOmraadeSchema),
     attestertStatus: z.union([
       z.literal("true"),
       z.literal("false"),
@@ -41,13 +43,10 @@ export const SokeDataSchema = z
   })
   .refine(
     (data) => {
-      if (data.kodeFagGruppe?.length !== 0 && data.attestertStatus === "false")
-        return true;
-      if (data.kodeFagOmraade?.length !== 0 && data.attestertStatus === "false")
-        return true;
+      if (data.fagGruppe && data.attestertStatus === "false") return true;
+      if (data.fagOmraade && data.attestertStatus === "false") return true;
       if (data.gjelderId?.length !== 0) return true;
-      if (data.fagSystemId?.length !== 0 && data.kodeFagOmraade?.length !== 0)
-        return true;
+      if (data.fagSystemId?.length !== 0 && data.fagOmraade) return true;
 
       return false;
     },

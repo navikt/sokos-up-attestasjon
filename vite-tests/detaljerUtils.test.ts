@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { enLinjePerAttestasjon } from "../src/components/detaljer/detaljerUtils";
+import { enLinjePerAttestasjon } from "../src/pages/detaljer/detaljerUtils";
 
 const mockOppdragslinje = {
   oppdragsLinje: {
