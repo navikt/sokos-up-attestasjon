@@ -1,13 +1,10 @@
 import { Loader } from "@navikt/ds-react";
 import commonstyles from "../../styles/common-styles.module.css";
 
-const ContentLoader = ({ width }: { width?: string }) => (
-  <div
-    className={commonstyles.contentloader}
-    style={{ width: width ? width + "" : "100%" }}
-  >
-    <Loader size="2xlarge" title="Laster ..." variant="interaction" />
-  </div>
-);
-
-export default ContentLoader;
+export default function ContentLoader() {
+  return (
+    <div className={commonstyles.contentloader}>
+      <Loader size="2xlarge" title="Laster ..." variant="interaction" />
+    </div>
+  );
+}

@@ -11,9 +11,10 @@ import {
 } from "@navikt/ds-react";
 import useFetchFaggrupper from "../../hooks/useFetchFaggrupper";
 import useFetchFagomraader from "../../hooks/useFetchFagomraader";
+import { SokeDataSchema } from "../../types/SokeData";
 import FormField from "./FormField";
 import styles from "./SokForm.module.css";
-import { SokeData, SokeSchema } from "./SokeSchema";
+import { SokeData } from "./SokeSchema";
 import SokosCombobox from "./SokosCombobox";
 
 type SokFormProps = {
@@ -32,7 +33,7 @@ function SokForm({ sokedata, isLoading, onSubmit }: SokFormProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<SokeData>({
-    resolver: zodResolver(SokeSchema),
+    resolver: zodResolver(SokeDataSchema),
   });
 
   const filteredErrors = [...Object.keys(errors)].filter((m) => m);

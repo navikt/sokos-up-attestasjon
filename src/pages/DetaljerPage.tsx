@@ -7,11 +7,11 @@ import { AttesterOppdragResponse } from "../api/models/AttesterOppdragResponse";
 import AlertWithCloseButton from "../components/common/AlertWithCloseButton";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
-import LabelText from "../components/common/LabelText";
 import {
   DetaljerTabell,
   StatefulLinje,
 } from "../components/detaljer/DetaljerTabell";
+import OppdragEgenskaperVisning from "../components/detaljer/OppdragEgenskaperVisning";
 import useOppdragsDetaljer from "../hooks/useOppdragDetaljer";
 import { useAppState } from "../store/AppState";
 import commonstyles from "../styles/common-styles.module.css";
@@ -93,14 +93,7 @@ const DetaljerPage = () => {
           <Breadcrumbs searchLink trefflistelink detaljer />
           {oppdrag && (
             <div className={styles.detaljer__label}>
-              <LabelText label="Gjelder" text={oppdrag.gjelderId} />
-              <LabelText label="Fagsystem id" text={oppdrag.fagSystemId} />
-              <LabelText label="Ansvarssted" text={oppdrag.ansvarsSted || ""} />
-              <LabelText
-                label="Kostnadssted"
-                text={oppdrag.kostnadsSted || ""}
-              />
-              <LabelText label="Fagområde" text={oppdrag.fagOmraade} />
+              <OppdragEgenskaperVisning oppdrag={oppdrag} />
             </div>
           )}
           {zosResponse && showAlert && (

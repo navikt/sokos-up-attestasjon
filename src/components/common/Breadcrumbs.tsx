@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { BodyShort } from "@navikt/ds-react";
 import styles from "./Breadcrumbs.module.css";
-import NullstillButton from "./ResetButton";
+import ResetButton from "./ResetButton";
 
 type BreadcrumbsProps = {
   searchLink?: boolean;
@@ -71,7 +71,7 @@ const Breadcrumbs = ({
         </div>
       </div>
       <div className={styles.breadcrumbs__right}>
-        <NullstillButton />
+        <ResetButton />
       </div>
     </div>
   );

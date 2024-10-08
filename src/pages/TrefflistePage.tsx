@@ -5,8 +5,7 @@ import { hentOppdrag } from "../api/config/apiService";
 import { GjelderIdRequest } from "../api/models/GjelderIdRequest";
 import Breadcrumbs from "../components/common/Breadcrumbs";
 import ContentLoader from "../components/common/ContentLoader";
-import { SokeData } from "../components/form/SokeSchema";
-import SokeParameterVisning from "../components/treffliste/SokeParameterVisning";
+import SokeKriterierVisning from "../components/treffliste/SokeKriterierVisning";
 import { TreffTabell } from "../components/treffliste/TreffTabell";
 import { useAppState } from "../store/AppState";
 import commonstyles from "../styles/common-styles.module.css";
@@ -17,9 +16,7 @@ import styles from "./TrefflistePage.module.css";
 
 const TrefflistePage = () => {
   const [gjelderNavn, setGjelderNavn] = useState<string>("");
-  const [storedSokeData] = useState<SokeData | undefined>(
-    useAppState.getState().storedSokeData,
-  );
+  const { storedSokeData } = useAppState.getState();
   const [storedOppdrag, setstoredOppdrag] = useState<Oppdrag[] | undefined>(
     useAppState.getState().storedOppdrag,
   );
@@ -63,13 +60,9 @@ const TrefflistePage = () => {
       <div className={styles.treffliste}>
         <div className={styles.treffliste__top}>
           <Breadcrumbs searchLink treffliste />
-          <SokeParameterVisning
-            gjelderId={storedSokeData?.gjelderId}
-            navn={gjelderNavn}
-            fagSystemId={storedSokeData?.fagSystemId}
-            kodeFaggruppe={storedSokeData?.kodeFagGruppe}
-            kodeFagomraade={storedSokeData?.kodeFagOmraade}
-            attestertStatus={storedSokeData?.attestertStatus}
+          <SokeKriterierVisning
+            gjelderNavn={gjelderNavn}
+            sokeData={storedSokeData}
           />
         </div>
         {isLoading && <ContentLoader />}

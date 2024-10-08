@@ -1,8 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useState } from "react";
+import { FormEvent, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { MagnifyingGlassIcon } from "@navikt/aksel-icons";
+import { EraserIcon, MagnifyingGlassIcon } from "@navikt/aksel-icons";
 import {
   Alert,
   Button,
@@ -15,11 +15,12 @@ import {
   UNSAFE_Combobox,
 } from "@navikt/ds-react";
 import { hentOppdrag } from "../api/config/apiService";
-import { SokeData, SokeSchema } from "../components/form/SokeSchema";
 import useFetchFaggrupper from "../hooks/useFetchFaggrupper";
 import useFetchFagomraader from "../hooks/useFetchFagomraader";
 import { useAppState } from "../store/AppState";
 import commonstyles from "../styles/common-styles.module.css";
+import { SokeData, SokeDataSchema } from "../types/SokeData";
+import { SokeParameter } from "../types/SokeParameter";
 import { isEmpty } from "../util/commonUtils";
 import styles from "./SokPage.module.css";
 
@@ -28,7 +29,8 @@ export default function SokPage() {
   const [sokeData, setSokeData] = useState<SokeData | undefined>();
   const [error, setError] = useState<string | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { setStoredSokeData, setStoredOppdrag } = useAppState.getState();
+  const { setStoredSokeData, setStoredOppdrag, resetState } =
+    useAppState.getState();
 
   const { data: faggrupper } = useFetchFaggrupper();
   const { data: fagomraader } = useFetchFagomraader();
@@ -38,11 +40,12 @@ export default function SokPage() {
     handleSubmit,
     getValues,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<SokeData>({
-    resolver: zodResolver(SokeSchema),
+    resolver: zodResolver(SokeDataSchema),
     defaultValues: {
-      attestertStatus: false,
+      attestertStatus: "false",
       gjelderId: undefined,
       kodeFagGruppe: [],
       kodeFagOmraade: [],
@@ -53,7 +56,7 @@ export default function SokPage() {
   const filteredErrors = [...Object.keys(errors)].filter((m) => m);
 
   const onSubmit: SubmitHandler<SokeData> = (sokeData) => {
-    const result = SokeSchema.safeParse(sokeData);
+    const result = SokeDataSchema.safeParse(sokeData);
     if (!result.success) {
       setError("Noe gikk galt. Prøv igjen senere.");
       // Logger til Faro
@@ -63,7 +66,20 @@ export default function SokPage() {
     setIsLoading(true);
     setError(undefined);
 
-    hentOppdrag(sokeData)
+    const sokeParameter: SokeParameter = {
+      gjelderId: sokeData?.gjelderId,
+      fagSystemId: sokeData?.fagSystemId,
+      kodeFagGruppe: sokeData?.kodeFagGruppe[0],
+      kodeFagOmraade: sokeData?.kodeFagOmraade[0],
+      attestert:
+        sokeData.attestertStatus === "true"
+          ? true
+          : sokeData.attestertStatus === "false"
+            ? false
+            : null,
+    };
+
+    hentOppdrag(sokeParameter)
       .then((response) => {
         if (!isEmpty(response)) {
           setStoredOppdrag(response);
@@ -82,6 +98,12 @@ export default function SokPage() {
       });
   };
 
+  function handleReset(e: FormEvent) {
+    e.preventDefault();
+    reset();
+    resetState();
+  }
+
   return (
     <>
       <div className={commonstyles.pageheading}>
@@ -89,13 +111,13 @@ export default function SokPage() {
           Attestasjon
         </Heading>
       </div>
-      <div className={styles.sok_sok}>
+      <div className={styles["sok-sok"]}>
         <Heading level="2" size="medium" spacing>
           Søk
         </Heading>
         <>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles.sok}>
+            <div className={styles["sok"]}>
               <TextField
                 label="Gjelder"
                 placeholder="Fødselsnummer eller organisasjonsnummer"
@@ -166,15 +188,15 @@ export default function SokPage() {
               <RadioGroup
                 legend="Status"
                 name="attestertStatus"
-                defaultValue={false}
+                defaultValue="false"
               >
-                <Radio value={true} {...register("attestertStatus")}>
+                <Radio value="true" {...register("attestertStatus")}>
                   Attestert
                 </Radio>
-                <Radio value={false} {...register("attestertStatus")}>
+                <Radio value="false" {...register("attestertStatus")}>
                   Ikke attestert
                 </Radio>
-                <Radio value={null} {...register("attestertStatus")}>
+                <Radio value="undefined" {...register("attestertStatus")}>
                   Alle
                 </Radio>
               </RadioGroup>
@@ -209,12 +231,20 @@ export default function SokPage() {
               >
                 {isLoading ? "Søker..." : "Søk"}
               </Button>
+              <Button
+                variant="secondary"
+                iconPosition="right"
+                icon={<EraserIcon title="reset søk" />}
+                onClick={handleReset}
+              >
+                Nullstill søk
+              </Button>
             </div>
           </form>
         </>
       </div>
       {error && (
-        <div className={styles.sok_error}>
+        <div className={styles["sok-error"]}>
           <Alert variant="info">{error}</Alert>
         </div>
       )}
