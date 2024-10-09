@@ -2,26 +2,33 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
-import { BASE_URI, axiosPostFetcher } from "../../api/config/apiConfig";
-import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
+import {
+  attesterOppdragRequest,
+  oppdaterAttestasjon,
+} from "../../api/apiService";
+import { OppdaterAttestasjonResponse } from "../../api/models/AttesterOppdragResponse";
 import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ContentLoader from "../../components/ContentLoader";
-import useOppdragsDetaljer from "../../hooks/useOppdragDetaljer";
+import useFetchOppdragsdetaljer from "../../hooks/useFetchOppdragsdetaljer";
 import { useAppState } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { BASENAME } from "../../util/constants";
-import { createRequestPayload } from "../../util/createRequestPayload";
 import styles from "./DetaljerPage.module.css";
-import { DetaljerTabell, StatefulLinje } from "./DetaljerTabell";
+import DetaljerTabell, { StatefulLinje } from "./DetaljerTabell";
 import OppdragEgenskaperVisning from "./OppdragEgenskaperVisning";
 
 const DetaljerPage = () => {
   const location = useLocation();
+  const oppdragsId = location.state.oppdragsId;
+
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertError, setAlertError] = useState<string | null>(null);
   const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
-  const [zosResponse, setResponse] = useState<AttesterOppdragResponse>();
+  const [zosResponse, setZosResponse] = useState<OppdaterAttestasjonResponse>();
+  const { data, error, isLoading, mutate } =
+    useFetchOppdragsdetaljer(oppdragsId);
+
   useEffect(() => {
     if (showAlert) setTimeout(() => setShowAlert(false), 10000);
   }, [showAlert]);
@@ -30,8 +37,6 @@ const DetaljerPage = () => {
     window.location.replace(BASENAME);
   }
 
-  const oppdragsId = location.state.oppdragsId;
-  const { data, error, isLoading, mutate } = useOppdragsDetaljer(oppdragsId);
   const { storedOppdrag } = useAppState.getState();
 
   const oppdrag = storedOppdrag?.find(
@@ -49,7 +54,7 @@ const DetaljerPage = () => {
       return;
     }
 
-    const payload = createRequestPayload(
+    const request = attesterOppdragRequest(
       oppdrag?.fagSystemId ?? "",
       oppdrag?.kodeFagOmraade ?? "",
       oppdrag?.gjelderId ?? "",
@@ -59,11 +64,8 @@ const DetaljerPage = () => {
 
     setIsZosLoading(true);
     try {
-      const response = await axiosPostFetcher<
-        typeof payload,
-        AttesterOppdragResponse
-      >(BASE_URI.ATTESTASJON, "/attestere", payload);
-      setResponse(response);
+      const response = await oppdaterAttestasjon(request);
+      setZosResponse(response);
       setAlertError(null);
       setShowAlert(true);
       mutate();
@@ -74,7 +76,9 @@ const DetaljerPage = () => {
         setAlertError("En uventet feil har skjedd");
       }
     } finally {
-      setIsZosLoading(false);
+      if (!isLoading) {
+        setIsZosLoading(false);
+      }
     }
   };
 
@@ -95,12 +99,7 @@ const DetaljerPage = () => {
           )}
           {zosResponse && showAlert && (
             <AlertWithCloseButton variant="success">
-              Oppdatering vellykket.{" "}
-              {
-                zosResponse.OSAttestasjonOperationResponse
-                  .Attestasjonskvittering.ResponsAttestasjon.AntLinjerMottatt
-              }{" "}
-              linjer oppdatert.
+              {zosResponse.message}
             </AlertWithCloseButton>
           )}
         </div>
