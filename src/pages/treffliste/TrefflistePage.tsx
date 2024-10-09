@@ -1,25 +1,23 @@
 import { useEffect, useState } from "react";
 import { Alert, Heading } from "@navikt/ds-react";
-import { BASE_URI, axiosPostFetcher } from "../api/config/apiConfig";
-import { hentOppdrag } from "../api/config/apiService";
-import { GjelderIdRequest } from "../api/models/GjelderIdRequest";
-import Breadcrumbs from "../components/common/Breadcrumbs";
-import ContentLoader from "../components/common/ContentLoader";
-import { SokeData } from "../components/form/SokeSchema";
-import SokeParameterVisning from "../components/treffliste/SokeParameterVisning";
-import { TreffTabell } from "../components/treffliste/TreffTabell";
-import { useAppState } from "../store/AppState";
-import commonstyles from "../styles/common-styles.module.css";
-import { GjelderNavn } from "../types/GjelderNavn";
-import { Oppdrag } from "../types/Oppdrag";
-import { BASENAME } from "../util/constants";
+import { hentOppdrag } from "../../api/apiService";
+import { BASE_URI, axiosPostFetcher } from "../../api/config/apiConfig";
+import { GjelderIdRequest } from "../../api/models/GjelderIdRequest";
+import Breadcrumbs from "../../components/Breadcrumbs";
+import ContentLoader from "../../components/ContentLoader";
+import { useAppState } from "../../store/AppState";
+import commonstyles from "../../styles/common-styles.module.css";
+import { GjelderNavn } from "../../types/GjelderNavn";
+import { Oppdrag } from "../../types/Oppdrag";
+import { SokeParameter } from "../../types/SokeParameter";
+import { BASENAME } from "../../util/constants";
+import SokeKriterierVisning from "./SokeKriterierVisning";
+import { TreffTabell } from "./TreffTabell";
 import styles from "./TrefflistePage.module.css";
 
 const TrefflistePage = () => {
   const [gjelderNavn, setGjelderNavn] = useState<string>("");
-  const [storedSokeData] = useState<SokeData | undefined>(
-    useAppState.getState().storedSokeData,
-  );
+  const { storedSokeData } = useAppState.getState();
   const [storedOppdrag, setstoredOppdrag] = useState<Oppdrag[] | undefined>(
     useAppState.getState().storedOppdrag,
   );
@@ -31,7 +29,21 @@ const TrefflistePage = () => {
       window.location.replace(BASENAME);
     } else if (!storedOppdrag) {
       setIsLoading(true);
-      hentOppdrag(storedSokeData)
+
+      const sokeParameter: SokeParameter = {
+        gjelderId: storedSokeData.gjelderId,
+        fagSystemId: storedSokeData.fagSystemId,
+        kodeFagGruppe: storedSokeData.fagGruppe.type,
+        kodeFagOmraade: storedSokeData.fagOmraade.kode,
+        attestert:
+          storedSokeData.attestertStatus === "true"
+            ? true
+            : storedSokeData.attestertStatus === "false"
+              ? false
+              : null,
+      };
+
+      hentOppdrag(sokeParameter)
         .then((response) => {
           setstoredOppdrag(response);
           setIsLoading(false);
@@ -60,26 +72,22 @@ const TrefflistePage = () => {
           Attestasjon: Treffliste
         </Heading>
       </div>
-      <div className={styles.treffliste}>
-        <div className={styles.treffliste__top}>
+      <div className={styles["treffliste"]}>
+        <div className={styles["treffliste-top"]}>
           <Breadcrumbs searchLink treffliste />
-          <SokeParameterVisning
-            gjelderId={storedSokeData?.gjelderId}
-            navn={gjelderNavn}
-            fagSystemId={storedSokeData?.fagSystemId}
-            kodeFaggruppe={storedSokeData?.kodeFagGruppe}
-            kodeFagomraade={storedSokeData?.kodeFagOmraade}
-            attestertStatus={storedSokeData?.attestertStatus}
+          <SokeKriterierVisning
+            gjelderNavn={gjelderNavn}
+            sokeData={storedSokeData}
           />
         </div>
         {isLoading && <ContentLoader />}
         {error && (
-          <div className={styles.treffliste__error}>
+          <div className={styles["treffliste-error"]}>
             <Alert variant="info">{error}</Alert>
           </div>
         )}
         {!isLoading && storedOppdrag && (
-          <div className={styles.treffliste__trefftabell}>
+          <div className={styles["treffliste-trefftabell"]}>
             <TreffTabell treffliste={storedOppdrag || []} />
           </div>
         )}

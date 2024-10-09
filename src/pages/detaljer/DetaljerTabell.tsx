@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Checkbox, Loader, Table } from "@navikt/ds-react";
 import { OppdragsLinje } from "../../types/OppdragsDetaljer";
 import { dagensDato } from "../../util/DatoUtil";
 import DetaljerTabellRow from "./DetaljerTabellRow";
 import { enLinjePerAttestasjon } from "./detaljerUtils";
 
-interface DetaljerTabellProps {
+type DetaljerTabellProps = {
   antallAttestanter: number;
   oppdragslinjer: OppdragsLinje[];
   saksbehandlerIdent: string | undefined;
   handleSubmit: (linjer: StatefulLinje[]) => void;
   isLoading: boolean;
   setAlertError: (value: React.SetStateAction<string | null>) => void;
-}
+};
 
 type Linjetype = "fjern" | "attester";
 
@@ -26,18 +26,15 @@ export type StatefulLinje = {
   vises: boolean;
 };
 
-export const DetaljerTabell = ({
-  antallAttestanter,
-  oppdragslinjer,
-  handleSubmit,
-  saksbehandlerIdent,
-  isLoading,
-  setAlertError,
-}: DetaljerTabellProps) => {
+export default function DetaljerTabell(props: DetaljerTabellProps) {
   const [linjerMedEndringer, setLinjerMedEndringer] = useState(
-    oppdragslinjer
+    props.oppdragslinjer
       .map((o) =>
-        enLinjePerAttestasjon(o, antallAttestanter, saksbehandlerIdent ?? "x"),
+        enLinjePerAttestasjon(
+          o,
+          props.antallAttestanter,
+          props.saksbehandlerIdent ?? "x",
+        ),
       )
       .flatMap(setOnlyFirstVisible),
   );
@@ -59,14 +56,14 @@ export const DetaljerTabell = ({
       i === index ? newState : component,
     );
     if (!newLinjer.some((l) => l.dateError))
-      setAlertError((oldAlert) =>
+      props.setAlertError((oldAlert) =>
         !!oldAlert &&
         oldAlert == "Du må rette feil i datoformat før du kan oppdatere"
           ? null
           : oldAlert,
       );
     if (newLinjer.some((l) => l.attester || l.fjern))
-      setAlertError((oldAlert) =>
+      props.setAlertError((oldAlert) =>
         !!oldAlert &&
         oldAlert == "Du må velge minst en linje før du kan oppdatere"
           ? null
@@ -160,13 +157,27 @@ export const DetaljerTabell = ({
       <Button
         type={"submit"}
         size={"medium"}
-        onClick={() => handleSubmit(linjerMedEndringer)}
-        disabled={isLoading}
+        onClick={() => props.handleSubmit(linjerMedEndringer)}
+        disabled={props.isLoading}
       >
-        {isLoading ? <Loader size={"small"} /> : "Oppdater"}
+        {props.isLoading ? <Loader size={"small"} /> : "Oppdater"}
       </Button>
     );
   }
+
+  useEffect(() => {
+    setLinjerMedEndringer(
+      props.oppdragslinjer
+        .map((oppdrag) =>
+          enLinjePerAttestasjon(
+            oppdrag,
+            props.antallAttestanter,
+            props.saksbehandlerIdent ?? "x",
+          ),
+        )
+        .flatMap(setOnlyFirstVisible),
+    );
+  }, [props.oppdragslinjer, props.antallAttestanter, props.saksbehandlerIdent]);
 
   return (
     <>
@@ -203,4 +214,4 @@ export const DetaljerTabell = ({
       </Table>
     </>
   );
-};
+}

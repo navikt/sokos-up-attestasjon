@@ -1,8 +1,28 @@
-import { AttesterOppdragRequest } from "../api/models/AttesterOppdragRequest";
-import { StatefulLinje } from "../components/detaljer/DetaljerTabell";
-import { norskDatoTilIsoDato } from "./DatoUtil";
+import { StatefulLinje } from "../pages/detaljer/DetaljerTabell";
+import { Oppdrag } from "../types/Oppdrag";
+import { SokeParameter } from "../types/SokeParameter";
+import { norskDatoTilIsoDato } from "../util/DatoUtil";
+import { BASE_URI, axiosPostFetcher } from "./config/apiConfig";
+import { AttesterOppdragRequest } from "./models/AttesterOppdragRequest";
+import { OppdaterAttestasjonResponse } from "./models/AttesterOppdragResponse";
 
-export function createRequestPayload(
+export async function hentOppdrag(request: SokeParameter) {
+  return await axiosPostFetcher<SokeParameter, Oppdrag[]>(
+    BASE_URI.ATTESTASJON,
+    "/sok",
+    request,
+  );
+}
+
+export async function oppdaterAttestasjon(request: AttesterOppdragRequest) {
+  return await axiosPostFetcher<typeof request, OppdaterAttestasjonResponse>(
+    BASE_URI.ATTESTASJON,
+    "/attestere",
+    request,
+  );
+}
+
+export function attesterOppdragRequest(
   fagSystemId: string,
   kodeFagOmraade: string,
   gjelderId: string,

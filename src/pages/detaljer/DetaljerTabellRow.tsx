@@ -7,7 +7,7 @@ import {
   isoDatoTilNorskDato,
 } from "../../util/DatoUtil";
 import { StatefulLinje } from "./DetaljerTabell";
-import styles from "./DetaljerTabell.module.css";
+import styles from "./DetaljerTabellRow.module.css";
 
 type DetaljerTabellRowProps = {
   linjeMedEndring: StatefulLinje;
@@ -86,7 +86,7 @@ function DetaljerTabellRow({
       </Table.DataCell>
       <Table.DataCell>
         {erAttestert && (
-          <div className={styles.ugyldig_textfield}>
+          <div className={styles["ugyldig-textfield"]}>
             <TextField
               size="small"
               label="Ugyldig FOM"

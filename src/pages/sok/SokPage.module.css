@@ -1,0 +1,23 @@
+.sok {
+  @apply w-full max-w-lg space-y-3;
+}
+
+.sok-sok {
+  @apply bg-[--a-surface-alt-1-subtle] p-5;
+}
+
+.sok-inputfields {
+  @apply flex w-1/3 flex-col space-y-3;
+}
+
+.sok-error {
+  @apply pt-5;
+}
+
+.sok-error-summary {
+  @apply max-w-2xl pt-2;
+}
+
+.sok-button {
+  @apply flex gap-6 pt-5;
+}

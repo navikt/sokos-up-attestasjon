@@ -2,22 +2,22 @@
   @apply mx-auto my-3 space-y-6;
 }
 
-.detaljer__top {
+.detaljer-top {
   @apply mx-auto min-w-1024 max-w-[1440px] space-y-5;
 }
 
-.detaljer__tabell {
+.detaljer-tabell {
   @apply mx-auto min-w-[1600px] max-w-fit rounded-lg bg-white;
 }
 
-.detaljer__label {
+.detaljer-label {
   @apply flex gap-16 rounded-lg bg-white pb-5 pl-5 pt-5;
 }
 
-.detaljer__columns {
+.detaljer-columns {
   @apply flex w-11/12 flex-row justify-between space-x-16;
 }
 
-.detaljer__column {
+.detaljer-column {
   @apply flex flex-col space-y-3;
 }

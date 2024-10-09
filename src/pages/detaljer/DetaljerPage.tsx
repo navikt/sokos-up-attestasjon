@@ -2,29 +2,33 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
-import { BASE_URI, axiosPostFetcher } from "../api/config/apiConfig";
-import { AttesterOppdragResponse } from "../api/models/AttesterOppdragResponse";
-import AlertWithCloseButton from "../components/common/AlertWithCloseButton";
-import Breadcrumbs from "../components/common/Breadcrumbs";
-import ContentLoader from "../components/common/ContentLoader";
-import LabelText from "../components/common/LabelText";
 import {
-  DetaljerTabell,
-  StatefulLinje,
-} from "../components/detaljer/DetaljerTabell";
-import useOppdragsDetaljer from "../hooks/useOppdragDetaljer";
-import { useAppState } from "../store/AppState";
-import commonstyles from "../styles/common-styles.module.css";
-import { BASENAME } from "../util/constants";
-import { createRequestPayload } from "../util/createRequestPayload";
+  attesterOppdragRequest,
+  oppdaterAttestasjon,
+} from "../../api/apiService";
+import { OppdaterAttestasjonResponse } from "../../api/models/AttesterOppdragResponse";
+import AlertWithCloseButton from "../../components/AlertWithCloseButton";
+import Breadcrumbs from "../../components/Breadcrumbs";
+import ContentLoader from "../../components/ContentLoader";
+import useFetchOppdragsdetaljer from "../../hooks/useFetchOppdragsdetaljer";
+import { useAppState } from "../../store/AppState";
+import commonstyles from "../../styles/common-styles.module.css";
+import { BASENAME } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
+import DetaljerTabell, { StatefulLinje } from "./DetaljerTabell";
+import OppdragEgenskaperVisning from "./OppdragEgenskaperVisning";
 
 const DetaljerPage = () => {
   const location = useLocation();
+  const oppdragsId = location.state.oppdragsId;
+
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertError, setAlertError] = useState<string | null>(null);
   const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
-  const [zosResponse, setResponse] = useState<AttesterOppdragResponse>();
+  const [zosResponse, setZosResponse] = useState<OppdaterAttestasjonResponse>();
+  const { data, error, isLoading, mutate } =
+    useFetchOppdragsdetaljer(oppdragsId);
+
   useEffect(() => {
     if (showAlert) setTimeout(() => setShowAlert(false), 10000);
   }, [showAlert]);
@@ -33,8 +37,6 @@ const DetaljerPage = () => {
     window.location.replace(BASENAME);
   }
 
-  const oppdragsId = location.state.oppdragsId;
-  const { data, error, isLoading, mutate } = useOppdragsDetaljer(oppdragsId);
   const { storedOppdrag } = useAppState.getState();
 
   const oppdrag = storedOppdrag?.find(
@@ -52,7 +54,7 @@ const DetaljerPage = () => {
       return;
     }
 
-    const payload = createRequestPayload(
+    const request = attesterOppdragRequest(
       oppdrag?.fagSystemId ?? "",
       oppdrag?.kodeFagOmraade ?? "",
       oppdrag?.gjelderId ?? "",
@@ -62,11 +64,8 @@ const DetaljerPage = () => {
 
     setIsZosLoading(true);
     try {
-      const response = await axiosPostFetcher<
-        typeof payload,
-        AttesterOppdragResponse
-      >(BASE_URI.ATTESTASJON, "/attestere", payload);
-      setResponse(response);
+      const response = await oppdaterAttestasjon(request);
+      setZosResponse(response);
       setAlertError(null);
       setShowAlert(true);
       mutate();
@@ -77,7 +76,9 @@ const DetaljerPage = () => {
         setAlertError("En uventet feil har skjedd");
       }
     } finally {
-      setIsZosLoading(false);
+      if (!isLoading) {
+        setIsZosLoading(false);
+      }
     }
   };
 
@@ -88,41 +89,23 @@ const DetaljerPage = () => {
           Attestasjon: Detaljer
         </Heading>
       </div>
-      <div className={styles.detaljer}>
-        <div className={styles.detaljer__top}>
+      <div className={styles["detaljer"]}>
+        <div className={styles["detaljer-top"]}>
           <Breadcrumbs searchLink trefflistelink detaljer />
           {oppdrag && (
-            <div className={styles.detaljer__label}>
-              <LabelText label="Gjelder" text={oppdrag.gjelderId} />
-              <LabelText label="Fagsystem id" text={oppdrag.fagSystemId} />
-              <LabelText label="Ansvarssted" text={oppdrag.ansvarsSted || ""} />
-              <LabelText
-                label="Kostnadssted"
-                text={oppdrag.kostnadsSted || ""}
-              />
-              <LabelText label="Fagområde" text={oppdrag.fagOmraade} />
+            <div className={styles["detaljer-label"]}>
+              <OppdragEgenskaperVisning oppdrag={oppdrag} />
             </div>
           )}
           {zosResponse && showAlert && (
-            <div className={styles.detaljer__alert}>
-              <AlertWithCloseButton variant="success">
-                Oppdatering vellykket.{" "}
-                {
-                  zosResponse.OSAttestasjonOperationResponse
-                    .Attestasjonskvittering.ResponsAttestasjon.AntLinjerMottatt
-                }{" "}
-                linjer oppdatert.
-              </AlertWithCloseButton>
-            </div>
+            <AlertWithCloseButton variant="success">
+              {zosResponse.message}
+            </AlertWithCloseButton>
           )}
         </div>
       </div>
-      <div className={styles.detaljer__tabell}>
-        {!!alertError && (
-          <div className={styles.detaljer__alert}>
-            <Alert variant="error">{alertError}</Alert>
-          </div>
-        )}
+      <div className={styles["detaljer-tabell"]}>
+        {!!alertError && <Alert variant="error">{alertError}</Alert>}
         {data && (
           <DetaljerTabell
             antallAttestanter={oppdrag?.antallAttestanter ?? 1}

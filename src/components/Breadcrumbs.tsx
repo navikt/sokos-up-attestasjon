@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { BodyShort } from "@navikt/ds-react";
 import styles from "./Breadcrumbs.module.css";
-import NullstillButton from "./ResetButton";
+import ResetButton from "./ResetButton";
 
 type BreadcrumbsProps = {
   searchLink?: boolean;
@@ -21,11 +21,11 @@ const Breadcrumbs = ({
   oppdragsdetaljer,
 }: BreadcrumbsProps) => {
   return (
-    <div className={styles.breadcrumbs}>
-      <div className={styles.breadcrumbs__left}>
-        <div className={styles.breadcrumbs__contents}>
+    <div className={styles["breadcrumbs"]}>
+      <div className={styles["breadcrumbs-left"]}>
+        <div className={styles["breadcrumbs-contents"]}>
           {searchLink && (
-            <div className={styles.breadcrumbs__crumb}>
+            <div className={styles["breadcrumbs-crumb"]}>
               <Link to={"/"}>
                 <BodyShort size="large">
                   <b>Søk</b>
@@ -34,14 +34,14 @@ const Breadcrumbs = ({
             </div>
           )}
           {treffliste && (
-            <div className={styles.breadcrumbs__crumb}>
+            <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
                 <b>&gt; &gt; Treffliste</b>
               </BodyShort>
             </div>
           )}
           {trefflistelink && (
-            <div className={styles.breadcrumbs__crumb}>
+            <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
                 <b>
                   &gt; &gt; <Link to={"/treffliste"}>Treffliste</Link>
@@ -50,14 +50,14 @@ const Breadcrumbs = ({
             </div>
           )}
           {detaljer && (
-            <div className={styles.breadcrumbs__crumb}>
+            <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
                 <b>&gt; &gt; Detaljer</b>
               </BodyShort>
             </div>
           )}
           {detaljerLink && (
-            <div className={styles.breadcrumbs__crumb}>
+            <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
                 <b>
                   &gt; &gt; <Link to={"/detaljer"}>Detaljer</Link>
@@ -66,12 +66,14 @@ const Breadcrumbs = ({
             </div>
           )}
           {oppdragsdetaljer && (
-            <div className={styles.breadcrumbs__crumb}>&gt; &gt; Detaljer</div>
+            <div className={styles["breadcrumbs-crumb"]}>
+              &gt; &gt; Detaljer
+            </div>
           )}
         </div>
       </div>
-      <div className={styles.breadcrumbs__right}>
-        <NullstillButton />
+      <div className={styles["breadcrumbs-right"]}>
+        <ResetButton />
       </div>
     </div>
   );

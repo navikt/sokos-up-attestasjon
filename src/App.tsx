@@ -6,10 +6,10 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import "./App.module.css";
-import ContentLoader from "./components/common/ContentLoader";
-import DetaljerPage from "./pages/DetaljerPage";
-import SokPage from "./pages/SokPage";
-import TrefflistePage from "./pages/TrefflistePage";
+import ContentLoader from "./components/ContentLoader";
+import DetaljerPage from "./pages/detaljer/DetaljerPage";
+import SokPage from "./pages/sok/SokPage";
+import TrefflistePage from "./pages/treffliste/TrefflistePage";
 import { BASENAME } from "./util/constants";
 import { initGrafanaFaro } from "./util/grafanaFaro";
 
