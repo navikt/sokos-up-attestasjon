@@ -1,13 +1,9 @@
 .sok {
-  @apply w-full max-w-lg space-y-3;
-}
-
-.sok-sok {
   @apply bg-[--a-surface-alt-1-subtle] p-5;
 }
 
-.sok-inputfields {
-  @apply flex w-1/3 flex-col space-y-3;
+.sok-form {
+  @apply w-full max-w-lg space-y-3;
 }
 
 .sok-error {
@@ -20,4 +16,12 @@
 
 .sok-button {
   @apply flex gap-6 pt-5;
+}
+
+.combobox {
+  @apply relative min-w-128;
+}
+
+.combobox-clear-button {
+  @apply absolute right-9 top-10;
 }

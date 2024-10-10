@@ -5,12 +5,15 @@ import { FagGruppe } from "../types/FagGruppe";
 const useFetchFaggrupper = () => {
   const { data, error, isValidating } = useSWRImmutable<FagGruppe[]>(
     `/faggrupper`,
-    swrConfig<FagGruppe[]>((url) =>
-      axiosFetcher<FagGruppe[]>(BASE_URI.OPPDRAGSINFO, url),
-    ),
+    {
+      ...swrConfig<FagGruppe[]>((url) =>
+        axiosFetcher<FagGruppe[]>(BASE_URI.OPPDRAGSINFO, url),
+      ),
+      fallbackData: [],
+      revalidateOnMount: true,
+    },
   );
   const isLoading = (!error && !data) || isValidating;
-
   return { data, error, isLoading };
 };
 

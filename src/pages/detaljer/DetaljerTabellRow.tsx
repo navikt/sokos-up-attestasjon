@@ -5,7 +5,7 @@ import {
   isDateInThePast,
   isInvalidDateFormat,
   isoDatoTilNorskDato,
-} from "../../util/DatoUtil";
+} from "../../util/datoUtil";
 import { StatefulLinje } from "./DetaljerTabell";
 import styles from "./DetaljerTabellRow.module.css";
 

@@ -4,10 +4,10 @@ import { Table } from "@navikt/ds-react";
 import { Oppdrag } from "../../types/Oppdrag";
 
 interface TreffTabellProps {
-  treffliste: Oppdrag[];
+  oppdragListe: Oppdrag[];
 }
 
-export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
+export default function TreffTabell(props: TreffTabellProps) {
   return (
     <>
       <Table>
@@ -22,10 +22,10 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {treffliste.map((oppdrag) => (
+          {props.oppdragListe.map((oppdrag) => (
             <Table.Row key={oppdrag.oppdragsId}>
               <Table.DataCell>
-                <Link to="/detaljer" state={{ oppdragsId: oppdrag.oppdragsId }}>
+                <Link to="/detaljer" state={{ oppdrag: oppdrag }}>
                   {oppdrag.gjelderId}
                 </Link>
               </Table.DataCell>
@@ -40,4 +40,4 @@ export const TreffTabell: React.FC<TreffTabellProps> = ({ treffliste }) => {
       </Table>
     </>
   );
-};
+}

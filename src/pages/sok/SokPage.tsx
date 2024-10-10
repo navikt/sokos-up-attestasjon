@@ -15,9 +15,10 @@ import {
   UNSAFE_Combobox,
 } from "@navikt/ds-react";
 import { hentOppdrag } from "../../api/apiService";
+import ClearButton from "../../components/ClearButton";
 import useFetchFaggrupper from "../../hooks/useFetchFaggrupper";
 import useFetchFagomraader from "../../hooks/useFetchFagomraader";
-import { useAppState } from "../../store/AppState";
+import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { FagGruppe } from "../../types/FagGruppe";
 import { FagOmraade } from "../../types/FagOmraade";
@@ -37,8 +38,8 @@ export default function SokPage() {
   const [selectedFaggruppe, setSelectedFaggruppe] = useState<
     FagGruppe | undefined
   >(undefined);
-  const { setStoredSokeData, setStoredOppdrag, resetState } =
-    useAppState.getState();
+  const { setStoredSokeData, setStoredOppdrag, setGjelderNavn, resetState } =
+    useStore.getState();
 
   const { data: faggrupper } = useFetchFaggrupper();
   const { data: fagomraader } = useFetchFagomraader();
@@ -69,6 +70,7 @@ export default function SokPage() {
       logFaroError(result.error);
     }
     setStoredSokeData(sokeData);
+    setGjelderNavn("");
     setIsLoading(true);
     setError(undefined);
 
@@ -119,13 +121,13 @@ export default function SokPage() {
           Attestasjon
         </Heading>
       </div>
-      <div className={styles["sok-sok"]}>
+      <div className={styles["sok"]}>
         <Heading level="2" size="medium" spacing>
           Søk
         </Heading>
         <>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles["sok"]}>
+            <div className={styles["sok-form"]}>
               <TextField
                 label="Gjelder"
                 placeholder="Fødselsnummer eller organisasjonsnummer"
@@ -141,83 +143,103 @@ export default function SokPage() {
                 {...register("fagSystemId")}
                 error={errors.fagSystemId?.message}
               />
-              <UNSAFE_Combobox
-                id="fagGruppe"
-                label="Faggruppe"
-                clearButton={true}
-                options={
-                  faggrupper?.map((faggruppe) => ({
-                    value: faggruppe.type,
-                    label: faggruppe.navn + "(" + faggruppe.type + ")",
-                  })) || []
-                }
-                error={errors.fagGruppe?.message}
-                selectedOptions={
-                  selectedFaggruppe
-                    ? [
-                        {
-                          value: selectedFaggruppe.type,
-                          label:
-                            selectedFaggruppe.navn +
-                            "(" +
-                            selectedFaggruppe.type +
-                            ")",
-                        },
-                      ]
-                    : []
-                }
-                onToggleSelected={(option, isSelected) => {
-                  if (isSelected) {
-                    const fagGruppe = faggrupper?.find(
-                      (f) => f.type === option,
-                    );
-                    setValue("fagGruppe", {
-                      navn: fagGruppe?.navn ?? "",
-                      type: option,
-                    });
-                    setSelectedFaggruppe(fagGruppe);
+              <div className={styles["combobox"]}>
+                <UNSAFE_Combobox
+                  id="fagGruppe"
+                  label="Faggruppe"
+                  options={
+                    faggrupper?.map((faggruppe) => ({
+                      value: faggruppe.type,
+                      label: faggruppe.navn + "(" + faggruppe.type + ")",
+                    })) || []
                   }
-                }}
-              />
+                  error={errors.fagGruppe?.message}
+                  selectedOptions={
+                    selectedFaggruppe
+                      ? [
+                          {
+                            value: selectedFaggruppe.type,
+                            label:
+                              selectedFaggruppe.navn +
+                              "(" +
+                              selectedFaggruppe.type +
+                              ")",
+                          },
+                        ]
+                      : []
+                  }
+                  onToggleSelected={(option, isSelected) => {
+                    if (isSelected) {
+                      const fagGruppe = faggrupper?.find(
+                        (f) => f.type === option,
+                      );
+                      setValue("fagGruppe", {
+                        navn: fagGruppe?.navn ?? "",
+                        type: option,
+                      });
+                      setSelectedFaggruppe(fagGruppe);
+                      setSelectedFagomraade(undefined);
+                    }
+                  }}
+                />
+                <div className={styles["combobox-clear-button"]}>
+                  <ClearButton
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setSelectedFaggruppe(undefined);
+                    }}
+                  />
+                </div>
+              </div>
 
-              <UNSAFE_Combobox
-                id="kodeFagOmraade"
-                label="Fagområde"
-                clearButton={true}
-                options={
-                  fagomraader?.map((fagomraade) => ({
-                    value: fagomraade.kode,
-                    label: fagomraade.navn + "(" + fagomraade.kode + ")",
-                  })) || []
-                }
-                error={errors.fagOmraade?.message}
-                selectedOptions={
-                  selectedFagomraade
-                    ? [
-                        {
-                          value: selectedFagomraade.kode,
-                          label:
-                            selectedFagomraade.navn +
-                            "(" +
-                            selectedFagomraade.kode +
-                            ")",
-                        },
-                      ]
-                    : []
-                }
-                onToggleSelected={(option, isSelected) => {
-                  if (isSelected) {
-                    const fagomraade = fagomraader?.find(
-                      (f) => f.kode === option,
-                    );
-                    setValue("fagOmraade", {
-                      navn: fagomraade?.navn ?? "",
-                      kode: option,
-                    });
-                    setSelectedFagomraade(fagomraade);
+              <div className={styles["combobox"]}>
+                <UNSAFE_Combobox
+                  id="kodeFagOmraade"
+                  label="Fagområde"
+                  options={
+                    fagomraader?.map((fagomraade) => ({
+                      value: fagomraade.kode,
+                      label: fagomraade.navn + "(" + fagomraade.kode + ")",
+                    })) || []
                   }
-                }}
-              />
+                  error={errors.fagOmraade?.message}
+                  selectedOptions={
+                    selectedFagomraade
+                      ? [
+                          {
+                            value: selectedFagomraade.kode,
+                            label:
+                              selectedFagomraade.navn +
+                              "(" +
+                              selectedFagomraade.kode +
+                              ")",
+                          },
+                        ]
+                      : []
+                  }
+                  onToggleSelected={(option, isSelected) => {
+                    if (isSelected) {
+                      const fagomraade = fagomraader?.find(
+                        (f) => f.kode === option,
+                      );
+                      setValue("fagOmraade", {
+                        navn: fagomraade?.navn ?? "",
+                        kode: option,
+                      });
+                      setSelectedFagomraade(fagomraade);
+                      setSelectedFaggruppe(undefined);
+                    }
+                  }}
+                />
+                <div className={styles["combobox-clear-button"]}>
+                  <ClearButton
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setSelectedFagomraade(undefined);
+                    }}
+                  />
+                </div>
+              </div>
 
               <RadioGroup
                 legend="Status"

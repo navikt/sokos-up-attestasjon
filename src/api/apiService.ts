@@ -1,10 +1,12 @@
 import { StatefulLinje } from "../pages/detaljer/DetaljerTabell";
+import { GjelderNavn } from "../types/GjelderNavn";
 import { Oppdrag } from "../types/Oppdrag";
 import { SokeParameter } from "../types/SokeParameter";
-import { norskDatoTilIsoDato } from "../util/DatoUtil";
+import { norskDatoTilIsoDato } from "../util/datoUtil";
 import { BASE_URI, axiosPostFetcher } from "./config/apiConfig";
 import { AttesterOppdragRequest } from "./models/AttesterOppdragRequest";
 import { OppdaterAttestasjonResponse } from "./models/AttesterOppdragResponse";
+import { GjelderIdRequest } from "./models/GjelderIdRequest";
 
 export async function hentOppdrag(request: SokeParameter) {
   return await axiosPostFetcher<SokeParameter, Oppdrag[]>(
@@ -14,12 +16,19 @@ export async function hentOppdrag(request: SokeParameter) {
   );
 }
 
-export async function oppdaterAttestasjon(request: AttesterOppdragRequest) {
-  return await axiosPostFetcher<typeof request, OppdaterAttestasjonResponse>(
-    BASE_URI.ATTESTASJON,
-    "/attestere",
+export async function hentNavn(request: GjelderIdRequest) {
+  return await axiosPostFetcher<GjelderIdRequest, GjelderNavn>(
+    BASE_URI.INTEGRATION,
+    "/hentnavn",
     request,
   );
+}
+
+export async function oppdaterAttestasjon(request: AttesterOppdragRequest) {
+  return await axiosPostFetcher<
+    AttesterOppdragRequest,
+    OppdaterAttestasjonResponse
+  >(BASE_URI.ATTESTASJON, "/attestere", request);
 }
 
 export function attesterOppdragRequest(

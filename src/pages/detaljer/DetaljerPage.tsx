@@ -11,23 +11,24 @@ import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ContentLoader from "../../components/ContentLoader";
 import useFetchOppdragsdetaljer from "../../hooks/useFetchOppdragsdetaljer";
-import { useAppState } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { BASENAME } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell, { StatefulLinje } from "./DetaljerTabell";
 import OppdragEgenskaperVisning from "./OppdragEgenskaperVisning";
 
-const DetaljerPage = () => {
+export default function DetaljerPage() {
   const location = useLocation();
-  const oppdragsId = location.state.oppdragsId;
+  const oppdrag = location.state.oppdrag;
 
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertError, setAlertError] = useState<string | null>(null);
   const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
   const [zosResponse, setZosResponse] = useState<OppdaterAttestasjonResponse>();
-  const { data, error, isLoading, mutate } =
-    useFetchOppdragsdetaljer(oppdragsId);
+
+  const { data, error, isLoading, mutate } = useFetchOppdragsdetaljer(
+    oppdrag.oppdragsId,
+  );
 
   useEffect(() => {
     if (showAlert) setTimeout(() => setShowAlert(false), 10000);
@@ -37,28 +38,25 @@ const DetaljerPage = () => {
     window.location.replace(BASENAME);
   }
 
-  const { storedOppdrag } = useAppState.getState();
-
-  const oppdrag = storedOppdrag?.find(
-    (oppdrag) => oppdrag.oppdragsId === oppdragsId,
-  );
-
-  const handleSubmit = async (linjerMedEndringer: StatefulLinje[]) => {
-    if (linjerMedEndringer.filter((l) => !!l.dateError).length > 0) {
+  async function handleSubmit(linjerMedEndringer: StatefulLinje[]) {
+    if (linjerMedEndringer.filter((linje) => !!linje.dateError).length > 0) {
       setAlertError("Du må rette feil i datoformat før du kan oppdatere");
       return;
     }
 
-    if (linjerMedEndringer.filter((l) => l.fjern || l.attester).length === 0) {
+    if (
+      linjerMedEndringer.filter((linje) => linje.fjern || linje.attester)
+        .length === 0
+    ) {
       setAlertError("Du må velge minst en linje før du kan oppdatere");
       return;
     }
 
     const request = attesterOppdragRequest(
-      oppdrag?.fagSystemId ?? "",
-      oppdrag?.kodeFagOmraade ?? "",
-      oppdrag?.gjelderId ?? "",
-      oppdragsId,
+      oppdrag.fagSystemId ?? "",
+      oppdrag.kodeFagOmraade ?? "",
+      oppdrag.gjelderId,
+      oppdrag.oppdragsId,
       linjerMedEndringer,
     );
 
@@ -80,7 +78,7 @@ const DetaljerPage = () => {
         setIsZosLoading(false);
       }
     }
-  };
+  }
 
   return (
     <>
@@ -121,5 +119,4 @@ const DetaljerPage = () => {
       {error && <Alert variant="error">Problemer med å hente data</Alert>}
     </>
   );
-};
-export default DetaljerPage;
+}
