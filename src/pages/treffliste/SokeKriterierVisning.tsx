@@ -8,19 +8,17 @@ type SokeKriterierVisningProps = {
   sokeData?: SokeData;
 };
 
-export default function SokeKriterierVisning({
-  gjelderNavn,
-  sokeData,
-}: SokeKriterierVisningProps) {
-  let attestertStatusText;
-  if (sokeData?.attestertStatus === "true") {
-    attestertStatusText = "Attestert";
-  } else if (sokeData?.attestertStatus === "false") {
-    attestertStatusText = "Ikke attestert";
-  } else if (sokeData?.attestertStatus === "undefined") {
-    attestertStatusText = "Alle";
-  } else {
-    attestertStatusText = "";
+export default function SokeKriterierVisning(props: SokeKriterierVisningProps) {
+  function getAttestertStatusText() {
+    if (props.sokeData?.attestertStatus === "true") {
+      return "Attestert";
+    } else if (props.sokeData?.attestertStatus === "false") {
+      return "Ikke attestert";
+    } else if (props.sokeData?.attestertStatus === "undefined") {
+      return "Alle";
+    } else {
+      return "";
+    }
   }
 
   return (
@@ -30,20 +28,34 @@ export default function SokeKriterierVisning({
           Søkekriterier benyttet:
         </Heading>
         <div className={styles["sokekriterier-content"]}>
-          {sokeData?.gjelderId && (
-            <LabelText label={"Gjelder"} text={sokeData.gjelderId} />
+          {props.sokeData?.gjelderId && (
+            <LabelText label={"Gjelder"} text={props.sokeData.gjelderId} />
           )}
-          {gjelderNavn && <LabelText label={"Navn"} text={gjelderNavn} />}
-          {sokeData?.fagSystemId && (
-            <LabelText label={"Fagsystem id"} text={sokeData.fagSystemId} />
+          {props.gjelderNavn && (
+            <LabelText label={"Navn"} text={props.gjelderNavn} />
           )}
-          {sokeData?.fagGruppe && (
-            <LabelText label={"Faggruppe"} text={sokeData.fagGruppe.navn} />
+          {props.sokeData?.fagSystemId && (
+            <LabelText
+              label={"Fagsystem id"}
+              text={props.sokeData.fagSystemId}
+            />
           )}
-          {sokeData?.fagOmraade && (
-            <LabelText label={"Fagområde"} text={sokeData.fagOmraade.navn} />
+          {props.sokeData?.fagGruppe && (
+            <LabelText
+              label={"Faggruppe"}
+              text={props.sokeData.fagGruppe.navn}
+            />
           )}
-          <LabelText label={"Attestert status"} text={attestertStatusText} />
+          {props.sokeData?.fagOmraade && (
+            <LabelText
+              label={"Fagområde"}
+              text={props.sokeData.fagOmraade.navn}
+            />
+          )}
+          <LabelText
+            label={"Attestert status"}
+            text={getAttestertStatusText()}
+          />
         </div>
       </div>
     </>

@@ -38,5 +38,5 @@ export const swrConfig = <T>(fetcher: (uri: string) => Promise<T>) => ({
   fetcher,
   suspense: true,
   revalidateOnFocus: false,
-  refreshInterval: 120000,
+  refreshInterval: 600000,
 });

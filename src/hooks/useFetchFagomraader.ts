@@ -5,9 +5,13 @@ import { FagOmraade } from "../types/FagOmraade";
 const useFetchFagomraader = () => {
   const { data, error, isValidating } = useSWRImmutable<FagOmraade[]>(
     `/fagomraader`,
-    swrConfig<FagOmraade[]>((url) =>
-      axiosFetcher<FagOmraade[]>(BASE_URI.ATTESTASJON, url),
-    ),
+    {
+      ...swrConfig<FagOmraade[]>((url) =>
+        axiosFetcher<FagOmraade[]>(BASE_URI.ATTESTASJON, url),
+      ),
+      fallbackData: [],
+      revalidateOnMount: true,
+    },
   );
   const isLoading = (!error && !data) || isValidating;
 

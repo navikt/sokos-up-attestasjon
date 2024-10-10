@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Checkbox, Loader, Table } from "@navikt/ds-react";
 import { OppdragsLinje } from "../../types/OppdragsDetaljer";
-import { dagensDato } from "../../util/DatoUtil";
+import { dagensDato } from "../../util/datoUtil";
 import DetaljerTabellRow from "./DetaljerTabellRow";
 import { enLinjePerAttestasjon } from "./detaljerUtils";
 
@@ -72,7 +72,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     setLinjerMedEndringer(newLinjer);
   };
 
-  function lines(type: Linjetype) {
+  function getLinjetype(type: Linjetype) {
     return type === "attester"
       ? linjerMedEndringer.filter(
           (linje) => linje.linje.attestasjoner.length == 0,
@@ -89,7 +89,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
         : l.attester && l.linje.attestasjoner.length == 0,
     ).length;
 
-    if (numberOfChecked == lines(type).length) return "alle";
+    if (numberOfChecked == getLinjetype(type).length) return "alle";
     else if (numberOfChecked > 0) return "noen";
     else return "ingen";
   }
@@ -124,47 +124,6 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     }
   }
 
-  function avattesterAlle() {
-    return (
-      <Checkbox
-        checked={lines("fjern").length > 0 && checkedStatus("fjern") === "alle"}
-        indeterminate={checkedStatus("fjern") === "noen"}
-        onChange={() => handleToggleAll("fjern")}
-        disabled={lines("fjern").length === 0}
-      >
-        Avattester alle
-      </Checkbox>
-    );
-  }
-
-  function attesterAlle() {
-    return (
-      <Checkbox
-        checked={
-          lines("attester").length > 0 && checkedStatus("attester") === "alle"
-        }
-        indeterminate={checkedStatus("attester") === "noen"}
-        onChange={() => handleToggleAll("attester")}
-        disabled={lines("attester").length === 0}
-      >
-        Attester alle
-      </Checkbox>
-    );
-  }
-
-  function submitButton() {
-    return (
-      <Button
-        type={"submit"}
-        size={"medium"}
-        onClick={() => props.handleSubmit(linjerMedEndringer)}
-        disabled={props.isLoading}
-      >
-        {props.isLoading ? <Loader size={"small"} /> : "Oppdater"}
-      </Button>
-    );
-  }
-
   useEffect(() => {
     setLinjerMedEndringer(
       props.oppdragslinjer
@@ -196,9 +155,42 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
             <Table.HeaderCell scope="col">Attestant</Table.HeaderCell>
             <Table.HeaderCell scope="col">Ugyldig f.o.m</Table.HeaderCell>
             <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
-            <Table.HeaderCell scope="col">{attesterAlle()}</Table.HeaderCell>
-            <Table.HeaderCell scope="col">{avattesterAlle()}</Table.HeaderCell>
-            <Table.HeaderCell scope="col">{submitButton()}</Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <Checkbox
+                checked={
+                  getLinjetype("attester").length > 0 &&
+                  checkedStatus("attester") === "alle"
+                }
+                indeterminate={checkedStatus("attester") === "noen"}
+                onChange={() => handleToggleAll("attester")}
+                disabled={getLinjetype("attester").length === 0}
+              >
+                Attester alle
+              </Checkbox>
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <Checkbox
+                checked={
+                  getLinjetype("fjern").length > 0 &&
+                  checkedStatus("fjern") === "alle"
+                }
+                indeterminate={checkedStatus("fjern") === "noen"}
+                onChange={() => handleToggleAll("fjern")}
+                disabled={getLinjetype("fjern").length === 0}
+              >
+                Avattester alle
+              </Checkbox>
+            </Table.HeaderCell>
+            <Table.HeaderCell scope="col">
+              <Button
+                type={"submit"}
+                size={"medium"}
+                onClick={() => props.handleSubmit(linjerMedEndringer)}
+                disabled={props.isLoading}
+              >
+                {props.isLoading ? <Loader size={"small"} /> : "Oppdater"}
+              </Button>
+            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>

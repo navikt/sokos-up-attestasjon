@@ -1,11 +1,11 @@
 import { FormEvent } from "react";
 import { EraserIcon } from "@navikt/aksel-icons";
 import { Button } from "@navikt/ds-react";
-import { useAppState } from "../store/AppState";
+import { useStore } from "../store/AppState";
 import { BASENAME } from "../util/constants";
 
 const ResetButton = () => {
-  const { resetState } = useAppState();
+  const { resetState } = useStore();
 
   const handleReset = (e: FormEvent) => {
     e.preventDefault();

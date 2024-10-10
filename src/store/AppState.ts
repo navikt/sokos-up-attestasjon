@@ -26,7 +26,7 @@ const initAppState = {
   storedSokeData: undefined,
 };
 
-export const useAppState = create<AppState & AppStateActions>()(
+export const useStore = create<AppState & AppStateActions>()(
   devtools(
     persist(
       (set) => ({
