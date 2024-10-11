@@ -10,12 +10,13 @@ import { OppdaterAttestasjonResponse } from "../../api/models/AttesterOppdragRes
 import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ContentLoader from "../../components/ContentLoader";
+import LabelText from "../../components/LabelText";
 import useFetchOppdragsdetaljer from "../../hooks/useFetchOppdragsdetaljer";
 import commonstyles from "../../styles/common-styles.module.css";
+import { Attestasjonlinje } from "../../types/Attestasjonlinje";
 import { BASENAME } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
-import DetaljerTabell, { StatefulLinje } from "./DetaljerTabell";
-import OppdragEgenskaperVisning from "./OppdragEgenskaperVisning";
+import DetaljerTabell from "./DetaljerTabell";
 
 export default function DetaljerPage() {
   const location = useLocation();
@@ -26,9 +27,12 @@ export default function DetaljerPage() {
   const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
   const [zosResponse, setZosResponse] = useState<OppdaterAttestasjonResponse>();
 
-  const { data, error, isLoading, mutate } = useFetchOppdragsdetaljer(
-    oppdrag.oppdragsId,
-  );
+  const {
+    data: oppdragsDetaljer,
+    error,
+    isLoading,
+    mutate,
+  } = useFetchOppdragsdetaljer(oppdrag.oppdragsId);
 
   useEffect(() => {
     if (showAlert) setTimeout(() => setShowAlert(false), 10000);
@@ -38,15 +42,20 @@ export default function DetaljerPage() {
     window.location.replace(BASENAME);
   }
 
-  async function handleSubmit(linjerMedEndringer: StatefulLinje[]) {
-    if (linjerMedEndringer.filter((linje) => !!linje.dateError).length > 0) {
+  async function handleSubmit(attestasjonlinjer: Attestasjonlinje[]) {
+    if (
+      attestasjonlinjer.filter(
+        (attestasjonlinje) => !!attestasjonlinje.properties.dateError,
+      ).length > 0
+    ) {
       setAlertError("Du må rette feil i datoformat før du kan oppdatere");
       return;
     }
 
     if (
-      linjerMedEndringer.filter((linje) => linje.fjern || linje.attester)
-        .length === 0
+      attestasjonlinjer.filter(
+        (linje) => linje.properties.fjern || linje.properties.attester,
+      ).length === 0
     ) {
       setAlertError("Du må velge minst en linje før du kan oppdatere");
       return;
@@ -57,7 +66,7 @@ export default function DetaljerPage() {
       oppdrag.kodeFagOmraade ?? "",
       oppdrag.gjelderId,
       oppdrag.oppdragsId,
-      linjerMedEndringer,
+      attestasjonlinjer,
     );
 
     setIsZosLoading(true);
@@ -80,6 +89,8 @@ export default function DetaljerPage() {
     }
   }
 
+  const antallAttestanter = oppdrag?.antallAttestanter ?? 1;
+
   return (
     <>
       <div className={commonstyles.pageheading}>
@@ -90,11 +101,14 @@ export default function DetaljerPage() {
       <div className={styles["detaljer"]}>
         <div className={styles["detaljer-top"]}>
           <Breadcrumbs searchLink trefflistelink detaljer />
-          {oppdrag && (
-            <div className={styles["detaljer-label"]}>
-              <OppdragEgenskaperVisning oppdrag={oppdrag} />
-            </div>
-          )}
+          <div className={styles["detaljer-label"]}>
+            <LabelText label="Gjelder" text={oppdrag.gjelderId} />
+            <LabelText label="Fagsystem id" text={oppdrag.fagSystemId} />
+            <LabelText label="Ansvarssted" text={oppdrag.ansvarsSted} />
+            <LabelText label="Kostnadssted" text={oppdrag.kostnadsSted} />
+            <LabelText label="Fagområde" text={oppdrag.fagOmraade} />
+          </div>
+
           {zosResponse && showAlert && (
             <AlertWithCloseButton variant="success">
               {zosResponse.message}
@@ -104,13 +118,12 @@ export default function DetaljerPage() {
       </div>
       <div className={styles["detaljer-tabell"]}>
         {!!alertError && <Alert variant="error">{alertError}</Alert>}
-        {data && (
+        {oppdragsDetaljer && (
           <DetaljerTabell
-            antallAttestanter={oppdrag?.antallAttestanter ?? 1}
+            antallAttestanter={antallAttestanter}
             handleSubmit={handleSubmit}
             isLoading={isLoading || isZosLoading}
-            oppdragslinjer={data.linjer}
-            saksbehandlerIdent={data.saksbehandlerIdent}
+            oppdragsDetaljer={oppdragsDetaljer}
             setAlertError={setAlertError}
           />
         )}

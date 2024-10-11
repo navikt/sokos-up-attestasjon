@@ -23,8 +23,8 @@ const fagSystemIdRule: ZodString = z
 export type SokeData = {
   gjelderId: string;
   fagSystemId: string;
-  fagGruppe: FagGruppe;
-  fagOmraade: FagOmraade;
+  fagGruppe?: FagGruppe;
+  fagOmraade?: FagOmraade;
   attestertStatus: string;
   kombinasjon: never;
 };

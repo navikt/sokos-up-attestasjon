@@ -1,15 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Button, Checkbox, Loader, Table } from "@navikt/ds-react";
-import { OppdragsLinje } from "../../types/OppdragsDetaljer";
-import { dagensDato } from "../../util/datoUtil";
-import DetaljerTabellRow from "./DetaljerTabellRow";
-import { enLinjePerAttestasjon } from "./detaljerUtils";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { Button, Checkbox, Loader, Table, TextField } from "@navikt/ds-react";
+import { Attestasjonlinje } from "../../types/Attestasjonlinje";
+import { OppdragsDetaljer, OppdragsLinje } from "../../types/OppdragsDetaljer";
+import { formatterNorsk } from "../../util/commonUtils";
+import {
+  dagensDato,
+  isDateInThePast,
+  isInvalidDateFormat,
+  isoDatoTilNorskDato,
+} from "../../util/datoUtil";
+import styles from "./DetaljerTabell.module.css";
+import {
+  splittOgLeggTilEkstraLinjeForManuellePosteringerTemp,
+  tranformToAttestasjonlinje,
+} from "./detaljerUtils";
 
 type DetaljerTabellProps = {
   antallAttestanter: number;
-  oppdragslinjer: OppdragsLinje[];
-  saksbehandlerIdent: string | undefined;
-  handleSubmit: (linjer: StatefulLinje[]) => void;
+  oppdragsDetaljer: OppdragsDetaljer;
+  handleSubmit: (linjer: Attestasjonlinje[]) => void;
   isLoading: boolean;
   setAlertError: (value: React.SetStateAction<string | null>) => void;
 };
@@ -28,16 +37,85 @@ export type StatefulLinje = {
 
 export default function DetaljerTabell(props: DetaljerTabellProps) {
   const [linjerMedEndringer, setLinjerMedEndringer] = useState(
-    props.oppdragslinjer
+    props.oppdragsDetaljer.linjer
       .map((o) =>
-        enLinjePerAttestasjon(
+        splittOgLeggTilEkstraLinjeForManuellePosteringerTemp(
           o,
           props.antallAttestanter,
-          props.saksbehandlerIdent ?? "x",
+          props.oppdragsDetaljer.saksbehandlerIdent,
         ),
       )
       .flatMap(setOnlyFirstVisible),
   );
+
+  const [attestasjonlinjer, setAttestasjonlinjer] = useState<
+    Attestasjonlinje[]
+  >([]);
+
+  useEffect(() => {
+    if (props.oppdragsDetaljer) {
+      setAttestasjonlinjer(
+        tranformToAttestasjonlinje(
+          props.oppdragsDetaljer,
+          props.antallAttestanter,
+        ),
+      );
+    }
+  }, [props.oppdragsDetaljer, props.antallAttestanter]);
+
+  function handleTextFieldChange(
+    event: ChangeEvent<HTMLInputElement>,
+    index: number,
+    attestasjonlinje: Attestasjonlinje,
+  ): void {
+    const value = event.target.value;
+    handleStateChange(index, {
+      ...attestasjonlinje,
+      properties: {
+        ...attestasjonlinje.properties,
+        activelyChangedDatoUgyldigFom: value,
+        dateError: isInvalidDateFormat(value)
+          ? "Ugyldig datoformat"
+          : isDateInThePast(value)
+            ? "Dato kan ikke være i fortid"
+            : undefined,
+      },
+    });
+  }
+
+  function toggleAttester(
+    event: ChangeEvent<HTMLInputElement>,
+    index: number,
+    attestasjonlinje: Attestasjonlinje,
+  ) {
+    handleStateChange(index, {
+      ...attestasjonlinje,
+      properties: {
+        ...attestasjonlinje.properties,
+        attester: event.target.checked,
+        suggestedDatoUgyldigFom: event.target.checked
+          ? "31.12.9999"
+          : undefined,
+      },
+    });
+  }
+
+  function toggleFjern(
+    event: ChangeEvent<HTMLInputElement>,
+    index: number,
+    attestasjonlinje: Attestasjonlinje,
+  ) {
+    handleStateChange(index, {
+      ...attestasjonlinje,
+      properties: {
+        ...attestasjonlinje.properties,
+        fjern: event.target.checked,
+        suggestedDatoUgyldigFom: event.target.checked
+          ? dagensDato()
+          : undefined,
+      },
+    });
+  }
 
   function setOnlyFirstVisible(linjer: OppdragsLinje[]): StatefulLinje[] {
     return linjer.map((l, index) => ({
@@ -51,29 +129,39 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     }));
   }
 
-  const handleStateChange = (index: number, newState: StatefulLinje) => {
-    const newLinjer = linjerMedEndringer.map((component, i) =>
+  const handleStateChange = (index: number, newState: Attestasjonlinje) => {
+    const newLinjer = attestasjonlinjer.map((component, i) =>
       i === index ? newState : component,
     );
-    if (!newLinjer.some((l) => l.dateError))
+    if (
+      !newLinjer.some(
+        (attestasjonlinje) => attestasjonlinje.properties.dateError,
+      )
+    )
       props.setAlertError((oldAlert) =>
         !!oldAlert &&
         oldAlert == "Du må rette feil i datoformat før du kan oppdatere"
           ? null
           : oldAlert,
       );
-    if (newLinjer.some((l) => l.attester || l.fjern))
+    if (
+      newLinjer.some(
+        (attestasjonlinje) =>
+          attestasjonlinje.properties.attester ||
+          attestasjonlinje.properties.fjern,
+      )
+    )
       props.setAlertError((oldAlert) =>
         !!oldAlert &&
         oldAlert == "Du må velge minst en linje før du kan oppdatere"
           ? null
           : oldAlert,
       );
-    setLinjerMedEndringer(newLinjer);
+    setAttestasjonlinjer(newLinjer);
   };
 
-  function getLinjetype(type: Linjetype) {
-    return type === "attester"
+  function getLinjetype(linjetype: Linjetype) {
+    return linjetype === "attester"
       ? linjerMedEndringer.filter(
           (linje) => linje.linje.attestasjoner.length == 0,
         )
@@ -124,19 +212,23 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     }
   }
 
-  useEffect(() => {
-    setLinjerMedEndringer(
-      props.oppdragslinjer
-        .map((oppdrag) =>
-          enLinjePerAttestasjon(
-            oppdrag,
-            props.antallAttestanter,
-            props.saksbehandlerIdent ?? "x",
-          ),
-        )
-        .flatMap(setOnlyFirstVisible),
-    );
-  }, [props.oppdragslinjer, props.antallAttestanter, props.saksbehandlerIdent]);
+  // useEffect(() => {
+  //   setLinjerMedEndringer(
+  //     props.oppdragsDetaljer.linjer
+  //       .map((oppdrag) =>
+  //         splittOgLeggTilEkstraLinjeForManuellePosteringerTemp(
+  //           oppdrag,
+  //           props.antallAttestanter,
+  //           props.oppdragsDetaljer.saksbehandlerIdent ?? "x",
+  //         ),
+  //       )
+  //       .flatMap(setOnlyFirstVisible),
+  //   );
+  // }, [
+  //   props.oppdragsDetaljer,
+  //   props.antallAttestanter,
+  //   props.oppdragsDetaljer.saksbehandlerIdent,
+  // ]);
 
   return (
     <>
@@ -185,7 +277,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
               <Button
                 type={"submit"}
                 size={"medium"}
-                onClick={() => props.handleSubmit(linjerMedEndringer)}
+                onClick={() => props.handleSubmit(attestasjonlinjer)}
                 disabled={props.isLoading}
               >
                 {props.isLoading ? <Loader size={"small"} /> : "Oppdater"}
@@ -194,13 +286,80 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {linjerMedEndringer.map((le, index) => (
-            <DetaljerTabellRow
-              linjeMedEndring={le}
-              handleStateChange={handleStateChange}
-              index={index}
+          {attestasjonlinjer.map((attestasjonlinje, index) => (
+            <Table.Row
               key={index}
-            />
+              selected={
+                attestasjonlinje.attestant
+                  ? attestasjonlinje.properties.fjern
+                  : attestasjonlinje.properties.attester
+              }
+            >
+              <Table.DataCell>
+                {attestasjonlinje.properties.vises &&
+                  attestasjonlinje.kodeKlasse}
+              </Table.DataCell>
+              <Table.DataCell align="center">
+                {attestasjonlinje.properties.vises &&
+                  attestasjonlinje.delytelseId}
+              </Table.DataCell>
+              <Table.DataCell align="center">
+                {attestasjonlinje.properties.vises &&
+                  formatterNorsk(attestasjonlinje.sats)}
+              </Table.DataCell>
+              <Table.DataCell>
+                {attestasjonlinje.properties.vises && attestasjonlinje.typeSats}
+              </Table.DataCell>
+              <Table.DataCell>
+                {attestasjonlinje.properties.vises &&
+                  `${isoDatoTilNorskDato(attestasjonlinje.datoVedtakFom)} - ${isoDatoTilNorskDato(attestasjonlinje.datoVedtakTom)}`}
+              </Table.DataCell>
+              <Table.DataCell>{attestasjonlinje.attestant}</Table.DataCell>
+              <Table.DataCell>
+                {attestasjonlinje.attestant && (
+                  <div className={styles["ugyldig-textfield"]}>
+                    <TextField
+                      size="small"
+                      label="Ugyldig FOM"
+                      hideLabel
+                      value={
+                        attestasjonlinje.properties
+                          .activelyChangedDatoUgyldigFom ||
+                        (attestasjonlinje.properties.fjern &&
+                          attestasjonlinje.properties
+                            .suggestedDatoUgyldigFom) ||
+                        isoDatoTilNorskDato(attestasjonlinje.datoUgyldigFom)
+                      }
+                      onChange={(e) =>
+                        handleTextFieldChange(e, index, attestasjonlinje)
+                      }
+                      error={attestasjonlinje.properties.dateError}
+                      disabled={!attestasjonlinje.properties.fjern}
+                    />
+                  </div>
+                )}
+              </Table.DataCell>
+              <Table.DataCell>
+                {attestasjonlinje.attestant ? (
+                  <Checkbox
+                    checked={attestasjonlinje.properties.fjern}
+                    onChange={(e) => toggleFjern(e, index, attestasjonlinje)}
+                  >
+                    Fjern
+                  </Checkbox>
+                ) : (
+                  <Checkbox
+                    checked={attestasjonlinje.properties.attester}
+                    onChange={(e) => toggleAttester(e, index, attestasjonlinje)}
+                  >
+                    Attester
+                  </Checkbox>
+                )}
+              </Table.DataCell>
+              <Table.DataCell />
+              <Table.DataCell />
+              <Table.DataCell />
+            </Table.Row>
           ))}
         </Table.Body>
       </Table>
