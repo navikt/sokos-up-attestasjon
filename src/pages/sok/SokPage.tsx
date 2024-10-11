@@ -147,6 +147,7 @@ export default function SokPage() {
                 <UNSAFE_Combobox
                   id="fagGruppe"
                   label="Faggruppe"
+                  clearButton={false}
                   options={
                     faggrupper?.map((faggruppe) => ({
                       value: faggruppe.type,
@@ -196,6 +197,7 @@ export default function SokPage() {
                 <UNSAFE_Combobox
                   id="kodeFagOmraade"
                   label="Fagområde"
+                  clearButton={false}
                   options={
                     fagomraader?.map((fagomraade) => ({
                       value: fagomraade.kode,
