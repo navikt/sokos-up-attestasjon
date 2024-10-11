@@ -13,3 +13,12 @@
 .row {
   @apply flex flex-row space-x-1;
 }
+
+.link {
+  text-decoration: underline;
+}
+
+.link:hover {
+  color: var(--a-blue-400);
+  text-decoration: none;
+}

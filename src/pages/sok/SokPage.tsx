@@ -130,7 +130,6 @@ export default function SokPage() {
             <div className={styles["sok-form"]}>
               <TextField
                 label="Gjelder"
-                placeholder="Fødselsnummer eller organisasjonsnummer"
                 error={errors.gjelderId?.message}
                 id="gjelderId"
                 {...register("gjelderId", {
