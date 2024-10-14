@@ -21,7 +21,7 @@ const ResetButton = () => {
       icon={<EraserIcon title="reset søk" fontSize="1.5rem" />}
       onClick={handleReset}
     >
-      Nullstill søk
+      Nytt søk
     </Button>
   );
 };

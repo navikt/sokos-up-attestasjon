@@ -13,3 +13,11 @@
 .row {
   @apply flex flex-row space-x-1;
 }
+
+.link {
+  @apply underline;
+}
+
+.link:hover {
+  @apply no-underline;
+}

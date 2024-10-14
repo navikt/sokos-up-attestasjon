@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { BodyShort } from "@navikt/ds-react";
+import commonstyles from "../styles/common-styles.module.css";
 import styles from "./Breadcrumbs.module.css";
 import ResetButton from "./ResetButton";
 
@@ -26,7 +27,7 @@ const Breadcrumbs = ({
         <div className={styles["breadcrumbs-contents"]}>
           {searchLink && (
             <div className={styles["breadcrumbs-crumb"]}>
-              <Link to={"/"}>
+              <Link to={"/"} className={commonstyles.link}>
                 <BodyShort size="large">
                   <b>Søk</b>
                 </BodyShort>
@@ -44,7 +45,10 @@ const Breadcrumbs = ({
             <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
                 <b>
-                  &gt; &gt; <Link to={"/treffliste"}>Treffliste</Link>
+                  &gt; &gt;{" "}
+                  <Link to={"/treffliste"} className={commonstyles.link}>
+                    Treffliste
+                  </Link>
                 </b>
               </BodyShort>
             </div>
@@ -60,7 +64,10 @@ const Breadcrumbs = ({
             <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
                 <b>
-                  &gt; &gt; <Link to={"/detaljer"}>Detaljer</Link>
+                  &gt; &gt;{" "}
+                  <Link to={"/detaljer"} className={commonstyles.link}>
+                    Detaljer
+                  </Link>
                 </b>
               </BodyShort>
             </div>
