@@ -15,10 +15,9 @@
 }
 
 .link {
-  text-decoration: underline;
+  @apply underline;
 }
 
 .link:hover {
-  color: var(--a-blue-400);
-  text-decoration: none;
+  @apply no-underline;
 }
