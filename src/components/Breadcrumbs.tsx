@@ -13,19 +13,12 @@ type BreadcrumbsProps = {
   oppdragsdetaljer?: boolean;
 };
 
-const Breadcrumbs = ({
-  searchLink,
-  treffliste,
-  trefflistelink,
-  detaljer,
-  detaljerLink,
-  oppdragsdetaljer,
-}: BreadcrumbsProps) => {
+export default function Breadcrumbs(props: BreadcrumbsProps) {
   return (
     <div className={styles["breadcrumbs"]}>
       <div className={styles["breadcrumbs-left"]}>
         <div className={styles["breadcrumbs-contents"]}>
-          {searchLink && (
+          {props.searchLink && (
             <div className={styles["breadcrumbs-crumb"]}>
               <Link to={"/"} className={commonstyles.link}>
                 <BodyShort size="large">
@@ -34,14 +27,14 @@ const Breadcrumbs = ({
               </Link>
             </div>
           )}
-          {treffliste && (
+          {props.treffliste && (
             <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
                 <b>&gt; &gt; Treffliste</b>
               </BodyShort>
             </div>
           )}
-          {trefflistelink && (
+          {props.trefflistelink && (
             <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
                 <b>
@@ -53,14 +46,14 @@ const Breadcrumbs = ({
               </BodyShort>
             </div>
           )}
-          {detaljer && (
+          {props.detaljer && (
             <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
                 <b>&gt; &gt; Detaljer</b>
               </BodyShort>
             </div>
           )}
-          {detaljerLink && (
+          {props.detaljerLink && (
             <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
                 <b>
@@ -72,7 +65,7 @@ const Breadcrumbs = ({
               </BodyShort>
             </div>
           )}
-          {oppdragsdetaljer && (
+          {props.oppdragsdetaljer && (
             <div className={styles["breadcrumbs-crumb"]}>
               &gt; &gt; Detaljer
             </div>
@@ -84,5 +77,4 @@ const Breadcrumbs = ({
       </div>
     </div>
   );
-};
-export default Breadcrumbs;
+}

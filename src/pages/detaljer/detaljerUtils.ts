@@ -67,26 +67,3 @@ export function tranformToAttestasjonlinje(
       })),
     );
 }
-
-export function splittOgLeggTilEkstraLinjeForManuellePosteringerTemp(
-  linje: OppdragsLinje,
-  antallAttestanter: number,
-  innloggetSaksbehandlerIdent: string,
-): OppdragsLinje[] {
-  const enLinjeForHverEksisterendeAttestasjon: OppdragsLinje[] =
-    linje.attestasjoner.map((attestasjon) => ({
-      ...linje,
-      attestasjoner: [attestasjon],
-    }));
-  const enLinjeUtenAttestasjon: OppdragsLinje = {
-    ...linje,
-    attestasjoner: [],
-  };
-
-  return antallAttestanter > linje.attestasjoner.length &&
-    !linje.attestasjoner.some(
-      (a) => a.attestant === innloggetSaksbehandlerIdent,
-    )
-    ? [...enLinjeForHverEksisterendeAttestasjon, enLinjeUtenAttestasjon]
-    : [...enLinjeForHverEksisterendeAttestasjon];
-}

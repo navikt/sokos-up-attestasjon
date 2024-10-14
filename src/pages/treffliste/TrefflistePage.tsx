@@ -9,7 +9,7 @@ import { BASENAME } from "../../util/constants";
 import TreffTabell from "./TreffTabell";
 import styles from "./TrefflistePage.module.css";
 
-const TrefflistePage = () => {
+export default function TrefflistePage() {
   const { storedOppdrag, storedSokeData } = useStore.getState();
   const { gjelderNavn, setGjelderNavn } = useStore((state) => ({
     gjelderNavn: state.gjelderNavn,
@@ -83,6 +83,4 @@ const TrefflistePage = () => {
       </div>
     </>
   );
-};
-
-export default TrefflistePage;
+}

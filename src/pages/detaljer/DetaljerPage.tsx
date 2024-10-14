@@ -22,6 +22,7 @@ export default function DetaljerPage() {
   const location = useLocation();
   const oppdrag = location.state.oppdrag;
 
+  const antallAttestanter = oppdrag?.antallAttestanter ?? 1;
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertError, setAlertError] = useState<string | null>(null);
   const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
@@ -88,8 +89,6 @@ export default function DetaljerPage() {
       }
     }
   }
-
-  const antallAttestanter = oppdrag?.antallAttestanter ?? 1;
 
   return (
     <>
