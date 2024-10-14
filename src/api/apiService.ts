@@ -1,4 +1,4 @@
-import { StatefulLinje } from "../pages/detaljer/DetaljerTabell";
+import { Attestasjonlinje } from "../types/Attestasjonlinje";
 import { GjelderNavn } from "../types/GjelderNavn";
 import { Oppdrag } from "../types/Oppdrag";
 import { SokeParameter } from "../types/SokeParameter";
@@ -36,7 +36,7 @@ export function attesterOppdragRequest(
   kodeFagOmraade: string,
   gjelderId: string,
   oppdragsId: number,
-  changes: StatefulLinje[],
+  changes: Attestasjonlinje[],
 ): AttesterOppdragRequest {
   return {
     oppdragsId,
@@ -45,23 +45,29 @@ export function attesterOppdragRequest(
     gjelderId,
     linjer:
       changes
-        .filter((le) => le.attester || le.fjern)
-        .map((le) => {
-          const linje = le.linje;
-
-          const datoUgyldigFom = le.attester
+        .filter(
+          (attestasjonlinje) =>
+            attestasjonlinje.properties.attester ||
+            attestasjonlinje.properties.fjern,
+        )
+        .map((attestasjonlinje) => {
+          const datoUgyldigFom = attestasjonlinje.properties.attester
             ? undefined
-            : le.activelyChangedDatoUgyldigFom
-              ? norskDatoTilIsoDato(le.activelyChangedDatoUgyldigFom)
-              : le.suggestedDatoUgyldigFom
-                ? norskDatoTilIsoDato(le.suggestedDatoUgyldigFom)
-                : linje.attestasjoner[0]?.datoUgyldigFom
-                  ? norskDatoTilIsoDato(linje.attestasjoner[0]?.datoUgyldigFom)
+            : attestasjonlinje.properties.activelyChangedDatoUgyldigFom
+              ? norskDatoTilIsoDato(
+                  attestasjonlinje.properties.activelyChangedDatoUgyldigFom,
+                )
+              : attestasjonlinje.properties.suggestedDatoUgyldigFom
+                ? norskDatoTilIsoDato(
+                    attestasjonlinje.properties.suggestedDatoUgyldigFom,
+                  )
+                : attestasjonlinje.datoUgyldigFom
+                  ? norskDatoTilIsoDato(attestasjonlinje.datoUgyldigFom)
                   : "";
 
           return {
-            linjeId: Number(linje.oppdragsLinje.linjeId),
-            attestantIdent: linje.attestasjoner[0]?.attestant || undefined,
+            linjeId: Number(attestasjonlinje.linjeId),
+            attestantIdent: attestasjonlinje.attestant,
             datoUgyldigFom,
           };
         }) ?? [],

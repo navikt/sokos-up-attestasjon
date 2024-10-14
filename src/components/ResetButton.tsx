@@ -4,7 +4,7 @@ import { Button } from "@navikt/ds-react";
 import { useStore } from "../store/AppState";
 import { BASENAME } from "../util/constants";
 
-const ResetButton = () => {
+export default function ResetButton() {
   const { resetState } = useStore();
 
   const handleReset = (e: FormEvent) => {
@@ -24,5 +24,4 @@ const ResetButton = () => {
       Nytt søk
     </Button>
   );
-};
-export default ResetButton;
+}

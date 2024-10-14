@@ -1,142 +1,147 @@
-import React, { useEffect, useState } from "react";
-import { Button, Checkbox, Loader, Table } from "@navikt/ds-react";
-import { OppdragsLinje } from "../../types/OppdragsDetaljer";
-import { dagensDato } from "../../util/datoUtil";
-import DetaljerTabellRow from "./DetaljerTabellRow";
-import { enLinjePerAttestasjon } from "./detaljerUtils";
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { Button, Checkbox, Loader, Table, TextField } from "@navikt/ds-react";
+import { Attestasjonlinje } from "../../types/Attestasjonlinje";
+import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import { formatterNorsk } from "../../util/commonUtils";
+import {
+  dagensDato,
+  isDateInThePast,
+  isInvalidDateFormat,
+  isoDatoTilNorskDato,
+} from "../../util/datoUtil";
+import styles from "./DetaljerTabell.module.css";
+import { tranformToAttestasjonlinje } from "./detaljerUtils";
 
 type DetaljerTabellProps = {
   antallAttestanter: number;
-  oppdragslinjer: OppdragsLinje[];
-  saksbehandlerIdent: string | undefined;
-  handleSubmit: (linjer: StatefulLinje[]) => void;
+  oppdragsDetaljer: OppdragsDetaljer;
+  handleSubmit: (linjer: Attestasjonlinje[]) => void;
   isLoading: boolean;
   setAlertError: (value: React.SetStateAction<string | null>) => void;
 };
 
 type Linjetype = "fjern" | "attester";
 
-export type StatefulLinje = {
-  activelyChangedDatoUgyldigFom?: string;
-  attester: boolean;
-  linje: OppdragsLinje;
-  dateError?: string;
-  fjern: boolean;
-  suggestedDatoUgyldigFom?: string;
-  vises: boolean;
-};
-
 export default function DetaljerTabell(props: DetaljerTabellProps) {
-  const [linjerMedEndringer, setLinjerMedEndringer] = useState(
-    props.oppdragslinjer
-      .map((o) =>
-        enLinjePerAttestasjon(
-          o,
-          props.antallAttestanter,
-          props.saksbehandlerIdent ?? "x",
-        ),
-      )
-      .flatMap(setOnlyFirstVisible),
-  );
+  const [attestasjonlinjer, setAttestasjonlinjer] = useState<
+    Attestasjonlinje[]
+  >([]);
+  const [velgAntallAttestasjoner, setVelgAntallAttestasjoner] =
+    useState<number>(0);
+  const [fjernAntallAttestasjoner, setFjernAntallAttestasjoner] =
+    useState<number>(0);
 
-  function setOnlyFirstVisible(linjer: OppdragsLinje[]): StatefulLinje[] {
-    return linjer.map((l, index) => ({
-      activelyChangedDatoUgyldigFom: "",
-      attester: false,
-      dateError: "",
-      linje: l,
-      fjern: false,
-      suggestedDatoUgyldigFom: "",
-      vises: index == 0,
-    }));
-  }
+  useEffect(() => {
+    if (props.oppdragsDetaljer) {
+      const linjer = tranformToAttestasjonlinje(
+        props.oppdragsDetaljer,
+        props.antallAttestanter,
+      );
+      setAttestasjonlinjer(linjer);
+      setVelgAntallAttestasjoner(
+        linjer.filter((linje) => !linje.attestant).length,
+      );
+      setFjernAntallAttestasjoner(
+        linjer.filter((linje) => linje.attestant).length,
+      );
+    }
+  }, [props.oppdragsDetaljer, props.antallAttestanter]);
 
-  const handleStateChange = (index: number, newState: StatefulLinje) => {
-    const newLinjer = linjerMedEndringer.map((component, i) =>
-      i === index ? newState : component,
+  function handleStateChange(index: number, newState: Attestasjonlinje) {
+    const newLinjer = attestasjonlinjer.map((linje, i) =>
+      i === index ? newState : linje,
     );
-    if (!newLinjer.some((l) => l.dateError))
-      props.setAlertError((oldAlert) =>
-        !!oldAlert &&
-        oldAlert == "Du må rette feil i datoformat før du kan oppdatere"
-          ? null
-          : oldAlert,
-      );
-    if (newLinjer.some((l) => l.attester || l.fjern))
-      props.setAlertError((oldAlert) =>
-        !!oldAlert &&
-        oldAlert == "Du må velge minst en linje før du kan oppdatere"
-          ? null
-          : oldAlert,
-      );
-    setLinjerMedEndringer(newLinjer);
-  };
+    const hasDateError = newLinjer.some((linje) => linje.properties.dateError);
+    const hasSelectedLine = newLinjer.some(
+      (linje) => linje.properties.attester || linje.properties.fjern,
+    );
 
-  function getLinjetype(type: Linjetype) {
-    return type === "attester"
-      ? linjerMedEndringer.filter(
-          (linje) => linje.linje.attestasjoner.length == 0,
-        )
-      : /* type === "fjern"   */ linjerMedEndringer.filter(
-          (linje) => linje.linje.attestasjoner.length > 0,
-        );
+    props.setAlertError((oldAlert) => {
+      if (
+        oldAlert === "Du må rette feil i datoformat før du kan oppdatere" &&
+        !hasDateError
+      )
+        return null;
+      if (
+        oldAlert === "Du må velge minst en linje før du kan oppdatere" &&
+        hasSelectedLine
+      )
+        return null;
+      return oldAlert;
+    });
+
+    setAttestasjonlinjer(newLinjer);
   }
 
-  function checkedStatus(type: Linjetype) {
-    const numberOfChecked = linjerMedEndringer.filter((l) =>
-      type == "fjern"
-        ? l.fjern && l.linje.attestasjoner.length > 0
-        : l.attester && l.linje.attestasjoner.length == 0,
-    ).length;
+  function handleTextFieldChange(
+    event: ChangeEvent<HTMLInputElement>,
+    index: number,
+    linje: Attestasjonlinje,
+  ) {
+    const value = event.target.value;
+    handleStateChange(index, {
+      ...linje,
+      properties: {
+        ...linje.properties,
+        activelyChangedDatoUgyldigFom: value,
+        dateError: isInvalidDateFormat(value)
+          ? "Ugyldig datoformat"
+          : isDateInThePast(value)
+            ? "Dato kan ikke være i fortid"
+            : undefined,
+      },
+    });
+  }
 
-    if (numberOfChecked == getLinjetype(type).length) return "alle";
-    else if (numberOfChecked > 0) return "noen";
-    else return "ingen";
+  function toggleCheckbox(
+    event: ChangeEvent<HTMLInputElement>,
+    index: number,
+    linje: Attestasjonlinje,
+    type: Linjetype,
+  ) {
+    handleStateChange(index, {
+      ...linje,
+      properties: {
+        ...linje.properties,
+        [type]: event.target.checked,
+        suggestedDatoUgyldigFom: event.target.checked
+          ? type === "fjern"
+            ? dagensDato()
+            : "31.12.9999"
+          : undefined,
+      },
+    });
   }
 
   function handleToggleAll(type: Linjetype) {
-    if (checkedStatus(type) === "alle") {
-      // alle var huket av fra før
-      setLinjerMedEndringer((prev) =>
-        prev.map((l) => ({
-          ...l,
-          attester:
-            type === "attester" ? l.linje.attestasjoner.length > 0 : l.attester,
-          fjern: type === "fjern" ? l.linje.attestasjoner.length == 0 : l.fjern,
-        })),
-      );
-    } else {
-      // ingen var huket av fra før - knappen er tom firkant
-      // noen var huket av fra før - knappen er et minustegn
-      setLinjerMedEndringer((prev) =>
-        prev.map((l) => ({
-          ...l,
-          attester:
-            type === "attester"
-              ? l.linje.attestasjoner.length == 0
-              : l.attester,
-          fjern: type === "fjern" ? l.linje.attestasjoner.length > 0 : l.fjern,
-          suggestedDatoUgyldigFom: l.linje.oppdragsLinje.attestert
-            ? dagensDato()
-            : "31.12.9999",
-        })),
-      );
-    }
+    const isAllChecked = getCheckedStatus(type) === "alle";
+    setAttestasjonlinjer((prev) =>
+      prev.map((linje) => ({
+        ...linje,
+        properties: {
+          ...linje.properties,
+          [type]: !isAllChecked,
+          suggestedDatoUgyldigFom: !isAllChecked
+            ? type === "fjern"
+              ? dagensDato()
+              : "31.12.9999"
+            : undefined,
+        },
+      })),
+    );
   }
 
-  useEffect(() => {
-    setLinjerMedEndringer(
-      props.oppdragslinjer
-        .map((oppdrag) =>
-          enLinjePerAttestasjon(
-            oppdrag,
-            props.antallAttestanter,
-            props.saksbehandlerIdent ?? "x",
-          ),
-        )
-        .flatMap(setOnlyFirstVisible),
+  function getCheckedStatus(type: Linjetype) {
+    const filteredLinjer = attestasjonlinjer.filter((linje) =>
+      type === "attester" ? !linje.attestant : linje.attestant,
     );
-  }, [props.oppdragslinjer, props.antallAttestanter, props.saksbehandlerIdent]);
+    const numberOfChecked = filteredLinjer.filter(
+      (linje) => linje.properties[type],
+    ).length;
+    if (numberOfChecked === filteredLinjer.length) return "alle";
+    if (numberOfChecked > 0) return "noen";
+    return "ingen";
+  }
 
   return (
     <>
@@ -158,12 +163,12 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
             <Table.HeaderCell scope="col">
               <Checkbox
                 checked={
-                  getLinjetype("attester").length > 0 &&
-                  checkedStatus("attester") === "alle"
+                  velgAntallAttestasjoner > 0 &&
+                  getCheckedStatus("attester") === "alle"
                 }
-                indeterminate={checkedStatus("attester") === "noen"}
+                indeterminate={getCheckedStatus("attester") === "noen"}
                 onChange={() => handleToggleAll("attester")}
-                disabled={getLinjetype("attester").length === 0}
+                disabled={velgAntallAttestasjoner === 0}
               >
                 Attester alle
               </Checkbox>
@@ -171,12 +176,12 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
             <Table.HeaderCell scope="col">
               <Checkbox
                 checked={
-                  getLinjetype("fjern").length > 0 &&
-                  checkedStatus("fjern") === "alle"
+                  fjernAntallAttestasjoner > 0 &&
+                  getCheckedStatus("fjern") === "alle"
                 }
-                indeterminate={checkedStatus("fjern") === "noen"}
+                indeterminate={getCheckedStatus("fjern") === "noen"}
                 onChange={() => handleToggleAll("fjern")}
-                disabled={getLinjetype("fjern").length === 0}
+                disabled={fjernAntallAttestasjoner === 0}
               >
                 Avattester alle
               </Checkbox>
@@ -185,7 +190,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
               <Button
                 type={"submit"}
                 size={"medium"}
-                onClick={() => props.handleSubmit(linjerMedEndringer)}
+                onClick={() => props.handleSubmit(attestasjonlinjer)}
                 disabled={props.isLoading}
               >
                 {props.isLoading ? <Loader size={"small"} /> : "Oppdater"}
@@ -194,13 +199,75 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {linjerMedEndringer.map((le, index) => (
-            <DetaljerTabellRow
-              linjeMedEndring={le}
-              handleStateChange={handleStateChange}
-              index={index}
+          {attestasjonlinjer.map((linje, index) => (
+            <Table.Row
               key={index}
-            />
+              selected={
+                linje.attestant
+                  ? linje.properties.fjern
+                  : linje.properties.attester
+              }
+            >
+              <Table.DataCell>
+                {linje.properties.vises && linje.kodeKlasse}
+              </Table.DataCell>
+              <Table.DataCell align="center">
+                {linje.properties.vises && linje.delytelseId}
+              </Table.DataCell>
+              <Table.DataCell align="center">
+                {linje.properties.vises && formatterNorsk(linje.sats)}
+              </Table.DataCell>
+              <Table.DataCell>
+                {linje.properties.vises && linje.typeSats}
+              </Table.DataCell>
+              <Table.DataCell>
+                {linje.properties.vises &&
+                  `${isoDatoTilNorskDato(linje.datoVedtakFom)} - ${isoDatoTilNorskDato(linje.datoVedtakTom)}`}
+              </Table.DataCell>
+              <Table.DataCell>{linje.attestant}</Table.DataCell>
+              <Table.DataCell>
+                {linje.attestant && (
+                  <div className={styles["ugyldig-textfield"]}>
+                    <TextField
+                      size="small"
+                      label="Ugyldig FOM"
+                      hideLabel
+                      value={
+                        linje.properties.activelyChangedDatoUgyldigFom ||
+                        (linje.properties.fjern &&
+                          linje.properties.suggestedDatoUgyldigFom) ||
+                        isoDatoTilNorskDato(linje.datoUgyldigFom)
+                      }
+                      onChange={(e) => handleTextFieldChange(e, index, linje)}
+                      error={linje.properties.dateError}
+                      disabled={!linje.properties.fjern}
+                    />
+                  </div>
+                )}
+              </Table.DataCell>
+              <Table.DataCell>
+                <Checkbox
+                  checked={
+                    linje.attestant
+                      ? linje.properties.fjern
+                      : linje.properties.attester
+                  }
+                  onChange={(e) =>
+                    toggleCheckbox(
+                      e,
+                      index,
+                      linje,
+                      linje.attestant ? "fjern" : "attester",
+                    )
+                  }
+                >
+                  {linje.attestant ? "Fjern" : "Attester"}
+                </Checkbox>
+              </Table.DataCell>
+              <Table.DataCell />
+              <Table.DataCell />
+              <Table.DataCell />
+            </Table.Row>
           ))}
         </Table.Body>
       </Table>

@@ -17,3 +17,11 @@
 .treffliste-error {
   @apply pt-5;
 }
+
+.sokekriterier {
+  @apply flex flex-col rounded-xl bg-white p-5;
+}
+
+.sokekriterier-content {
+  @apply flex flex-row space-x-12 pt-5;
+}

@@ -2,7 +2,7 @@ import useSWRImmutable from "swr/immutable";
 import { BASE_URI, axiosFetcher, swrConfig } from "../api/config/apiConfig";
 import { FagGruppe } from "../types/FagGruppe";
 
-const useFetchFaggrupper = () => {
+export default function useFetchFaggrupper() {
   const { data, error, isValidating } = useSWRImmutable<FagGruppe[]>(
     `/faggrupper`,
     {
@@ -15,6 +15,4 @@ const useFetchFaggrupper = () => {
   );
   const isLoading = (!error && !data) || isValidating;
   return { data, error, isLoading };
-};
-
-export default useFetchFaggrupper;
+}

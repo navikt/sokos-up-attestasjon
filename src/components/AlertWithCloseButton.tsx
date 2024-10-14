@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert, AlertProps } from "@navikt/ds-react";
 
-function AlertWithCloseButton({
+export default function AlertWithCloseButton({
   children,
   variant,
 }: {
@@ -16,4 +16,3 @@ function AlertWithCloseButton({
     </Alert>
   ) : null;
 }
-export default AlertWithCloseButton;

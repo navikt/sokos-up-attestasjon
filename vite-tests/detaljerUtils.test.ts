@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { enLinjePerAttestasjon } from "../src/pages/detaljer/detaljerUtils";
+import { splittOgLeggTilEkstraLinjeForManuellePosteringer } from "../src/pages/detaljer/detaljerUtils";
 
 const mockOppdragslinje = {
   oppdragsLinje: {
@@ -40,7 +40,7 @@ describe("When oppdragslinjes needs 1 attestant", () => {
     noPreviousAttestasjonTest(
       "enLinjePerAttestasjon should return 1 linje without attestasjons",
       ({ linje, antallAttestanter, innloggetSaksbehandler }) => {
-        const result = enLinjePerAttestasjon(
+        const result = splittOgLeggTilEkstraLinjeForManuellePosteringer(
           linje,
           antallAttestanter,
           innloggetSaksbehandler,
@@ -62,7 +62,7 @@ describe("When oppdragslinjes needs 1 attestant", () => {
         ({ antallAttestanter, linje }) => {
           const innloggetSaksbehandler = "The same saksbehandler";
 
-          const result = enLinjePerAttestasjon(
+          const result = splittOgLeggTilEkstraLinjeForManuellePosteringer(
             linje,
             antallAttestanter,
             innloggetSaksbehandler,
@@ -85,7 +85,7 @@ describe("When oppdragslinjes needs 1 attestant", () => {
         ({ antallAttestanter, linje }) => {
           const innloggetSaksbehandler = "A different saksbehandler";
 
-          const result = enLinjePerAttestasjon(
+          const result = splittOgLeggTilEkstraLinjeForManuellePosteringer(
             linje,
             antallAttestanter,
             innloggetSaksbehandler,
@@ -118,7 +118,7 @@ describe("When oppdragslinjes needs 1 attestant", () => {
         ({ antallAttestanter, linje }) => {
           const innloggetSaksbehandler = "The first saksbehandler";
 
-          const result = enLinjePerAttestasjon(
+          const result = splittOgLeggTilEkstraLinjeForManuellePosteringer(
             linje,
             antallAttestanter,
             innloggetSaksbehandler,
@@ -146,7 +146,7 @@ describe("When oppdragslinjes needs 1 attestant", () => {
         ({ antallAttestanter, linje }) => {
           const innloggetSaksbehandler = "A different saksbehandler";
 
-          const result = enLinjePerAttestasjon(
+          const result = splittOgLeggTilEkstraLinjeForManuellePosteringer(
             linje,
             antallAttestanter,
             innloggetSaksbehandler,
@@ -169,7 +169,7 @@ describe("When oppdragslinjes need 2 attestants", () => {
     noPreviousAttestasjonTest(
       "enLinjePerAttestasjon should still return only 1 linje",
       ({ linje, antallAttestanter, innloggetSaksbehandler }) => {
-        const result = enLinjePerAttestasjon(
+        const result = splittOgLeggTilEkstraLinjeForManuellePosteringer(
           linje,
           antallAttestanter,
           innloggetSaksbehandler,
@@ -194,7 +194,7 @@ describe("When oppdragslinjes need 2 attestants", () => {
         ({ antallAttestanter, linje }) => {
           const innloggetSaksbehandler = "A different saksbehandler";
 
-          const result = enLinjePerAttestasjon(
+          const result = splittOgLeggTilEkstraLinjeForManuellePosteringer(
             linje,
             antallAttestanter,
             innloggetSaksbehandler,
@@ -221,7 +221,7 @@ describe("When oppdragslinjes need 2 attestants", () => {
         ({ linje, antallAttestanter }) => {
           const innloggetSaksbehandler = "The same saksbehandler";
 
-          const result = enLinjePerAttestasjon(
+          const result = splittOgLeggTilEkstraLinjeForManuellePosteringer(
             linje,
             antallAttestanter,
             innloggetSaksbehandler,
@@ -255,7 +255,7 @@ describe("When oppdragslinjes need 2 attestants", () => {
         "when the same saksbehandler is logged in",
         ({ linje, antallAttestanter }) => {
           const innloggetSaksbehandler = "The first saksbehandler";
-          const result = enLinjePerAttestasjon(
+          const result = splittOgLeggTilEkstraLinjeForManuellePosteringer(
             linje,
             antallAttestanter,
             innloggetSaksbehandler,
@@ -283,7 +283,7 @@ describe("When oppdragslinjes need 2 attestants", () => {
         "when a different saksbehandler is logged in",
         ({ linje, antallAttestanter }) => {
           const innloggetSaksbehandler = "A different saksbehandler";
-          const result = enLinjePerAttestasjon(
+          const result = splittOgLeggTilEkstraLinjeForManuellePosteringer(
             linje,
             antallAttestanter,
             innloggetSaksbehandler,
@@ -329,7 +329,7 @@ describe("When oppdragslinjes need 2 attestants", () => {
         "when any saksbehandler is logged in",
         ({ linje, antallAttestanter }) => {
           const innloggetSaksbehandler = "Any saksbehandler";
-          const result = enLinjePerAttestasjon(
+          const result = splittOgLeggTilEkstraLinjeForManuellePosteringer(
             linje,
             antallAttestanter,
             innloggetSaksbehandler,

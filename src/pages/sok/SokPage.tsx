@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormEvent, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { EraserIcon, MagnifyingGlassIcon } from "@navikt/aksel-icons";
 import {
@@ -63,7 +63,7 @@ export default function SokPage() {
 
   const filteredErrors = [...Object.keys(errors)].filter((m) => m);
 
-  const onSubmit: SubmitHandler<SokeData> = (sokeData) => {
+  function onSubmit(sokeData: SokeData) {
     const result = SokeDataSchema.safeParse(sokeData);
     if (!result.success) {
       setError("Noe gikk galt. Prøv igjen senere.");
@@ -104,7 +104,7 @@ export default function SokPage() {
         );
         setIsLoading(false);
       });
-  };
+  }
 
   function handleReset(e: FormEvent) {
     e.preventDefault();

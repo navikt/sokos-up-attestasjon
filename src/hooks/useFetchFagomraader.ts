@@ -2,7 +2,7 @@ import useSWRImmutable from "swr/immutable";
 import { BASE_URI, axiosFetcher, swrConfig } from "../api/config/apiConfig";
 import { FagOmraade } from "../types/FagOmraade";
 
-const useFetchFagomraader = () => {
+export default function useFetchFagomraader() {
   const { data, error, isValidating } = useSWRImmutable<FagOmraade[]>(
     `/fagomraader`,
     {
@@ -16,5 +16,4 @@ const useFetchFagomraader = () => {
   const isLoading = (!error && !data) || isValidating;
 
   return { data, error, isLoading };
-};
-export default useFetchFagomraader;
+}
