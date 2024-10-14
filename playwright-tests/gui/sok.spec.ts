@@ -24,9 +24,9 @@ test.describe("When using Sok in Attestasjoner", () => {
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
     await expect(
-      page
-        .getByLabel("Du må fikse disse feilene før")
-        .getByText("Gjelder-feltet kan bare"),
+      page.getByText(
+        "Du må fikse disse feilene før du kan fortsetteGjelder-feltet kan bare inneholde",
+      ),
     ).toBeVisible();
   });
 
@@ -39,9 +39,9 @@ test.describe("When using Sok in Attestasjoner", () => {
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
     await expect(
-      page
-        .getByLabel("Du må fikse disse feilene før")
-        .getByText("Gjelder-feltet må inneholde"),
+      page.getByText(
+        "Du må fikse disse feilene før du kan fortsetteGjelder-feltet må inneholde et",
+      ),
     ).toBeVisible();
   });
 
@@ -54,9 +54,9 @@ test.describe("When using Sok in Attestasjoner", () => {
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
     await expect(
-      page
-        .getByLabel("Du må fikse disse feilene før")
-        .getByText("Gjelder-feltet må inneholde"),
+      page.getByText(
+        "Du må fikse disse feilene før du kan fortsetteGjelder-feltet må inneholde et",
+      ),
     ).toBeVisible();
   });
 
@@ -69,9 +69,9 @@ test.describe("When using Sok in Attestasjoner", () => {
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
     await expect(
-      page
-        .getByLabel("Du må fikse disse feilene før")
-        .getByText("Gjelder-feltet må inneholde"),
+      page.getByText(
+        "Du må fikse disse feilene før du kan fortsetteGjelder-feltet må inneholde et",
+      ),
     ).toBeVisible();
   });
 
@@ -84,9 +84,9 @@ test.describe("When using Sok in Attestasjoner", () => {
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
     await expect(
-      page
-        .getByLabel("Du må fikse disse feilene før")
-        .getByText("Fagsystem id kan bare"),
+      page.getByText(
+        "Du må fikse disse feilene før du kan fortsetteFagsystem id kan bare inneholde",
+      ),
     ).toBeVisible();
   });
 
