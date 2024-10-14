@@ -18,8 +18,8 @@ test.describe("When using Sok in Attestasjoner", () => {
   });
 
   test(`a letter in gjelderId-field should display error`, async ({ page }) => {
-    const fnrfelt = await page.getByPlaceholder("Fødselsnummer eller");
-    fnrfelt.fill("123456a");
+    const fnrfelt = page.getByLabel("Gjelder");
+    await fnrfelt.fill("123456a");
     await page
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
@@ -33,8 +33,8 @@ test.describe("When using Sok in Attestasjoner", () => {
   test(`8 decimals in gjelderId-field should display error`, async ({
     page,
   }) => {
-    const fnrfelt = await page.getByPlaceholder("Fødselsnummer eller");
-    fnrfelt.fill("12345678");
+    const fnrfelt = page.getByLabel("Gjelder");
+    await fnrfelt.fill("12345678");
     await page
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
@@ -48,8 +48,8 @@ test.describe("When using Sok in Attestasjoner", () => {
   test(`10 decimals in gjelderId-field should display error`, async ({
     page,
   }) => {
-    const fnrfelt = await page.getByPlaceholder("Fødselsnummer eller");
-    fnrfelt.fill("1234567890");
+    const fnrfelt = page.getByLabel("Gjelder");
+    await fnrfelt.fill("1234567890");
     await page
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
@@ -63,8 +63,8 @@ test.describe("When using Sok in Attestasjoner", () => {
   test(`more than 11 decimals in gjelderId-field should display error`, async ({
     page,
   }) => {
-    const fnrfelt = await page.getByPlaceholder("Fødselsnummer eller");
-    fnrfelt.fill("123456789012");
+    const fnrfelt = page.getByLabel("Gjelder");
+    await fnrfelt.fill("123456789012");
     await page
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
@@ -93,8 +93,8 @@ test.describe("When using Sok in Attestasjoner", () => {
   test(`a valid gjelderId should show informative text when no oppdrags are returned from backend`, async ({
     page,
   }) => {
-    const fnrfelt = await page.getByPlaceholder("Fødselsnummer eller");
-    fnrfelt.fill("12345612345");
+    const fnrfelt = page.getByLabel("Gjelder");
+    await fnrfelt.fill("12345612345");
     await page
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();

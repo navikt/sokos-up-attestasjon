@@ -24,7 +24,7 @@ test.describe("Attestasjon", () => {
     await setupSok({ page });
     await page.waitForLoadState("networkidle");
 
-    await page.getByPlaceholder("Fødselsnummer eller").fill("12345678901");
+    await page.getByLabel("Gjelder").fill("12345678901");
     await page
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
