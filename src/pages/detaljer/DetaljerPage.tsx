@@ -15,6 +15,7 @@ import useFetchOppdragsdetaljer from "../../hooks/useFetchOppdragsdetaljer";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { Attestasjonlinje } from "../../types/Attestasjonlinje";
+import { ROOT } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
 
@@ -37,7 +38,7 @@ export default function DetaljerPage() {
 
   useEffect(() => {
     if (!oppdrag) {
-      navigate("/");
+      navigate(ROOT);
     }
   }, [navigate, oppdrag]);
 
