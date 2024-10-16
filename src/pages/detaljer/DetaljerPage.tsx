@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
 import {
   attesterOppdragRequest,
@@ -14,11 +15,11 @@ import useFetchOppdragsdetaljer from "../../hooks/useFetchOppdragsdetaljer";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { Attestasjonlinje } from "../../types/Attestasjonlinje";
-import { BASENAME } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
 
 export default function DetaljerPage() {
+  const navigate = useNavigate();
   const { oppdrag } = useStore.getState();
 
   const antallAttestanter = oppdrag?.antallAttestanter ?? 1;
@@ -32,15 +33,17 @@ export default function DetaljerPage() {
     error,
     isLoading,
     mutate,
-  } = useFetchOppdragsdetaljer(oppdrag?.oppdragsId ?? 0);
+  } = useFetchOppdragsdetaljer(oppdrag?.oppdragsId);
+
+  useEffect(() => {
+    if (!oppdrag) {
+      navigate("/");
+    }
+  }, [navigate, oppdrag]);
 
   useEffect(() => {
     if (showAlert) setTimeout(() => setShowAlert(false), 10000);
   }, [showAlert]);
-
-  if (!oppdrag) {
-    window.location.replace(BASENAME);
-  }
 
   async function handleSubmit(attestasjonlinjer: Attestasjonlinje[]) {
     if (
