@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Table } from "@navikt/ds-react";
+import { useStore } from "../../store/AppState";
 import styles from "../../styles/common-styles.module.css";
 import { Oppdrag } from "../../types/Oppdrag";
 
@@ -9,6 +10,7 @@ interface TreffTabellProps {
 }
 
 export default function TreffTabell(props: TreffTabellProps) {
+  const { setOppdrag } = useStore();
   return (
     <>
       <Table>
@@ -28,8 +30,8 @@ export default function TreffTabell(props: TreffTabellProps) {
               <Table.DataCell>
                 <Link
                   to="/detaljer"
-                  state={{ oppdrag: oppdrag }}
                   className={styles.link}
+                  onClick={() => setOppdrag(oppdrag)}
                 >
                   {oppdrag.gjelderId}
                 </Link>

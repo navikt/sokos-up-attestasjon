@@ -38,8 +38,13 @@ export default function SokPage() {
   const [selectedFaggruppe, setSelectedFaggruppe] = useState<
     FagGruppe | undefined
   >(undefined);
-  const { setStoredSokeData, setStoredOppdrag, setGjelderNavn, resetState } =
-    useStore.getState();
+  const {
+    setStoredSokeData,
+    setOppdrag,
+    setStoredOppdrag,
+    setGjelderNavn,
+    resetState,
+  } = useStore.getState();
 
   const { data: faggrupper } = useFetchFaggrupper();
   const { data: fagomraader } = useFetchFagomraader();
@@ -70,6 +75,7 @@ export default function SokPage() {
       logFaroError(result.error);
     }
     setStoredSokeData(sokeData);
+    setOppdrag(undefined);
     setGjelderNavn("");
     setIsLoading(true);
     setError(undefined);

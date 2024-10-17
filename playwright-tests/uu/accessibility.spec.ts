@@ -6,6 +6,7 @@ import {
   setupHentDetaljer,
   setupHentNavn,
 } from "../setup";
+import aDetaljerAppState from "./aDetaljerAppState";
 import aTrefflisteAppState from "./aTrefflisteAppState";
 
 test.describe("Axe a11y", () => {
@@ -49,13 +50,10 @@ test.describe("Axe a11y", () => {
   }) => {
     await page.context().addInitScript((appState) => {
       window.sessionStorage.setItem("app-state", JSON.stringify(appState));
-    }, aTrefflisteAppState);
-
-    await setupHentNavn({ page });
-    await page.goto("/attestasjon/treffliste");
+    }, aDetaljerAppState);
 
     await setupHentDetaljer({ page });
-    await page.getByRole("link", { name: "12345612345" }).click();
+    await page.goto("/attestasjon/detaljer");
 
     await expect(
       page.getByRole("heading", { name: "Attestasjon: Detaljer" }),
