@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
 import {
   attesterOppdragRequest,
@@ -12,15 +12,16 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import ContentLoader from "../../components/ContentLoader";
 import LabelText from "../../components/LabelText";
 import useFetchOppdragsdetaljer from "../../hooks/useFetchOppdragsdetaljer";
+import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { Attestasjonlinje } from "../../types/Attestasjonlinje";
-import { BASENAME } from "../../util/constants";
+import { ROOT } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
 
 export default function DetaljerPage() {
-  const location = useLocation();
-  const oppdrag = location.state.oppdrag;
+  const navigate = useNavigate();
+  const { oppdrag } = useStore.getState();
 
   const antallAttestanter = oppdrag?.antallAttestanter ?? 1;
   const [showAlert, setShowAlert] = useState<boolean>(false);
@@ -33,15 +34,17 @@ export default function DetaljerPage() {
     error,
     isLoading,
     mutate,
-  } = useFetchOppdragsdetaljer(oppdrag.oppdragsId);
+  } = useFetchOppdragsdetaljer(oppdrag?.oppdragsId);
+
+  useEffect(() => {
+    if (!oppdrag) {
+      navigate(ROOT);
+    }
+  }, [navigate, oppdrag]);
 
   useEffect(() => {
     if (showAlert) setTimeout(() => setShowAlert(false), 10000);
   }, [showAlert]);
-
-  if (!location.state) {
-    window.location.replace(BASENAME);
-  }
 
   async function handleSubmit(attestasjonlinjer: Attestasjonlinje[]) {
     if (
@@ -63,10 +66,10 @@ export default function DetaljerPage() {
     }
 
     const request = attesterOppdragRequest(
-      oppdrag.fagSystemId ?? "",
-      oppdrag.kodeFagOmraade ?? "",
-      oppdrag.gjelderId,
-      oppdrag.oppdragsId,
+      oppdrag?.fagSystemId ?? "",
+      oppdrag?.kodeFagOmraade ?? "",
+      oppdrag?.gjelderId ?? "",
+      oppdrag?.oppdragsId ?? 0,
       attestasjonlinjer,
     );
 
@@ -100,13 +103,15 @@ export default function DetaljerPage() {
       <div className={styles["detaljer"]}>
         <div className={styles["detaljer-top"]}>
           <Breadcrumbs searchLink trefflistelink detaljer />
-          <div className={styles["detaljer-label"]}>
-            <LabelText label="Gjelder" text={oppdrag.gjelderId} />
-            <LabelText label="Fagsystem id" text={oppdrag.fagSystemId} />
-            <LabelText label="Ansvarssted" text={oppdrag.ansvarsSted} />
-            <LabelText label="Kostnadssted" text={oppdrag.kostnadsSted} />
-            <LabelText label="Fagområde" text={oppdrag.fagOmraade} />
-          </div>
+          {oppdrag && (
+            <div className={styles["detaljer-label"]}>
+              <LabelText label="Gjelder" text={oppdrag.gjelderId} />
+              <LabelText label="Fagsystem id" text={oppdrag.fagSystemId} />
+              <LabelText label="Ansvarssted" text={oppdrag.ansvarsSted} />
+              <LabelText label="Kostnadssted" text={oppdrag.kostnadsSted} />
+              <LabelText label="Fagområde" text={oppdrag.fagOmraade} />
+            </div>
+          )}
 
           {zosResponse && showAlert && (
             <AlertWithCloseButton variant="success">

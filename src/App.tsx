@@ -10,7 +10,7 @@ import ContentLoader from "./components/ContentLoader";
 import DetaljerPage from "./pages/detaljer/DetaljerPage";
 import SokPage from "./pages/sok/SokPage";
 import TrefflistePage from "./pages/treffliste/TrefflistePage";
-import { BASENAME } from "./util/constants";
+import { BASENAME, ROOT } from "./util/constants";
 import { initGrafanaFaro } from "./util/grafanaFaro";
 
 const App = () => {
@@ -24,7 +24,7 @@ const App = () => {
         router={createBrowserRouter(
           createRoutesFromElements(
             <>
-              <Route path="/" element={<SokPage />} />
+              <Route path={ROOT} element={<SokPage />} />
               <Route path={"/treffliste"} element={<TrefflistePage />} />,
               <Route path={"/detaljer"} element={<DetaljerPage />} />,
             </>,

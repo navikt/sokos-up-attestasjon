@@ -9,6 +9,7 @@ type AppState = {
   storedOppdrag?: Oppdrag[];
   oppdragsDetaljer?: OppdragsDetaljer;
   storedSokeData?: SokeData;
+  oppdrag?: Oppdrag;
 };
 
 type AppStateActions = {
@@ -17,6 +18,7 @@ type AppStateActions = {
   setStoredOppdrag: (oppdrag: Oppdrag[]) => void;
   setOppdragsDetaljer: (oppdragsDetaljer: OppdragsDetaljer) => void;
   setStoredSokeData: (sokeData: SokeData) => void;
+  setOppdrag: (oppdrag: Oppdrag | undefined) => void;
 };
 
 const initAppState = {
@@ -24,6 +26,7 @@ const initAppState = {
   storedOppdrag: undefined,
   oppdragsDetaljer: undefined,
   storedSokeData: undefined,
+  oppdrag: undefined,
 };
 
 export const useStore = create<AppState & AppStateActions>()(
@@ -38,6 +41,7 @@ export const useStore = create<AppState & AppStateActions>()(
           set({ oppdragsDetaljer }),
         setStoredSokeData: (storedSokeData: SokeData) =>
           set({ storedSokeData }),
+        setOppdrag: (oppdrag: Oppdrag | undefined) => set({ oppdrag }),
       }),
       {
         name: "app-state",
