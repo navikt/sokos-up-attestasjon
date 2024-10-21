@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useShallow } from "zustand/react/shallow";
 import { Heading } from "@navikt/ds-react";
 import { hentNavn } from "../../api/apiService";
 import Breadcrumbs from "../../components/Breadcrumbs";
@@ -11,10 +12,12 @@ import styles from "./TrefflistePage.module.css";
 
 export default function TrefflistePage() {
   const { storedOppdrag, storedSokeData } = useStore.getState();
-  const { gjelderNavn, setGjelderNavn } = useStore((state) => ({
-    gjelderNavn: state.gjelderNavn,
-    setGjelderNavn: state.setGjelderNavn,
-  }));
+  const { gjelderNavn, setGjelderNavn } = useStore(
+    useShallow((state) => ({
+      gjelderNavn: state.gjelderNavn,
+      setGjelderNavn: state.setGjelderNavn,
+    })),
+  );
 
   function getAttestertStatusText() {
     if (storedSokeData?.attestertStatus === "true") {
