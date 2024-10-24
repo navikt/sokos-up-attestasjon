@@ -11,7 +11,7 @@ import TreffTabell from "./TreffTabell";
 import styles from "./TrefflistePage.module.css";
 
 export default function TrefflistePage() {
-  const { storedOppdrag, storedSokeData } = useStore.getState();
+  const { storedOppdragList, storedSokeData } = useStore.getState();
   const { gjelderNavn, setGjelderNavn } = useStore(
     useShallow((state) => ({
       gjelderNavn: state.gjelderNavn,
@@ -32,7 +32,7 @@ export default function TrefflistePage() {
   }
 
   useEffect(() => {
-    if (!storedOppdrag) {
+    if (!storedOppdragList) {
       window.location.replace(BASENAME);
     }
 
@@ -41,7 +41,7 @@ export default function TrefflistePage() {
         setGjelderNavn(response.navn);
       });
     }
-  }, [storedOppdrag, gjelderNavn, setGjelderNavn, storedSokeData]);
+  }, [storedOppdragList, gjelderNavn, setGjelderNavn, storedSokeData]);
 
   return (
     <>
@@ -81,7 +81,7 @@ export default function TrefflistePage() {
         </div>
 
         <div className={styles["treffliste-trefftabell"]}>
-          <TreffTabell oppdragListe={storedOppdrag || []} />
+          <TreffTabell oppdragList={storedOppdragList || []} />
         </div>
       </div>
     </>

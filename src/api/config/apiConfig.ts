@@ -1,10 +1,5 @@
 import axios, { CreateAxiosDefaults } from "axios";
-
-export const BASE_URI = {
-  ATTESTASJON: "/oppdrag-api/api/v1/attestasjon",
-  INTEGRATION: "/oppdrag-api/api/v1/integration",
-  OPPDRAGSINFO: "/oppdrag-api/api/v1/oppdragsinfo",
-};
+import { ApiError, HttpStatusCodeError } from "../../types/Error";
 
 const config = (baseUri: string): CreateAxiosDefaults => ({
   baseURL: baseUri,
@@ -18,25 +13,36 @@ const config = (baseUri: string): CreateAxiosDefaults => ({
   validateStatus: (status) => status < 400,
 });
 
-const api = (baseUri: string) => axios.create(config(baseUri));
+function api(baseUri: string) {
+  const instance = axios.create(config(baseUri));
 
-export const axiosFetcher = <T>(baseUri: string, url: string) =>
-  api(baseUri)
-    .get<T>(url)
-    .then((res) => res.data);
+  instance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response?.status === 400) {
+        // her kan vi legge feilkoder også som vi fra backend
+        throw new HttpStatusCodeError(error.response?.status);
+      }
+      if (error.response?.status === 401 || error.response?.status === 403) {
+        // Uinnlogget - vil ikke skje i miljø da appen er beskyttet
+        return Promise.reject(error);
+      }
+      throw new ApiError("Nettverksproblemer");
+    },
+  );
+  return instance;
+}
 
-export const axiosPostFetcher = <T, U>(
+export async function axiosFetcher<T>(baseUri: string, url: string) {
+  const res = await api(baseUri).get<T>(url);
+  return res.data;
+}
+
+export async function axiosPostFetcher<T, U>(
   baseUri: string,
   url: string,
   body?: T,
-) =>
-  api(baseUri)
-    .post<U>(url, body)
-    .then((res) => res.data);
-
-export const swrConfig = <T>(fetcher: (uri: string) => Promise<T>) => ({
-  fetcher,
-  suspense: true,
-  revalidateOnFocus: false,
-  refreshInterval: 600000,
-});
+) {
+  const res = await api(baseUri).post<U>(url, body);
+  return res.data;
+}

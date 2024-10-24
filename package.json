@@ -4,12 +4,13 @@
   "description": "Arbeidsflate for attestasjon i Utbetalingsportalen",
   "type": "module",
   "scripts": {
-    "dev": "vite --mode local-mock",
-    "dev:backend": "vite --mode local-dev",
-    "dev:backend-q1": "vite --mode local-dev-q1",
+    "dev:mock": "vite --mode mock",
+    "dev:backend": "vite --mode backend",
+    "dev:backend-q1": "vite --mode backend-q1",
     "build": "tsc && vite build",
     "test": "vitest vite-tests",
     "lint": "eslint",
+    "stylelint": "stylelint '**/*.css'",
     "prepare": "husky"
   },
   "dependencies": {
@@ -44,11 +45,14 @@
     "eslint": "^9.13.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-jsx-a11y": "^6.10.1",
+    "eslint-plugin-react": "^7.37.1",
     "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-react-refresh": "^0.4.13",
     "globals": "^15.11.0",
     "husky": "^9.1.6",
     "jsdom": "^25.0.1",
     "lint-staged": "^15.2.10",
+    "msw": "^2.5.0",
     "postcss": "^8.4.47",
     "postcss-import": "^16.1.0",
     "prettier": "^3.3.3",
@@ -61,8 +65,12 @@
     "vite": "^5.4.9",
     "vite-plugin-css-injected-by-js": "^3.5.2",
     "vite-plugin-environment": "^1.1.3",
-    "vite-plugin-mock": "^3.0.2",
     "vitest": "^2.1.3"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   },
   "browserslist": {
     "production": [
@@ -83,9 +91,17 @@
       "@navikt/aksel-stylelint/recommended"
     ],
     "rules": {
-      "aksel/design-token-no-global-override": null,
-      "import-notation": null
-    }
+      "aksel/design-token-no-global-override": [
+        true,
+        {
+          "severity": "warning"
+        }
+      ]
+    },
+    "ignoreFiles": [
+      "dist/**/*",
+      "playwright-report/**/*"
+    ]
   },
   "prettier": {
     "plugins": [
@@ -119,11 +135,11 @@
   "lint-staged": {
     "*.ts": "eslint",
     "*.tsx": "eslint",
-    "*.css": "stylelint",
+    "*.css": "stylelint --fix",
     "*": "prettier --write --ignore-unknown"
   },
   "engines": {
-    "node": ">=20.11.0",
-    "pnpm": ">=8"
+    "node": ">=20.18.0",
+    "pnpm": ">=9.12.2"
   }
 }

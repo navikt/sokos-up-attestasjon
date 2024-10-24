@@ -14,16 +14,19 @@ import {
   TextField,
   UNSAFE_Combobox,
 } from "@navikt/ds-react";
-import { hentOppdrag } from "../../api/apiService";
+import {
+  hentOppdrag,
+  useFetchFaggrupper,
+  useFetchFagomraader,
+} from "../../api/apiService";
 import ClearButton from "../../components/ClearButton";
-import useFetchFaggrupper from "../../hooks/useFetchFaggrupper";
-import useFetchFagomraader from "../../hooks/useFetchFagomraader";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { FagGruppe } from "../../types/FagGruppe";
 import { FagOmraade } from "../../types/FagOmraade";
-import { SokeData, SokeDataSchema } from "../../types/SokeData";
+import { SokeData } from "../../types/SokeData";
 import { SokeParameter } from "../../types/SokeParameter";
+import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
 import { isEmpty } from "../../util/commonUtils";
 import { logFaroError } from "../../util/grafanaFaro";
 import styles from "./SokPage.module.css";

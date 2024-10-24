@@ -1,6 +1,9 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { Button, Checkbox, Loader, Table, TextField } from "@navikt/ds-react";
-import { Attestasjonlinje } from "../../types/Attestasjonlinje";
+import {
+  Attestasjonlinje,
+  AttestasjonlinjeList,
+} from "../../types/Attestasjonlinje";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 import { formatterNorsk } from "../../util/commonUtils";
 import {
@@ -15,7 +18,7 @@ import { tranformToAttestasjonlinje } from "./detaljerUtils";
 type DetaljerTabellProps = {
   antallAttestanter: number;
   oppdragsDetaljer: OppdragsDetaljer;
-  handleSubmit: (linjer: Attestasjonlinje[]) => void;
+  handleSubmit: (linjer: AttestasjonlinjeList) => void;
   isLoading: boolean;
   setAlertError: (value: React.SetStateAction<string | null>) => void;
 };
@@ -23,9 +26,8 @@ type DetaljerTabellProps = {
 type Linjetype = "fjern" | "attester";
 
 export default function DetaljerTabell(props: DetaljerTabellProps) {
-  const [attestasjonlinjer, setAttestasjonlinjer] = useState<
-    Attestasjonlinje[]
-  >([]);
+  const [attestasjonlinjer, setAttestasjonlinjer] =
+    useState<AttestasjonlinjeList>([]);
   const [velgAntallAttestasjoner, setVelgAntallAttestasjoner] =
     useState<number>(0);
   const [fjernAntallAttestasjoner, setFjernAntallAttestasjoner] =
