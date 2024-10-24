@@ -1,7 +1,4 @@
 import { z } from "zod";
-
-export const GjelderNavnSchema = z.object({
-  navn: z.string(),
-});
+import { GjelderNavnSchema } from "./schema/GjelderNavnSchema";
 
 export type GjelderNavn = z.infer<typeof GjelderNavnSchema>;

@@ -1,7 +1,4 @@
-export type SokeParameter = {
-  gjelderId: string | undefined;
-  fagSystemId: string | undefined;
-  kodeFagGruppe: string | undefined;
-  kodeFagOmraade: string | undefined;
-  attestert: boolean | null;
-};
+import { z } from "zod";
+import { SokeParameterSchema } from "./schema/SokeParameterSchema";
+
+export type SokeParameter = z.infer<typeof SokeParameterSchema>;

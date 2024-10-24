@@ -1,6 +1,6 @@
 import { Page } from "@playwright/test";
 import { HttpStatusCode } from "axios";
-import { HttpStatusCodeError } from "../src/types/errors";
+import { HttpStatusCodeError } from "../src/types/Error";
 
 export async function setupFaggrupper({ page }: { page: Page }) {
   await page.route("*/**/faggrupper", async (route) => {

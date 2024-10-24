@@ -5,16 +5,16 @@ import { Alert, Heading } from "@navikt/ds-react";
 import {
   attesterOppdragRequest,
   oppdaterAttestasjon,
+  useFetchOppdragsdetaljer,
 } from "../../api/apiService";
 import { OppdaterAttestasjonResponse } from "../../api/models/AttesterOppdragResponse";
 import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ContentLoader from "../../components/ContentLoader";
 import LabelText from "../../components/LabelText";
-import useFetchOppdragsdetaljer from "../../hooks/useFetchOppdragsdetaljer";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
-import { Attestasjonlinje } from "../../types/Attestasjonlinje";
+import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
 import { ROOT } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
@@ -46,7 +46,7 @@ export default function DetaljerPage() {
     if (showAlert) setTimeout(() => setShowAlert(false), 10000);
   }, [showAlert]);
 
-  async function handleSubmit(attestasjonlinjer: Attestasjonlinje[]) {
+  async function handleSubmit(attestasjonlinjer: AttestasjonlinjeList) {
     if (
       attestasjonlinjer.filter(
         (attestasjonlinje) => !!attestasjonlinje.properties.dateError,

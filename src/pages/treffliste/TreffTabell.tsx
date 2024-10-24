@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import { Table } from "@navikt/ds-react";
 import { useStore } from "../../store/AppState";
 import styles from "../../styles/common-styles.module.css";
-import { Oppdrag } from "../../types/Oppdrag";
+import { OppdragList } from "../../types/Oppdrag";
 
 interface TreffTabellProps {
-  oppdragListe: Oppdrag[];
+  oppdragList: OppdragList;
 }
 
 export default function TreffTabell(props: TreffTabellProps) {
@@ -25,7 +25,7 @@ export default function TreffTabell(props: TreffTabellProps) {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {props.oppdragListe.map((oppdrag) => (
+          {props.oppdragList.map((oppdrag) => (
             <Table.Row key={oppdrag.oppdragsId}>
               <Table.DataCell>
                 <Link
