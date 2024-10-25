@@ -1,7 +1,7 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import aDetaljerAppState from "./uu/aDetaljerAppState";
-import aTrefflisteAppState from "./uu/aTrefflisteAppState";
+import aDetaljerAppState from "./aDetaljerAppState";
+import aTrefflisteAppState from "./aTrefflisteAppState";
 
 test.describe("Axe a11y", () => {
   test(`/attestasjon should not have any automatically detectable accessibility issues`, async ({
