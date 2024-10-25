@@ -30,7 +30,7 @@ export default function TrefflistePage() {
       window.location.replace(BASENAME);
     }
 
-    if (!gjelderNavn) {
+    if (storedSokeData?.gjelderId !== "" && !gjelderNavn) {
       hentNavn({ gjelderId: storedSokeData?.gjelderId }).then((response) => {
         setGjelderNavn(response.navn);
       });
