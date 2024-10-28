@@ -21,3 +21,7 @@
 .link:hover {
   @apply no-underline;
 }
+
+.aksel-danger {
+  @apply text-[var(--a-nav-red)];
+}

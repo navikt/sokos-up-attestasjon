@@ -11,6 +11,7 @@ export const OppdragSchema = z.object({
   kodeFagOmraade: z.string(),
   kostnadsSted: z.string(),
   oppdragsId: z.number().int(),
+  skjermet: z.boolean(),
 });
 
 export const OppdragListSchema = z.array(OppdragSchema);
