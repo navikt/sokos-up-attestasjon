@@ -1,7 +1,7 @@
 export default {
   state: {
     gjelderNavn: "Navn Fra Treffliste AppState",
-    storedOppdrag: [
+    storedOppdragList: [
       {
         ansvarsSted: "1337",
         antallAttestanter: 1,

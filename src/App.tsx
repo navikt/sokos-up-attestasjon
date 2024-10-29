@@ -4,6 +4,7 @@ import {
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
+  useRouteError,
 } from "react-router-dom";
 import "./App.module.css";
 import ContentLoader from "./components/ContentLoader";
@@ -15,7 +16,12 @@ import { initGrafanaFaro } from "./util/grafanaFaro";
 
 const App = () => {
   useEffect(() => {
-    if (window.location.hostname !== "localhost") initGrafanaFaro();
+    if (
+      import.meta.env.MODE !== "mock" &&
+      import.meta.env.MODE !== "backend" &&
+      import.meta.env.MODE !== "backend-q1"
+    )
+      initGrafanaFaro();
   }, []);
 
   return (
@@ -23,11 +29,11 @@ const App = () => {
       <RouterProvider
         router={createBrowserRouter(
           createRoutesFromElements(
-            <>
+            <Route path={ROOT} ErrorBoundary={ErrorBoundary}>
               <Route path={ROOT} element={<SokPage />} />
               <Route path={"/treffliste"} element={<TrefflistePage />} />,
               <Route path={"/detaljer"} element={<DetaljerPage />} />,
-            </>,
+            </Route>,
           ),
           { basename: BASENAME },
         )}
@@ -35,5 +41,10 @@ const App = () => {
     </Suspense>
   );
 };
+
+function ErrorBoundary(): JSX.Element {
+  const error = useRouteError();
+  throw error;
+}
 
 export default App;

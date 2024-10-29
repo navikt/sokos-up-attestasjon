@@ -1,11 +1,15 @@
-import { Attestasjonlinje } from "../../types/Attestasjonlinje";
-import { OppdragsDetaljer, OppdragsLinje } from "../../types/OppdragsDetaljer";
+import {
+  Attestasjonlinje,
+  AttestasjonlinjeList,
+} from "../../types/Attestasjonlinje";
+import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import { OppdragsLinje } from "../../types/OppdragsLinje";
 
 function splittOgLeggTilEkstraLinjeForManuellePosteringer(
   oppdragslinje: OppdragsLinje,
   antallAttestanter: number,
   innloggetSaksbehandlerIdent: string,
-): Attestasjonlinje[] {
+): AttestasjonlinjeList {
   const enLinjeUtenAttestasjon: Attestasjonlinje = {
     kodeKlasse: oppdragslinje.oppdragsLinje.kodeKlasse,
     delytelseId: oppdragslinje.oppdragsLinje.delytelseId,
@@ -25,7 +29,7 @@ function splittOgLeggTilEkstraLinjeForManuellePosteringer(
     },
   };
 
-  const enLinjeForHverEksisterendeAttestasjon: Attestasjonlinje[] =
+  const enLinjeForHverEksisterendeAttestasjon: AttestasjonlinjeList =
     oppdragslinje.attestasjoner.map((attestasjon) => ({
       ...enLinjeUtenAttestasjon,
       attestant: attestasjon.attestant,
@@ -48,7 +52,7 @@ function splittOgLeggTilEkstraLinjeForManuellePosteringer(
 export function tranformToAttestasjonlinje(
   oppdragsdetaljer: OppdragsDetaljer,
   antallAttestanter: number,
-): Attestasjonlinje[] {
+): AttestasjonlinjeList {
   return oppdragsdetaljer.linjer
     .map((oppdragslinje) =>
       splittOgLeggTilEkstraLinjeForManuellePosteringer(

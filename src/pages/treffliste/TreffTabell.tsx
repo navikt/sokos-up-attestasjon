@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Table } from "@navikt/ds-react";
+import { Popover, Table } from "@navikt/ds-react";
 import { useStore } from "../../store/AppState";
-import styles from "../../styles/common-styles.module.css";
-import { Oppdrag } from "../../types/Oppdrag";
+import commonstyles from "../../styles/common-styles.module.css";
+import { OppdragList } from "../../types/Oppdrag";
 
 interface TreffTabellProps {
-  oppdragListe: Oppdrag[];
+  oppdragList: OppdragList;
 }
 
 export default function TreffTabell(props: TreffTabellProps) {
   const { setOppdrag } = useStore();
+  const [openState, setOpenState] = useState(false);
+  const [activeRow, setActiveRow] = useState<number | null>(null);
+  const rowRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+
   return (
     <>
       <Table>
@@ -25,13 +29,21 @@ export default function TreffTabell(props: TreffTabellProps) {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {props.oppdragListe.map((oppdrag) => (
+          {props.oppdragList.map((oppdrag, index) => (
             <Table.Row key={oppdrag.oppdragsId}>
               <Table.DataCell>
                 <Link
-                  to="/detaljer"
-                  className={styles.link}
-                  onClick={() => setOppdrag(oppdrag)}
+                  ref={(el) => (rowRefs.current[index] = el)}
+                  to={oppdrag.skjermet ? "#" : "/detaljer"}
+                  className={commonstyles.link}
+                  onClick={() => {
+                    if (oppdrag.skjermet) {
+                      setActiveRow(index);
+                      setOpenState(!openState);
+                    } else {
+                      setOppdrag(oppdrag);
+                    }
+                  }}
                 >
                   {oppdrag.gjelderId}
                 </Link>
@@ -45,6 +57,20 @@ export default function TreffTabell(props: TreffTabellProps) {
           ))}
         </Table.Body>
       </Table>
+
+      <Popover
+        open={openState}
+        onClose={() => setOpenState(false)}
+        anchorEl={activeRow !== null ? rowRefs.current[activeRow] : null}
+        flip={false}
+        placement="right"
+      >
+        <Popover.Content>
+          <div className={commonstyles["aksel-danger"]}>
+            Denne personen er skjermet. Du har ikke tilgang.
+          </div>
+        </Popover.Content>
+      </Popover>
     </>
   );
 }

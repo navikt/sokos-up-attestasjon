@@ -10,7 +10,7 @@ import TreffTabell from "./TreffTabell";
 import styles from "./TrefflistePage.module.css";
 
 export default function TrefflistePage() {
-  const { storedOppdrag, storedSokeData, gjelderNavn, setGjelderNavn } =
+  const { storedOppdragList, storedSokeData, gjelderNavn, setGjelderNavn } =
     useStore();
 
   function getAttestertStatusText() {
@@ -26,16 +26,16 @@ export default function TrefflistePage() {
   }
 
   useEffect(() => {
-    if (!storedOppdrag) {
+    if (!storedOppdragList) {
       window.location.replace(BASENAME);
     }
 
-    if (!gjelderNavn) {
+    if (storedSokeData?.gjelderId !== "" && !gjelderNavn) {
       hentNavn({ gjelderId: storedSokeData?.gjelderId }).then((response) => {
         setGjelderNavn(response.navn);
       });
     }
-  }, [storedOppdrag, gjelderNavn, setGjelderNavn, storedSokeData]);
+  }, [storedOppdragList, gjelderNavn, setGjelderNavn, storedSokeData]);
 
   return (
     <>
@@ -75,7 +75,7 @@ export default function TrefflistePage() {
         </div>
 
         <div className={styles["treffliste-trefftabell"]}>
-          <TreffTabell oppdragListe={storedOppdrag || []} />
+          <TreffTabell oppdragList={storedOppdragList || []} />
         </div>
       </div>
     </>

@@ -1,12 +1,12 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
-import { Oppdrag } from "../types/Oppdrag";
+import { Oppdrag, OppdragList } from "../types/Oppdrag";
 import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
 import { SokeData } from "../types/SokeData";
 
 type AppState = {
   gjelderNavn: string;
-  storedOppdrag?: Oppdrag[];
+  storedOppdragList?: OppdragList;
   oppdragsDetaljer?: OppdragsDetaljer;
   storedSokeData?: SokeData;
   oppdrag?: Oppdrag;
@@ -15,7 +15,7 @@ type AppState = {
 type AppStateActions = {
   resetState: () => void;
   setGjelderNavn: (gjelderNavn: string) => void;
-  setStoredOppdrag: (oppdrag: Oppdrag[]) => void;
+  setStoredOppdrag: (oppdrag: OppdragList) => void;
   setOppdragsDetaljer: (oppdragsDetaljer: OppdragsDetaljer) => void;
   setStoredSokeData: (sokeData: SokeData) => void;
   setOppdrag: (oppdrag: Oppdrag | undefined) => void;
@@ -36,7 +36,8 @@ export const useStore = create<AppState & AppStateActions>()(
         ...initAppState,
         resetState: () => set({ ...initAppState }),
         setGjelderNavn: (gjelderNavn: string) => set({ gjelderNavn }),
-        setStoredOppdrag: (storedOppdrag: Oppdrag[]) => set({ storedOppdrag }),
+        setStoredOppdrag: (storedOppdragList: OppdragList) =>
+          set({ storedOppdragList }),
         setOppdragsDetaljer: (oppdragsDetaljer: OppdragsDetaljer) =>
           set({ oppdragsDetaljer }),
         setStoredSokeData: (storedSokeData: SokeData) =>

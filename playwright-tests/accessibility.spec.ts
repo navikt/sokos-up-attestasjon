@@ -1,11 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import {
-  setupFaggrupper,
-  setupFagomraader,
-  setupHentDetaljer,
-  setupHentNavn,
-} from "../setup";
 import aDetaljerAppState from "./aDetaljerAppState";
 import aTrefflisteAppState from "./aTrefflisteAppState";
 
@@ -13,8 +7,6 @@ test.describe("Axe a11y", () => {
   test(`/attestasjon should not have any automatically detectable accessibility issues`, async ({
     page,
   }) => {
-    await setupFaggrupper({ page });
-    await setupFagomraader({ page });
     await page.goto("/attestasjon");
     await page.waitForLoadState("networkidle");
 
@@ -33,7 +25,6 @@ test.describe("Axe a11y", () => {
     await page.context().addInitScript((appState) => {
       window.sessionStorage.setItem("app-state", JSON.stringify(appState));
     }, aTrefflisteAppState);
-    await setupHentNavn({ page });
     await page.goto("/attestasjon/treffliste");
     await page.waitForLoadState("networkidle");
 
@@ -52,7 +43,6 @@ test.describe("Axe a11y", () => {
       window.sessionStorage.setItem("app-state", JSON.stringify(appState));
     }, aDetaljerAppState);
 
-    await setupHentDetaljer({ page });
     await page.goto("/attestasjon/detaljer");
 
     await expect(
