@@ -34,10 +34,10 @@ export default function TreffTabell(props: TreffTabellProps) {
               <Table.DataCell>
                 <Link
                   ref={(el) => (rowRefs.current[index] = el)}
-                  to={oppdrag.skjermet ? "#" : "/detaljer"}
+                  to={oppdrag.erSkjermetForSaksbehandler ? "#" : "/detaljer"}
                   className={commonstyles.link}
                   onClick={() => {
-                    if (oppdrag.skjermet) {
+                    if (oppdrag.erSkjermetForSaksbehandler) {
                       setActiveRow(index);
                       setOpenState(!openState);
                     } else {

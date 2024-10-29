@@ -10,7 +10,7 @@
     "kodeFagOmraade": "FRIKORT1",
     "kostnadsSted": "2360",
     "oppdragsId": 25798519,
-    "skjermet": true
+    "erSkjermetForSaksbehandler": true
   },
   {
     "ansvarsSted": "2340",
@@ -23,7 +23,7 @@
     "kodeFagOmraade": "FRIKORT1",
     "kostnadsSted": "2360",
     "oppdragsId": 27167773,
-    "skjermet": true
+    "erSkjermetForSaksbehandler": true
   },
   {
     "ansvarsSted": "2340",
@@ -36,7 +36,7 @@
     "kodeFagOmraade": "FRIKORT1",
     "kostnadsSted": "2360",
     "oppdragsId": 27584680,
-    "skjermet": true
+    "erSkjermetForSaksbehandler": true
   },
   {
     "ansvarsSted": "2340",
@@ -49,7 +49,7 @@
     "kodeFagOmraade": "FRIKORT1",
     "kostnadsSted": "2360",
     "oppdragsId": 27850326,
-    "skjermet": true
+    "erSkjermetForSaksbehandler": true
   },
   {
     "ansvarsSted": "2340",
@@ -62,7 +62,7 @@
     "kodeFagOmraade": "FRIKORT1",
     "kostnadsSted": "2360",
     "oppdragsId": 38023013,
-    "skjermet": true
+    "erSkjermetForSaksbehandler": true
   },
   {
     "ansvarsSted": "2340",
@@ -75,7 +75,7 @@
     "kodeFagOmraade": "FRIKORT1",
     "kostnadsSted": "2360",
     "oppdragsId": 39341140,
-    "skjermet": false
+    "erSkjermetForSaksbehandler": false
   },
   {
     "ansvarsSted": "2340",
@@ -88,7 +88,7 @@
     "kodeFagOmraade": "FRIKORT1",
     "kostnadsSted": "2360",
     "oppdragsId": 42280436,
-    "skjermet": false
+    "erSkjermetForSaksbehandler": false
   },
   {
     "ansvarsSted": "2340",
@@ -101,7 +101,7 @@
     "kodeFagOmraade": "FRIKORT1",
     "kostnadsSted": "2360",
     "oppdragsId": 43865078,
-    "skjermet": false
+    "erSkjermetForSaksbehandler": false
   },
   {
     "ansvarsSted": "2340",
@@ -114,7 +114,7 @@
     "kodeFagOmraade": "FRIKORT1",
     "kostnadsSted": "2360",
     "oppdragsId": 44472506,
-    "skjermet": false
+    "erSkjermetForSaksbehandler": false
   },
   {
     "ansvarsSted": "4819",
@@ -127,7 +127,7 @@
     "kodeFagOmraade": "UFOREUT",
     "kostnadsSted": "4402",
     "oppdragsId": 58308587,
-    "skjermet": true
+    "erSkjermetForSaksbehandler": true
   },
   {
     "antallAttestanter": 1,
@@ -139,7 +139,7 @@
     "kodeFagOmraade": "UFORENG",
     "kostnadsSted": "4819",
     "oppdragsId": 65494162,
-    "skjermet": false
+    "erSkjermetForSaksbehandler": false
   },
   {
     "antallAttestanter": 1,
@@ -151,7 +151,7 @@
     "kodeFagOmraade": "SP",
     "kostnadsSted": "8020",
     "oppdragsId": 30265404,
-    "skjermet": false
+    "erSkjermetForSaksbehandler": false
   },
   {
     "antallAttestanter": 1,
@@ -163,7 +163,7 @@
     "kodeFagOmraade": "SP",
     "kostnadsSted": "8020",
     "oppdragsId": 32464186,
-    "skjermet": true
+    "erSkjermetForSaksbehandler": true
   },
   {
     "antallAttestanter": 1,
@@ -175,7 +175,7 @@
     "kodeFagOmraade": "SP",
     "kostnadsSted": "8020",
     "oppdragsId": 39012223,
-    "skjermet": false
+    "erSkjermetForSaksbehandler": false
   },
   {
     "antallAttestanter": 2,
@@ -187,7 +187,7 @@
     "kodeFagOmraade": "MOSALLE",
     "kostnadsSted": "8020",
     "oppdragsId": 70433132,
-    "skjermet": false
+    "erSkjermetForSaksbehandler": false
   },
   {
     "ansvarsSted": "4819",
@@ -200,6 +200,6 @@
     "kodeFagOmraade": "TBUT",
     "kostnadsSted": "4402",
     "oppdragsId": 65575164,
-    "skjermet": true
+    "erSkjermetForSaksbehandler": true
   }
 ]
