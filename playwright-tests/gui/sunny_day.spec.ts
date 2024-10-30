@@ -4,12 +4,12 @@ import { OppdaterAttestasjonResponse } from "../../src/types/OppdaterAttestasjon
 import { Oppdrag } from "../../src/types/Oppdrag";
 import { OppdragsDetaljer } from "../../src/types/OppdragsDetaljer";
 import { setupStub } from "../setup";
-import detaljer2 from "../stubs/detaljer2";
 import faggrupper from "../stubs/faggrupper";
 import fagomraader from "../stubs/fagomraader";
 import oppdaterAttestasjonResponse from "../stubs/oppdaterAttestasjonResponse";
-import oppdragsdetaljer from "../stubs/oppdragsdetaljer";
 import sok from "../stubs/sok";
+import oppdragsdetaljer from "./sunny_day_oppdragsdetaljer";
+import oppdragsdetaljerEtterAttestering from "./sunny_day_oppdragsdetaljerEtterAttestering";
 
 test.describe("Attestasjon", () => {
   test(`søk, velg oppdrag, hent detaljer og attester en linje uten problemer`, async ({
@@ -56,7 +56,7 @@ test.describe("Attestasjon", () => {
 
     await setupStub<OppdragsDetaljer>({
       url: "*/**/oppdragsdetaljer",
-      json: detaljer2,
+      json: oppdragsdetaljerEtterAttestering,
       page,
     });
     await page.getByRole("button", { name: "Oppdater" }).click();

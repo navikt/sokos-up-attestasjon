@@ -1,4 +1,6 @@
-export default {
+import { OppdragsDetaljer } from "../../src/types/OppdragsDetaljer";
+
+const oppdragsdetaljerEtterAttestering: OppdragsDetaljer = {
   linjer: [
     {
       oppdragsLinje: {
@@ -26,3 +28,5 @@ export default {
   ],
   saksbehandlerIdent: "H135685",
 };
+
+export default oppdragsdetaljerEtterAttestering;

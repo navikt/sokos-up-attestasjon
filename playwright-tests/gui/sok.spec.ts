@@ -12,10 +12,6 @@ test.describe("When using Sok in Attestasjoner", () => {
     await page.waitForLoadState("networkidle");
 
     await page.goto("/attestasjon");
-    await page.route("*/**/attestasjon/sok", async (route) => {
-      const json: Oppdrag[] = [];
-      await route.fulfill({ json });
-    });
     await page.waitForLoadState("networkidle");
   });
 
@@ -95,6 +91,8 @@ test.describe("When using Sok in Attestasjoner", () => {
   test(`a valid gjelderId should show informative text when no oppdrags are returned from backend`, async ({
     page,
   }) => {
+    setupStub<Oppdrag[]>({ url: "*/**/sok", json: [], page });
+
     const fnrfelt = page.getByLabel("Gjelder");
     await fnrfelt.fill("12345612345");
     await page

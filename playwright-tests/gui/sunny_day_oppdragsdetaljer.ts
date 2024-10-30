@@ -1,6 +1,6 @@
 import { OppdragsDetaljer } from "../../src/types/OppdragsDetaljer";
 
-const oppdragsdetaljer: OppdragsDetaljer = {
+const oppdragslinjer: OppdragsDetaljer = {
   linjer: [
     {
       oppdragsLinje: {
@@ -25,4 +25,4 @@ const oppdragsdetaljer: OppdragsDetaljer = {
   saksbehandlerIdent: "H135685",
 };
 
-export default oppdragsdetaljer;
+export default oppdragslinjer;
