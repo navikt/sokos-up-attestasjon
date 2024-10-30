@@ -7,8 +7,8 @@ import fagomraader from "../stubs/fagomraader";
 test.describe("When using Sok in Attestasjoner", () => {
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await setupStub({ url: "*/**/faggrupper", json: faggrupper, page });
-    await setupStub({ url: "*/**/fagomraader", json: fagomraader, page });
+    await setupStub({ uri: "*/**/faggrupper", json: faggrupper, page });
+    await setupStub({ uri: "*/**/fagomraader", json: fagomraader, page });
     await page.waitForLoadState("networkidle");
 
     await page.goto("/attestasjon");
@@ -91,7 +91,7 @@ test.describe("When using Sok in Attestasjoner", () => {
   test(`a valid gjelderId should show informative text when no oppdrags are returned from backend`, async ({
     page,
   }) => {
-    setupStub<Oppdrag[]>({ url: "*/**/sok", json: [], page });
+    setupStub<Oppdrag[]>({ uri: "*/**/sok", json: [], page });
 
     const fnrfelt = page.getByLabel("Gjelder");
     await fnrfelt.fill("12345612345");

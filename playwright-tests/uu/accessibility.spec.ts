@@ -11,8 +11,8 @@ test.describe("Axe a11y", () => {
   test(`/attestasjon should not have any automatically detectable accessibility issues`, async ({
     page,
   }) => {
-    await setupStub({ url: "*/**/faggrupper", json: faggrupper, page });
-    await setupStub({ url: "*/**/fagomraader", json: fagomraader, page });
+    await setupStub({ uri: "*/**/faggrupper", json: faggrupper, page });
+    await setupStub({ uri: "*/**/fagomraader", json: fagomraader, page });
     await page.goto("/attestasjon");
     await page.waitForLoadState("networkidle");
 
@@ -32,7 +32,7 @@ test.describe("Axe a11y", () => {
       window.sessionStorage.setItem("app-state", JSON.stringify(appState));
     }, aTrefflisteAppState);
     await setupStub({
-      url: "*/**/hentnavn",
+      uri: "*/**/hentnavn",
       json: {
         navn: "William J. Shakespeare",
       },
@@ -57,7 +57,7 @@ test.describe("Axe a11y", () => {
     }, aDetaljerAppState);
 
     await setupStub({
-      url: "*/**/attestasjon/98765432/oppdragsdetaljer",
+      uri: "*/**/attestasjon/98765432/oppdragsdetaljer",
       json: oppdragsdetaljer,
       page,
     });
