@@ -1,9 +1,4 @@
 import { expect, test } from "@playwright/test";
-import { GjelderNavn } from "../../src/types/GjelderNavn";
-import { OppdaterAttestasjonResponse } from "../../src/types/OppdaterAttestasjonResponse";
-import { Oppdrag } from "../../src/types/Oppdrag";
-import { OppdragsDetaljer } from "../../src/types/OppdragsDetaljer";
-import { setupStub } from "../setup";
 import faggrupper from "../stubs/faggrupper";
 import fagomraader from "../stubs/fagomraader";
 import oppdaterAttestasjonResponse from "../stubs/oppdaterAttestasjonResponse";
@@ -16,16 +11,20 @@ test.describe("Attestasjon", () => {
     page,
   }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await setupStub({ uri: "*/**/faggrupper", json: faggrupper, page });
-    await setupStub({ uri: "*/**/fagomraader", json: fagomraader, page });
+    await page.route("*/**/faggrupper", async (route) => {
+      await route.fulfill({ json: faggrupper });
+    });
+    await page.route("*/**/fagomraader", async (route) => {
+      await route.fulfill({ json: fagomraader });
+    });
     await page.waitForLoadState("networkidle");
 
     await page.goto("/attestasjon");
-    await setupStub<Oppdrag[]>({ uri: "*/**/sok", json: sok, page });
-    await setupStub<GjelderNavn>({
-      uri: "*/**/hentnavn",
-      json: { navn: "William J. Shakespeare" },
-      page,
+    await page.route("*/**/sok", async (route) => {
+      await route.fulfill({ json: sok });
+    });
+    await page.route("*/**/hentnavn", async (route) => {
+      await route.fulfill({ json: { navn: "William J. Shakespeare" } });
     });
     await page.waitForLoadState("networkidle");
 
@@ -34,10 +33,8 @@ test.describe("Attestasjon", () => {
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
 
-    await setupStub<OppdragsDetaljer>({
-      uri: "*/**/oppdragsdetaljer",
-      json: oppdragsdetaljer,
-      page,
+    await page.route("*/**/oppdragsdetaljer", async (route) => {
+      await route.fulfill({ json: oppdragsdetaljer });
     });
     await page.waitForLoadState("networkidle");
 
@@ -46,18 +43,14 @@ test.describe("Attestasjon", () => {
       .getByRole("link")
       .click();
 
-    await setupStub<OppdaterAttestasjonResponse>({
-      uri: "*/**/attestere",
-      json: oppdaterAttestasjonResponse,
-      page,
+    await page.route("*/**/attestere", async (route) => {
+      await route.fulfill({ json: oppdaterAttestasjonResponse });
     });
     await page.getByLabel("Attester", { exact: true }).check();
     await page.waitForLoadState("networkidle");
 
-    await setupStub<OppdragsDetaljer>({
-      uri: "*/**/oppdragsdetaljer",
-      json: oppdragsdetaljerEtterAttestering,
-      page,
+    await page.route("*/**/oppdragsdetaljer", async (route) => {
+      await route.fulfill({ json: oppdragsdetaljerEtterAttestering });
     });
     await page.getByRole("button", { name: "Oppdater" }).click();
     await page.waitForLoadState("networkidle");

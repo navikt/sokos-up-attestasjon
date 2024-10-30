@@ -1,14 +1,16 @@
 import { expect, test } from "@playwright/test";
-import { Oppdrag } from "../../src/types/Oppdrag";
-import { setupStub } from "../setup";
 import faggrupper from "../stubs/faggrupper";
 import fagomraader from "../stubs/fagomraader";
 
 test.describe("When using Sok in Attestasjoner", () => {
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await setupStub({ uri: "*/**/faggrupper", json: faggrupper, page });
-    await setupStub({ uri: "*/**/fagomraader", json: fagomraader, page });
+    await page.route("*/**/faggrupper", async (route) => {
+      await route.fulfill({ json: faggrupper });
+    });
+    await page.route("*/**/fagomraader", async (route) => {
+      await route.fulfill({ json: fagomraader });
+    });
     await page.waitForLoadState("networkidle");
 
     await page.goto("/attestasjon");
@@ -91,7 +93,9 @@ test.describe("When using Sok in Attestasjoner", () => {
   test(`a valid gjelderId should show informative text when no oppdrags are returned from backend`, async ({
     page,
   }) => {
-    setupStub<Oppdrag[]>({ uri: "*/**/sok", json: [], page });
+    await page.route("*/**/sok", async (route) => {
+      await route.fulfill({ json: [] });
+    });
 
     const fnrfelt = page.getByLabel("Gjelder");
     await fnrfelt.fill("12345612345");

@@ -1,6 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
-import { setupStub } from "../setup";
 import faggrupper from "../stubs/faggrupper";
 import fagomraader from "../stubs/fagomraader";
 import oppdragsdetaljer from "../stubs/oppdragsdetaljer";
@@ -11,11 +10,15 @@ test.describe("Axe a11y", () => {
   test(`/attestasjon should not have any automatically detectable accessibility issues`, async ({
     page,
   }) => {
-    await setupStub({ uri: "*/**/faggrupper", json: faggrupper, page });
-    await setupStub({ uri: "*/**/fagomraader", json: fagomraader, page });
-    await page.goto("/attestasjon");
+    await page.route("*/**/faggrupper", async (route) => {
+      await route.fulfill({ json: faggrupper });
+    });
+    await page.route("*/**/fagomraader", async (route) => {
+      await route.fulfill({ json: fagomraader });
+    });
     await page.waitForLoadState("networkidle");
 
+    await page.goto("/attestasjon");
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
 
     await expect(
@@ -31,12 +34,12 @@ test.describe("Axe a11y", () => {
     await page.context().addInitScript((appState) => {
       window.sessionStorage.setItem("app-state", JSON.stringify(appState));
     }, aTrefflisteAppState);
-    await setupStub({
-      uri: "*/**/hentnavn",
-      json: {
-        navn: "William J. Shakespeare",
-      },
-      page,
+    await page.route("*/**/hentnavn", async (route) => {
+      await route.fulfill({
+        json: {
+          navn: "William J. Shakespeare",
+        },
+      });
     });
     await page.goto("/attestasjon/treffliste");
     await page.waitForLoadState("networkidle");
@@ -56,10 +59,8 @@ test.describe("Axe a11y", () => {
       window.sessionStorage.setItem("app-state", JSON.stringify(appState));
     }, aDetaljerAppState);
 
-    await setupStub({
-      uri: "*/**/attestasjon/98765432/oppdragsdetaljer",
-      json: oppdragsdetaljer,
-      page,
+    await page.route("*/**/oppdragsdetaljer", async (route) => {
+      await route.fulfill({ json: oppdragsdetaljer });
     });
     await page.goto("/attestasjon/detaljer");
 
