@@ -1,5 +1,5 @@
 import { z } from "zod";
-import OppdaterAttestasjonResponseSchema from "./schema/AttestereResponseSchema";
+import OppdaterAttestasjonResponseSchema from "./schema/OppdaterAttestasjonResponseSchema";
 
 export type OppdaterAttestasjonResponse = z.infer<
   typeof OppdaterAttestasjonResponseSchema

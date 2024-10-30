@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-const schema = z.object({
+const OppdaterAttestasjonResponseSchema = z.object({
   message: z.string().optional(),
 });
 
-export default schema;
+export default OppdaterAttestasjonResponseSchema;
