@@ -4,7 +4,7 @@ import { Oppdrag, OppdragList } from "../types/Oppdrag";
 import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
 import { SokeData } from "../types/SokeData";
 
-type AppState = {
+export type AppState = {
   gjelderNavn: string;
   storedOppdragList?: OppdragList;
   oppdragsDetaljer?: OppdragsDetaljer;
