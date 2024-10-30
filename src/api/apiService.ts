@@ -6,10 +6,10 @@ import { GjelderNavn } from "../types/GjelderNavn";
 import { OppdragList } from "../types/Oppdrag";
 import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
 import { SokeParameter } from "../types/SokeParameter";
+import { ZosResponse } from "../types/ZosResponse";
 import { norskDatoTilIsoDato } from "../util/datoUtil";
 import { axiosFetcher, axiosPostFetcher } from "./config/apiConfig";
 import { AttesterOppdragRequest } from "./models/AttesterOppdragRequest";
-import { OppdaterAttestasjonResponse } from "./models/AttesterOppdragResponse";
 import { GjelderIdRequest } from "./models/GjelderIdRequest";
 
 const BASE_URI = {
@@ -88,10 +88,11 @@ export async function hentNavn(request: GjelderIdRequest) {
 }
 
 export async function oppdaterAttestasjon(request: AttesterOppdragRequest) {
-  return await axiosPostFetcher<
-    AttesterOppdragRequest,
-    OppdaterAttestasjonResponse
-  >(BASE_URI.ATTESTASJON_API, "/attestere", request);
+  return await axiosPostFetcher<AttesterOppdragRequest, ZosResponse>(
+    BASE_URI.ATTESTASJON_API,
+    "/attestere",
+    request,
+  );
 }
 
 export function attesterOppdragRequest(

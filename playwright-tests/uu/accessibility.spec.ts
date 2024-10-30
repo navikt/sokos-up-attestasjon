@@ -1,5 +1,9 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
+import { setupStub } from "../setup";
+import faggrupper from "../stubs/faggrupper";
+import fagomraader from "../stubs/fagomraader";
+import oppdragsdetaljer from "../stubs/oppdragsdetaljer";
 import aDetaljerAppState from "./aDetaljerAppState";
 import aTrefflisteAppState from "./aTrefflisteAppState";
 
@@ -7,6 +11,8 @@ test.describe("Axe a11y", () => {
   test(`/attestasjon should not have any automatically detectable accessibility issues`, async ({
     page,
   }) => {
+    await setupStub({ url: "*/**/faggrupper", json: faggrupper })({ page });
+    await setupStub({ url: "*/**/fagomraader", json: fagomraader })({ page });
     await page.goto("/attestasjon");
     await page.waitForLoadState("networkidle");
 
@@ -25,6 +31,12 @@ test.describe("Axe a11y", () => {
     await page.context().addInitScript((appState) => {
       window.sessionStorage.setItem("app-state", JSON.stringify(appState));
     }, aTrefflisteAppState);
+    await setupStub({
+      url: "*/**/hentnavn",
+      json: {
+        navn: "William J. Shakespeare",
+      },
+    })({ page });
     await page.goto("/attestasjon/treffliste");
     await page.waitForLoadState("networkidle");
 
@@ -43,6 +55,10 @@ test.describe("Axe a11y", () => {
       window.sessionStorage.setItem("app-state", JSON.stringify(appState));
     }, aDetaljerAppState);
 
+    await setupStub({
+      url: "*/**/attestasjon/98765432/oppdragsdetaljer",
+      json: oppdragsdetaljer,
+    })({ page });
     await page.goto("/attestasjon/detaljer");
 
     await expect(

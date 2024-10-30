@@ -7,7 +7,6 @@ import {
   oppdaterAttestasjon,
   useFetchOppdragsdetaljer,
 } from "../../api/apiService";
-import { OppdaterAttestasjonResponse } from "../../api/models/AttesterOppdragResponse";
 import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ContentLoader from "../../components/ContentLoader";
@@ -15,6 +14,7 @@ import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
+import { ZosResponse } from "../../types/ZosResponse";
 import { ROOT } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
@@ -27,7 +27,7 @@ export default function DetaljerPage() {
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertError, setAlertError] = useState<string | null>(null);
   const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
-  const [zosResponse, setZosResponse] = useState<OppdaterAttestasjonResponse>();
+  const [zosResponse, setZosResponse] = useState<ZosResponse>();
 
   const {
     data: oppdragsDetaljer,
@@ -115,7 +115,10 @@ export default function DetaljerPage() {
 
           {zosResponse && showAlert && (
             <AlertWithCloseButton variant="success">
-              {zosResponse.message}
+              {
+                zosResponse.OSAttestasjonOperationResponse
+                  .Attestasjonskvittering.ResponsAttestasjon.Melding
+              }
             </AlertWithCloseButton>
           )}
         </div>
