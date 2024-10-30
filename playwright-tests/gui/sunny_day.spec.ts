@@ -1,15 +1,15 @@
 import { expect, test } from "@playwright/test";
 import { GjelderNavn } from "../../src/types/GjelderNavn";
+import { OppdaterAttestasjonResponse } from "../../src/types/OppdaterAttestasjonResponse";
 import { Oppdrag } from "../../src/types/Oppdrag";
 import { OppdragsDetaljer } from "../../src/types/OppdragsDetaljer";
-import { ZosResponse } from "../../src/types/zosResponse";
 import { setupStub } from "../setup";
 import detaljer2 from "../stubs/detaljer2";
 import faggrupper from "../stubs/faggrupper";
 import fagomraader from "../stubs/fagomraader";
+import oppdaterAttestasjonResponse from "../stubs/oppdaterAttestasjonResponse";
 import oppdragsdetaljer from "../stubs/oppdragsdetaljer";
 import sok from "../stubs/sok";
-import zosResponse from "../stubs/zosResponse";
 
 test.describe("Attestasjon", () => {
   test(`søk, velg oppdrag, hent detaljer og attester en linje uten problemer`, async ({
@@ -44,7 +44,10 @@ test.describe("Attestasjon", () => {
       .getByRole("link")
       .click();
 
-    await setupStub<ZosResponse>({ url: "*/**/attestere", json: zosResponse })({
+    await setupStub<OppdaterAttestasjonResponse>({
+      url: "*/**/attestere",
+      json: oppdaterAttestasjonResponse,
+    })({
       page,
     });
     await page.getByLabel("Attester", { exact: true }).check();
