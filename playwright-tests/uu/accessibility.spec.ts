@@ -11,8 +11,8 @@ test.describe("Axe a11y", () => {
   test(`/attestasjon should not have any automatically detectable accessibility issues`, async ({
     page,
   }) => {
-    await setupStub({ url: "*/**/faggrupper", json: faggrupper })({ page });
-    await setupStub({ url: "*/**/fagomraader", json: fagomraader })({ page });
+    await setupStub({ url: "*/**/faggrupper", json: faggrupper, page });
+    await setupStub({ url: "*/**/fagomraader", json: fagomraader, page });
     await page.goto("/attestasjon");
     await page.waitForLoadState("networkidle");
 
@@ -36,7 +36,8 @@ test.describe("Axe a11y", () => {
       json: {
         navn: "William J. Shakespeare",
       },
-    })({ page });
+      page,
+    });
     await page.goto("/attestasjon/treffliste");
     await page.waitForLoadState("networkidle");
 
@@ -58,7 +59,8 @@ test.describe("Axe a11y", () => {
     await setupStub({
       url: "*/**/attestasjon/98765432/oppdragsdetaljer",
       json: oppdragsdetaljer,
-    })({ page });
+      page,
+    });
     await page.goto("/attestasjon/detaljer");
 
     await expect(

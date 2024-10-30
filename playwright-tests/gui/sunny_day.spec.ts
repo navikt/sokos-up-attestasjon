@@ -16,16 +16,17 @@ test.describe("Attestasjon", () => {
     page,
   }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await setupStub({ url: "*/**/faggrupper", json: faggrupper })({ page });
-    await setupStub({ url: "*/**/fagomraader", json: fagomraader })({ page });
+    await setupStub({ url: "*/**/faggrupper", json: faggrupper, page });
+    await setupStub({ url: "*/**/fagomraader", json: fagomraader, page });
     await page.waitForLoadState("networkidle");
 
     await page.goto("/attestasjon");
-    await setupStub<Oppdrag[]>({ url: "*/**/sok", json: sok })({ page });
+    await setupStub<Oppdrag[]>({ url: "*/**/sok", json: sok, page });
     await setupStub<GjelderNavn>({
       url: "*/**/hentnavn",
       json: { navn: "William J. Shakespeare" },
-    })({ page });
+      page,
+    });
     await page.waitForLoadState("networkidle");
 
     await page.getByLabel("Gjelder").fill("12345678901");
@@ -36,7 +37,8 @@ test.describe("Attestasjon", () => {
     await setupStub<OppdragsDetaljer>({
       url: "*/**/oppdragsdetaljer",
       json: oppdragsdetaljer,
-    })({ page });
+      page,
+    });
     await page.waitForLoadState("networkidle");
 
     await page
@@ -47,7 +49,6 @@ test.describe("Attestasjon", () => {
     await setupStub<OppdaterAttestasjonResponse>({
       url: "*/**/attestere",
       json: oppdaterAttestasjonResponse,
-    })({
       page,
     });
     await page.getByLabel("Attester", { exact: true }).check();
@@ -56,7 +57,8 @@ test.describe("Attestasjon", () => {
     await setupStub<OppdragsDetaljer>({
       url: "*/**/oppdragsdetaljer",
       json: detaljer2,
-    })({ page });
+      page,
+    });
     await page.getByRole("button", { name: "Oppdater" }).click();
     await page.waitForLoadState("networkidle");
 

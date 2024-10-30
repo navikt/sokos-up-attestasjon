@@ -7,8 +7,8 @@ import fagomraader from "../stubs/fagomraader";
 test.describe("When using Sok in Attestasjoner", () => {
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
-    await setupStub({ url: "*/**/faggrupper", json: faggrupper })({ page });
-    await setupStub({ url: "*/**/fagomraader", json: fagomraader })({ page });
+    await setupStub({ url: "*/**/faggrupper", json: faggrupper, page });
+    await setupStub({ url: "*/**/fagomraader", json: fagomraader, page });
     await page.waitForLoadState("networkidle");
 
     await page.goto("/attestasjon");
