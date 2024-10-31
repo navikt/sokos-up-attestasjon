@@ -33,7 +33,7 @@ import styles from "./SokPage.module.css";
 
 export default function SokPage() {
   const navigate = useNavigate();
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedFagomraade, setSelectedFagomraade] = useState<
     FagOmraade | undefined
@@ -81,7 +81,7 @@ export default function SokPage() {
     setOppdrag(undefined);
     setGjelderNavn("");
     setIsLoading(true);
-    setError(undefined);
+    setError("");
 
     const sokeParameter: SokeParameter = {
       gjelderId: sokeData?.gjelderId,
@@ -98,19 +98,17 @@ export default function SokPage() {
 
     hentOppdrag(sokeParameter)
       .then((response) => {
+        setIsLoading(false);
+        setError("");
         if (!isEmpty(response)) {
           setStoredOppdrag(response);
           navigate("/treffliste");
         } else {
           setError("Ingen treff på søket. Prøv igjen med andre søkekriterier.");
-          setIsLoading(false);
         }
       })
       .catch((error) => {
-        const errorMessage = error.response?.data?.message || error.message;
-        setError(
-          "Noe gikk galt. Prøv igjen senere. Feilmelding: " + errorMessage,
-        );
+        setError(error.message);
         setIsLoading(false);
       });
   }
@@ -119,6 +117,7 @@ export default function SokPage() {
     e.preventDefault();
     setSelectedFaggruppe(undefined);
     setSelectedFagomraade(undefined);
+    setError("");
     reset();
     resetState();
   }
