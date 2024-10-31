@@ -9,8 +9,8 @@ import { SokeParameter } from "../types/SokeParameter";
 import { norskDatoTilIsoDato } from "../util/datoUtil";
 import { axiosFetcher, axiosPostFetcher } from "./config/apiConfig";
 import { AttesterOppdragRequest } from "./models/AttesterOppdragRequest";
+import { AttesterOppdragResponse } from "./models/AttesterOppdragResponse";
 import { GjelderIdRequest } from "./models/GjelderIdRequest";
-import { AttesterOppdragResponse } from "./models/OppdaterAttestasjonResponse";
 
 const BASE_URI = {
   ATTESTASJON_API: "/oppdrag-api/api/v1/attestasjon",

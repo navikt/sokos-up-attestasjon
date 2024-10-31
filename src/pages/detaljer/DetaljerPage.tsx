@@ -7,7 +7,7 @@ import {
   oppdaterAttestasjon,
   useFetchOppdragsdetaljer,
 } from "../../api/apiService";
-import { AttesterOppdragResponse } from "../../api/models/OppdaterAttestasjonResponse";
+import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
 import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ContentLoader from "../../components/ContentLoader";
