@@ -1,6 +1,9 @@
 import { OppdragsDetaljer } from "../../src/types/OppdragsDetaljer";
 import { OppdragsLinje } from "../../src/types/OppdragsLinje";
-import { generateNumbers } from "../../src/util/commonUtils";
+
+function generateNumbers(n: number) {
+  return Array.from({ length: n }, (_, i) => i + 1);
+}
 
 function anAttestasjon(n: number) {
   return {
