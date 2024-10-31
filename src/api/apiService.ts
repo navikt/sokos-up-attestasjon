@@ -9,7 +9,7 @@ import { SokeParameter } from "../types/SokeParameter";
 import { norskDatoTilIsoDato } from "../util/datoUtil";
 import { axiosFetcher, axiosPostFetcher } from "./config/apiConfig";
 import { AttesterOppdragRequest } from "./models/AttesterOppdragRequest";
-import { OppdaterAttestasjonResponse } from "./models/AttesterOppdragResponse";
+import { AttesterOppdragResponse } from "./models/AttesterOppdragResponse";
 import { GjelderIdRequest } from "./models/GjelderIdRequest";
 
 const BASE_URI = {
@@ -90,7 +90,7 @@ export async function hentNavn(request: GjelderIdRequest) {
 export async function oppdaterAttestasjon(request: AttesterOppdragRequest) {
   return await axiosPostFetcher<
     AttesterOppdragRequest,
-    OppdaterAttestasjonResponse
+    AttesterOppdragResponse
   >(BASE_URI.ATTESTASJON_API, "/attestere", request);
 }
 

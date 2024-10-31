@@ -7,7 +7,7 @@ import {
   oppdaterAttestasjon,
   useFetchOppdragsdetaljer,
 } from "../../api/apiService";
-import { OppdaterAttestasjonResponse } from "../../api/models/AttesterOppdragResponse";
+import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
 import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ContentLoader from "../../components/ContentLoader";
@@ -27,7 +27,7 @@ export default function DetaljerPage() {
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertError, setAlertError] = useState<string | null>(null);
   const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
-  const [zosResponse, setZosResponse] = useState<OppdaterAttestasjonResponse>();
+  const [zosResponse, setZosResponse] = useState<AttesterOppdragResponse>();
 
   const {
     data: oppdragsDetaljer,

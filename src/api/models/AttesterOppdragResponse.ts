@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-export const OppdaterAttestasjonResponseSchema = z.object({
+export const AttesterOppdragResponseSchema = z.object({
   message: z.string().optional(),
 });
 
-export type OppdaterAttestasjonResponse = z.infer<
-  typeof OppdaterAttestasjonResponseSchema
+export type AttesterOppdragResponse = z.infer<
+  typeof AttesterOppdragResponseSchema
 >;
