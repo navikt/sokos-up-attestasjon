@@ -33,7 +33,7 @@ import styles from "./SokPage.module.css";
 
 export default function SokPage() {
   const navigate = useNavigate();
-  const [error, setError] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedFagomraade, setSelectedFagomraade] = useState<
     FagOmraade | undefined
@@ -81,7 +81,7 @@ export default function SokPage() {
     setOppdrag(undefined);
     setGjelderNavn("");
     setIsLoading(true);
-    setError("");
+    setError(null);
 
     const sokeParameter: SokeParameter = {
       gjelderId: sokeData?.gjelderId,
@@ -99,7 +99,7 @@ export default function SokPage() {
     hentOppdrag(sokeParameter)
       .then((response) => {
         setIsLoading(false);
-        setError("");
+        setError(null);
         if (!isEmpty(response)) {
           setStoredOppdrag(response);
           navigate("/treffliste");
@@ -117,7 +117,7 @@ export default function SokPage() {
     e.preventDefault();
     setSelectedFaggruppe(undefined);
     setSelectedFagomraade(undefined);
-    setError("");
+    setError(null);
     reset();
     resetState();
   }
