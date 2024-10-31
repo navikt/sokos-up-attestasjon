@@ -1,5 +1,5 @@
 import axios, { CreateAxiosDefaults } from "axios";
-import { ApiError, HttpStatusCodeError } from "../../types/Error";
+import { HttpStatusCodeError } from "../../types/Errors";
 
 const config = (baseUri: string): CreateAxiosDefaults => ({
   baseURL: baseUri,
@@ -19,15 +19,16 @@ function api(baseUri: string) {
   instance.interceptors.response.use(
     (response) => response,
     (error) => {
-      if (error.response?.status === 400) {
-        // her kan vi legge feilkoder også som vi fra backend
-        throw new HttpStatusCodeError(error.response?.status);
-      }
       if (error.response?.status === 401 || error.response?.status === 403) {
         // Uinnlogget - vil ikke skje i miljø da appen er beskyttet
         return Promise.reject(error);
+      } else {
+        throw new HttpStatusCodeError(
+          error.response?.status || 500,
+          error.response?.data?.message ||
+            "Nettverksproblemer. Hvis feilen vedvarer, meld sak i Porten.",
+        );
       }
-      throw new ApiError("Nettverksproblemer");
     },
   );
   return instance;
