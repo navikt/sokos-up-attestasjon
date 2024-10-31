@@ -30,91 +30,187 @@ async function backendWillReturn(
 
 test.describe("Detaljer", () => {
   test.describe("et fagområde som trenger 1 attestasjon", () => {
-    test(`har 0 attestasjoner fra før skal ha blanke linjer som kan attesteres`, async ({
+    test.beforeEach(({ page }) => {
+      setStore(page, 1);
+    });
+    test(`har 0 attestasjoner fra før skal ha linjer som kan attesteres`, async ({
       page,
     }) => {
-      setStore(page, 1);
-      const antallLinjer = 3;
-      const antallAttestasjonerFraFør = 0;
+      const linjerCount = 3;
+      const previousAttestasjoner = 0;
       const oppdragsdetaljer = oppdragsdetaljerWith(
-        antallLinjer,
-        antallAttestasjonerFraFør,
+        linjerCount,
+        previousAttestasjoner,
       );
       await backendWillReturn(page, oppdragsdetaljer);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
       const tableRows = page.locator("table tbody tr");
-      await expect(tableRows).toHaveCount(antallLinjer);
+      await expect(tableRows).toHaveCount(linjerCount);
+
+      const attesterbareRows = await tableRows.getByLabel("Attester");
+      await expect(attesterbareRows).toHaveCount(3);
+
+      const fjernbareRows = await tableRows.getByLabel("Fjern");
+      await expect(fjernbareRows).toHaveCount(0);
+
+      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      await expect(rowsWithKodeklasse).toHaveCount(3);
+
+      const blankRowsCount =
+        (await tableRows.count()) - (await rowsWithKodeklasse.count());
+      expect(blankRowsCount).toBe(0);
     });
 
-    test(`har 1 attestasjon fra før skal ikke ha blanke linjer som kan attesteres`, async ({
+    test(`har 1 attestasjon fra før skal ikke ha blanke linjer eller noen som kan attesteres`, async ({
       page,
     }) => {
-      setStore(page, 1);
-      const antallLinjer = 3;
-      const antallAttestasjonerFraFør = 1;
+      const linjerCount = 3;
+      const previousAttestasjoner = 1;
       const oppdragsdetaljer = oppdragsdetaljerWith(
-        antallLinjer,
-        antallAttestasjonerFraFør,
+        linjerCount,
+        previousAttestasjoner,
       );
       await backendWillReturn(page, oppdragsdetaljer);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
       const tableRows = page.locator("table tbody tr");
-      await expect(tableRows).toHaveCount(antallLinjer);
+      await expect(tableRows).toHaveCount(3);
+
+      const attesterbareRows = await tableRows.getByLabel("Attester");
+      await expect(attesterbareRows).toHaveCount(0);
+
+      const fjernbareRows = await tableRows.getByLabel("Fjern");
+      await expect(fjernbareRows).toHaveCount(3);
+
+      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      await expect(rowsWithKodeklasse).toHaveCount(3);
+
+      const blankRowsCount =
+        (await tableRows.count()) - (await rowsWithKodeklasse.count());
+      expect(blankRowsCount).toBe(0);
     });
   });
 
   test.describe("et fagområde som trenger 2 attestasjoner", () => {
-    test(`har 0 attestasjoner fra før skal ha blanke linjer som kan attesteres, men hver linje vises bare 1 gang`, async ({
+    test.beforeEach(({ page }) => {
+      setStore(page, 2);
+    });
+    test(`har 0 attestasjoner fra før skal bare ha 1 attesterbar linje per oppdragslinje`, async ({
       page,
     }) => {
-      setStore(page, 2);
-      const antallLinjer = 3;
-      const antallAttestasjonerFraFør = 1;
+      const linjerCount = 3;
+      const previousAttestasjoner = 0;
       const oppdragsdetaljer = oppdragsdetaljerWith(
-        antallLinjer,
-        antallAttestasjonerFraFør,
+        linjerCount,
+        previousAttestasjoner,
       );
       await backendWillReturn(page, oppdragsdetaljer);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
       const tableRows = page.locator("table tbody tr");
-      await expect(tableRows).toHaveCount(antallLinjer);
+      await expect(tableRows).toHaveCount(3);
+
+      const attesterbareRows = await tableRows.getByLabel("Attester");
+      await expect(attesterbareRows).toHaveCount(3);
+
+      const fjernbareRows = await tableRows.getByLabel("Fjern");
+      await expect(fjernbareRows).toHaveCount(0);
+
+      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      await expect(rowsWithKodeklasse).toHaveCount(3);
+
+      const blankRowsCount =
+        (await tableRows.count()) - (await rowsWithKodeklasse.count());
+      expect(blankRowsCount).toBe(0);
     });
 
     test(`har 1 attestasjon fra før skal ha blanke linjer som kan attesteres`, async ({
       page,
     }) => {
-      setStore(page, 2);
-      const antallLinjer = 3;
-      const antallAttestasjonerFraFør = 1;
+      const linjerCount = 3;
+      const previousAttestasjoner = 1;
       const oppdragsdetaljer = oppdragsdetaljerWith(
-        antallLinjer,
-        antallAttestasjonerFraFør,
+        linjerCount,
+        previousAttestasjoner,
       );
       await backendWillReturn(page, oppdragsdetaljer);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
       const tableRows = page.locator("table tbody tr");
-      await expect(tableRows).toHaveCount(antallLinjer * 2);
+      await expect(tableRows).toHaveCount(linjerCount * 2);
+
+      const attesterbareRows = await tableRows.getByLabel("Attester");
+      await expect(attesterbareRows).toHaveCount(3);
+
+      const fjernbareRows = await tableRows.getByLabel("Fjern");
+      await expect(fjernbareRows).toHaveCount(3);
+
+      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      await expect(rowsWithKodeklasse).toHaveCount(3);
+
+      const blankRowsCount =
+        (await tableRows.count()) - (await rowsWithKodeklasse.count());
+      expect(blankRowsCount).toBe(3);
     });
 
-    test(`har 2 attestasjoner fra før skal ikke ha blanke linjer som kan attesteres`, async ({
+    test(`har 1 attestasjon fra før av samme saksbehandler skal ikke se blanke linjer`, async ({
       page,
     }) => {
-      setStore(page, 2);
-      const antallLinjer = 3;
-      const antallAttestasjonerFraFør = 1;
+      const linjerCount = 3;
+      const previousAttestasjoner = 1;
       const oppdragsdetaljer = oppdragsdetaljerWith(
-        antallLinjer,
-        antallAttestasjonerFraFør,
+        linjerCount,
+        previousAttestasjoner,
+        "A111111",
       );
       await backendWillReturn(page, oppdragsdetaljer);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
       const tableRows = page.locator("table tbody tr");
-      await expect(tableRows).toHaveCount(antallLinjer * 2);
+      await expect(tableRows).toHaveCount(3);
+
+      const attesterbareRows = await tableRows.getByLabel("Attester");
+      await expect(attesterbareRows).toHaveCount(0);
+
+      const fjernbareRows = await tableRows.getByLabel("Fjern");
+      await expect(fjernbareRows).toHaveCount(3);
+
+      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      await expect(rowsWithKodeklasse).toHaveCount(3);
+
+      const blankRowsCount =
+        (await tableRows.count()) - (await rowsWithKodeklasse.count());
+      expect(blankRowsCount).toBe(0);
+    });
+
+    test(`har 2 attestasjoner fra før skal ha blanke, ikke attesterbare linjer`, async ({
+      page,
+    }) => {
+      const linjerCount = 3;
+      const previousAttestasjoner = 2;
+      const oppdragsdetaljer = oppdragsdetaljerWith(
+        linjerCount,
+        previousAttestasjoner,
+      );
+      await backendWillReturn(page, oppdragsdetaljer);
+      await gotoAndAssertBeingOnDetaljerPage(page);
+
+      const tableRows = page.locator("table tbody tr");
+      await expect(tableRows).toHaveCount(linjerCount * 2);
+
+      const attesterbareRows = await tableRows.getByLabel("Attester");
+      await expect(attesterbareRows).toHaveCount(0);
+
+      const fjernbareRows = await tableRows.getByLabel("Fjern");
+      await expect(fjernbareRows).toHaveCount(6);
+
+      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      await expect(rowsWithKodeklasse).toHaveCount(3);
+
+      const blankRowsCount =
+        (await tableRows.count()) - (await rowsWithKodeklasse.count());
+      expect(blankRowsCount).toBe(3);
     });
   });
 });

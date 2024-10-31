@@ -19,7 +19,7 @@ function anOppdragslinje(
       datoVedtakFom: `2024-${n.toString().padStart(2, "0")}-01`,
       datoVedtakTom: `2024-${n.toString().padStart(2, "0")}-31`,
       delytelseId: `${n}`,
-      kodeKlasse: "SPREFAGFER-IOP",
+      kodeKlasse: "KODEKLASSE",
       linjeId: n,
       oppdragsId: 98765432,
       sats: 1234.0 + n * 100,
@@ -35,12 +35,13 @@ function anOppdragslinje(
 function oppdragsdetaljer(
   antallLinjer: number,
   antallAttestasjoner: 0 | 1 | 2,
+  saksbehandlerIdent?: string,
 ): OppdragsDetaljer {
   return {
     linjer: generateNumbers(antallLinjer).map((n) =>
       anOppdragslinje(n, antallAttestasjoner),
     ),
-    saksbehandlerIdent: "H135685",
+    saksbehandlerIdent: saksbehandlerIdent ?? "X31337",
   };
 }
 
