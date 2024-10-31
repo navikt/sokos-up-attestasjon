@@ -7,3 +7,7 @@ export function formatterNorsk(sats: number) {
     minimumFractionDigits: 2,
   }).format(sats);
 }
+
+export function generateNumbers(n: number) {
+  return Array.from({ length: n }, (_, i) => i + 1);
+}

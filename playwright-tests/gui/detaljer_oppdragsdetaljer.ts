@@ -1,47 +1,47 @@
 import { OppdragsDetaljer } from "../../src/types/OppdragsDetaljer";
+import { OppdragsLinje } from "../../src/types/OppdragsLinje";
+import { generateNumbers } from "../../src/util/commonUtils";
 
-const oppdragsdetaljer: OppdragsDetaljer = {
-  linjer: [
-    {
-      oppdragsLinje: {
-        attestert: false,
-        datoVedtakFom: "2024-05-01",
-        datoVedtakTom: "2024-05-31",
-        delytelseId: "1",
-        kodeKlasse: "SPREFAGFER-IOP",
-        linjeId: 1,
-        oppdragsId: 98765432,
-        sats: 1234.0,
-        typeSats: "ENG",
-      },
-      attestasjoner: [
-        {
-          attestant: "G133837",
-          datoUgyldigFom: "9999-12-31",
-        },
-      ],
+function anAttestasjon(n: number) {
+  return {
+    attestant: n === 1 ? "A111111" : "B222222",
+    datoUgyldigFom: "9999-12-31",
+  };
+}
+
+function anOppdragslinje(
+  n: number,
+  antallAttestasjoner: 0 | 1 | 2,
+): OppdragsLinje {
+  return {
+    oppdragsLinje: {
+      attestert: false,
+      datoVedtakFom: `2024-${n.toString().padStart(2, "0")}-01`,
+      datoVedtakTom: `2024-${n.toString().padStart(2, "0")}-31`,
+      delytelseId: `${n}`,
+      kodeKlasse: "SPREFAGFER-IOP",
+      linjeId: n,
+      oppdragsId: 98765432,
+      sats: 1234.0 + n * 100,
+      typeSats: "ENG",
     },
-    {
-      oppdragsLinje: {
-        attestert: false,
-        datoVedtakFom: "2024-06-01",
-        datoVedtakTom: "2024-06-30",
-        delytelseId: "2",
-        kodeKlasse: "SPREFAGFER-IOP",
-        linjeId: 2,
-        oppdragsId: 98765432,
-        sats: 1248.0,
-        typeSats: "ENG",
-      },
-      attestasjoner: [
-        {
-          attestant: "G133837",
-          datoUgyldigFom: "9999-12-31",
-        },
-      ],
-    },
-  ],
-  saksbehandlerIdent: "H135685",
-};
+    attestasjoner:
+      antallAttestasjoner === 0
+        ? []
+        : generateNumbers(antallAttestasjoner).map((n) => anAttestasjon(n)),
+  };
+}
+
+function oppdragsdetaljer(
+  antallLinjer: number,
+  antallAttestasjoner: 0 | 1 | 2,
+): OppdragsDetaljer {
+  return {
+    linjer: generateNumbers(antallLinjer).map((n) =>
+      anOppdragslinje(n, antallAttestasjoner),
+    ),
+    saksbehandlerIdent: "H135685",
+  };
+}
 
 export default oppdragsdetaljer;
