@@ -27,7 +27,6 @@ import { SokeData } from "../../types/SokeData";
 import { SokeParameter } from "../../types/SokeParameter";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
 import { isEmpty } from "../../util/commonUtils";
-import { logFaroError } from "../../util/grafanaFaro";
 import styles from "./SokPage.module.css";
 
 export default function SokPage() {
@@ -71,11 +70,6 @@ export default function SokPage() {
   const filteredErrors = [...Object.keys(errors)].filter((m) => m);
 
   function onSubmit(sokeData: SokeData) {
-    const result = SokeDataSchema.safeParse(sokeData);
-    if (!result.success) {
-      setError("Noe gikk galt. Prøv igjen senere.");
-      logFaroError(result.error);
-    }
     setStoredSokeData(sokeData);
     setOppdrag(undefined);
     setGjelderNavn("");
