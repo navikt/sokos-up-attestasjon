@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Alert, Heading } from "@navikt/ds-react";
@@ -74,23 +73,22 @@ export default function DetaljerPage() {
     );
 
     setIsZosLoading(true);
-    try {
-      const response = await oppdaterAttestasjon(request);
-      setZosResponse(response);
-      setAlertError(null);
-      setShowAlert(true);
-      mutate();
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        setAlertError(`Error: ${error.response?.data?.message}`);
-      } else {
-        setAlertError("En uventet feil har skjedd");
-      }
-    } finally {
-      if (!isLoading) {
-        setIsZosLoading(false);
-      }
-    }
+
+    await oppdaterAttestasjon(request)
+      .then((response) => {
+        setZosResponse(response);
+        setAlertError(null);
+        setShowAlert(true);
+        mutate();
+      })
+      .catch((error) => {
+        setAlertError(error.message);
+      })
+      .finally(() => {
+        if (!isLoading) {
+          setIsZosLoading(false);
+        }
+      });
   }
 
   return (
