@@ -8,7 +8,6 @@ import {
   Button,
   ErrorSummary,
   Heading,
-  Loader,
   Radio,
   RadioGroup,
   TextField,
@@ -285,16 +284,13 @@ export default function SokPage() {
             <div className={styles["sok-button"]}>
               <Button
                 type="submit"
+                loading={isLoading}
                 icon={
-                  isLoading ? (
-                    <Loader title={"Søker..."} />
-                  ) : (
-                    <MagnifyingGlassIcon title="Ikon som viser et forstørrelsesglass" />
-                  )
+                  <MagnifyingGlassIcon title="Ikon som viser et forstørrelsesglass" />
                 }
                 iconPosition="right"
               >
-                {isLoading ? "Søker..." : "Søk"}
+                Søk
               </Button>
               <Button
                 variant="secondary"

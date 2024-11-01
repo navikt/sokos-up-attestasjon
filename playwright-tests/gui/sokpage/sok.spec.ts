@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
-import faggrupper from "../stubs/faggrupper";
-import fagomraader from "../stubs/fagomraader";
+import faggrupper from "../../stubs/faggrupper";
+import fagomraader from "../../stubs/fagomraader";
 
 test.describe("When using Sok in Attestasjoner", () => {
   test.beforeEach(async ({ page }) => {

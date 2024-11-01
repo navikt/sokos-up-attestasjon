@@ -1,4 +1,4 @@
-import { AppState } from "../../src/store/AppState";
+import { AppState } from "../../../src/store/AppState";
 
 type State = {
   state: AppState;

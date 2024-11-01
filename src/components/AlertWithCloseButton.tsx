@@ -4,12 +4,14 @@ import { Alert, AlertProps } from "@navikt/ds-react";
 export default function AlertWithCloseButton({
   children,
   variant,
+  setShow,
+  show,
 }: {
   children?: React.ReactNode;
   variant: AlertProps["variant"];
+  show: boolean;
+  setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  const [show, setShow] = React.useState(true);
-
   return show ? (
     <Alert variant={variant} closeButton onClose={() => setShow(false)}>
       {children || "Content"}

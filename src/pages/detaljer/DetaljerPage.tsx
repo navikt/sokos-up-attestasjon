@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Alert, Heading } from "@navikt/ds-react";
+import { Heading } from "@navikt/ds-react";
 import {
   attesterOppdragRequest,
   oppdaterAttestasjon,
   useFetchOppdragsdetaljer,
 } from "../../api/apiService";
-import { AttesterOppdragResponse } from "../../api/models/AttesterOppdragResponse";
 import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ContentLoader from "../../components/ContentLoader";
@@ -23,17 +22,15 @@ export default function DetaljerPage() {
   const { oppdrag } = useStore.getState();
 
   const antallAttestanter = oppdrag?.antallAttestanter ?? 1;
-  const [showAlert, setShowAlert] = useState<boolean>(false);
-  const [alertError, setAlertError] = useState<string | null>(null);
+  const [alertMessage, setAlertMessage] = useState<{
+    message: string;
+    variant: "success" | "error" | "warning";
+  } | null>(null);
   const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
-  const [zosResponse, setZosResponse] = useState<AttesterOppdragResponse>();
 
-  const {
-    data: oppdragsDetaljer,
-    error,
-    isLoading,
-    mutate,
-  } = useFetchOppdragsdetaljer(oppdrag?.oppdragsId);
+  const { data, isLoading, mutate } = useFetchOppdragsdetaljer(
+    oppdrag?.oppdragsId,
+  );
 
   useEffect(() => {
     if (!oppdrag) {
@@ -41,17 +38,16 @@ export default function DetaljerPage() {
     }
   }, [navigate, oppdrag]);
 
-  useEffect(() => {
-    if (showAlert) setTimeout(() => setShowAlert(false), 10000);
-  }, [showAlert]);
-
   async function handleSubmit(attestasjonlinjer: AttestasjonlinjeList) {
     if (
       attestasjonlinjer.filter(
         (attestasjonlinje) => !!attestasjonlinje.properties.dateError,
       ).length > 0
     ) {
-      setAlertError("Du må rette feil i datoformat før du kan oppdatere");
+      setAlertMessage({
+        message: "Du må rette feil i datoformat før du kan oppdatere",
+        variant: "error",
+      });
       return;
     }
 
@@ -60,7 +56,10 @@ export default function DetaljerPage() {
         (linje) => linje.properties.fjern || linje.properties.attester,
       ).length === 0
     ) {
-      setAlertError("Du må velge minst en linje før du kan oppdatere");
+      setAlertMessage({
+        message: "Du må velge minst en linje før du kan oppdatere",
+        variant: "error",
+      });
       return;
     }
 
@@ -76,13 +75,14 @@ export default function DetaljerPage() {
 
     await oppdaterAttestasjon(request)
       .then((response) => {
-        setZosResponse(response);
-        setAlertError(null);
-        setShowAlert(true);
+        setAlertMessage({
+          message: response.message || "",
+          variant: "success",
+        });
         mutate();
       })
       .catch((error) => {
-        setAlertError(error.message);
+        setAlertMessage({ message: error, variant: "error" });
       })
       .finally(() => {
         if (!isLoading) {
@@ -110,28 +110,30 @@ export default function DetaljerPage() {
               <LabelText label="Fagområde" text={oppdrag.fagOmraade} />
             </div>
           )}
-
-          {zosResponse && showAlert && (
-            <AlertWithCloseButton variant="success">
-              {zosResponse.message}
-            </AlertWithCloseButton>
-          )}
         </div>
       </div>
+      <div className={styles["detaljer-tabell-alerts"]}>
+        {!!alertMessage && (
+          <AlertWithCloseButton
+            show={!!alertMessage}
+            setShow={() => setAlertMessage(null)}
+            variant={alertMessage.variant}
+          >
+            {alertMessage.message}
+          </AlertWithCloseButton>
+        )}{" "}
+      </div>
       <div className={styles["detaljer-tabell"]}>
-        {!!alertError && <Alert variant="error">{alertError}</Alert>}
-        {oppdragsDetaljer && (
+        {isLoading && <ContentLoader />}
+        {data && (
           <DetaljerTabell
             antallAttestanter={antallAttestanter}
             handleSubmit={handleSubmit}
             isLoading={isLoading || isZosLoading}
-            oppdragsDetaljer={oppdragsDetaljer}
-            setAlertError={setAlertError}
+            oppdragsDetaljer={data}
           />
         )}
       </div>
-      {isLoading && <ContentLoader />}
-      {error && <Alert variant="error">Problemer med å hente data</Alert>}
     </>
   );
 }
