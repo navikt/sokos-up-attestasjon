@@ -1,5 +1,5 @@
 import { Page, expect, test } from "@playwright/test";
-import { OppdragsDetaljer } from "../../src/types/OppdragsDetaljer";
+import { OppdragsDetaljer } from "../../../src/types/OppdragsDetaljer";
 import { detaljerStateWith } from "./aDetaljerAppState";
 import oppdragsdetaljerWith from "./detaljer_oppdragsdetaljer";
 

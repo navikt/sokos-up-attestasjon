@@ -10,6 +10,10 @@
   @apply mx-auto min-w-[1600px] max-w-fit rounded-lg bg-white;
 }
 
+.detaljer-tabell-alerts {
+  @apply mx-auto max-w-[1440px] pb-3;
+}
+
 .detaljer-label {
   @apply flex gap-16 rounded-lg bg-white pb-5 pl-5 pt-5;
 }

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button, Checkbox, Loader, Table, TextField } from "@navikt/ds-react";
+import { Button, Checkbox, Table, TextField } from "@navikt/ds-react";
 import {
   Attestasjonlinje,
   AttestasjonlinjeList,
@@ -20,7 +20,6 @@ type DetaljerTabellProps = {
   oppdragsDetaljer: OppdragsDetaljer;
   handleSubmit: (linjer: AttestasjonlinjeList) => void;
   isLoading: boolean;
-  setAlertError: (value: React.SetStateAction<string | null>) => void;
 };
 
 type Linjetype = "fjern" | "attester";
@@ -53,24 +52,6 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     const newLinjer = attestasjonlinjer.map((linje, i) =>
       i === index ? newState : linje,
     );
-    const hasDateError = newLinjer.some((linje) => linje.properties.dateError);
-    const hasSelectedLine = newLinjer.some(
-      (linje) => linje.properties.attester || linje.properties.fjern,
-    );
-
-    props.setAlertError((oldAlert) => {
-      if (
-        oldAlert === "Du må rette feil i datoformat før du kan oppdatere" &&
-        !hasDateError
-      )
-        return null;
-      if (
-        oldAlert === "Du må velge minst en linje før du kan oppdatere" &&
-        hasSelectedLine
-      )
-        return null;
-      return oldAlert;
-    });
 
     setAttestasjonlinjer(newLinjer);
   }
@@ -192,10 +173,10 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
               <Button
                 type={"submit"}
                 size={"medium"}
+                loading={props.isLoading}
                 onClick={() => props.handleSubmit(attestasjonlinjer)}
-                disabled={props.isLoading}
               >
-                {props.isLoading ? <Loader size={"small"} /> : "Oppdater"}
+                Oppdater
               </Button>
             </Table.HeaderCell>
           </Table.Row>
