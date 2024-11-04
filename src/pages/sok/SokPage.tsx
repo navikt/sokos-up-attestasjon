@@ -209,7 +209,7 @@ export default function SokPage() {
                           );
                           setValue("fagOmraade", undefined);
                         } else {
-                          field.onChange("");
+                          setValue("fagGruppe", undefined);
                         }
                       }}
                       options={
@@ -250,7 +250,7 @@ export default function SokPage() {
                           );
                           setValue("fagGruppe", undefined);
                         } else {
-                          field.onChange("");
+                          setValue("fagOmraade", undefined);
                         }
                       }}
                       options={
