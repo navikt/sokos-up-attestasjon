@@ -1,6 +1,8 @@
-import { expect, test } from "@playwright/test";
+import { Page, expect, test } from "@playwright/test";
+import { AppState } from "../../../src/store/AppState";
 import faggrupper from "../../stubs/faggrupper";
 import fagomraader from "../../stubs/fagomraader";
+import { aStateWith } from "./aSokPageAppState";
 
 test.describe("When using Sok in Attestasjoner", () => {
   test.beforeEach(async ({ page }) => {
@@ -103,5 +105,84 @@ test.describe("When using Sok in Attestasjoner", () => {
       .getByRole("button", { name: "Søk Ikon som viser et forstø" })
       .click();
     await expect(page.getByText("Ingen treff på søket. Prøv")).toBeVisible();
+  });
+});
+
+function testStore(page: Page, appState: { state: AppState; version: number }) {
+  page.context().addInitScript((appState) => {
+    window.sessionStorage.setItem("app-state", JSON.stringify(appState));
+  }, appState);
+}
+
+test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in store", () => {
+  test.beforeEach(async ({ page }) => {
+    await page.route("*/**/faggrupper", async (route) => {
+      await route.fulfill({ json: faggrupper });
+    });
+    await page.route("*/**/fagomraader", async (route) => {
+      await route.fulfill({ json: fagomraader });
+    });
+  });
+  test(`should have Attestert radiobutton checked`, async ({ page }) => {
+    testStore(page, aStateWith({ gjelderId: "", attestertStatus: "true" }));
+
+    await page.goto("/attestasjon");
+
+    await expect(page.getByLabel("Attestert", { exact: true })).toBeChecked();
+    await expect(
+      page.getByLabel("Ikke attestert", { exact: true }),
+    ).not.toBeChecked();
+    await expect(page.getByLabel("Alle", { exact: true })).not.toBeChecked();
+
+    await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
+  });
+  test(`should have Ikke Attestert radiobutton checked`, async ({ page }) => {
+    testStore(page, aStateWith({ gjelderId: "", attestertStatus: "false" }));
+
+    await page.goto("/attestasjon");
+
+    await expect(
+      page.getByLabel("Attestert", { exact: true }),
+    ).not.toBeChecked();
+    await expect(
+      page.getByLabel("Ikke attestert", { exact: true }),
+    ).toBeChecked();
+    await expect(page.getByLabel("Alle", { exact: true })).not.toBeChecked();
+
+    await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
+  });
+  test(`should have Alle radiobutton checked`, async ({ page }) => {
+    testStore(
+      page,
+      aStateWith({ gjelderId: "", attestertStatus: "undefined" }),
+    );
+
+    await page.goto("/attestasjon");
+
+    await expect(
+      page.getByLabel("Attestert", { exact: true }),
+    ).not.toBeChecked();
+    await expect(
+      page.getByLabel("Ikke attestert", { exact: true }),
+    ).not.toBeChecked();
+    await expect(page.getByLabel("Alle", { exact: true })).toBeChecked();
+
+    await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
+  });
+  test(`should have value from store in faggruppe combobox`, async ({
+    page,
+  }) => {
+    testStore(
+      page,
+      aStateWith({
+        gjelderId: "",
+        attestertStatus: "false",
+        fagGruppe: { navn: "Barnebidrag", type: "BA" },
+      }),
+    );
+
+    await page.goto("/attestasjon");
+
+    await expect(page.getByText("Barnetrygd (BA)")).toBeVisible();
   });
 });
