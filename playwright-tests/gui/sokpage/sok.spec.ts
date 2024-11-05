@@ -152,7 +152,7 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
     });
   });
   test(`Attestert radiobutton should be checked`, async ({ page }) => {
-    testStore(page, aStateWith({ gjelderId: "", attestertStatus: "true" }));
+    testStore(page, aStateWith({ attestertStatus: "true" }));
 
     await page.goto("/attestasjon");
     await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
@@ -162,7 +162,7 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
     await expect(radiobutton(page, "Alle")).not.toBeChecked();
   });
   test(`Ikke Attestert radiobutton should be checked`, async ({ page }) => {
-    testStore(page, aStateWith({ gjelderId: "", attestertStatus: "false" }));
+    testStore(page, aStateWith({ attestertStatus: "false" }));
 
     await page.goto("/attestasjon");
     await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
