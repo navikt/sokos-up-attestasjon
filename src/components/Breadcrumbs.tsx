@@ -22,7 +22,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
             <div className={styles["breadcrumbs-crumb"]}>
               <Link to={"/"} className={commonstyles.link}>
                 <BodyShort size="large">
-                  <b>Søk</b>
+                  <b>Gjeldende Søk</b>
                 </BodyShort>
               </Link>
             </div>

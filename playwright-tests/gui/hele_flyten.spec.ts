@@ -3,8 +3,8 @@ import faggrupper from "../stubs/faggrupper";
 import fagomraader from "../stubs/fagomraader";
 import oppdaterAttestasjonResponse from "../stubs/oppdaterAttestasjonResponse";
 import sok from "../stubs/sok";
-import oppdragsdetaljer from "./sunny_day_oppdragsdetaljer";
-import oppdragsdetaljerEtterAttestering from "./sunny_day_oppdragsdetaljerEtterAttestering";
+import oppdragsdetaljer from "./hele_flyten_oppdragsdetaljer";
+import oppdragsdetaljerEtterAttestering from "./hele_flyten_oppdragsdetaljerEtterAttestering";
 
 test.describe("Attestasjon", () => {
   test(`søk, velg oppdrag, hent detaljer og attester en linje uten problemer`, async ({

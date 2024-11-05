@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormEvent, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FormEvent, useEffect, useState } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { EraserIcon, MagnifyingGlassIcon } from "@navikt/aksel-icons";
 import {
@@ -18,7 +18,6 @@ import {
   useFetchFaggrupper,
   useFetchFagomraader,
 } from "../../api/apiService";
-import ClearButton from "../../components/ClearButton";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { FagGruppe } from "../../types/FagGruppe";
@@ -33,14 +32,10 @@ export default function SokPage() {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [selectedFagomraade, setSelectedFagomraade] = useState<
-    FagOmraade | undefined
-  >(undefined);
-  const [selectedFaggruppe, setSelectedFaggruppe] = useState<
-    FagGruppe | undefined
-  >(undefined);
+
   const {
     setStoredSokeData,
+    storedSokeData,
     setOppdrag,
     setStoredOppdrag,
     setGjelderNavn,
@@ -55,17 +50,42 @@ export default function SokPage() {
     handleSubmit,
     setValue,
     reset,
+    formState,
+    control,
     formState: { errors },
   } = useForm<SokeData>({
     resolver: zodResolver(SokeDataSchema),
-    defaultValues: {
-      attestertStatus: "false",
-      gjelderId: undefined,
-      fagGruppe: undefined,
-      fagOmraade: undefined,
-      fagSystemId: undefined,
-    },
   });
+
+  useEffect(() => {
+    if (storedSokeData) {
+      setValue("gjelderId", storedSokeData.gjelderId);
+      setValue("fagSystemId", storedSokeData.fagSystemId);
+      setValue("fagGruppe", storedSokeData.fagGruppe);
+      setValue("fagOmraade", storedSokeData.fagOmraade);
+      setValue("attestertStatus", storedSokeData.attestertStatus);
+    }
+  }, [setValue, storedSokeData]);
+
+  const faggruppetypeLabelMap = faggrupper
+    ? faggrupper.reduce(
+        (map, faggruppe) => {
+          map[faggruppe.type] = faggruppe.navn;
+          return map;
+        },
+        {} as Record<string, string>,
+      )
+    : ({} as Record<string, string>);
+
+  const fagomraadetypeLabelMap = fagomraader
+    ? fagomraader.reduce(
+        (map, fagomraade) => {
+          map[fagomraade.kode] = fagomraade.navn;
+          return map;
+        },
+        {} as Record<string, string>,
+      )
+    : ({} as Record<string, string>);
 
   const filteredErrors = [...Object.keys(errors)].filter((m) => m);
 
@@ -79,8 +99,8 @@ export default function SokPage() {
     const sokeParameter: SokeParameter = {
       gjelderId: sokeData?.gjelderId,
       fagSystemId: sokeData?.fagSystemId,
-      kodeFagGruppe: selectedFaggruppe?.type,
-      kodeFagOmraade: selectedFagomraade?.kode,
+      kodeFagGruppe: sokeData?.fagGruppe?.type,
+      kodeFagOmraade: sokeData?.fagOmraade?.kode,
       attestert:
         sokeData.attestertStatus === "true"
           ? true
@@ -108,11 +128,23 @@ export default function SokPage() {
 
   function handleReset(e: FormEvent) {
     e.preventDefault();
-    setSelectedFaggruppe(undefined);
-    setSelectedFagomraade(undefined);
     setError(null);
     reset();
     resetState();
+  }
+
+  function convertFagomraadeToComboboxValue(selectedFagomraade: FagOmraade) {
+    return {
+      value: selectedFagomraade.kode,
+      label: `${selectedFagomraade.navn}(${selectedFagomraade.kode})`,
+    };
+  }
+
+  function convertFaggruppeToComboboxValue(selectedFaggruppe: FagGruppe) {
+    return {
+      value: selectedFaggruppe.type,
+      label: `${selectedFaggruppe.navn}(${selectedFaggruppe.type})`,
+    };
   }
 
   return (
@@ -144,103 +176,85 @@ export default function SokPage() {
                 error={errors.fagSystemId?.message}
               />
               <div className={styles["combobox"]}>
-                <UNSAFE_Combobox
-                  id="fagGruppe"
-                  label="Faggruppe"
-                  clearButton={false}
-                  options={
-                    faggrupper?.map((faggruppe) => ({
-                      value: faggruppe.type,
-                      label: faggruppe.navn + "(" + faggruppe.type + ")",
-                    })) || []
-                  }
-                  error={errors.fagGruppe?.message}
-                  selectedOptions={
-                    selectedFaggruppe
-                      ? [
-                          {
-                            value: selectedFaggruppe.type,
-                            label:
-                              selectedFaggruppe.navn +
-                              "(" +
-                              selectedFaggruppe.type +
-                              ")",
-                          },
-                        ]
-                      : []
-                  }
-                  onToggleSelected={(option, isSelected) => {
-                    if (isSelected) {
-                      const fagGruppe = faggrupper?.find(
-                        (f) => f.type === option,
-                      );
-                      setValue("fagGruppe", {
-                        navn: fagGruppe?.navn ?? "",
-                        type: option,
-                      });
-                      setSelectedFaggruppe(fagGruppe);
-                      setSelectedFagomraade(undefined);
-                    }
-                  }}
+                <Controller
+                  control={control}
+                  name={"fagGruppe"}
+                  render={({ field }) => (
+                    <UNSAFE_Combobox
+                      error={
+                        formState.errors.fagGruppe?.message
+                          ? "Ikke gyldig verdi"
+                          : undefined
+                      }
+                      isMultiSelect={false}
+                      label={"Faggruppe"}
+                      onToggleSelected={(type, isSelected) => {
+                        if (isSelected) {
+                          field.onChange(
+                            faggrupper?.find((f) => f.type == type),
+                          );
+                          setValue("fagOmraade", undefined);
+                        } else {
+                          setValue("fagGruppe", undefined);
+                        }
+                      }}
+                      options={
+                        faggrupper?.map(convertFaggruppeToComboboxValue) ?? []
+                      }
+                      selectedOptions={[
+                        {
+                          label: field.value
+                            ? faggruppetypeLabelMap[field.value.type] +
+                              ` (${field.value.type})`
+                            : "",
+                          value: field.value?.type ?? "",
+                        },
+                      ]}
+                      shouldAutocomplete={true}
+                    ></UNSAFE_Combobox>
+                  )}
                 />
-                <div className={styles["combobox-clear-button"]}>
-                  <ClearButton
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setSelectedFaggruppe(undefined);
-                    }}
-                  />
-                </div>
               </div>
 
               <div className={styles["combobox"]}>
-                <UNSAFE_Combobox
-                  id="kodeFagOmraade"
-                  label="Fagområde"
-                  clearButton={false}
-                  options={
-                    fagomraader?.map((fagomraade) => ({
-                      value: fagomraade.kode,
-                      label: fagomraade.navn + "(" + fagomraade.kode + ")",
-                    })) || []
-                  }
-                  error={errors.fagOmraade?.message}
-                  selectedOptions={
-                    selectedFagomraade
-                      ? [
-                          {
-                            value: selectedFagomraade.kode,
-                            label:
-                              selectedFagomraade.navn +
-                              "(" +
-                              selectedFagomraade.kode +
-                              ")",
-                          },
-                        ]
-                      : []
-                  }
-                  onToggleSelected={(option, isSelected) => {
-                    if (isSelected) {
-                      const fagomraade = fagomraader?.find(
-                        (f) => f.kode === option,
-                      );
-                      setValue("fagOmraade", {
-                        navn: fagomraade?.navn ?? "",
-                        kode: option,
-                      });
-                      setSelectedFagomraade(fagomraade);
-                      setSelectedFaggruppe(undefined);
-                    }
-                  }}
+                <Controller
+                  control={control}
+                  name={"fagOmraade"}
+                  render={({ field }) => (
+                    <UNSAFE_Combobox
+                      error={
+                        formState.errors.fagOmraade?.message
+                          ? "Ikke gyldig verdi"
+                          : undefined
+                      }
+                      isMultiSelect={false}
+                      label={"Fagområde"}
+                      onToggleSelected={(kode, isSelected) => {
+                        if (isSelected) {
+                          field.onChange(
+                            fagomraader?.find((f) => f.kode == kode),
+                          );
+                          setValue("fagGruppe", undefined);
+                        } else {
+                          setValue("fagOmraade", undefined);
+                        }
+                      }}
+                      options={
+                        fagomraader?.map(convertFagomraadeToComboboxValue) ?? []
+                      }
+                      selectedOptions={[
+                        {
+                          label: field.value
+                            ? fagomraadetypeLabelMap[field.value.kode] +
+                              ` (${field.value.kode})`
+                            : "",
+                          value: field.value?.kode ?? "",
+                        },
+                      ]}
+                      shouldAutocomplete={true}
+                    ></UNSAFE_Combobox>
+                  )}
                 />
-                <div className={styles["combobox-clear-button"]}>
-                  <ClearButton
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setSelectedFagomraade(undefined);
-                    }}
-                  />
-                </div>
               </div>
 
               <RadioGroup
