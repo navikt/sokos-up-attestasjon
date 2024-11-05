@@ -22,7 +22,7 @@ export default function TreffTabell(props: TreffTabellProps) {
           <Table.Row>
             <Table.HeaderCell>Gjelder</Table.HeaderCell>
             <Table.HeaderCell>Faggruppe</Table.HeaderCell>
-            <Table.HeaderCell>Fagsystem ID</Table.HeaderCell>
+            <Table.HeaderCell>Fagsystem id</Table.HeaderCell>
             <Table.HeaderCell>Fagområde</Table.HeaderCell>
             <Table.HeaderCell>Kostnadssted</Table.HeaderCell>
             <Table.HeaderCell>Ansvarssted</Table.HeaderCell>

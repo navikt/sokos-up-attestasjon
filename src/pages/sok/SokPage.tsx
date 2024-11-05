@@ -139,25 +139,17 @@ export default function SokPage() {
     resetState();
   }
 
-  function getLabelFromFagomraade(selectedFagomraade: FagOmraade) {
-    return `${selectedFagomraade.navn}(${selectedFagomraade.kode})`;
-  }
-
   function convertFagomraadeToComboboxValue(selectedFagomraade: FagOmraade) {
     return {
       value: selectedFagomraade.kode,
-      label: getLabelFromFagomraade(selectedFagomraade),
+      label: `${selectedFagomraade.navn}(${selectedFagomraade.kode})`,
     };
-  }
-
-  function getLabelFromFaggruppe(selectedFaggruppe: FagGruppe) {
-    return `${selectedFaggruppe.navn}(${selectedFaggruppe.type})`;
   }
 
   function convertFaggruppeToComboboxValue(selectedFaggruppe: FagGruppe) {
     return {
       value: selectedFaggruppe.type,
-      label: getLabelFromFaggruppe(selectedFaggruppe),
+      label: `${selectedFaggruppe.navn}(${selectedFaggruppe.type})`,
     };
   }
 
