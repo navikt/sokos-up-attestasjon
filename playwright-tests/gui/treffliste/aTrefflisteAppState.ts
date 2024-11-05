@@ -1,4 +1,4 @@
-import { AppState } from "../../src/store/AppState";
+import { AppState } from "../../../src/store/AppState";
 
 const state: { state: AppState; version: number } = {
   state: {
