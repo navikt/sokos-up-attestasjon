@@ -13,14 +13,14 @@ export default {
   version: 0,
 };
 
-export function aStateWith(sokeData: SokeData): {
+export function aStateWith(sokeData: Partial<SokeData>): {
   state: AppState;
   version: number;
 } {
   return {
     state: {
       gjelderNavn: "",
-      storedSokeData: sokeData,
+      storedSokeData: { gjelderId: "", attestertStatus: "false", ...sokeData },
     },
     version: 0,
   };
