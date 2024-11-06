@@ -3,7 +3,7 @@
 }
 
 .detaljer-top {
-  @apply mx-auto min-w-1024 max-w-[1440px] space-y-5;
+  @apply mx-auto max-w-[1440px] space-y-5;
 }
 
 .detaljer-tabell {

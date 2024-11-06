@@ -3,7 +3,7 @@
 }
 
 .treffliste-top {
-  @apply mx-auto min-w-1024 max-w-[1440px] space-y-5;
+  @apply mx-auto max-w-[1440px] space-y-5;
 }
 
 .treffliste-top-info {
@@ -11,7 +11,7 @@
 }
 
 .treffliste-trefftabell {
-  @apply mx-auto min-w-1024 max-w-[1600px] rounded-lg bg-white;
+  @apply mx-auto min-w-[1200px] max-w-[1600px] rounded-lg bg-white;
 }
 
 .treffliste-error {
@@ -19,7 +19,7 @@
 }
 
 .sokekriterier {
-  @apply flex flex-col rounded-xl bg-white p-5;
+  @apply flex min-w-1024 flex-col rounded-xl bg-white p-5;
 }
 
 .sokekriterier-content {
