@@ -7,7 +7,7 @@ export default {
       gjelderId: "17508716508",
       fagSystemId: "2960",
       fagGruppe: { navn: "Arbeidsytelser", type: "ARBYT" },
-      attestertStatus: "undefined",
+      attestertStatus: "alle",
     },
   },
   version: 0,

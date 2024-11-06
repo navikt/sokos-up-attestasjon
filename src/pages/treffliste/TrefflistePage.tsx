@@ -18,7 +18,7 @@ export default function TrefflistePage() {
       return "Attestert";
     } else if (storedSokeData?.attestertStatus === "false") {
       return "Ikke attestert";
-    } else if (storedSokeData?.attestertStatus === "undefined") {
+    } else if (storedSokeData?.attestertStatus === "alle") {
       return "Alle";
     } else {
       return "";

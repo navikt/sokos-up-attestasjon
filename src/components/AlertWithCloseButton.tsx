@@ -13,7 +13,12 @@ export default function AlertWithCloseButton({
   setShow: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   return show ? (
-    <Alert variant={variant} closeButton onClose={() => setShow(false)}>
+    <Alert
+      variant={variant}
+      closeButton
+      role="status"
+      onClose={() => setShow(false)}
+    >
       {children || "Content"}
     </Alert>
   ) : null;
