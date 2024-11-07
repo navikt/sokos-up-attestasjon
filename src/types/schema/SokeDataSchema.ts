@@ -29,7 +29,7 @@ export const SokeDataSchema = z
     attestertStatus: z.union([
       z.literal("true"),
       z.literal("false"),
-      z.literal("undefined"),
+      z.literal("alle"),
     ]),
   })
   .refine(

@@ -172,7 +172,7 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
     await expect(radiobutton(page, "Alle")).not.toBeChecked();
   });
   test(`Alle radiobutton should be checked`, async ({ page }) => {
-    testStore(page, aStateWith({ attestertStatus: "undefined" }));
+    testStore(page, aStateWith({ attestertStatus: "alle" }));
 
     await page.goto("/attestasjon");
     await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();

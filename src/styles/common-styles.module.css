@@ -6,12 +6,12 @@
   @apply w-full py-16 text-center;
 }
 
-.bold {
+.labeltext-label {
   @apply whitespace-nowrap font-bold;
 }
 
-.row {
-  @apply flex flex-row space-x-1;
+.labeltext {
+  @apply flex flex-row gap-2 whitespace-nowrap;
 }
 
 .link {

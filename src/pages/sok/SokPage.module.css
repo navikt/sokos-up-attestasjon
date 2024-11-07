@@ -1,9 +1,33 @@
 .sok {
-  @apply bg-[--a-surface-alt-1-subtle] p-5;
+  @apply relative mx-auto min-w-[900px] max-w-[1440px] rounded-[8px] bg-[--a-surface-alt-1-subtle] p-5;
 }
 
 .sok-form {
-  @apply w-full max-w-lg space-y-3;
+  @apply flex flex-row gap-10;
+}
+
+.sok-helptext {
+  @apply absolute right-5 top-5;
+}
+
+.sok-inputfields {
+  @apply flex flex-col gap-3;
+}
+
+.sok-gjelder {
+  @apply w-36;
+}
+
+.sok-fagsystem {
+  @apply w-56;
+}
+
+.sok-radiobutton {
+  @apply flex flex-col;
+}
+
+.divider {
+  @apply min-w-0.5 bg-[--a-border-default];
 }
 
 .sok-error {
@@ -15,13 +39,9 @@
 }
 
 .sok-button {
-  @apply flex gap-6 pt-5;
+  @apply flex flex-row-reverse gap-6 pt-5;
 }
 
 .combobox {
-  @apply relative min-w-128;
-}
-
-.combobox-clear-button {
-  @apply absolute right-9 top-10;
+  @apply min-w-[660px];
 }

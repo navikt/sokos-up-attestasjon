@@ -15,9 +15,9 @@
 }
 
 .breadcrumbs-right {
-  @apply absolute right-5 top-5;
+  @apply absolute right-5 top-4;
 }
 
 .breadcrumbs-crumb {
-  @apply ml-2;
+  @apply ml-2 flex flex-row items-center gap-2;
 }
