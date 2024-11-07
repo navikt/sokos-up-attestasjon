@@ -64,7 +64,7 @@ export default function TreffTabell(props: TreffTabellProps) {
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader sortKey={"gjelderId"} sortable>
-              Gjelder???
+              Gjelder
             </Table.ColumnHeader>
             <Table.ColumnHeader sortKey={"fagGruppe"} sortable>
               Faggruppe
