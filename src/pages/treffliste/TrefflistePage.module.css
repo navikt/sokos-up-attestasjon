@@ -1,9 +1,9 @@
 .treffliste {
-  @apply mx-auto my-3 space-y-6;
+  @apply mx-auto my-3 min-w-1024 max-w-[1440px] space-y-6;
 }
 
 .treffliste-top {
-  @apply mx-auto max-w-[1440px] space-y-5;
+  @apply mx-36 min-w-1024 space-y-5;
 }
 
 .treffliste-top-info {

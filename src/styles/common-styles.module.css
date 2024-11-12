@@ -25,3 +25,19 @@
 .aksel-danger {
   @apply text-[var(--a-nav-red)];
 }
+
+.nowrap {
+  @apply whitespace-nowrap;
+}
+
+.sortable-table-topinfo {
+  @apply flex flex-row justify-between;
+}
+
+.sortable-table {
+  @apply min-w-1400 bg-[--a-surface-default];
+}
+
+.sortable-table-pagination {
+  @apply flex flex-row place-content-center;
+}
