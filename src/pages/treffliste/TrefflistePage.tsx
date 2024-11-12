@@ -1,17 +1,27 @@
-import { useEffect } from "react";
-import { Heading } from "@navikt/ds-react";
-import { hentNavn } from "../../api/apiService";
+import { useEffect, useState } from "react";
+import { Alert, Heading } from "@navikt/ds-react";
+import { hentNavn, hentOppdrag } from "../../api/apiService";
 import Breadcrumbs from "../../components/Breadcrumbs";
+import ContentLoader from "../../components/ContentLoader";
 import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
+import { ErrorMessage } from "../../types/ErrorMessage";
+import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { BASENAME } from "../../util/constants";
 import TreffTabell from "./TreffTabell";
 import styles from "./TrefflistePage.module.css";
 
 export default function TrefflistePage() {
-  const { storedOppdragList, storedSokeData, gjelderNavn, setGjelderNavn } =
-    useStore();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<ErrorMessage | null>(null);
+  const {
+    storedPaginatedOppdragList,
+    setStoredPaginatedOppdragList,
+    storedSokeData,
+    gjelderNavn,
+    setGjelderNavn,
+  } = useStore();
 
   function getAttestertStatusText() {
     if (storedSokeData?.attestertStatus === "true") {
@@ -25,8 +35,25 @@ export default function TrefflistePage() {
     }
   }
 
+  function sokOppdrag(page?: number, rows?: number) {
+    setIsLoading(true);
+    const sokeParameter = SokeDataToSokeParameter.parse(storedSokeData);
+    hentOppdrag(sokeParameter, page, rows)
+      .then((response) => {
+        setIsLoading(false);
+        setStoredPaginatedOppdragList(response);
+      })
+      .catch((error) => {
+        setError({
+          variant: "error",
+          message: error.message,
+        });
+        setIsLoading(false);
+      });
+  }
+
   useEffect(() => {
-    if (!storedOppdragList) {
+    if (!storedPaginatedOppdragList) {
       window.location.replace(BASENAME);
     }
 
@@ -35,7 +62,7 @@ export default function TrefflistePage() {
         setGjelderNavn(response.navn);
       });
     }
-  }, [storedOppdragList, gjelderNavn, setGjelderNavn, storedSokeData]);
+  }, [storedPaginatedOppdragList, gjelderNavn, setGjelderNavn, storedSokeData]);
 
   return (
     <>
@@ -74,10 +101,22 @@ export default function TrefflistePage() {
           </div>
         </div>
 
-        <div className={styles["treffliste-trefftabell"]}>
-          <TreffTabell oppdragList={storedOppdragList || []} />
-        </div>
+        {isLoading && <ContentLoader />}
+        {!isLoading && storedPaginatedOppdragList && (
+          <TreffTabell
+            pagintatedOppdragList={storedPaginatedOppdragList}
+            sokOppdrag={sokOppdrag}
+          />
+        )}
       </div>
+
+      {error && (
+        <div className={styles["treffliste-error"]}>
+          <Alert variant={error.variant} role="status">
+            {error.message}
+          </Alert>
+        </div>
+      )}
     </>
   );
 }

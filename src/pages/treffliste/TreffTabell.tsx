@@ -1,23 +1,30 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Popover, SortState, Table } from "@navikt/ds-react";
+import { Pagination, Popover, SortState, Table } from "@navikt/ds-react";
+import { PaginatedOppdragList } from "../../api/models/PaginatedDTO";
+import RowsPerPageSelector from "../../components/RowsPerPageSelector";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
-import { OppdragList } from "../../types/Oppdrag";
 
 interface TreffTabellProps {
-  oppdragList: OppdragList;
+  pagintatedOppdragList: PaginatedOppdragList;
+  sokOppdrag: (page?: number, rows?: number) => void;
 }
 
 export default function TreffTabell(props: TreffTabellProps) {
   const { setOppdrag } = useStore();
-  const [openState, setOpenState] = useState(false);
-  const [activeRow, setActiveRow] = useState<number | null>(null);
-  const rowRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const [isSkjermet, setIsSkjermet] = useState(false);
+  const [skjermingRow, setSkjermingRow] = useState<number | null>(null);
+  const skjermingRowRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const [sort, setSort] = useState<ScopedSortState | undefined>();
 
+  const rowsPerPage = props.pagintatedOppdragList.rows;
+  const page = props.pagintatedOppdragList.page;
+  const total = props.pagintatedOppdragList?.total ?? 0;
+  const pagecount = Math.ceil(total / rowsPerPage);
+
   interface ScopedSortState extends SortState {
-    orderBy: keyof (typeof props.oppdragList)[0];
+    orderBy: keyof (typeof props.pagintatedOppdragList.data)[0];
   }
 
   const handleSort = (sortKey: ScopedSortState["orderBy"]) => {
@@ -44,7 +51,7 @@ export default function TreffTabell(props: TreffTabellProps) {
     return 0;
   }
 
-  const sortedData = props.oppdragList.slice().sort((a, b) => {
+  const sortedData = props.pagintatedOppdragList.data.slice().sort((a, b) => {
     if (sort) {
       return sort.direction === "ascending"
         ? comparator(b, a, sort.orderBy)
@@ -55,77 +62,110 @@ export default function TreffTabell(props: TreffTabellProps) {
 
   return (
     <>
-      <Table
-        sort={sort}
-        onSortChange={(sortKey) =>
-          handleSort(sortKey as ScopedSortState["orderBy"])
-        }
-      >
-        <Table.Header>
-          <Table.Row>
-            <Table.ColumnHeader sortKey={"gjelderId"} sortable>
-              Gjelder
-            </Table.ColumnHeader>
-            <Table.ColumnHeader sortKey={"fagGruppe"} sortable>
-              Faggruppe
-            </Table.ColumnHeader>
-            <Table.ColumnHeader sortKey={"fagSystemId"} sortable>
-              Fagsystem id
-            </Table.ColumnHeader>
-            <Table.ColumnHeader sortKey={"fagOmraade"} sortable>
-              Fagområde
-            </Table.ColumnHeader>
-            <Table.ColumnHeader sortKey={"kostnadsSted"}>
-              Kostnadssted
-            </Table.ColumnHeader>
-            <Table.ColumnHeader sortKey={"ansvarsSted"}>
-              Ansvarssted
-            </Table.ColumnHeader>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {sortedData.map((oppdrag, index) => (
-            <Table.Row key={oppdrag.oppdragsId}>
-              <Table.DataCell>
-                <Link
-                  ref={(el) => (rowRefs.current[index] = el)}
-                  to={oppdrag.erSkjermetForSaksbehandler ? "#" : "/detaljer"}
-                  className={commonstyles.link}
-                  onClick={() => {
-                    if (oppdrag.erSkjermetForSaksbehandler) {
-                      setActiveRow(index);
-                      setOpenState(!openState);
-                    } else {
-                      setOppdrag(oppdrag);
-                    }
-                  }}
-                >
-                  {oppdrag.gjelderId}
-                </Link>
-              </Table.DataCell>
-              <Table.DataCell>{oppdrag.fagGruppe}</Table.DataCell>
-              <Table.DataCell>{oppdrag.fagSystemId}</Table.DataCell>
-              <Table.DataCell>{oppdrag.fagOmraade}</Table.DataCell>
-              <Table.DataCell>{oppdrag.kostnadsSted}</Table.DataCell>
-              <Table.DataCell>{oppdrag.ansvarsSted}</Table.DataCell>
-            </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
+      <div className={commonstyles["sortable-table-topinfo"]}>
+        <div className={commonstyles.nowrap}>
+          <p>
+            {`${total} treff`}
+            {total > rowsPerPage && `, ${page} av ${pagecount} sider`}
+          </p>
+        </div>
 
-      <Popover
-        open={openState}
-        onClose={() => setOpenState(false)}
-        anchorEl={activeRow !== null ? rowRefs.current[activeRow] : null}
-        flip={false}
-        placement="right"
-      >
-        <Popover.Content>
-          <div className={commonstyles["aksel-danger"]}>
-            Denne personen er skjermet. Du har ikke tilgang.
-          </div>
-        </Popover.Content>
-      </Popover>
+        <RowsPerPageSelector
+          rowsPerPage={rowsPerPage}
+          sokOppdrag={props.sokOppdrag}
+        />
+      </div>
+
+      <div className={commonstyles["sortable-table"]}>
+        <Table
+          sort={sort}
+          onSortChange={(sortKey) =>
+            handleSort(sortKey as ScopedSortState["orderBy"])
+          }
+        >
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader sortKey={"gjelderId"} sortable>
+                Gjelder
+              </Table.ColumnHeader>
+              <Table.ColumnHeader sortKey={"fagGruppe"} sortable>
+                Faggruppe
+              </Table.ColumnHeader>
+              <Table.ColumnHeader sortKey={"fagSystemId"} sortable>
+                Fagsystem id
+              </Table.ColumnHeader>
+              <Table.ColumnHeader sortKey={"fagOmraade"} sortable>
+                Fagområde
+              </Table.ColumnHeader>
+              <Table.ColumnHeader sortKey={"kostnadsSted"}>
+                Kostnadssted
+              </Table.ColumnHeader>
+              <Table.ColumnHeader sortKey={"ansvarsSted"}>
+                Ansvarssted
+              </Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {sortedData.map((oppdrag, row) => (
+              <Table.Row key={oppdrag.oppdragsId}>
+                <Table.DataCell>
+                  <Link
+                    ref={(element) => (skjermingRowRefs.current[row] = element)}
+                    to={oppdrag.erSkjermetForSaksbehandler ? "#" : "/detaljer"}
+                    className={commonstyles.link}
+                    onClick={() => {
+                      if (oppdrag.erSkjermetForSaksbehandler) {
+                        setSkjermingRow(row);
+                        setIsSkjermet(!isSkjermet);
+                      } else {
+                        setOppdrag(oppdrag);
+                      }
+                    }}
+                  >
+                    {oppdrag.gjelderId}
+                  </Link>
+                </Table.DataCell>
+                <Table.DataCell>{oppdrag.fagGruppe}</Table.DataCell>
+                <Table.DataCell>{oppdrag.fagSystemId}</Table.DataCell>
+                <Table.DataCell>{oppdrag.fagOmraade}</Table.DataCell>
+                <Table.DataCell>{oppdrag.kostnadsSted}</Table.DataCell>
+                <Table.DataCell>{oppdrag.ansvarsSted}</Table.DataCell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+        <Popover
+          open={isSkjermet}
+          onClose={() => setIsSkjermet(false)}
+          anchorEl={
+            skjermingRow !== null
+              ? skjermingRowRefs.current[skjermingRow]
+              : null
+          }
+          flip={false}
+          placement="right"
+        >
+          <Popover.Content>
+            <div className={commonstyles["aksel-danger"]}>
+              Denne personen er skjermet. Du har ikke tilgang.
+            </div>
+          </Popover.Content>
+        </Popover>
+      </div>
+
+      {pagecount > 1 && (
+        <div className={commonstyles["sortable-table-pagination"]}>
+          <Pagination
+            page={page}
+            onPageChange={(page) => {
+              props.sokOppdrag(page, rowsPerPage);
+            }}
+            count={pagecount}
+            size="small"
+            prevNextTexts
+          />
+        </div>
+      )}
     </>
   );
 }
