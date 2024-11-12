@@ -1,12 +1,13 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
-import { Oppdrag, OppdragList } from "../types/Oppdrag";
+import { PaginatedOppdragList } from "../api/models/PaginatedDTO";
+import { Oppdrag } from "../types/Oppdrag";
 import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
 import { SokeData } from "../types/SokeData";
 
 export type AppState = {
   gjelderNavn: string;
-  storedOppdragList?: OppdragList;
+  storedPaginatedOppdragList?: PaginatedOppdragList;
   oppdragsDetaljer?: OppdragsDetaljer;
   storedSokeData?: SokeData;
   oppdrag?: Oppdrag;
@@ -15,7 +16,9 @@ export type AppState = {
 type AppStateActions = {
   resetState: () => void;
   setGjelderNavn: (gjelderNavn: string) => void;
-  setStoredOppdrag: (oppdrag: OppdragList) => void;
+  setStoredPaginatedOppdragList: (
+    paginatedOppdragList: PaginatedOppdragList,
+  ) => void;
   setOppdragsDetaljer: (oppdragsDetaljer: OppdragsDetaljer) => void;
   setStoredSokeData: (sokeData: SokeData) => void;
   setOppdrag: (oppdrag: Oppdrag | undefined) => void;
@@ -23,6 +26,7 @@ type AppStateActions = {
 
 const initAppState = {
   gjelderNavn: "",
+  storedPaginatedOppdragList: undefined,
   storedOppdrag: undefined,
   oppdragsDetaljer: undefined,
   storedSokeData: undefined,
@@ -36,8 +40,9 @@ export const useStore = create<AppState & AppStateActions>()(
         ...initAppState,
         resetState: () => set({ ...initAppState }),
         setGjelderNavn: (gjelderNavn: string) => set({ gjelderNavn }),
-        setStoredOppdrag: (storedOppdragList: OppdragList) =>
-          set({ storedOppdragList }),
+        setStoredPaginatedOppdragList: (
+          storedPaginatedOppdragList: PaginatedOppdragList,
+        ) => set({ storedPaginatedOppdragList }),
         setOppdragsDetaljer: (oppdragsDetaljer: OppdragsDetaljer) =>
           set({ oppdragsDetaljer }),
         setStoredSokeData: (storedSokeData: SokeData) =>

@@ -22,27 +22,27 @@ import {
 } from "../../api/apiService";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
+import { ErrorMessage } from "../../types/ErrorMessage";
+import { HttpStatusCodeError } from "../../types/Errors";
 import { FagGruppe } from "../../types/FagGruppe";
 import { FagOmraade } from "../../types/FagOmraade";
 import { SokeData } from "../../types/SokeData";
-import { SokeParameter } from "../../types/SokeParameter";
+import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
 import { isEmpty } from "../../util/commonUtils";
 import styles from "./SokPage.module.css";
 
 export default function SokPage() {
   const navigate = useNavigate();
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ErrorMessage | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const {
     setStoredSokeData,
     storedSokeData,
-    setOppdrag,
-    setStoredOppdrag,
-    setGjelderNavn,
+    setStoredPaginatedOppdragList,
     resetState,
-  } = useStore.getState();
+  } = useStore();
 
   const { data: faggrupper, isLoading: faggrupperIsLoading } =
     useFetchFaggrupper();
@@ -94,38 +94,34 @@ export default function SokPage() {
   const filteredErrors = [...Object.keys(errors)].filter((m) => m);
 
   function onSubmit(sokeData: SokeData) {
+    resetState();
     setStoredSokeData(sokeData);
-    setOppdrag(undefined);
-    setGjelderNavn("");
     setIsLoading(true);
     setError(null);
 
-    const sokeParameter: SokeParameter = {
-      gjelderId: sokeData?.gjelderId,
-      fagSystemId: sokeData?.fagSystemId,
-      kodeFagGruppe: sokeData?.fagGruppe?.type,
-      kodeFagOmraade: sokeData?.fagOmraade?.kode,
-      attestert:
-        sokeData.attestertStatus === "true"
-          ? true
-          : sokeData.attestertStatus === "false"
-            ? false
-            : null,
-    };
+    const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
 
     hentOppdrag(sokeParameter)
       .then((response) => {
         setIsLoading(false);
         setError(null);
-        if (!isEmpty(response)) {
-          setStoredOppdrag(response);
+        if (!isEmpty(response.data)) {
+          setStoredPaginatedOppdragList(response);
           navigate("/treffliste");
         } else {
-          setError("Ingen treff på søket. Prøv igjen med andre søkekriterier.");
+          setError({
+            variant: "info",
+            message:
+              "Ingen treff på søket. Prøv igjen med andre søkekriterier.",
+          });
         }
       })
       .catch((error) => {
-        setError(error.message);
+        const statusError = error as HttpStatusCodeError;
+        setError({
+          variant: statusError.statusCode == 400 ? "warning" : "error",
+          message: statusError.message,
+        });
         setIsLoading(false);
       });
   }
@@ -242,7 +238,7 @@ export default function SokPage() {
                   />
                 </div>
 
-                <div className={styles["combobox"]}>
+                <div className={styles["attestasjonsok-combobox"]}>
                   <Controller
                     control={control}
                     name={"fagOmraade"}
@@ -349,8 +345,8 @@ export default function SokPage() {
       </div>
       {error && (
         <div className={styles["attestasjonsok-error"]}>
-          <Alert variant="info" role="status">
-            {error}
+          <Alert variant={error.variant} role="status">
+            {error.message}
           </Alert>
         </div>
       )}
