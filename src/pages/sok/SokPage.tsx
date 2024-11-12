@@ -44,8 +44,10 @@ export default function SokPage() {
     resetState,
   } = useStore.getState();
 
-  const { data: faggrupper } = useFetchFaggrupper();
-  const { data: fagomraader } = useFetchFagomraader();
+  const { data: faggrupper, isLoading: faggrupperIsLoading } =
+    useFetchFaggrupper();
+  const { data: fagomraader, isLoading: fagomraaderIsLoading } =
+    useFetchFagomraader();
 
   const {
     register,
@@ -234,6 +236,7 @@ export default function SokPage() {
                           },
                         ]}
                         shouldAutocomplete={true}
+                        isLoading={faggrupperIsLoading}
                       ></UNSAFE_Combobox>
                     )}
                   />
@@ -277,6 +280,7 @@ export default function SokPage() {
                           },
                         ]}
                         shouldAutocomplete={true}
+                        isLoading={fagomraaderIsLoading}
                       ></UNSAFE_Combobox>
                     )}
                   />
