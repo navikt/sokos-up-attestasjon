@@ -42,10 +42,12 @@ export default function SokPage() {
     storedSokeData,
     setStoredPaginatedOppdragList,
     resetState,
-  } = useStore.getState();
+  } = useStore();
 
-  const { data: faggrupper } = useFetchFaggrupper();
-  const { data: fagomraader } = useFetchFagomraader();
+  const { data: faggrupper, isLoading: faggrupperIsLoading } =
+    useFetchFaggrupper();
+  const { data: fagomraader, isLoading: fagomraaderIsLoading } =
+    useFetchFagomraader();
 
   const {
     register,
@@ -145,7 +147,7 @@ export default function SokPage() {
     };
   }
 
-  const Divider = () => <div className={styles["divider"]} />;
+  const Divider = () => <div className={styles["attestasjonsok-divider"]} />;
 
   return (
     <>
@@ -154,9 +156,9 @@ export default function SokPage() {
           Attestasjon: Søk
         </Heading>
       </div>
-      <div className={styles["sok"]}>
+      <div className={styles["attestasjonsok"]}>
         <>
-          <div className={styles["sok-helptext"]}>
+          <div className={styles["attestasjonsok-helptext"]}>
             <HelpText title="Søkekriterier" placement="left" strategy="fixed">
               <List
                 as="ul"
@@ -171,9 +173,9 @@ export default function SokPage() {
             </HelpText>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className={styles["sok-form"]}>
-              <div className={styles["sok-inputfields"]}>
-                <div className={styles["sok-gjelder"]}>
+            <div className={styles["attestasjonsok-form"]}>
+              <div className={styles["attestasjonsok-inputfields"]}>
+                <div className={styles["attestasjonsok-gjelder"]}>
                   <TextField
                     label="Gjelder"
                     size={"small"}
@@ -184,7 +186,7 @@ export default function SokPage() {
                     })}
                   />
                 </div>
-                <div className={styles["sok-fagsystem"]}>
+                <div className={styles["attestasjonsok-fagsystem"]}>
                   <TextField
                     size={"small"}
                     id="fagSystemId"
@@ -193,7 +195,7 @@ export default function SokPage() {
                     error={errors.fagSystemId?.message}
                   />
                 </div>
-                <div className={styles["combobox"]}>
+                <div className={styles["attestasjonsok-combobox"]}>
                   <Controller
                     control={control}
                     name={"fagGruppe"}
@@ -230,12 +232,13 @@ export default function SokPage() {
                           },
                         ]}
                         shouldAutocomplete={true}
+                        isLoading={faggrupperIsLoading}
                       ></UNSAFE_Combobox>
                     )}
                   />
                 </div>
 
-                <div className={styles["combobox"]}>
+                <div className={styles["attestasjonsok-combobox"]}>
                   <Controller
                     control={control}
                     name={"fagOmraade"}
@@ -273,13 +276,14 @@ export default function SokPage() {
                           },
                         ]}
                         shouldAutocomplete={true}
+                        isLoading={fagomraaderIsLoading}
                       ></UNSAFE_Combobox>
                     )}
                   />
                 </div>
               </div>
               <Divider />
-              <div className={styles["sok-radiobutton"]}>
+              <div className={styles["attestasjonsok-radiobutton"]}>
                 <RadioGroup
                   legend="Status"
                   name="attestertStatus"
@@ -299,7 +303,7 @@ export default function SokPage() {
               </div>
             </div>
             {filteredErrors.length > 0 && (
-              <div className={styles["sok-error-summary"]}>
+              <div className={styles["attestasjonsok-error-summary"]}>
                 <ErrorSummary
                   heading={"Du må fikse disse feilene før du kan fortsette"}
                 >
@@ -314,7 +318,7 @@ export default function SokPage() {
                 </ErrorSummary>
               </div>
             )}
-            <div className={styles["sok-button"]}>
+            <div className={styles["attestasjonsok-button"]}>
               <Button
                 type="submit"
                 size={"small"}
@@ -340,7 +344,7 @@ export default function SokPage() {
         </>
       </div>
       {error && (
-        <div className={styles["sok-error"]}>
+        <div className={styles["attestasjonsok-error"]}>
           <Alert variant={error.variant} role="status">
             {error.message}
           </Alert>
