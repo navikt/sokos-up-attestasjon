@@ -1,47 +1,47 @@
-.sok {
+.attestasjonsok {
   @apply relative mx-auto min-w-[900px] max-w-[1440px] rounded-[8px] bg-[--a-surface-alt-1-subtle] p-5;
 }
 
-.sok-form {
+.attestasjonsok-form {
   @apply flex flex-row gap-10;
 }
 
-.sok-helptext {
+.attestasjonsok-helptext {
   @apply absolute right-5 top-5;
 }
 
-.sok-inputfields {
-  @apply flex flex-col gap-3;
+.attestasjonsok-inputfields {
+  @apply flex w-fit flex-col gap-3;
 }
 
-.sok-gjelder {
+.attestasjonsok-gjelder {
   @apply w-36;
 }
 
-.sok-fagsystem {
+.attestasjonsok-fagsystem {
   @apply w-56;
 }
 
-.sok-radiobutton {
+.attestasjonsok-radiobutton {
   @apply flex flex-col;
 }
 
-.divider {
+.attestasjonsok-divider {
   @apply min-w-0.5 bg-[--a-border-default];
 }
 
-.sok-error {
+.attestasjonsok-error {
   @apply pt-5;
 }
 
-.sok-error-summary {
+.attestasjonsok-error-summary {
   @apply max-w-2xl pt-2;
 }
 
-.sok-button {
+.attestasjonsok-button {
   @apply flex flex-row-reverse gap-6 pt-5;
 }
 
-.combobox {
+.attestasjonsok-combobox {
   @apply min-w-[660px];
 }
