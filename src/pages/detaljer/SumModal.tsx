@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Button, Modal, Table } from "@navikt/ds-react";
+import { formatterNorsk } from "../../util/commonUtils";
 
 type SumModalProps = {
   tittel: string;
@@ -44,13 +45,13 @@ export default function SumModal({ tittel, sum }: SumModalProps) {
                   ([klassekode, sum]) => (
                     <Table.Row key={klassekode}>
                       <Table.DataCell>{klassekode}</Table.DataCell>
-                      <Table.DataCell>{sum ?? 0}</Table.DataCell>
+                      <Table.DataCell>{formatterNorsk(sum)}</Table.DataCell>
                     </Table.Row>
                   ),
                 )}
               <Table.Row>
                 <Table.DataCell>Totalt</Table.DataCell>
-                <Table.DataCell>{sum.totalsum ?? 0}</Table.DataCell>
+                <Table.DataCell>{formatterNorsk(sum.totalsum)}</Table.DataCell>
               </Table.Row>
             </Table.Body>
           </Table>
