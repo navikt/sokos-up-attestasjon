@@ -13,6 +13,7 @@ import {
   isoDatoTilNorskDato,
 } from "../../util/datoUtil";
 import styles from "./DetaljerTabell.module.css";
+import SumModal from "./SumModal";
 import { tranformToAttestasjonlinje } from "./detaljerUtils";
 
 type DetaljerTabellProps = {
@@ -126,8 +127,74 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     return "ingen";
   }
 
+  function calculateSum(type: "attesteres" | "tidligere") {
+    const filteredLinjer =
+      type == "attesteres"
+        ? attestasjonlinjer
+            .filter((linje) => !linje.attestant)
+            .filter((linje) => linje.properties["attester"])
+        : attestasjonlinjer
+            .filter((linje) => linje.attestant)
+            .filter((linje) => linje.properties.vises);
+
+    const sumPerKlassekode = filteredLinjer.reduce(
+      (acc, linje) => {
+        const { kodeKlasse, sats } = linje;
+        if (!acc[kodeKlasse]) {
+          acc[kodeKlasse] = 0;
+        }
+        acc[kodeKlasse] += sats;
+        return acc;
+      },
+      {} as Record<string, number>,
+    );
+
+    const totalsum = filteredLinjer.reduce((sum, linje) => sum + linje.sats, 0);
+
+    return { sumPerKlassekode, totalsum };
+  }
+
   return (
     <>
+      <div className={styles["detaljertabell-knapperad"]}>
+        <Button
+          type={"submit"}
+          size={"medium"}
+          loading={props.isLoading}
+          onClick={() => props.handleSubmit(attestasjonlinjer)}
+        >
+          Oppdater
+        </Button>
+        <Checkbox
+          checked={
+            fjernAntallAttestasjoner > 0 && getCheckedStatus("fjern") === "alle"
+          }
+          indeterminate={getCheckedStatus("fjern") === "noen"}
+          onChange={() => handleToggleAll("fjern")}
+          disabled={fjernAntallAttestasjoner === 0}
+        >
+          Avattester alle
+        </Checkbox>
+        <Checkbox
+          checked={
+            velgAntallAttestasjoner > 0 &&
+            getCheckedStatus("attester") === "alle"
+          }
+          indeterminate={getCheckedStatus("attester") === "noen"}
+          onChange={() => handleToggleAll("attester")}
+          disabled={velgAntallAttestasjoner === 0}
+        >
+          Attester alle
+        </Checkbox>
+        <SumModal
+          tittel={"Sum per klassekode som attesteres"}
+          sum={calculateSum("attesteres")}
+        />
+        <SumModal
+          tittel={"Sum per klassekode tidligere attestert"}
+          sum={calculateSum("tidligere")}
+        />
+      </div>
       <Table>
         <Table.Header>
           <Table.Row>
@@ -143,42 +210,6 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
             <Table.HeaderCell scope="col">Attestant</Table.HeaderCell>
             <Table.HeaderCell scope="col">Ugyldig f.o.m</Table.HeaderCell>
             <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Checkbox
-                checked={
-                  velgAntallAttestasjoner > 0 &&
-                  getCheckedStatus("attester") === "alle"
-                }
-                indeterminate={getCheckedStatus("attester") === "noen"}
-                onChange={() => handleToggleAll("attester")}
-                disabled={velgAntallAttestasjoner === 0}
-              >
-                Attester alle
-              </Checkbox>
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Checkbox
-                checked={
-                  fjernAntallAttestasjoner > 0 &&
-                  getCheckedStatus("fjern") === "alle"
-                }
-                indeterminate={getCheckedStatus("fjern") === "noen"}
-                onChange={() => handleToggleAll("fjern")}
-                disabled={fjernAntallAttestasjoner === 0}
-              >
-                Avattester alle
-              </Checkbox>
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">
-              <Button
-                type={"submit"}
-                size={"medium"}
-                loading={props.isLoading}
-                onClick={() => props.handleSubmit(attestasjonlinjer)}
-              >
-                Oppdater
-              </Button>
-            </Table.HeaderCell>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -247,9 +278,6 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                   {linje.attestant ? "Fjern" : "Attester"}
                 </Checkbox>
               </Table.DataCell>
-              <Table.DataCell />
-              <Table.DataCell />
-              <Table.DataCell />
             </Table.Row>
           ))}
         </Table.Body>

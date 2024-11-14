@@ -7,7 +7,7 @@
 }
 
 .detaljer-tabell {
-  @apply mx-auto min-w-[1600px] max-w-fit rounded-lg bg-white;
+  @apply mx-auto min-w-[1280px] max-w-fit rounded-lg bg-white;
 }
 
 .detaljer-tabell-alerts {

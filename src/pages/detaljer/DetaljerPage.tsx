@@ -13,13 +13,14 @@ import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
+import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 import { ROOT } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
 
 export default function DetaljerPage() {
   const navigate = useNavigate();
-  const { oppdrag } = useStore.getState();
+  const { oppdrag, storedSokeData } = useStore.getState();
 
   const antallAttestanter = oppdrag?.antallAttestanter ?? 1;
   const [alertMessage, setAlertMessage] = useState<{
@@ -31,6 +32,19 @@ export default function DetaljerPage() {
   const { data, isLoading, mutate } = useFetchOppdragsdetaljer(
     oppdrag?.oppdragsId,
   );
+
+  const linjerSomSkalVises: OppdragsDetaljer | undefined = {
+    ...data,
+    saksbehandlerIdent: data?.saksbehandlerIdent ?? "",
+    linjer:
+      data?.linjer.filter((linje) => {
+        if (storedSokeData?.attestertStatus === "true") {
+          return linje.oppdragsLinje.attestert;
+        } else if (storedSokeData?.attestertStatus === "false") {
+          return !linje.oppdragsLinje.attestert;
+        } else return true;
+      }) ?? [],
+  };
 
   useEffect(() => {
     if (!oppdrag) {
@@ -125,12 +139,12 @@ export default function DetaljerPage() {
       </div>
       <div className={styles["detaljer-tabell"]}>
         {isLoading && <ContentLoader />}
-        {data && (
+        {linjerSomSkalVises && (
           <DetaljerTabell
             antallAttestanter={antallAttestanter}
             handleSubmit={handleSubmit}
             isLoading={isLoading || isZosLoading}
-            oppdragsDetaljer={data}
+            oppdragsDetaljer={linjerSomSkalVises}
           />
         )}
       </div>

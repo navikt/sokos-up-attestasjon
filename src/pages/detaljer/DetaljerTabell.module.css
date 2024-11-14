@@ -1,3 +1,7 @@
 .ugyldig-textfield {
   @apply w-32;
 }
+
+.detaljertabell-knapperad {
+  @apply flex flex-row-reverse items-center gap-12 pr-6;
+}

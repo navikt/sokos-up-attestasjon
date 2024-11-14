@@ -26,7 +26,7 @@
           "datoVedtakFom": "2017-05-01",
           "datoVedtakTom": "2017-05-31",
           "delytelseId": "FYL20170501007247481 99736201",
-          "kodeKlasse": "SPATFER",
+          "kodeKlasse": "SPATNIK",
           "linjeId": 2,
           "oppdragsId": 32464186,
           "sats": 1155,
@@ -38,6 +38,22 @@
             "datoUgyldigFom": "9999-12-31"
           }
         ]
+      },
+      {
+        "oppdragsLinje": {
+          "attestert": false,
+          "datoVedtakFom": "2017-06-01",
+          "datoVedtakTom": "2017-06-30",
+          "delytelseId": "FYL20170501007247481 99736202",
+          "kodeKlasse": "SPATFER",
+          "linjeId": 3,
+          "oppdragsId": 32464186,
+          "sats": 1255,
+          "typeSats": "ENG"
+        },
+        "attestasjoner": []
       }
-    ]
+
+    ],
+    "saksbehandlerIdent": ""
   }
