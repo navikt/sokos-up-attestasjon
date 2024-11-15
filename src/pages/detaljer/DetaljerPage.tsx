@@ -126,7 +126,7 @@ export default function DetaljerPage() {
           )}
         </div>
       </div>
-      <div className={styles["detaljer-tabell-alerts"]}>
+      <div className={styles["detaljer-alerts"]}>
         {!!alertMessage && (
           <AlertWithCloseButton
             show={!!alertMessage}
@@ -137,17 +137,15 @@ export default function DetaljerPage() {
           </AlertWithCloseButton>
         )}{" "}
       </div>
-      <div className={styles["detaljer-tabell"]}>
-        {isLoading && <ContentLoader />}
-        {linjerSomSkalVises && (
-          <DetaljerTabell
-            antallAttestanter={antallAttestanter}
-            handleSubmit={handleSubmit}
-            isLoading={isLoading || isZosLoading}
-            oppdragsDetaljer={linjerSomSkalVises}
-          />
-        )}
-      </div>
+      {isLoading && <ContentLoader />}
+      {linjerSomSkalVises && (
+        <DetaljerTabell
+          antallAttestanter={antallAttestanter}
+          handleSubmit={handleSubmit}
+          isLoading={isLoading || isZosLoading}
+          oppdragsDetaljer={linjerSomSkalVises}
+        />
+      )}
     </>
   );
 }

@@ -1,7 +1,11 @@
-.ugyldig-textfield {
+.detaljertabell {
+  @apply mx-auto min-w-[1280px] max-w-fit rounded-lg bg-white;
+}
+
+.detaljertabell-ugyldig-textfield {
   @apply w-32;
 }
 
 .detaljertabell-knapperad {
-  @apply flex flex-row-reverse items-center gap-12 pr-6;
+  @apply mx-auto flex min-w-[1280px] max-w-fit flex-row-reverse items-center gap-12 py-2 pr-6;
 }

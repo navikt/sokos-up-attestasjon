@@ -6,11 +6,7 @@
   @apply mx-auto max-w-[1440px] space-y-5;
 }
 
-.detaljer-tabell {
-  @apply mx-auto min-w-[1280px] max-w-fit rounded-lg bg-white;
-}
-
-.detaljer-tabell-alerts {
+.detaljer-alerts {
   @apply mx-auto max-w-[1440px] pb-3;
 }
 

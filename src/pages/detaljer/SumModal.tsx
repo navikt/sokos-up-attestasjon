@@ -20,6 +20,7 @@ export default function SumModal({ tittel, sum }: SumModalProps) {
   return (
     <div>
       <Button
+        variant="secondary"
         size="small"
         onClick={handleClick}
         disabled={

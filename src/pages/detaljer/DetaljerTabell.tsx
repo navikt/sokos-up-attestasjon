@@ -195,93 +195,95 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
           sum={calculateSum("tidligere")}
         />
       </div>
-      <Table>
-        <Table.Header>
-          <Table.Row>
-            <Table.HeaderCell scope="col">Klassekode</Table.HeaderCell>
-            <Table.HeaderCell scope="col" align="right">
-              Delytelse
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col" align="right">
-              Sats
-            </Table.HeaderCell>
-            <Table.HeaderCell scope="col">Satstype</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Attestant</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Ugyldig f.o.m</Table.HeaderCell>
-            <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>
-          {attestasjonlinjer.map((linje, index) => (
-            <Table.Row
-              key={index}
-              selected={
-                linje.attestant
-                  ? linje.properties.fjern
-                  : linje.properties.attester
-              }
-            >
-              <Table.DataCell>
-                {linje.properties.vises && linje.kodeKlasse}
-              </Table.DataCell>
-              <Table.DataCell align="center">
-                {linje.properties.vises && linje.delytelseId}
-              </Table.DataCell>
-              <Table.DataCell align="center">
-                {linje.properties.vises && formatterNorsk(linje.sats)}
-              </Table.DataCell>
-              <Table.DataCell>
-                {linje.properties.vises && linje.typeSats}
-              </Table.DataCell>
-              <Table.DataCell>
-                {linje.properties.vises &&
-                  `${isoDatoTilNorskDato(linje.datoVedtakFom)} - ${isoDatoTilNorskDato(linje.datoVedtakTom)}`}
-              </Table.DataCell>
-              <Table.DataCell>{linje.attestant}</Table.DataCell>
-              <Table.DataCell>
-                {linje.attestant && (
-                  <div className={styles["ugyldig-textfield"]}>
-                    <TextField
-                      size="small"
-                      label="Ugyldig FOM"
-                      hideLabel
-                      value={
-                        linje.properties.activelyChangedDatoUgyldigFom ||
-                        (linje.properties.fjern &&
-                          linje.properties.suggestedDatoUgyldigFom) ||
-                        isoDatoTilNorskDato(linje.datoUgyldigFom)
-                      }
-                      onChange={(e) => handleTextFieldChange(e, index, linje)}
-                      error={linje.properties.dateError}
-                      disabled={!linje.properties.fjern}
-                    />
-                  </div>
-                )}
-              </Table.DataCell>
-              <Table.DataCell>
-                <Checkbox
-                  checked={
-                    linje.attestant
-                      ? linje.properties.fjern
-                      : linje.properties.attester
-                  }
-                  onChange={(e) =>
-                    toggleCheckbox(
-                      e,
-                      index,
-                      linje,
-                      linje.attestant ? "fjern" : "attester",
-                    )
-                  }
-                >
-                  {linje.attestant ? "Fjern" : "Attester"}
-                </Checkbox>
-              </Table.DataCell>
+      <div className={styles.detaljertabell}>
+        <Table id={"detaljertabell"}>
+          <Table.Header>
+            <Table.Row>
+              <Table.HeaderCell scope="col">Klassekode</Table.HeaderCell>
+              <Table.HeaderCell scope="col" align="right">
+                Delytelse
+              </Table.HeaderCell>
+              <Table.HeaderCell scope="col" align="right">
+                Sats
+              </Table.HeaderCell>
+              <Table.HeaderCell scope="col">Satstype</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Periode</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Attestant</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Ugyldig f.o.m</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
             </Table.Row>
-          ))}
-        </Table.Body>
-      </Table>
+          </Table.Header>
+          <Table.Body>
+            {attestasjonlinjer.map((linje, index) => (
+              <Table.Row
+                key={index}
+                selected={
+                  linje.attestant
+                    ? linje.properties.fjern
+                    : linje.properties.attester
+                }
+              >
+                <Table.DataCell>
+                  {linje.properties.vises && linje.kodeKlasse}
+                </Table.DataCell>
+                <Table.DataCell align="center">
+                  {linje.properties.vises && linje.delytelseId}
+                </Table.DataCell>
+                <Table.DataCell align="center">
+                  {linje.properties.vises && formatterNorsk(linje.sats)}
+                </Table.DataCell>
+                <Table.DataCell>
+                  {linje.properties.vises && linje.typeSats}
+                </Table.DataCell>
+                <Table.DataCell>
+                  {linje.properties.vises &&
+                    `${isoDatoTilNorskDato(linje.datoVedtakFom)} - ${isoDatoTilNorskDato(linje.datoVedtakTom)}`}
+                </Table.DataCell>
+                <Table.DataCell>{linje.attestant}</Table.DataCell>
+                <Table.DataCell>
+                  {linje.attestant && (
+                    <div className={styles["detaljertabell-ugyldig-textfield"]}>
+                      <TextField
+                        size="small"
+                        label="Ugyldig FOM"
+                        hideLabel
+                        value={
+                          linje.properties.activelyChangedDatoUgyldigFom ||
+                          (linje.properties.fjern &&
+                            linje.properties.suggestedDatoUgyldigFom) ||
+                          isoDatoTilNorskDato(linje.datoUgyldigFom)
+                        }
+                        onChange={(e) => handleTextFieldChange(e, index, linje)}
+                        error={linje.properties.dateError}
+                        disabled={!linje.properties.fjern}
+                      />
+                    </div>
+                  )}
+                </Table.DataCell>
+                <Table.DataCell>
+                  <Checkbox
+                    checked={
+                      linje.attestant
+                        ? linje.properties.fjern
+                        : linje.properties.attester
+                    }
+                    onChange={(e) =>
+                      toggleCheckbox(
+                        e,
+                        index,
+                        linje,
+                        linje.attestant ? "fjern" : "attester",
+                      )
+                    }
+                  >
+                    {linje.attestant ? "Fjern" : "Attester"}
+                  </Checkbox>
+                </Table.DataCell>
+              </Table.Row>
+            ))}
+          </Table.Body>
+        </Table>
+      </div>
     </>
   );
 }

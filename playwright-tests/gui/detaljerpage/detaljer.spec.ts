@@ -45,7 +45,7 @@ test.describe("Detaljer", () => {
       await backendWillReturn(page, oppdragsdetaljer);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
-      const tableRows = page.locator("table tbody tr");
+      const tableRows = page.locator("#detaljertabell tbody tr");
       await expect(tableRows).toHaveCount(linjerCount);
 
       const attesterbareRows = await tableRows.getByLabel("Attester");
@@ -74,7 +74,7 @@ test.describe("Detaljer", () => {
       await backendWillReturn(page, oppdragsdetaljer);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
-      const tableRows = page.locator("table tbody tr");
+      const tableRows = page.locator("#detaljertabell tbody tr");
       await expect(tableRows).toHaveCount(3);
 
       const attesterbareRows = await tableRows.getByLabel("Attester");
@@ -108,7 +108,7 @@ test.describe("Detaljer", () => {
       await backendWillReturn(page, oppdragsdetaljer);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
-      const tableRows = page.locator("table tbody tr");
+      const tableRows = page.locator("#detaljertabell tbody tr");
       await expect(tableRows).toHaveCount(3);
 
       const attesterbareRows = await tableRows.getByLabel("Attester");
@@ -137,7 +137,7 @@ test.describe("Detaljer", () => {
       await backendWillReturn(page, oppdragsdetaljer);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
-      const tableRows = page.locator("table tbody tr");
+      const tableRows = page.locator("#detaljertabell tbody tr");
       await expect(tableRows).toHaveCount(linjerCount * 2);
 
       const attesterbareRows = await tableRows.getByLabel("Attester");
@@ -167,7 +167,7 @@ test.describe("Detaljer", () => {
       await backendWillReturn(page, oppdragsdetaljer);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
-      const tableRows = page.locator("table tbody tr");
+      const tableRows = page.locator("#detaljertabell tbody tr");
       await expect(tableRows).toHaveCount(3);
 
       const attesterbareRows = await tableRows.getByLabel("Attester");
@@ -196,7 +196,7 @@ test.describe("Detaljer", () => {
       await backendWillReturn(page, oppdragsdetaljer);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
-      const tableRows = page.locator("table tbody tr");
+      const tableRows = page.locator("#detaljertabell tbody tr");
       await expect(tableRows).toHaveCount(linjerCount * 2);
 
       const attesterbareRows = await tableRows.getByLabel("Attester");
