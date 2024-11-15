@@ -29,9 +29,7 @@ test.describe("Attestasjon", () => {
     await page.waitForLoadState("networkidle");
 
     await page.getByLabel("Gjelder").fill("12345678901");
-    await page
-      .getByRole("button", { name: "Søk Ikon som viser et forstø" })
-      .click();
+    await page.locator("#search").click();
 
     await page.route("*/**/oppdragsdetaljer", async (route) => {
       await route.fulfill({ json: oppdragsdetaljer });

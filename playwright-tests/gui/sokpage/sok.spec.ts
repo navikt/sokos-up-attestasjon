@@ -31,9 +31,7 @@ test.describe("When using Sok in Attestasjoner", () => {
   test(`a letter in gjelderId-field should display error`, async ({ page }) => {
     const fnrfelt = page.getByLabel("Gjelder");
     await fnrfelt.fill("123456a");
-    await page
-      .getByRole("button", { name: "Søk Ikon som viser et forstø" })
-      .click();
+    await page.locator("#search").click();
     await expect(
       page.getByText(
         "Du må fikse disse feilene før du kan fortsetteGjelder-feltet kan bare inneholde",
@@ -46,9 +44,7 @@ test.describe("When using Sok in Attestasjoner", () => {
   }) => {
     const fnrfelt = page.getByLabel("Gjelder");
     await fnrfelt.fill("12345678");
-    await page
-      .getByRole("button", { name: "Søk Ikon som viser et forstø" })
-      .click();
+    await page.locator("#search").click();
     await expect(
       page.getByText(
         "Du må fikse disse feilene før du kan fortsetteGjelder-feltet må inneholde et",
@@ -61,9 +57,7 @@ test.describe("When using Sok in Attestasjoner", () => {
   }) => {
     const fnrfelt = page.getByLabel("Gjelder");
     await fnrfelt.fill("1234567890");
-    await page
-      .getByRole("button", { name: "Søk Ikon som viser et forstø" })
-      .click();
+    await page.locator("#search").click();
     await expect(
       page.getByText(
         "Du må fikse disse feilene før du kan fortsetteGjelder-feltet må inneholde et",
@@ -76,9 +70,7 @@ test.describe("When using Sok in Attestasjoner", () => {
   }) => {
     const fnrfelt = page.getByLabel("Gjelder");
     await fnrfelt.fill("123456789012");
-    await page
-      .getByRole("button", { name: "Søk Ikon som viser et forstø" })
-      .click();
+    await page.locator("#search").click();
     await expect(
       page.getByText(
         "Du må fikse disse feilene før du kan fortsetteGjelder-feltet må inneholde et",
@@ -91,9 +83,7 @@ test.describe("When using Sok in Attestasjoner", () => {
   }) => {
     await page.getByLabel("Fagsystem id").fill("asdf'");
     await page.getByLabel("Faggruppe").fill("PEN");
-    await page
-      .getByRole("button", { name: "Søk Ikon som viser et forstø" })
-      .click();
+    await page.locator("#search").click();
     await expect(
       page.getByText(
         "Du må fikse disse feilene før du kan fortsetteFagsystem id kan bare inneholde",
@@ -110,9 +100,7 @@ test.describe("When using Sok in Attestasjoner", () => {
 
     const fnrfelt = page.getByLabel("Gjelder");
     await fnrfelt.fill("12345612345");
-    await page
-      .getByRole("button", { name: "Søk Ikon som viser et forstø" })
-      .click();
+    await page.locator("#search").click();
     await expect(page.getByText("Ingen treff på søket. Prøv")).toBeVisible();
   });
 
