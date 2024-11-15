@@ -21,9 +21,11 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
         <div className={styles["breadcrumbs-contents"]}>
           {props.searchLink && (
             <div className={styles["breadcrumbs-crumb"]}>
-              <Link to={"/"} className={commonstyles.link}>
-                <BodyShort size="large">Gjeldende Søk</BodyShort>
-              </Link>
+              <BodyShort size="large">
+                <Link to={"/"} className={commonstyles.link}>
+                  Gjeldende Søk
+                </Link>
+              </BodyShort>
             </div>
           )}
           {props.treffliste && (

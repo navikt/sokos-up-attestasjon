@@ -67,7 +67,7 @@ export default function TrefflistePage() {
   return (
     <>
       <div className={commonstyles.pageheading}>
-        <Heading level="1" size="large">
+        <Heading level="1" size="large" spacing>
           Attestasjon: Treffliste
         </Heading>
       </div>

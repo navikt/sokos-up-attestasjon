@@ -23,5 +23,5 @@
 }
 
 .sokekriterier-content {
-  @apply flex flex-row space-x-12 pt-5;
+  @apply flex flex-row gap-10 pt-5;
 }

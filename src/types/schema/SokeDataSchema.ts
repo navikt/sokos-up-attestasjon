@@ -16,7 +16,7 @@ const gjelderIdLengthRule: ZodEffects<ZodString, string, string> = z
 const fagSystemIdRule: ZodString = z
   .string()
   .regex(
-    /^[a-zA-Z0-9-._]*$/,
+    /^[a-zæøåA-ZÆØÅ0-9-._]*$/,
     "Fagsystem id kan bare inneholde bokstaver, tall, bindestrek, punktum og understrek",
   );
 

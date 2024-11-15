@@ -125,17 +125,17 @@ export default function DetaljerPage() {
             </div>
           )}
         </div>
-      </div>
-      <div className={styles["detaljer-alerts"]}>
-        {!!alertMessage && (
-          <AlertWithCloseButton
-            show={!!alertMessage}
-            setShow={() => setAlertMessage(null)}
-            variant={alertMessage.variant}
-          >
-            {alertMessage.message}
-          </AlertWithCloseButton>
-        )}{" "}
+        <div className={styles["detaljer-alerts"]}>
+          {!!alertMessage && (
+            <AlertWithCloseButton
+              show={!!alertMessage}
+              setShow={() => setAlertMessage(null)}
+              variant={alertMessage.variant}
+            >
+              {alertMessage.message}
+            </AlertWithCloseButton>
+          )}{" "}
+        </div>
       </div>
       {isLoading && <ContentLoader />}
       {linjerSomSkalVises && (

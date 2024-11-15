@@ -323,9 +323,7 @@ export default function SokPage() {
                 type="submit"
                 size={"small"}
                 loading={isLoading}
-                icon={
-                  <MagnifyingGlassIcon title="Ikon som viser et forstørrelsesglass" />
-                }
+                icon={<MagnifyingGlassIcon />}
                 iconPosition="right"
               >
                 Søk
@@ -334,7 +332,7 @@ export default function SokPage() {
                 variant="secondary"
                 size={"small"}
                 iconPosition="right"
-                icon={<EraserIcon title="reset søk" />}
+                icon={<EraserIcon />}
                 onClick={handleReset}
               >
                 Nullstill søk
