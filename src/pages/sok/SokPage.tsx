@@ -320,21 +320,21 @@ export default function SokPage() {
             )}
             <div className={styles["attestasjonsok-button"]}>
               <Button
+                id={"search"}
                 type="submit"
                 size={"small"}
                 loading={isLoading}
-                icon={
-                  <MagnifyingGlassIcon title="Ikon som viser et forstørrelsesglass" />
-                }
+                icon={<MagnifyingGlassIcon aria-hidden />}
                 iconPosition="right"
               >
                 Søk
               </Button>
               <Button
+                id={"reset"}
                 variant="secondary"
                 size={"small"}
                 iconPosition="right"
-                icon={<EraserIcon title="reset søk" />}
+                icon={<EraserIcon aria-hidden />}
                 onClick={handleReset}
               >
                 Nullstill søk

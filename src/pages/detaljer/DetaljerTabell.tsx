@@ -5,7 +5,7 @@ import {
   AttestasjonlinjeList,
 } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
-import { formatterNorsk } from "../../util/commonUtils";
+import { formaterTilNorskTall } from "../../util/commonUtils";
 import {
   dagensDato,
   isDateInThePast,
@@ -230,7 +230,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                   {linje.properties.vises && linje.delytelseId}
                 </Table.DataCell>
                 <Table.DataCell align="center">
-                  {linje.properties.vises && formatterNorsk(linje.sats)}
+                  {linje.properties.vises && formaterTilNorskTall(linje.sats)}
                 </Table.DataCell>
                 <Table.DataCell>
                   {linje.properties.vises && linje.typeSats}

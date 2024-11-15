@@ -7,5 +7,5 @@
 }
 
 .detaljertabell-knapperad {
-  @apply mx-auto flex min-w-[1280px] max-w-fit flex-row-reverse items-center gap-12 py-2 pr-6;
+  @apply mx-auto flex min-w-[1280px] max-w-fit flex-row-reverse items-center gap-12 pb-4 pr-4;
 }

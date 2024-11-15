@@ -1,17 +1,17 @@
 .detaljer {
-  @apply mx-auto my-3 space-y-6;
+  @apply mx-auto my-3 min-w-1024 max-w-[1440px] space-y-6;
 }
 
 .detaljer-top {
-  @apply mx-auto max-w-[1440px] space-y-5;
+  @apply mx-36 min-w-1024 space-y-5;
 }
 
 .detaljer-alerts {
-  @apply mx-auto max-w-[1440px] pb-3;
+  @apply mx-36 min-w-1024 max-w-[1440px] pb-3;
 }
 
 .detaljer-label {
-  @apply flex gap-16 rounded-lg bg-white pb-5 pl-5 pt-5;
+  @apply flex flex-wrap gap-10 rounded-lg bg-white pb-5 pl-5 pt-5;
 }
 
 .detaljer-columns {
