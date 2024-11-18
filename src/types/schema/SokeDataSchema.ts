@@ -37,7 +37,7 @@ export const SokeDataSchema = z
       if (data.fagGruppe && data.attestertStatus === "false") return true;
       if (data.fagOmraade && data.attestertStatus === "false") return true;
       if (data.gjelderId?.length !== 0) return true;
-      if (data.fagSystemId?.length !== 0 && data.fagOmraade) return true;
+      if ((data.fagSystemId?.length ?? 0) > 4 && data.fagOmraade) return true;
 
       return false;
     },

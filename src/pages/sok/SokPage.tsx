@@ -129,8 +129,8 @@ export default function SokPage() {
   function handleReset(e: FormEvent) {
     e.preventDefault();
     setError(null);
-    reset();
     resetState();
+    reset();
   }
 
   function convertFagomraadeToComboboxValue(selectedFagomraade: FagOmraade) {
@@ -330,7 +330,7 @@ export default function SokPage() {
                 Søk
               </Button>
               <Button
-                id={"reset"}
+                id={"nullstill"}
                 variant="secondary"
                 size={"small"}
                 iconPosition="right"
