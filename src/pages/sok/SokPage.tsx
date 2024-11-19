@@ -129,8 +129,8 @@ export default function SokPage() {
   function handleReset(e: FormEvent) {
     e.preventDefault();
     setError(null);
-    reset();
     resetState();
+    reset();
   }
 
   function convertFagomraadeToComboboxValue(selectedFagomraade: FagOmraade) {
@@ -168,7 +168,7 @@ export default function SokPage() {
                 <List.Item>Faggruppe og Ikke attestere</List.Item>
                 <List.Item>Fagområde og Ikke attesterte</List.Item>
                 <List.Item>Gjelder</List.Item>
-                <List.Item>Fagsystem id og fagområde</List.Item>
+                <List.Item>Fagsystem id (minst 4 tegn) og Fagområde</List.Item>
               </List>
             </HelpText>
           </div>
@@ -330,7 +330,7 @@ export default function SokPage() {
                 Søk
               </Button>
               <Button
-                id={"reset"}
+                id={"nullstill"}
                 variant="secondary"
                 size={"small"}
                 iconPosition="right"

@@ -87,11 +87,11 @@ export default function TrefflistePage() {
               />
               <LabelText
                 label={"Faggruppe"}
-                text={storedSokeData?.fagGruppe?.navn}
+                text={storedSokeData?.fagGruppe?.type}
               />
               <LabelText
                 label={"Fagområde"}
-                text={storedSokeData?.fagOmraade?.navn}
+                text={storedSokeData?.fagOmraade?.kode}
               />
               <LabelText
                 label={"Attestert status"}
