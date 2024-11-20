@@ -3,7 +3,7 @@ import { HttpStatusCodeError } from "../../types/Errors";
 
 const config = (baseUri: string): CreateAxiosDefaults => ({
   baseURL: baseUri,
-  timeout: 30000,
+  timeout: 60000,
   withCredentials: true,
   headers: {
     Pragma: "no-cache",
