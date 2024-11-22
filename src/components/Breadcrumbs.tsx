@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { ChevronRightIcon } from "@navikt/aksel-icons";
 import { BodyShort } from "@navikt/ds-react";
 import commonstyles from "../styles/common-styles.module.css";
