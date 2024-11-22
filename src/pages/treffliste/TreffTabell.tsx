@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { Pagination, Popover, SortState, Table } from "@navikt/ds-react";
 import { PaginatedOppdragList } from "../../api/models/PaginatedDTO";
 import RowsPerPageSelector from "../../components/RowsPerPageSelector";
