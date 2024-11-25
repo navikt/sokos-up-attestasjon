@@ -19,6 +19,7 @@ function splittOgLeggTilEkstraLinjeForManuellePosteringer(
     datoVedtakTom: oppdragslinje.oppdragsLinje.datoVedtakTom,
     oppdragsId: oppdragslinje.oppdragsLinje.oppdragsId,
     linjeId: oppdragslinje.oppdragsLinje.linjeId,
+    kontonummer: oppdragslinje.oppdragsLinje.kontonummer,
     properties: {
       activelyChangedDatoUgyldigFom: "",
       attester: false,

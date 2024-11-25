@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button, Checkbox, Table, TextField } from "@navikt/ds-react";
+import { Button, Checkbox, Table, TextField, Tooltip } from "@navikt/ds-react";
 import {
   Attestasjonlinje,
   AttestasjonlinjeList,
@@ -223,9 +223,11 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                     : linje.properties.attester
                 }
               >
-                <Table.DataCell>
-                  {linje.properties.vises && linje.kodeKlasse}
-                </Table.DataCell>
+                <Tooltip content={linje.kontonummer}>
+                  <Table.DataCell>
+                    {linje.properties.vises && linje.kodeKlasse}
+                  </Table.DataCell>
+                </Tooltip>
                 <Table.DataCell align="center">
                   {linje.properties.vises && linje.delytelseId}
                 </Table.DataCell>
