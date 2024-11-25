@@ -22,8 +22,11 @@ spec:
     max: 2
   ingresses:
     - "https://utbetalingsportalen.intern.dev.nav.no/sokos-up-attestasjon"
+    - "https://utbetalingsportalen.ansatt.dev.nav.no/sokos-up-attestasjon"
     - "https://utbetalingsportalen-qx.intern.dev.nav.no/sokos-up-attestasjon"
-  resources:
+    - "https://utbetalingsportalen-qx.ansatt.dev.nav.no/sokos-up-attestasjon"
+
+    resources:
     limits:
       cpu: "3"
       memory: 768Mi
