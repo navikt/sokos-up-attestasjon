@@ -242,7 +242,11 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                   <Button
                     size={"small"}
                     icon={
-                      toggleAllRows ? <ChevronUpIcon /> : <ChevronDownIcon />
+                      toggleAllRows ? (
+                        <ChevronUpIcon title="Pil opp" />
+                      ) : (
+                        <ChevronDownIcon title="Pil ned" />
+                      )
                     }
                     iconPosition="right"
                     variant="tertiary"
