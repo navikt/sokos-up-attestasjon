@@ -1,60 +1,75 @@
-
-  {
-    "linjer": [
-      {
-        "oppdragsLinje": {
-          "attestert": true,
-          "datoVedtakFom": "2017-05-01",
-          "datoVedtakTom": "2017-05-31",
-          "delytelseId": "FYL20170501007247481 79947001",
-          "kodeKlasse": "SPATFER",
-          "linjeId": 1,
-          "oppdragsId": 32464186,
-          "sats": 1009,
-          "typeSats": "ENG"
-        },
-        "attestasjoner": [
-          {
-            "attestant": "K2786FPW",
-            "datoUgyldigFom": "9999-12-31"
-          }
-        ]
+{
+  "linjer": [
+    {
+      "oppdragsLinje": {
+        "attestert": true,
+        "datoVedtakFom": "2017-05-01",
+        "datoVedtakTom": "2017-05-31",
+        "delytelseId": "FYL20170501007247481 79947001",
+        "kodeKlasse": "SPATFER",
+        "linjeId": 1,
+        "oppdragsId": 32464186,
+        "sats": 1009,
+        "typeSats": "ENG",
+        "kontonummer": "1234567",
+        "kid": "123456789012345678",
+        "skyldner": "98765432100",
+        "refusjonsid": "REF123456",
+        "utbetalesTil": "12345678903",
+        "grad": 60
       },
-      {
-        "oppdragsLinje": {
-          "attestert": true,
-          "datoVedtakFom": "2017-05-01",
-          "datoVedtakTom": "2017-05-31",
-          "delytelseId": "FYL20170501007247481 99736201",
-          "kodeKlasse": "SPATNIK",
-          "linjeId": 2,
-          "oppdragsId": 32464186,
-          "sats": 1155,
-          "typeSats": "ENG"
-        },
-        "attestasjoner": [
-          {
-            "attestant": "K2786FPW",
-            "datoUgyldigFom": "9999-12-31"
-          }
-        ]
+      "attestasjoner": [
+        {
+          "attestant": "K2786FPW",
+          "datoUgyldigFom": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "oppdragsLinje": {
+        "attestert": true,
+        "datoVedtakFom": "2017-05-01",
+        "datoVedtakTom": "2017-05-31",
+        "delytelseId": "FYL20170501007247481 99736201",
+        "kodeKlasse": "SPATNIK",
+        "linjeId": 2,
+        "oppdragsId": 32464186,
+        "sats": 1155,
+        "typeSats": "ENG",
+        "kontonummer": "1234567",
+        "kid": "123456789012345679",
+        "skyldner": "98765432100",
+        "refusjonsid": "REF123457",
+        "utbetalesTil": "12345678903",
+        "grad": 100
       },
-      {
-        "oppdragsLinje": {
-          "attestert": false,
-          "datoVedtakFom": "2017-06-01",
-          "datoVedtakTom": "2017-06-30",
-          "delytelseId": "FYL20170501007247481 99736202",
-          "kodeKlasse": "SPATFER",
-          "linjeId": 3,
-          "oppdragsId": 32464186,
-          "sats": 1255,
-          "typeSats": "ENG",
-          "kontonummer": "1234567"
-        },
-        "attestasjoner": []
-      }
-
-    ],
-    "saksbehandlerIdent": ""
-  }
+      "attestasjoner": [
+        {
+          "attestant": "K2786FPW",
+          "datoUgyldigFom": "9999-12-31"
+        }
+      ]
+    },
+    {
+      "oppdragsLinje": {
+        "attestert": false,
+        "datoVedtakFom": "2017-06-01",
+        "datoVedtakTom": "2017-06-30",
+        "delytelseId": "FYL20170501007247481 99736202",
+        "kodeKlasse": "SPATFER",
+        "linjeId": 3,
+        "oppdragsId": 32464186,
+        "sats": 1255,
+        "typeSats": "ENG",
+        "kontonummer": "1234567",
+        "kid": "123456789012345680",
+        "skyldner": "98765432100",
+        "refusjonsid": "REF123458",
+        "utbetalesTil": "12345678903",
+        "grad": 50
+      },
+      "attestasjoner": []
+    }
+  ],
+  "saksbehandlerIdent": ""
+}
