@@ -12,6 +12,11 @@ export const AttestasjonlinjeSchema = z.object({
   attestant: z.string().optional(),
   datoUgyldigFom: z.string().optional(),
   kontonummer: z.string(),
+  kid: z.string().optional(),
+  skyldner: z.string().optional(),
+  refusjonsid: z.string().optional(),
+  utbetalesTil: z.string().optional(),
+  grad: z.number().optional(),
   properties: z.object({
     activelyChangedDatoUgyldigFom: z.string().optional(),
     attester: z.boolean(),
