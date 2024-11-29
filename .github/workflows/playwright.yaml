@@ -9,3 +9,4 @@ on:
 jobs:
   test:
     uses: navikt/moby-gha-workflows/.github/workflows/playwright.yaml@main
+    secrets: inherit
