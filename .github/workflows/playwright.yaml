@@ -8,5 +8,5 @@ on:
       - main
 jobs:
   test:
-    uses: navikt/moby-gha-workflows/.github/workflows/playwright.yaml@main
+    uses: navikt/moby-gha-workflows/.github/workflows/playwright.yaml@chore/fjerne-navikt-scope
     secrets: inherit
