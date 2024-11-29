@@ -1,5 +1,11 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
-import { Button, Checkbox, Table, TextField } from "@navikt/ds-react";
+import React, {
+  ChangeEvent,
+  PropsWithChildren,
+  useEffect,
+  useState,
+} from "react";
+import { ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
+import { Button, Checkbox, Table, TextField, Tooltip } from "@navikt/ds-react";
 import {
   Attestasjonlinje,
   AttestasjonlinjeList,
@@ -13,6 +19,7 @@ import {
   isoDatoTilNorskDato,
 } from "../../util/datoUtil";
 import styles from "./DetaljerTabell.module.css";
+import ExpandableRow from "./ExpandableRow";
 import SumModal from "./SumModal";
 import { tranformToAttestasjonlinje } from "./detaljerUtils";
 
@@ -32,6 +39,30 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     useState<number>(0);
   const [fjernAntallAttestasjoner, setFjernAntallAttestasjoner] =
     useState<number>(0);
+  const [toggleAllRows, setToggleAllRows] = useState<boolean>(false);
+  const [openRows, setOpenRows] = useState<Record<number, boolean>>({});
+
+  function handleToggleAllRows() {
+    const newToggleAll = !toggleAllRows;
+    setToggleAllRows(newToggleAll);
+    const newOpenRows = attestasjonlinjer.reduce(
+      (acc, _, index) => {
+        acc[index] = newToggleAll;
+        return acc;
+      },
+      {} as Record<number, boolean>,
+    );
+    setOpenRows(newOpenRows);
+  }
+
+  function handleRowToggle(index: number, open: boolean) {
+    setOpenRows((prev) => {
+      const newOpenRows = { ...prev, [index]: open };
+      const allOpen = Object.values(newOpenRows).every((isOpen) => isOpen);
+      setToggleAllRows(allOpen);
+      return newOpenRows;
+    });
+  }
 
   useEffect(() => {
     if (props.oppdragsDetaljer) {
@@ -154,6 +185,31 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     return { sumPerKlassekode, totalsum };
   }
 
+  const RowWrapper = ({
+    linje,
+    children,
+    index,
+  }: PropsWithChildren & { linje: Attestasjonlinje; index: number }) => {
+    if (!linje.properties.vises) return <Table.Row>{children}</Table.Row>;
+    else
+      return (
+        <Table.ExpandableRow
+          content={<ExpandableRow data={linje} />}
+          togglePlacement="right"
+          expandOnRowClick
+          key={index}
+          open={openRows[index] || false}
+          onOpenChange={(open) => handleRowToggle(index, open)}
+          selected={
+            linje.attestant ? linje.properties.fjern : linje.properties.attester
+          }
+        >
+          {" "}
+          {children}{" "}
+        </Table.ExpandableRow>
+      );
+  };
+
   return (
     <>
       <div className={styles["detaljertabell-knapperad"]}>
@@ -211,21 +267,35 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
               <Table.HeaderCell scope="col">Attestant</Table.HeaderCell>
               <Table.HeaderCell scope="col">Ugyldig f.o.m</Table.HeaderCell>
               <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
+              <Table.HeaderCell scope="col">
+                <div className={styles["detaljertabell-toggle-rows"]}>
+                  <Button
+                    size={"small"}
+                    icon={
+                      toggleAllRows ? (
+                        <ChevronUpIcon title="Pil opp" />
+                      ) : (
+                        <ChevronDownIcon title="Pil ned" />
+                      )
+                    }
+                    iconPosition="right"
+                    variant="tertiary"
+                    onClick={handleToggleAllRows}
+                  >
+                    {toggleAllRows ? "Lukk alle" : "Åpne alle"}
+                  </Button>
+                </div>
+              </Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {attestasjonlinjer.map((linje, index) => (
-              <Table.Row
-                key={index}
-                selected={
-                  linje.attestant
-                    ? linje.properties.fjern
-                    : linje.properties.attester
-                }
-              >
-                <Table.DataCell>
-                  {linje.properties.vises && linje.kodeKlasse}
-                </Table.DataCell>
+              <RowWrapper key={"row" + index} linje={linje} index={index}>
+                <Tooltip content={linje.kontonummer}>
+                  <Table.DataCell>
+                    {linje.properties.vises && linje.kodeKlasse}
+                  </Table.DataCell>
+                </Tooltip>
                 <Table.DataCell align="center">
                   {linje.properties.vises && linje.delytelseId}
                 </Table.DataCell>
@@ -279,7 +349,11 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                     {linje.attestant ? "Fjern" : "Attester"}
                   </Checkbox>
                 </Table.DataCell>
-              </Table.Row>
+                {
+                  // Viser en ekstra celle for å ikke bryte raden med knapper fra expandablerow
+                  !linje.properties.vises && <Table.DataCell> </Table.DataCell>
+                }
+              </RowWrapper>
             ))}
           </Table.Body>
         </Table>
