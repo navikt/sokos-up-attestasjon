@@ -9,4 +9,3 @@ on:
 jobs:
   test:
     uses: navikt/moby-gha-workflows/.github/workflows/playwright.yaml@chore/fjerne-navikt-scope
-    secrets: inherit
