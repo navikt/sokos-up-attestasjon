@@ -6,6 +6,7 @@ import React, {
 } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
 import { Button, Checkbox, Table, TextField, Tooltip } from "@navikt/ds-react";
+import { useStore } from "../../store/AppState";
 import {
   Attestasjonlinje,
   AttestasjonlinjeList,
@@ -41,6 +42,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     useState<number>(0);
   const [toggleAllRows, setToggleAllRows] = useState<boolean>(false);
   const [openRows, setOpenRows] = useState<Record<number, boolean>>({});
+  const { storedSokeData } = useStore.getState();
 
   function handleToggleAllRows() {
     const newToggleAll = !toggleAllRows;
@@ -242,14 +244,18 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
         >
           Attester alle
         </Checkbox>
-        <SumModal
-          tittel={"Sum per klassekode som attesteres"}
-          sum={calculateSum("attesteres")}
-        />
-        <SumModal
-          tittel={"Sum per klassekode tidligere attestert"}
-          sum={calculateSum("tidligere")}
-        />
+        {storedSokeData?.attestertStatus !== "true" && (
+          <SumModal
+            tittel={"Sum per klassekode som attesteres"}
+            sum={calculateSum("attesteres")}
+          />
+        )}
+        {storedSokeData?.attestertStatus !== "false" && (
+          <SumModal
+            tittel={"Sum per klassekode tidligere attestert"}
+            sum={calculateSum("tidligere")}
+          />
+        )}
       </div>
       <div className={styles.detaljertabell}>
         <Table id={"detaljertabell"}>
