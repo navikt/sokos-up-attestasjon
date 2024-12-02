@@ -11,6 +11,7 @@ function splittOgLeggTilEkstraLinjeForManuellePosteringer(
   innloggetSaksbehandlerIdent: string,
 ): AttestasjonlinjeList {
   const enLinjeUtenAttestasjon: Attestasjonlinje = {
+    attestert: oppdragslinje.oppdragsLinje.attestert,
     kodeKlasse: oppdragslinje.oppdragsLinje.kodeKlasse,
     delytelseId: oppdragslinje.oppdragsLinje.delytelseId,
     sats: oppdragslinje.oppdragsLinje.sats,

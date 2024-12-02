@@ -27,6 +27,7 @@ function anOppdragslinje(
       oppdragsId: 98765432,
       sats: 1234.0 + n * 100,
       typeSats: "ENG",
+      kontonummer: "1231234",
     },
     attestasjoner:
       antallAttestasjoner === 0

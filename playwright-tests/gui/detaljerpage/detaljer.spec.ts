@@ -58,7 +58,7 @@ test.describe("Detaljer", () => {
       const fjernbareRows = await tableRows.getByLabel("Fjern");
       await expect(fjernbareRows).toHaveCount(0);
 
-      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      const rowsWithKodeklasse = page.locator("td", { hasText: "KODEKLASSE" });
       await expect(rowsWithKodeklasse).toHaveCount(3);
 
       const blankRowsCount =
@@ -87,7 +87,7 @@ test.describe("Detaljer", () => {
       const fjernbareRows = await tableRows.getByLabel("Fjern");
       await expect(fjernbareRows).toHaveCount(3);
 
-      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      const rowsWithKodeklasse = page.locator("td", { hasText: "KODEKLASSE" });
       await expect(rowsWithKodeklasse).toHaveCount(3);
 
       const blankRowsCount =
@@ -121,7 +121,7 @@ test.describe("Detaljer", () => {
       const fjernbareRows = await tableRows.getByLabel("Fjern");
       await expect(fjernbareRows).toHaveCount(0);
 
-      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      const rowsWithKodeklasse = page.locator("td", { hasText: "KODEKLASSE" });
       await expect(rowsWithKodeklasse).toHaveCount(3);
 
       const blankRowsCount =
@@ -150,7 +150,7 @@ test.describe("Detaljer", () => {
       const fjernbareRows = await tableRows.getByLabel("Fjern");
       await expect(fjernbareRows).toHaveCount(3);
 
-      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      const rowsWithKodeklasse = page.locator("td", { hasText: "KODEKLASSE" });
       await expect(rowsWithKodeklasse).toHaveCount(3);
 
       const blankRowsCount =
@@ -180,7 +180,7 @@ test.describe("Detaljer", () => {
       const fjernbareRows = await tableRows.getByLabel("Fjern");
       await expect(fjernbareRows).toHaveCount(3);
 
-      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      const rowsWithKodeklasse = page.locator("td", { hasText: "KODEKLASSE" });
       await expect(rowsWithKodeklasse).toHaveCount(3);
 
       const blankRowsCount =
@@ -209,7 +209,7 @@ test.describe("Detaljer", () => {
       const fjernbareRows = await tableRows.getByLabel("Fjern");
       await expect(fjernbareRows).toHaveCount(6);
 
-      const rowsWithKodeklasse = page.getByRole("cell", { name: "KODEKLASSE" });
+      const rowsWithKodeklasse = page.locator("td", { hasText: "KODEKLASSE" });
       await expect(rowsWithKodeklasse).toHaveCount(3);
 
       const blankRowsCount =
