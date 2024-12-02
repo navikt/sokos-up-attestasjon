@@ -1,0 +1,3 @@
+.expandable {
+  @apply flex flex-wrap gap-10;
+}
