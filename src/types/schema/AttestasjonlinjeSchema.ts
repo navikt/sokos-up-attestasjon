@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 export const AttestasjonlinjeSchema = z.object({
+  attestert: z.boolean(),
   kodeKlasse: z.string(),
   delytelseId: z.string(),
   sats: z.number(),

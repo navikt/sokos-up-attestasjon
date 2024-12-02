@@ -165,7 +165,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
             .filter((linje) => !linje.attestant)
             .filter((linje) => linje.properties["attester"])
         : attestasjonlinjer
-            .filter((linje) => linje.attestant)
+            .filter((linje) => linje.attestert)
             .filter((linje) => linje.properties.vises);
 
     const sumPerKlassekode = filteredLinjer.reduce(
