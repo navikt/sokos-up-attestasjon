@@ -3,28 +3,23 @@ import { AppState } from "../../src/store/AppState";
 const state: { state: AppState; version: number } = {
   state: {
     gjelderNavn: "Navn Fra Treffliste AppState",
-    storedPaginatedOppdragList: {
-      data: [
-        {
-          ansvarsSted: "1337",
-          antallAttestanter: 1,
-          fagGruppe: "HELSETJENESTER FRIKORT TAK 1 OG 2",
-          fagOmraade: "Egenandelsrefusjon frikort tak 1",
-          fagSystemId: "12344321",
-          gjelderId: "12345612345",
-          kodeFagGruppe: "FRIKORT",
-          kodeFagOmraade: "FRIKORT1",
-          kostnadsSted: "2360",
-          oppdragsId: 25798519,
-          erSkjermetForSaksbehandler: false,
-        },
-      ],
-      page: 1,
-      rows: 10,
-      total: 1,
-    },
+    oppdragList: [
+      {
+        ansvarsSted: "1337",
+        antallAttestanter: 1,
+        fagGruppe: "HELSETJENESTER FRIKORT TAK 1 OG 2",
+        fagOmraade: "Egenandelsrefusjon frikort tak 1",
+        fagSystemId: "12344321",
+        gjelderId: "12345612345",
+        kodeFagGruppe: "FRIKORT",
+        kodeFagOmraade: "FRIKORT1",
+        kostnadsSted: "2360",
+        oppdragsId: 25798519,
+        erSkjermetForSaksbehandler: false,
+      },
+    ],
 
-    storedSokeData: {
+    sokeData: {
       gjelderId: "12345612345",
       attestertStatus: "false",
       fagSystemId: "",

@@ -1,35 +1,31 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
-import { PaginatedOppdragList } from "../api/models/PaginatedDTO";
-import { Oppdrag } from "../types/Oppdrag";
+import { Oppdrag, OppdragList } from "../types/Oppdrag";
 import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
 import { SokeData } from "../types/SokeData";
 
 export type AppState = {
   gjelderNavn: string;
-  storedPaginatedOppdragList?: PaginatedOppdragList;
+  oppdragList?: OppdragList;
   oppdragsDetaljer?: OppdragsDetaljer;
-  storedSokeData?: SokeData;
+  sokeData?: SokeData;
   oppdrag?: Oppdrag;
 };
 
 type AppStateActions = {
   resetState: () => void;
   setGjelderNavn: (gjelderNavn: string) => void;
-  setStoredPaginatedOppdragList: (
-    paginatedOppdragList: PaginatedOppdragList,
-  ) => void;
+  setOppdragList: (oppdragList: OppdragList) => void;
   setOppdragsDetaljer: (oppdragsDetaljer: OppdragsDetaljer) => void;
-  setStoredSokeData: (sokeData: SokeData) => void;
+  setSokeData: (sokeData: SokeData) => void;
   setOppdrag: (oppdrag: Oppdrag | undefined) => void;
 };
 
 const initAppState = {
   gjelderNavn: "",
-  storedPaginatedOppdragList: undefined,
-  storedOppdrag: undefined,
+  oppdragList: undefined,
   oppdragsDetaljer: undefined,
-  storedSokeData: undefined,
+  sokeData: undefined,
   oppdrag: undefined,
 };
 
@@ -40,13 +36,10 @@ export const useStore = create<AppState & AppStateActions>()(
         ...initAppState,
         resetState: () => set({ ...initAppState }),
         setGjelderNavn: (gjelderNavn: string) => set({ gjelderNavn }),
-        setStoredPaginatedOppdragList: (
-          storedPaginatedOppdragList: PaginatedOppdragList,
-        ) => set({ storedPaginatedOppdragList }),
+        setOppdragList: (oppdragList: OppdragList) => set({ oppdragList }),
         setOppdragsDetaljer: (oppdragsDetaljer: OppdragsDetaljer) =>
           set({ oppdragsDetaljer }),
-        setStoredSokeData: (storedSokeData: SokeData) =>
-          set({ storedSokeData }),
+        setSokeData: (sokeData: SokeData) => set({ sokeData }),
         setOppdrag: (oppdrag: Oppdrag | undefined) => set({ oppdrag }),
       }),
       {

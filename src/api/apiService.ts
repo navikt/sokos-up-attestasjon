@@ -3,6 +3,7 @@ import { AttestasjonlinjeList } from "../types/Attestasjonlinje";
 import { FagGruppeList } from "../types/FagGruppe";
 import { FagOmraadeList } from "../types/FagOmraade";
 import { GjelderNavn } from "../types/GjelderNavn";
+import { OppdragList } from "../types/Oppdrag";
 import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
 import { SokeParameter } from "../types/SokeParameter";
 import { norskDatoTilIsoDato } from "../util/datoUtil";
@@ -10,7 +11,6 @@ import { axiosFetcher, axiosPostFetcher } from "./config/apiConfig";
 import { AttesterOppdragRequest } from "./models/AttesterOppdragRequest";
 import { AttesterOppdragResponse } from "./models/AttesterOppdragResponse";
 import { GjelderIdRequest } from "./models/GjelderIdRequest";
-import { PaginatedOppdragList } from "./models/PaginatedDTO";
 
 const BASE_URI = {
   URI: "/oppdrag-api",
@@ -70,16 +70,9 @@ export function useFetchOppdragsdetaljer(oppdragsId?: number) {
   return { data, isLoading, mutate };
 }
 
-export async function hentOppdrag(
-  request: SokeParameter,
-  page?: number,
-  rows?: number,
-) {
-  const url =
-    page !== undefined && rows !== undefined
-      ? `/api/v1/attestasjon/sok?page=${page}&rows=${rows}`
-      : `/api/v1/attestasjon/sok`;
-  return await axiosPostFetcher<SokeParameter, PaginatedOppdragList>(
+export async function hentOppdrag(request: SokeParameter) {
+  const url = `/api/v1/attestasjon/sok`;
+  return await axiosPostFetcher<SokeParameter, OppdragList>(
     BASE_URI.URI,
     url,
     request,

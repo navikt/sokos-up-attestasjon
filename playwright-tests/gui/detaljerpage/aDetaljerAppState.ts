@@ -21,7 +21,7 @@ const detaljerAppState: State = {
       oppdragsId: 98765432,
       erSkjermetForSaksbehandler: false,
     },
-    storedSokeData: {
+    sokeData: {
       gjelderId: "",
       attestertStatus: "alle",
       fagSystemId: "666-",
