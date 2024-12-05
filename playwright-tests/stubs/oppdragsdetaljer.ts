@@ -13,6 +13,7 @@ const oppdragsdetaljer: OppdragsDetaljer = {
         oppdragsId: 98765432,
         sats: 1234.0,
         typeSats: "ENG",
+        kontonummer: "1234567",
       },
       attestasjoner: [
         {

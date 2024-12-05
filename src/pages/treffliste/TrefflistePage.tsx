@@ -1,68 +1,40 @@
-import { useEffect, useState } from "react";
-import { Alert, Heading } from "@navikt/ds-react";
-import { hentNavn, hentOppdrag } from "../../api/apiService";
+import { useEffect } from "react";
+import { Heading } from "@navikt/ds-react";
+import { hentNavn } from "../../api/apiService";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import ContentLoader from "../../components/ContentLoader";
 import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
-import { ErrorMessage } from "../../types/ErrorMessage";
-import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { BASENAME } from "../../util/constants";
 import TreffTabell from "./TreffTabell";
 import styles from "./TrefflistePage.module.css";
 
 export default function TrefflistePage() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [error, setError] = useState<ErrorMessage | null>(null);
-  const {
-    storedPaginatedOppdragList,
-    setStoredPaginatedOppdragList,
-    storedSokeData,
-    gjelderNavn,
-    setGjelderNavn,
-  } = useStore();
+  const { oppdragList, sokeData, gjelderNavn, setGjelderNavn } = useStore();
 
   function getAttestertStatusText() {
-    if (storedSokeData?.attestertStatus === "true") {
+    if (sokeData?.attestertStatus === "true") {
       return "Attestert";
-    } else if (storedSokeData?.attestertStatus === "false") {
+    } else if (sokeData?.attestertStatus === "false") {
       return "Ikke attestert";
-    } else if (storedSokeData?.attestertStatus === "alle") {
+    } else if (sokeData?.attestertStatus === "alle") {
       return "Alle";
     } else {
       return "";
     }
   }
 
-  function sokOppdrag(page?: number, rows?: number) {
-    setIsLoading(true);
-    const sokeParameter = SokeDataToSokeParameter.parse(storedSokeData);
-    hentOppdrag(sokeParameter, page, rows)
-      .then((response) => {
-        setIsLoading(false);
-        setStoredPaginatedOppdragList(response);
-      })
-      .catch((error) => {
-        setError({
-          variant: "error",
-          message: error.message,
-        });
-        setIsLoading(false);
-      });
-  }
-
   useEffect(() => {
-    if (!storedPaginatedOppdragList) {
+    if (!oppdragList) {
       window.location.replace(BASENAME);
     }
 
-    if (storedSokeData?.gjelderId !== "" && !gjelderNavn) {
-      hentNavn({ gjelderId: storedSokeData?.gjelderId }).then((response) => {
+    if (sokeData?.gjelderId !== "" && !gjelderNavn) {
+      hentNavn({ gjelderId: sokeData?.gjelderId }).then((response) => {
         setGjelderNavn(response.navn);
       });
     }
-  }, [storedPaginatedOppdragList, gjelderNavn, setGjelderNavn, storedSokeData]);
+  }, [oppdragList, gjelderNavn, setGjelderNavn, sokeData]);
 
   return (
     <>
@@ -79,19 +51,13 @@ export default function TrefflistePage() {
               Søkekriterier benyttet:
             </Heading>
             <div className={styles["sokekriterier-content"]}>
-              <LabelText label={"Gjelder"} text={storedSokeData?.gjelderId} />
+              <LabelText label={"Gjelder"} text={sokeData?.gjelderId} />
               <LabelText label={"Navn"} text={gjelderNavn} />
-              <LabelText
-                label={"Fagsystem id"}
-                text={storedSokeData?.fagSystemId}
-              />
-              <LabelText
-                label={"Faggruppe"}
-                text={storedSokeData?.fagGruppe?.type}
-              />
+              <LabelText label={"Fagsystem id"} text={sokeData?.fagSystemId} />
+              <LabelText label={"Faggruppe"} text={sokeData?.fagGruppe?.type} />
               <LabelText
                 label={"Fagområde"}
-                text={storedSokeData?.fagOmraade?.kode}
+                text={sokeData?.fagOmraade?.kode}
               />
               <LabelText
                 label={"Attestert status"}
@@ -101,22 +67,8 @@ export default function TrefflistePage() {
           </div>
         </div>
 
-        {isLoading && <ContentLoader />}
-        {!isLoading && storedPaginatedOppdragList && (
-          <TreffTabell
-            pagintatedOppdragList={storedPaginatedOppdragList}
-            sokOppdrag={sokOppdrag}
-          />
-        )}
+        {oppdragList && <TreffTabell oppdragList={oppdragList} />}
       </div>
-
-      {error && (
-        <div className={styles["treffliste-error"]}>
-          <Alert variant={error.variant} role="status">
-            {error.message}
-          </Alert>
-        </div>
-      )}
     </>
   );
 }

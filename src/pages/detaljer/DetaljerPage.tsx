@@ -22,7 +22,7 @@ import DetaljerTabell from "./DetaljerTabell";
 
 export default function DetaljerPage() {
   const navigate = useNavigate();
-  const { oppdrag, storedSokeData, setStoredPaginatedOppdragList } = useStore();
+  const { oppdrag, sokeData, setOppdragList } = useStore();
 
   const antallAttestanter = oppdrag?.antallAttestanter ?? 1;
   const [alertMessage, setAlertMessage] = useState<{
@@ -40,9 +40,9 @@ export default function DetaljerPage() {
     saksbehandlerIdent: data?.saksbehandlerIdent ?? "",
     linjer:
       data?.linjer.filter((linje) => {
-        if (storedSokeData?.attestertStatus === "true") {
+        if (sokeData?.attestertStatus === "true") {
           return linje.oppdragsLinje.attestert;
-        } else if (storedSokeData?.attestertStatus === "false") {
+        } else if (sokeData?.attestertStatus === "false") {
           return !linje.oppdragsLinje.attestert;
         } else return true;
       }) ?? [],
@@ -102,10 +102,8 @@ export default function DetaljerPage() {
           setAlertMessage({ message: error, variant: "error" });
         });
 
-      const sokeParameter = SokeDataToSokeParameter.parse(storedSokeData);
-      await hentOppdrag(sokeParameter).then((res) =>
-        setStoredPaginatedOppdragList(res),
-      );
+      const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
+      await hentOppdrag(sokeParameter).then((res) => setOppdragList(res));
     } finally {
       if (!isLoading) {
         setIsZosLoading(false);

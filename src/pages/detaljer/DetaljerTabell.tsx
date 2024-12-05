@@ -42,7 +42,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     useState<number>(0);
   const [toggleAllRows, setToggleAllRows] = useState<boolean>(false);
   const [openRows, setOpenRows] = useState<Record<number, boolean>>({});
-  const { storedSokeData } = useStore.getState();
+  const { sokeData } = useStore.getState();
 
   function handleToggleAllRows() {
     const newToggleAll = !toggleAllRows;
@@ -244,13 +244,13 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
         >
           Attester alle
         </Checkbox>
-        {storedSokeData?.attestertStatus !== "true" && (
+        {sokeData?.attestertStatus !== "true" && (
           <SumModal
             tittel={"Sum per klassekode som attesteres"}
             sum={calculateSum("attesteres")}
           />
         )}
-        {storedSokeData?.attestertStatus !== "false" && (
+        {sokeData?.attestertStatus !== "false" && (
           <SumModal
             tittel={"Sum per klassekode tidligere attestert"}
             sum={calculateSum("tidligere")}
