@@ -1,4 +1,5 @@
 import { Suspense, useEffect } from "react";
+import { Helmet } from "react-helmet";
 import {
   Route,
   RouterProvider,
@@ -26,6 +27,14 @@ const App = () => {
 
   return (
     <Suspense fallback={<ContentLoader />}>
+      <Helmet>
+        <script
+          defer
+          src="https://cdn.nav.no/team-researchops/sporing/sporing.js"
+          data-host-url="https://umami.nav.no"
+          data-website-id="e174f8d8-4082-4cb0-8280-b992d0a47901"
+        ></script>
+      </Helmet>
       <RouterProvider
         router={createBrowserRouter(
           createRoutesFromElements(
