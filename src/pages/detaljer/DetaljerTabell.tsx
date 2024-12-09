@@ -206,8 +206,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
             linje.attestant ? linje.properties.fjern : linje.properties.attester
           }
         >
-          {" "}
-          {children}{" "}
+          {children}
         </Table.ExpandableRow>
       );
   };
