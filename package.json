@@ -4,8 +4,8 @@
   "description": "Arbeidsflate for attestasjon i Utbetalingsportalen",
   "type": "module",
   "scripts": {
-    "dev:mock": "vite --mode mock",
-    "dev:backend": "vite --mode backend",
+    "dev": "vite --mode mock",
+    "dev:backend-local": "vite --mode backend",
     "dev:backend-q1": "vite --mode backend-q1",
     "build": "tsc && vite build",
     "test": "vitest vite-tests",
