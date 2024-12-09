@@ -5,7 +5,7 @@ import styles from "./RowsPerPageSelector.module.css";
 
 interface RowsPerPageSelectorProps {
   rowsPerPage: number;
-  sokOppdrag: (page?: number, rows?: number) => void;
+  updateRowsPerPage: (rows: number) => void;
 }
 
 export default function RowsPerPageSelector(props: RowsPerPageSelectorProps) {
@@ -29,9 +29,7 @@ export default function RowsPerPageSelector(props: RowsPerPageSelectorProps) {
               {[5, 10, 25, 50].map((rows) => (
                 <Dropdown.Menu.GroupedList.Item
                   key={rows}
-                  onClick={() => {
-                    props.sokOppdrag(1, rows);
-                  }}
+                  onClick={() => props.updateRowsPerPage(rows)}
                 >
                   {rows}
                 </Dropdown.Menu.GroupedList.Item>

@@ -4,20 +4,14 @@ import fagGrupper from "./json/faggrupper.json";
 import fagOmraader from "./json/fagomraader.json";
 import oppdaterAttestasjon from "./json/oppdaterAttestasjon.json";
 import oppdragsDetaljer from "./json/oppdragsDetaljer.json";
-import sokOppdagePage1 from "./json/sokOppdragPage1Row10.json";
-import sokOppdagePage2 from "./json/sokOppdragPage2Row10.json";
+import sokOppdrag from "./json/sokOppdrag.json";
 
 export const handlers = [
   http.post("/oppdrag-api/api/v1/attestasjon/sok", async ({ request }) => {
-    const url = new URL(request.url);
-    const page = url.searchParams.get("page");
     const sokeParameter = await request.json();
     console.log("Sok parameter:", sokeParameter);
 
-    if (page === "2") {
-      return HttpResponse.json(sokOppdagePage2, { status: 200 });
-    }
-    return HttpResponse.json(sokOppdagePage1, { status: 200 });
+    return HttpResponse.json(sokOppdrag, { status: 200 });
   }),
 
   http.post("/oppdrag-api/api/v1/integration/hentnavn", async ({ request }) => {

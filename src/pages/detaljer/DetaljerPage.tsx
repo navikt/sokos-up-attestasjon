@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { Heading } from "@navikt/ds-react";
 import {
   attesterOppdragRequest,
+  hentOppdrag,
   oppdaterAttestasjon,
   useFetchOppdragsdetaljer,
 } from "../../api/apiService";
@@ -14,13 +15,14 @@ import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { ROOT } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
 
 export default function DetaljerPage() {
   const navigate = useNavigate();
-  const { oppdrag, storedSokeData } = useStore.getState();
+  const { oppdrag, sokeData, setOppdragList } = useStore();
 
   const antallAttestanter = oppdrag?.antallAttestanter ?? 1;
   const [alertMessage, setAlertMessage] = useState<{
@@ -38,9 +40,9 @@ export default function DetaljerPage() {
     saksbehandlerIdent: data?.saksbehandlerIdent ?? "",
     linjer:
       data?.linjer.filter((linje) => {
-        if (storedSokeData?.attestertStatus === "true") {
+        if (sokeData?.attestertStatus === "true") {
           return linje.oppdragsLinje.attestert;
-        } else if (storedSokeData?.attestertStatus === "false") {
+        } else if (sokeData?.attestertStatus === "false") {
           return !linje.oppdragsLinje.attestert;
         } else return true;
       }) ?? [],
@@ -87,22 +89,26 @@ export default function DetaljerPage() {
 
     setIsZosLoading(true);
 
-    await oppdaterAttestasjon(request)
-      .then((response) => {
-        setAlertMessage({
-          message: response.message || "",
-          variant: "success",
+    try {
+      await oppdaterAttestasjon(request)
+        .then((response) => {
+          setAlertMessage({
+            message: response.message || "",
+            variant: "success",
+          });
+          mutate();
+        })
+        .catch((error) => {
+          setAlertMessage({ message: error, variant: "error" });
         });
-        mutate();
-      })
-      .catch((error) => {
-        setAlertMessage({ message: error, variant: "error" });
-      })
-      .finally(() => {
-        if (!isLoading) {
-          setIsZosLoading(false);
-        }
-      });
+
+      const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
+      await hentOppdrag(sokeParameter).then((res) => setOppdragList(res));
+    } finally {
+      if (!isLoading) {
+        setIsZosLoading(false);
+      }
+    }
   }
 
   return (

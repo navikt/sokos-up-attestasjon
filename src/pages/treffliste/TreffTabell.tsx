@@ -1,31 +1,31 @@
 import React, { useRef, useState } from "react";
 import { Link } from "react-router";
 import { Pagination, Popover, SortState, Table } from "@navikt/ds-react";
-import { PaginatedOppdragList } from "../../api/models/PaginatedDTO";
 import RowsPerPageSelector from "../../components/RowsPerPageSelector";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
+import { OppdragList } from "../../types/Oppdrag";
 
 interface TreffTabellProps {
-  pagintatedOppdragList: PaginatedOppdragList;
-  sokOppdrag: (page?: number, rows?: number) => void;
+  oppdragList: OppdragList;
 }
 
 export default function TreffTabell(props: TreffTabellProps) {
+  interface ScopedSortState extends SortState {
+    orderBy: keyof (typeof props.oppdragList)[0];
+  }
+
   const { setOppdrag } = useStore();
   const [isSkjermet, setIsSkjermet] = useState(false);
   const [skjermingRow, setSkjermingRow] = useState<number | null>(null);
   const skjermingRowRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const [sort, setSort] = useState<ScopedSortState | undefined>();
+  const [page, setPage] = useState(1);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
 
-  const rowsPerPage = props.pagintatedOppdragList.rows;
-  const page = props.pagintatedOppdragList.page;
-  const total = props.pagintatedOppdragList?.total ?? 0;
-  const pagecount = Math.ceil(total / rowsPerPage);
+  const pagecount = Math.ceil(props.oppdragList.length / rowsPerPage);
 
-  interface ScopedSortState extends SortState {
-    orderBy: keyof (typeof props.pagintatedOppdragList.data)[0];
-  }
+  const antall = props.oppdragList.length ?? 0;
 
   const handleSort = (sortKey: ScopedSortState["orderBy"]) => {
     setSort(
@@ -51,7 +51,7 @@ export default function TreffTabell(props: TreffTabellProps) {
     return 0;
   }
 
-  const sortedData = props.pagintatedOppdragList.data.slice().sort((a, b) => {
+  const sortedData = props.oppdragList.slice().sort((a, b) => {
     if (sort) {
       return sort.direction === "ascending"
         ? comparator(b, a, sort.orderBy)
@@ -60,24 +60,35 @@ export default function TreffTabell(props: TreffTabellProps) {
     return 1;
   });
 
+  const pageData = sortedData.slice(
+    (page - 1) * rowsPerPage,
+    page * rowsPerPage,
+  );
+
+  function updateRowsPerPage(rows: number) {
+    setRowsPerPage(rows);
+    setPage(1);
+  }
+
   return (
     <>
       <div className={commonstyles["sortable-table-topinfo"]}>
         <div className={commonstyles.nowrap}>
           <p>
-            {`${total} treff`}
-            {total > rowsPerPage && `, ${page} av ${pagecount} sider`}
+            {`${antall} treff`}
+            {antall > rowsPerPage && `, ${page} av ${pagecount} sider`}
           </p>
         </div>
 
         <RowsPerPageSelector
           rowsPerPage={rowsPerPage}
-          sokOppdrag={props.sokOppdrag}
+          updateRowsPerPage={updateRowsPerPage}
         />
       </div>
 
       <div className={commonstyles["sortable-table"]}>
         <Table
+          zebraStripes
           sort={sort}
           onSortChange={(sortKey) =>
             handleSort(sortKey as ScopedSortState["orderBy"])
@@ -106,8 +117,8 @@ export default function TreffTabell(props: TreffTabellProps) {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {sortedData.map((oppdrag, row) => (
-              <Table.Row key={oppdrag.oppdragsId}>
+            {pageData.map((oppdrag, row) => (
+              <Table.Row key={btoa("" + oppdrag.oppdragsId)}>
                 <Table.DataCell>
                   <Link
                     ref={(element) => (skjermingRowRefs.current[row] = element)}
@@ -157,9 +168,7 @@ export default function TreffTabell(props: TreffTabellProps) {
         <div className={commonstyles["sortable-table-pagination"]}>
           <Pagination
             page={page}
-            onPageChange={(page) => {
-              props.sokOppdrag(page, rowsPerPage);
-            }}
+            onPageChange={setPage}
             count={pagecount}
             size="small"
             prevNextTexts

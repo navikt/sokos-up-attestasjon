@@ -21,6 +21,15 @@ const detaljerAppState: State = {
       oppdragsId: 98765432,
       erSkjermetForSaksbehandler: false,
     },
+    sokeData: {
+      gjelderId: "",
+      attestertStatus: "alle",
+      fagSystemId: "666-",
+      fagGruppe: {
+        navn: "Selveste faggruppen",
+        type: "FAGGRUPPEN",
+      },
+    },
   },
   version: 0,
 };

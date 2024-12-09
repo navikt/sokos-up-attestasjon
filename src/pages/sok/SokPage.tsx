@@ -37,12 +37,7 @@ export default function SokPage() {
   const [error, setError] = useState<ErrorMessage | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const {
-    setStoredSokeData,
-    storedSokeData,
-    setStoredPaginatedOppdragList,
-    resetState,
-  } = useStore();
+  const { setSokeData, sokeData, setOppdragList, resetState } = useStore();
 
   const { data: faggrupper, isLoading: faggrupperIsLoading } =
     useFetchFaggrupper();
@@ -62,14 +57,14 @@ export default function SokPage() {
   });
 
   useEffect(() => {
-    if (storedSokeData) {
-      setValue("gjelderId", storedSokeData.gjelderId);
-      setValue("fagSystemId", storedSokeData.fagSystemId);
-      setValue("fagGruppe", storedSokeData.fagGruppe);
-      setValue("fagOmraade", storedSokeData.fagOmraade);
-      setValue("attestertStatus", storedSokeData.attestertStatus);
+    if (sokeData) {
+      setValue("gjelderId", sokeData.gjelderId);
+      setValue("fagSystemId", sokeData.fagSystemId);
+      setValue("fagGruppe", sokeData.fagGruppe);
+      setValue("fagOmraade", sokeData.fagOmraade);
+      setValue("attestertStatus", sokeData.attestertStatus);
     }
-  }, [setValue, storedSokeData]);
+  }, [setValue, sokeData]);
 
   const faggruppetypeLabelMap = faggrupper
     ? faggrupper.reduce(
@@ -95,7 +90,7 @@ export default function SokPage() {
 
   function onSubmit(sokeData: SokeData) {
     resetState();
-    setStoredSokeData(sokeData);
+    setSokeData(sokeData);
     setIsLoading(true);
     setError(null);
 
@@ -105,8 +100,8 @@ export default function SokPage() {
       .then((response) => {
         setIsLoading(false);
         setError(null);
-        if (!isEmpty(response.data)) {
-          setStoredPaginatedOppdragList(response);
+        if (!isEmpty(response)) {
+          setOppdragList(response);
           navigate("/treffliste");
         } else {
           setError({

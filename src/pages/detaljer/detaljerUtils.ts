@@ -11,6 +11,7 @@ function splittOgLeggTilEkstraLinjeForManuellePosteringer(
   innloggetSaksbehandlerIdent: string,
 ): AttestasjonlinjeList {
   const enLinjeUtenAttestasjon: Attestasjonlinje = {
+    attestert: oppdragslinje.oppdragsLinje.attestert,
     kodeKlasse: oppdragslinje.oppdragsLinje.kodeKlasse,
     delytelseId: oppdragslinje.oppdragsLinje.delytelseId,
     sats: oppdragslinje.oppdragsLinje.sats,
@@ -19,6 +20,12 @@ function splittOgLeggTilEkstraLinjeForManuellePosteringer(
     datoVedtakTom: oppdragslinje.oppdragsLinje.datoVedtakTom,
     oppdragsId: oppdragslinje.oppdragsLinje.oppdragsId,
     linjeId: oppdragslinje.oppdragsLinje.linjeId,
+    kontonummer: oppdragslinje.oppdragsLinje.kontonummer,
+    kid: oppdragslinje.oppdragsLinje.kid,
+    skyldner: oppdragslinje.oppdragsLinje.skyldner,
+    refusjonsid: oppdragslinje.oppdragsLinje.refusjonsid,
+    utbetalesTil: oppdragslinje.oppdragsLinje.utbetalesTil,
+    grad: oppdragslinje.oppdragsLinje.grad,
     properties: {
       activelyChangedDatoUgyldigFom: "",
       attester: false,
