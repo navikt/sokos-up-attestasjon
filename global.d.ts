@@ -1,5 +1,5 @@
 interface Window {
   umami: {
-    track: (event: string) => void;
+    track: (props: { app: string; event: string }) => void;
   };
 }
