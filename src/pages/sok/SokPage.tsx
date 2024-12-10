@@ -29,7 +29,7 @@ import { FagOmraade } from "../../types/FagOmraade";
 import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
-import { SOK, TREFFLISTE, log } from "../../umami/umami";
+import { SOK, TREFFLISTE, logUmamiEvent } from "../../umami/umami";
 import { isEmpty } from "../../util/commonUtils";
 import styles from "./SokPage.module.css";
 
@@ -95,16 +95,6 @@ export default function SokPage() {
     setIsLoading(true);
     setError(null);
 
-    if (sokeData.gjelderId) {
-      log(SOK.GJELDERID);
-    } else if (sokeData.fagSystemId && sokeData.fagOmraade) {
-      log(SOK.FAGSYSTEM);
-    } else if (sokeData.fagGruppe && sokeData.attestertStatus === "false") {
-      log(SOK.FAGGRUPPE);
-    } else if (sokeData.fagOmraade && sokeData.attestertStatus === "false") {
-      log(SOK.FAGOMRAADE);
-    }
-
     const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
 
     hentOppdrag(sokeParameter)
@@ -120,7 +110,7 @@ export default function SokPage() {
             message:
               "Ingen treff på søket. Prøv igjen med andre søkekriterier.",
           });
-          log(TREFFLISTE.EMPTY);
+          logUmamiEvent(TREFFLISTE.EMPTY);
         }
       })
       .catch((error) => {
@@ -130,7 +120,7 @@ export default function SokPage() {
           message: statusError.message,
         });
         setIsLoading(false);
-        log(TREFFLISTE.ERROR);
+        logUmamiEvent(TREFFLISTE.ERROR);
       });
   }
 
@@ -139,7 +129,7 @@ export default function SokPage() {
     setError(null);
     resetState();
     reset();
-    log(SOK.RESET);
+    logUmamiEvent(SOK.RESET);
   }
 
   function convertFagomraadeToComboboxValue(selectedFagomraade: FagOmraade) {

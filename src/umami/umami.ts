@@ -20,6 +20,6 @@ export const DETALJER = {
   ERROR: "detaljer kall til zos feilet",
 };
 
-export function log(s: string): void {
+export function logUmamiEvent(s: string): void {
   window.umami.track(s);
 }
