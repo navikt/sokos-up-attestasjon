@@ -315,6 +315,7 @@ export default function SokPage() {
             )}
             <div className={styles["attestasjonsok-button"]}>
               <Button
+                data-umami-event={"attestasjonsok"}
                 id={"search"}
                 type="submit"
                 size={"small"}
