@@ -21,5 +21,7 @@ export const DETALJER = {
 };
 
 export function logUmamiEvent(s: string): void {
-  window.umami.track(s);
+  if (typeof window !== "undefined" && window.umami) {
+    window.umami.track(s);
+  }
 }
