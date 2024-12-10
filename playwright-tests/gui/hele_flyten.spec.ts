@@ -1,5 +1,4 @@
 import { expect, test } from "@playwright/test";
-import { DETALJER, SOK, logUmamiEvent } from "../../src/umami/umami";
 import faggrupper from "../stubs/faggrupper";
 import fagomraader from "../stubs/fagomraader";
 import oppdaterAttestasjonResponse from "../stubs/oppdaterAttestasjonResponse";
@@ -31,7 +30,6 @@ test.describe("Attestasjon", () => {
 
     await page.getByLabel("Gjelder").fill("12345678901");
     await page.locator("#search").click();
-    logUmamiEvent(SOK.SUBMIT);
 
     await page.route("*/**/oppdragsdetaljer", async (route) => {
       await route.fulfill({ json: oppdragsdetaljer });
@@ -53,7 +51,6 @@ test.describe("Attestasjon", () => {
       await route.fulfill({ json: oppdragsdetaljerEtterAttestering });
     });
     await page.getByRole("button", { name: "Oppdater" }).click();
-    logUmamiEvent(DETALJER.OPPDATER_TRYKKET);
     await page.waitForLoadState("networkidle");
 
     await expect(page.getByRole("cell", { name: "H135685" })).toBeVisible();
