@@ -21,5 +21,5 @@ export const DETALJER = {
 };
 
 export function log(s: string): void {
-  window.umami.track({ app: "attestasjon", event: s });
+  window.umami.track(s);
 }
