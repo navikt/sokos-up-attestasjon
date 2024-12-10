@@ -95,6 +95,8 @@ export default function SokPage() {
     setIsLoading(true);
     setError(null);
 
+    window.umami.track("Go go mighty morphing submit attestasjon søkeform");
+
     const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
 
     hentOppdrag(sokeParameter)
