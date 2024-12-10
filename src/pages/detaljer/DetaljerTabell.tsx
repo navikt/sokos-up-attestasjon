@@ -206,8 +206,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
             linje.attestant ? linje.properties.fjern : linje.properties.attester
           }
         >
-          {" "}
-          {children}{" "}
+          {children}
         </Table.ExpandableRow>
       );
   };
@@ -244,13 +243,13 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
         >
           Attester alle
         </Checkbox>
-        {sokeData?.attestertStatus !== "true" && (
+        {sokeData?.alternativer !== "3" && (
           <SumModal
             tittel={"Sum per klassekode som attesteres"}
             sum={calculateSum("attesteres")}
           />
         )}
-        {sokeData?.attestertStatus !== "false" && (
+        {sokeData?.alternativer !== "1" && sokeData?.alternativer !== "2" && (
           <SumModal
             tittel={"Sum per klassekode tidligere attestert"}
             sum={calculateSum("tidligere")}

@@ -13,6 +13,11 @@ const oppdragsdetaljerEtterAttestering: OppdragsDetaljer = {
         oppdragsId: 98765432,
         sats: 1234.0,
         typeSats: "ENG",
+        kontonummer: "1234567",
+        skyldner: "Ola Nordmann",
+        refusjonsid: "1234567",
+        utbetalesTil: "Ola Nordmann",
+        grad: 100,
       },
       attestasjoner: [
         {

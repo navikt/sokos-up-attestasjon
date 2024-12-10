@@ -9,9 +9,11 @@ function testStore(page: Page, appState: { state: AppState; version: number }) {
     window.sessionStorage.setItem("app-state", JSON.stringify(appState));
   }, appState);
 }
+
 function radiobutton(page: Page, label: string) {
   return page.getByLabel(label, { exact: true });
 }
+
 function dropdownbox(page: Page, label: string) {
   return page.getByLabel(label).locator("../..");
 }
@@ -139,35 +141,90 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
       await route.fulfill({ json: fagomraader });
     });
   });
-  test(`Attestert radiobutton should be checked`, async ({ page }) => {
-    testStore(page, aStateWith({ attestertStatus: "true" }));
+
+  test(`Ikke ferdig attestert eksl. egne radiobutton should be checked`, async ({
+    page,
+  }) => {
+    testStore(page, aStateWith({ alternativer: "1" }));
 
     await page.goto("/attestasjon");
     await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
 
-    await expect(radiobutton(page, "Attestert")).toBeChecked();
-    await expect(radiobutton(page, "Ikke attestert")).not.toBeChecked();
-    await expect(radiobutton(page, "Alle")).not.toBeChecked();
-  });
-  test(`Ikke Attestert radiobutton should be checked`, async ({ page }) => {
-    testStore(page, aStateWith({ attestertStatus: "false" }));
-
-    await page.goto("/attestasjon");
-    await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
-
+    await expect(
+      radiobutton(page, "Ikke ferdig attestert eksl. egne"),
+    ).toBeChecked();
+    await expect(
+      radiobutton(page, "Ikke ferdig attestert inkl. egne"),
+    ).not.toBeChecked();
     await expect(radiobutton(page, "Attestert")).not.toBeChecked();
-    await expect(radiobutton(page, "Ikke attestert")).toBeChecked();
     await expect(radiobutton(page, "Alle")).not.toBeChecked();
+    await expect(radiobutton(page, "Egne attesterte")).not.toBeChecked();
+  });
+  test(`Ikke ferdig attestert inkl. egne radiobutton should be checked`, async ({
+    page,
+  }) => {
+    testStore(page, aStateWith({ alternativer: "2" }));
+
+    await page.goto("/attestasjon");
+    await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
+
+    await expect(
+      radiobutton(page, "Ikke ferdig attestert eksl. egne"),
+    ).not.toBeChecked();
+    await expect(
+      radiobutton(page, "Ikke ferdig attestert inkl. egne"),
+    ).toBeChecked();
+    await expect(radiobutton(page, "Attestert")).not.toBeChecked();
+    await expect(radiobutton(page, "Alle")).not.toBeChecked();
+    await expect(radiobutton(page, "Egne attesterte")).not.toBeChecked();
+  });
+  test(`Attestert radiobutton should be checked`, async ({ page }) => {
+    testStore(page, aStateWith({ alternativer: "3" }));
+
+    await page.goto("/attestasjon");
+    await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
+
+    await expect(
+      radiobutton(page, "Ikke ferdig attestert eksl. egne"),
+    ).not.toBeChecked();
+    await expect(
+      radiobutton(page, "Ikke ferdig attestert inkl. egne"),
+    ).not.toBeChecked();
+    await expect(radiobutton(page, "Attestert")).toBeChecked();
+    await expect(radiobutton(page, "Alle")).not.toBeChecked();
+    await expect(radiobutton(page, "Egne attesterte")).not.toBeChecked();
   });
   test(`Alle radiobutton should be checked`, async ({ page }) => {
-    testStore(page, aStateWith({ attestertStatus: "alle" }));
+    testStore(page, aStateWith({ alternativer: "4" }));
 
     await page.goto("/attestasjon");
     await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
 
+    await expect(
+      radiobutton(page, "Ikke ferdig attestert eksl. egne"),
+    ).not.toBeChecked();
+    await expect(
+      radiobutton(page, "Ikke ferdig attestert inkl. egne"),
+    ).not.toBeChecked();
     await expect(radiobutton(page, "Attestert")).not.toBeChecked();
-    await expect(radiobutton(page, "Ikke attestert")).not.toBeChecked();
     await expect(radiobutton(page, "Alle")).toBeChecked();
+    await expect(radiobutton(page, "Egne attesterte")).not.toBeChecked();
+  });
+  test(`Egne attesterte radiobutton should be checked`, async ({ page }) => {
+    testStore(page, aStateWith({ alternativer: "5" }));
+
+    await page.goto("/attestasjon");
+    await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
+
+    await expect(
+      radiobutton(page, "Ikke ferdig attestert eksl. egne"),
+    ).not.toBeChecked();
+    await expect(
+      radiobutton(page, "Ikke ferdig attestert inkl. egne"),
+    ).not.toBeChecked();
+    await expect(radiobutton(page, "Attestert")).not.toBeChecked();
+    await expect(radiobutton(page, "Alle")).not.toBeChecked();
+    await expect(radiobutton(page, "Egne attesterte")).toBeChecked();
   });
 
   test(`faggruppe combobox should have value from store`, async ({ page }) => {

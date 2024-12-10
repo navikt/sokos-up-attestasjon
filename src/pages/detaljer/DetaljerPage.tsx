@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { Heading } from "@navikt/ds-react";
 import {
   attesterOppdragRequest,
@@ -40,9 +40,12 @@ export default function DetaljerPage() {
     saksbehandlerIdent: data?.saksbehandlerIdent ?? "",
     linjer:
       data?.linjer.filter((linje) => {
-        if (sokeData?.attestertStatus === "true") {
+        if (sokeData?.alternativer === "3") {
           return linje.oppdragsLinje.attestert;
-        } else if (sokeData?.attestertStatus === "false") {
+        } else if (
+          sokeData?.alternativer === "1" ||
+          sokeData?.alternativer === "2"
+        ) {
           return !linje.oppdragsLinje.attestert;
         } else return true;
       }) ?? [],
