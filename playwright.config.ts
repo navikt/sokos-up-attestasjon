@@ -69,7 +69,7 @@ export default defineConfig({
     // },
   ],
   webServer: {
-    command: "pnpm run dev:backend",
+    command: "pnpm run dev:backend-local",
     url: "http://localhost:5173/attestasjon",
     reuseExistingServer: !process.env.CI,
   },
