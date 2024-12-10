@@ -12,7 +12,7 @@ import {
   AttestasjonlinjeList,
 } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
-import { AAPNE_ALLE_RADER, OPPDATER_TRYKKET } from "../../umami/umami";
+import { DETALJER } from "../../umami/umami";
 import { formaterTilNorskTall } from "../../util/commonUtils";
 import {
   dagensDato,
@@ -217,7 +217,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
       <div className={styles["detaljertabell-knapperad"]}>
         <Button
           type={"submit"}
-          data-umami-event={OPPDATER_TRYKKET}
+          data-umami-event={DETALJER.OPPDATER_TRYKKET}
           size={"medium"}
           loading={props.isLoading}
           onClick={() => props.handleSubmit(attestasjonlinjer)}
@@ -278,7 +278,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                 <div className={styles["detaljertabell-toggle-rows"]}>
                   <Button
                     size={"small"}
-                    data-umami-event={AAPNE_ALLE_RADER}
+                    data-umami-event={DETALJER.AAPNE_ALLE_RADER}
                     icon={
                       toggleAllRows ? (
                         <ChevronUpIcon title="Pil opp" />
