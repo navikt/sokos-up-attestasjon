@@ -62,7 +62,7 @@ export default function SokPage() {
       setValue("fagSystemId", sokeData.fagSystemId);
       setValue("fagGruppe", sokeData.fagGruppe);
       setValue("fagOmraade", sokeData.fagOmraade);
-      setValue("attestertStatus", sokeData.attestertStatus);
+      setValue("alternativer", sokeData.alternativer);
     }
   }, [setValue, sokeData]);
 
@@ -281,18 +281,24 @@ export default function SokPage() {
               <div className={styles["attestasjonsok-radiobutton"]}>
                 <RadioGroup
                   legend="Status"
-                  name="attestertStatus"
-                  defaultValue="false"
+                  name="alternativer"
+                  defaultValue="2"
                   size={"small"}
                 >
-                  <Radio value="false" {...register("attestertStatus")}>
-                    Ikke attestert
+                  <Radio value="1" {...register("alternativer")}>
+                    Ikke ferdig attestert eksl. egne
                   </Radio>
-                  <Radio value="true" {...register("attestertStatus")}>
+                  <Radio value="2" {...register("alternativer")}>
+                    Ikke ferdig attestert inkl. egne
+                  </Radio>
+                  <Radio value="3" {...register("alternativer")}>
                     Attestert
                   </Radio>
-                  <Radio value="alle" {...register("attestertStatus")}>
+                  <Radio value="4" {...register("alternativer")}>
                     Alle
+                  </Radio>
+                  <Radio value="5" {...register("alternativer")}>
+                    Egne attesterte
                   </Radio>
                 </RadioGroup>
               </div>

@@ -13,14 +13,16 @@ export default function TrefflistePage() {
   const { oppdragList, sokeData, gjelderNavn, setGjelderNavn } = useStore();
 
   function getAttestertStatusText() {
-    if (sokeData?.attestertStatus === "true") {
+    if (sokeData?.alternativer === "1") {
+      return "Ikke ferdig attestert eksl. egne";
+    } else if (sokeData?.alternativer === "2") {
+      return "Ikke ferdig attestert inkl. egne";
+    } else if (sokeData?.alternativer === "3") {
       return "Attestert";
-    } else if (sokeData?.attestertStatus === "false") {
-      return "Ikke attestert";
-    } else if (sokeData?.attestertStatus === "alle") {
+    } else if (sokeData?.alternativer === "4") {
       return "Alle";
     } else {
-      return "";
+      return "Egne attesterte";
     }
   }
 
