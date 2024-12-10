@@ -29,6 +29,7 @@ import { FagOmraade } from "../../types/FagOmraade";
 import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
+import { SOKEKNAPP_TRYKKET } from "../../umami/umami";
 import { isEmpty } from "../../util/commonUtils";
 import styles from "./SokPage.module.css";
 
@@ -315,7 +316,7 @@ export default function SokPage() {
             )}
             <div className={styles["attestasjonsok-button"]}>
               <Button
-                data-umami-event={"attestasjonsok"}
+                data-umami-event={SOKEKNAPP_TRYKKET}
                 id={"search"}
                 type="submit"
                 size={"small"}
