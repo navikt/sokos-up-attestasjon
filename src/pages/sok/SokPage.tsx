@@ -95,6 +95,22 @@ export default function SokPage() {
     setIsLoading(true);
     setError(null);
 
+    if (sokeData.gjelderId) {
+      logUmamiEvent(SOK.GJELDERID);
+    } else if (sokeData.fagSystemId && sokeData.fagOmraade) {
+      logUmamiEvent(SOK.FAGSYSTEM);
+    } else if (
+      sokeData.fagGruppe &&
+      ["1", "2"].includes(sokeData.alternativer)
+    ) {
+      logUmamiEvent(SOK.FAGGRUPPE);
+    } else if (
+      sokeData.fagOmraade &&
+      ["1", "2"].includes(sokeData.alternativer)
+    ) {
+      logUmamiEvent(SOK.FAGOMRAADE);
+    }
+
     const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
 
     hentOppdrag(sokeParameter)
