@@ -26,20 +26,22 @@ export const SokeDataSchema = z
     fagSystemId: z.optional(fagSystemIdRule),
     fagGruppe: z.optional(FaggruppeSchema),
     fagOmraade: z.optional(FagOmraadeSchema),
-    attestertStatus: z.union([
-      z.literal("true"),
-      z.literal("false"),
-      z.literal("alle"),
-    ]),
+    alternativer: z.enum(["1", "2", "3", "4", "5"]),
   })
   .refine(
     (data) => {
-      if (data.fagGruppe && data.attestertStatus === "false") return true;
-      if (data.fagOmraade && data.attestertStatus === "false") return true;
+      if (
+        data.fagGruppe &&
+        (data.alternativer === "1" || data.alternativer === "2")
+      )
+        return true;
+      if (
+        data.fagOmraade &&
+        (data.alternativer === "1" || data.alternativer === "2")
+      )
+        return true;
       if (data.gjelderId?.length !== 0) return true;
-      if ((data.fagSystemId?.length ?? 0) >= 4 && data.fagOmraade) return true;
-
-      return false;
+      return !!((data.fagSystemId?.length ?? 0) >= 4 && data.fagOmraade);
     },
     {
       message: "Ikke gyldig kombinasjon av søkeparametre",

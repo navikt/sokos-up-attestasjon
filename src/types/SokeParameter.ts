@@ -11,10 +11,12 @@ export const SokeDataToSokeParameter = SokeDataSchema.transform((sokeData) => {
     kodeFagGruppe: sokeData.fagGruppe?.type,
     kodeFagOmraade: sokeData.fagOmraade?.kode,
     attestert:
-      sokeData.attestertStatus === "true"
+      sokeData.alternativer === "3"
         ? true
-        : sokeData.attestertStatus === "false"
+        : sokeData.alternativer === "1" || sokeData.alternativer === "2"
           ? false
           : null,
+    visEgenAttestertOppdrag:
+      sokeData.alternativer === "2" || sokeData.alternativer === "5",
   };
 });
