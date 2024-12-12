@@ -29,7 +29,7 @@ import { FagOmraade } from "../../types/FagOmraade";
 import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
-import { SOK, TREFFLISTE, logUmamiEvent } from "../../umami/umami";
+import { SOK } from "../../umami/umami";
 import { isEmpty } from "../../util/commonUtils";
 import styles from "./SokPage.module.css";
 
@@ -95,22 +95,6 @@ export default function SokPage() {
     setIsLoading(true);
     setError(null);
 
-    if (sokeData.gjelderId) {
-      logUmamiEvent(SOK.GJELDERID);
-    } else if (sokeData.fagSystemId && sokeData.fagOmraade) {
-      logUmamiEvent(SOK.FAGSYSTEM);
-    } else if (
-      sokeData.fagGruppe &&
-      ["1", "2"].includes(sokeData.alternativer)
-    ) {
-      logUmamiEvent(SOK.FAGGRUPPE);
-    } else if (
-      sokeData.fagOmraade &&
-      ["1", "2"].includes(sokeData.alternativer)
-    ) {
-      logUmamiEvent(SOK.FAGOMRAADE);
-    }
-
     const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
 
     hentOppdrag(sokeParameter)
@@ -126,7 +110,6 @@ export default function SokPage() {
             message:
               "Ingen treff på søket. Prøv igjen med andre søkekriterier.",
           });
-          logUmamiEvent(TREFFLISTE.EMPTY);
         }
       })
       .catch((error) => {
@@ -136,7 +119,6 @@ export default function SokPage() {
           message: statusError.message,
         });
         setIsLoading(false);
-        logUmamiEvent(TREFFLISTE.ERROR);
       });
   }
 
@@ -145,7 +127,6 @@ export default function SokPage() {
     setError(null);
     resetState();
     reset();
-    logUmamiEvent(SOK.RESET);
   }
 
   function convertFagomraadeToComboboxValue(selectedFagomraade: FagOmraade) {
@@ -342,6 +323,10 @@ export default function SokPage() {
             <div className={styles["attestasjonsok-button"]}>
               <Button
                 data-umami-event={SOK.SUBMIT}
+                data-umami-event-fnr={!!sokeData?.gjelderId}
+                data-umami-event-fagsystemid={!!sokeData?.fagSystemId}
+                data-umami-event-faggruppe={sokeData?.fagGruppe}
+                data-umami-event-fagomraade={sokeData?.fagOmraade}
                 id={"search"}
                 type="submit"
                 size={"small"}
@@ -352,6 +337,7 @@ export default function SokPage() {
                 Søk
               </Button>
               <Button
+                data-umami-event={SOK.RESET}
                 id={"nullstill"}
                 variant="secondary"
                 size={"small"}

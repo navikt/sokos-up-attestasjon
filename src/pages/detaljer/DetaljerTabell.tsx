@@ -218,6 +218,8 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
         <Button
           type={"submit"}
           data-umami-event={DETALJER.OPPDATER_TRYKKET}
+          data-umami-event-attester={getCheckedStatus("attester")}
+          data-umami-event-fjern={getCheckedStatus("fjern")}
           size={"medium"}
           loading={props.isLoading}
           onClick={() => props.handleSubmit(attestasjonlinjer)}

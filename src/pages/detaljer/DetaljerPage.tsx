@@ -16,7 +16,6 @@ import commonstyles from "../../styles/common-styles.module.css";
 import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
-import { DETALJER, logUmamiEvent } from "../../umami/umami";
 import { ROOT } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
@@ -101,23 +100,9 @@ export default function DetaljerPage() {
             variant: "success",
           });
 
-          if (
-            attestasjonlinjer.filter((linje) => linje.properties.attester)
-              .length > 0
-          ) {
-            logUmamiEvent(DETALJER.ATTESTERT);
-          }
-          if (
-            attestasjonlinjer.filter((linje) => linje.properties.fjern).length >
-            0
-          ) {
-            logUmamiEvent(DETALJER.AVATTESTERT);
-          }
-
           mutate();
         })
         .catch((error) => {
-          logUmamiEvent(DETALJER.ERROR);
           setAlertMessage({ message: error, variant: "error" });
         });
 
