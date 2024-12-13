@@ -325,8 +325,8 @@ export default function SokPage() {
                 data-umami-event={SOK.SUBMIT}
                 data-umami-event-fnr={!!sokeData?.gjelderId}
                 data-umami-event-fagsystemid={!!sokeData?.fagSystemId}
-                data-umami-event-faggruppe={sokeData?.fagGruppe}
-                data-umami-event-fagomraade={sokeData?.fagOmraade}
+                data-umami-event-faggruppe={sokeData?.fagGruppe?.type}
+                data-umami-event-fagomraade={sokeData?.fagOmraade?.kode}
                 id={"search"}
                 type="submit"
                 size={"small"}
