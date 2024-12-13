@@ -1,4 +1,6 @@
 # Ignore artifacts:
+dokumentasjon
+public
 dist
 server/build
 **/node_modules
