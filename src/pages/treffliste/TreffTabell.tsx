@@ -5,6 +5,7 @@ import RowsPerPageSelector from "../../components/RowsPerPageSelector";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { OppdragList } from "../../types/Oppdrag";
+import { TREFFLISTE } from "../../umami/umami";
 
 interface TreffTabellProps {
   oppdragList: OppdragList;
@@ -96,22 +97,50 @@ export default function TreffTabell(props: TreffTabellProps) {
         >
           <Table.Header>
             <Table.Row>
-              <Table.ColumnHeader sortKey={"gjelderId"} sortable>
+              <Table.ColumnHeader
+                data-umami-event={TREFFLISTE.SORTER}
+                data-umami-event-sortkey={"gjelderId"}
+                sortKey={"gjelderId"}
+                sortable
+              >
                 Gjelder
               </Table.ColumnHeader>
-              <Table.ColumnHeader sortKey={"fagGruppe"} sortable>
+              <Table.ColumnHeader
+                data-umami-event={TREFFLISTE.SORTER}
+                data-umami-event-sortkey={"fagGruppe"}
+                sortKey={"fagGruppe"}
+                sortable
+              >
                 Faggruppe
               </Table.ColumnHeader>
-              <Table.ColumnHeader sortKey={"fagSystemId"} sortable>
+              <Table.ColumnHeader
+                data-umami-event={TREFFLISTE.SORTER}
+                data-umami-event-sortkey={"fagSystemId"}
+                sortKey={"fagSystemId"}
+                sortable
+              >
                 Fagsystem id
               </Table.ColumnHeader>
-              <Table.ColumnHeader sortKey={"fagOmraade"} sortable>
+              <Table.ColumnHeader
+                data-umami-event={TREFFLISTE.SORTER}
+                data-umami-event-sortkey={"fagOmraade"}
+                sortKey={"fagOmraade"}
+                sortable
+              >
                 Fagområde
               </Table.ColumnHeader>
-              <Table.ColumnHeader sortKey={"kostnadsSted"}>
+              <Table.ColumnHeader
+                data-umami-event={TREFFLISTE.SORTER}
+                data-umami-event-sortkey={"kostnadsSted"}
+                sortKey={"kostnadsSted"}
+              >
                 Kostnadssted
               </Table.ColumnHeader>
-              <Table.ColumnHeader sortKey={"ansvarsSted"}>
+              <Table.ColumnHeader
+                data-umami-event={TREFFLISTE.SORTER}
+                data-umami-event-sortkey={"ansvarsSted"}
+                sortKey={"ansvarsSted"}
+              >
                 Ansvarssted
               </Table.ColumnHeader>
             </Table.Row>

@@ -1,9 +1,19 @@
 export const SOK = {
-  SUBMIT: "søkeknapp er trykket",
+  SUBMIT: "søkeknapp trykket",
   RESET: "søk resatt",
 };
 
+export const BREADCRUMBS = {
+  LINK: "link trykket",
+  RESET: "søk resatt",
+};
+
+export const TREFFLISTE = {
+  SORTER: "sortert",
+};
+
 export const DETALJER = {
-  AAPNE_ALLE_RADER: "detaljer åpne alle rader trykket",
-  OPPDATER_TRYKKET: "detaljer oppdater trykket",
+  AAPNE_ALLE_RADER: "åpne alle rader trykket",
+  OPPDATER_TRYKKET: "oppdater trykket",
+  REDIGERTE_DATO: "redigerte dato",
 };
