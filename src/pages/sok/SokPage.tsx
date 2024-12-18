@@ -29,7 +29,7 @@ import { FagOmraade } from "../../types/FagOmraade";
 import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
-import { SOK } from "../../umami/umami";
+import { SOK, attestertStatusText } from "../../umami/umami";
 import { isEmpty } from "../../util/commonUtils";
 import styles from "./SokPage.module.css";
 
@@ -327,6 +327,9 @@ export default function SokPage() {
                 data-umami-event-fagsystemid={!!sokeData?.fagSystemId}
                 data-umami-event-faggruppe={sokeData?.fagGruppe?.type}
                 data-umami-event-fagomraade={sokeData?.fagOmraade?.kode}
+                data-umami-event-attestert={attestertStatusText(
+                  sokeData?.alternativer,
+                )}
                 id={"search"}
                 type="submit"
                 size={"small"}

@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Button, Modal, Table } from "@navikt/ds-react";
+import { DETALJER, logUserEvent } from "../../umami/umami";
 import { formaterTilNorskTall } from "../../util/commonUtils";
 
 type SumModalProps = {
@@ -14,6 +15,7 @@ export default function SumModal({ tittel, sum }: SumModalProps) {
   const ref = useRef<HTMLDialogElement>(null);
 
   const handleClick = () => {
+    logUserEvent(DETALJER.SUMMODAL, { tittel });
     ref.current?.showModal();
   };
 

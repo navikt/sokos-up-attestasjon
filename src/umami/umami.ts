@@ -14,10 +14,31 @@ export const TREFFLISTE = {
 
 export const DETALJER = {
   AAPNE_ALLE_RADER: "åpne alle rader trykket",
+  ATTESTER_ALLE: "attester alle trykket",
+  FJERN_ALLE: "fjern alle trykket",
   OPPDATER_TRYKKET: "oppdater trykket",
   REDIGERTE_DATO: "redigerte dato",
+  SUMMODAL: "summodal åpnet",
 };
 
-export function logUserEvent(s: string, data?: object): void {
-  window?.umami?.track(s, data);
+const attestert = {
+  "1": "Ikke ferdig attestert eksl. egne",
+  "2": "Ikke ferdig attestert inkl. egne",
+  "3": "Attestert",
+  "4": "Alle",
+  "5": "Egne attesterte",
+};
+
+export function attestertStatusText(
+  alternativer?: "1" | "2" | "3" | "4" | "5",
+): string {
+  if (!alternativer) {
+    // burde ikke være mulig
+    return "";
+  }
+  return attestert[alternativer];
+}
+
+export function logUserEvent(name: string, data?: object): void {
+  window?.umami?.track(name, data);
 }

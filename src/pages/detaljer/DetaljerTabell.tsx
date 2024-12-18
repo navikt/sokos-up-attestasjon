@@ -324,7 +324,6 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                   {linje.attestant && (
                     <div className={styles["detaljertabell-ugyldig-textfield"]}>
                       <TextField
-                        data-umami-event={DETALJER.REDIGERTE_DATO}
                         size="small"
                         label="Ugyldig FOM"
                         hideLabel
