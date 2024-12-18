@@ -14,11 +14,10 @@ export const TREFFLISTE = {
 
 export const DETALJER = {
   AAPNE_ALLE_RADER: "åpne alle rader trykket",
-  ATTESTER_ALLE: "attester alle trykket",
-  FJERN_ALLE: "fjern alle trykket",
   OPPDATER_TRYKKET: "oppdater trykket",
   REDIGERTE_DATO: "redigerte dato",
   SUMMODAL: "summodal åpnet",
+  VELG_ALLE: "velg alle trykket",
 };
 
 const attestert = {

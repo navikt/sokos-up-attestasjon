@@ -12,7 +12,7 @@ import {
   AttestasjonlinjeList,
 } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
-import { DETALJER } from "../../umami/umami";
+import { DETALJER, logUserEvent } from "../../umami/umami";
 import { formaterTilNorskTall } from "../../util/commonUtils";
 import {
   dagensDato,
@@ -132,6 +132,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
   }
 
   function handleToggleAll(type: Linjetype) {
+    logUserEvent(DETALJER.VELG_ALLE, { type });
     const isAllChecked = getCheckedStatus(type) === "alle";
     setAttestasjonlinjer((prev) =>
       prev.map((linje) => ({
