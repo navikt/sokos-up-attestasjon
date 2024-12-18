@@ -17,3 +17,7 @@ export const DETALJER = {
   OPPDATER_TRYKKET: "oppdater trykket",
   REDIGERTE_DATO: "redigerte dato",
 };
+
+export function logUserEvent(s: string, data?: object): void {
+  window?.umami?.track(s, data);
+}

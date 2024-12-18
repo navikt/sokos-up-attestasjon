@@ -5,7 +5,7 @@ import RowsPerPageSelector from "../../components/RowsPerPageSelector";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { OppdragList } from "../../types/Oppdrag";
-import { TREFFLISTE } from "../../umami/umami";
+import { TREFFLISTE, logUserEvent } from "../../umami/umami";
 
 interface TreffTabellProps {
   oppdragList: OppdragList;
@@ -29,6 +29,7 @@ export default function TreffTabell(props: TreffTabellProps) {
   const antall = props.oppdragList.length ?? 0;
 
   const handleSort = (sortKey: ScopedSortState["orderBy"]) => {
+    logUserEvent(TREFFLISTE.SORTER, { sortKey: sortKey });
     setSort(
       sort && sortKey === sort.orderBy && sort.direction === "descending"
         ? undefined
@@ -97,50 +98,22 @@ export default function TreffTabell(props: TreffTabellProps) {
         >
           <Table.Header>
             <Table.Row>
-              <Table.ColumnHeader
-                data-umami-event={TREFFLISTE.SORTER}
-                data-umami-event-sortkey={"gjelderId"}
-                sortKey={"gjelderId"}
-                sortable
-              >
+              <Table.ColumnHeader sortKey={"gjelderId"} sortable>
                 Gjelder
               </Table.ColumnHeader>
-              <Table.ColumnHeader
-                data-umami-event={TREFFLISTE.SORTER}
-                data-umami-event-sortkey={"fagGruppe"}
-                sortKey={"fagGruppe"}
-                sortable
-              >
+              <Table.ColumnHeader sortKey={"fagGruppe"} sortable>
                 Faggruppe
               </Table.ColumnHeader>
-              <Table.ColumnHeader
-                data-umami-event={TREFFLISTE.SORTER}
-                data-umami-event-sortkey={"fagSystemId"}
-                sortKey={"fagSystemId"}
-                sortable
-              >
+              <Table.ColumnHeader sortKey={"fagSystemId"} sortable>
                 Fagsystem id
               </Table.ColumnHeader>
-              <Table.ColumnHeader
-                data-umami-event={TREFFLISTE.SORTER}
-                data-umami-event-sortkey={"fagOmraade"}
-                sortKey={"fagOmraade"}
-                sortable
-              >
+              <Table.ColumnHeader sortKey={"fagOmraade"} sortable>
                 Fagområde
               </Table.ColumnHeader>
-              <Table.ColumnHeader
-                data-umami-event={TREFFLISTE.SORTER}
-                data-umami-event-sortkey={"kostnadsSted"}
-                sortKey={"kostnadsSted"}
-              >
+              <Table.ColumnHeader sortKey={"kostnadsSted"}>
                 Kostnadssted
               </Table.ColumnHeader>
-              <Table.ColumnHeader
-                data-umami-event={TREFFLISTE.SORTER}
-                data-umami-event-sortkey={"ansvarsSted"}
-                sortKey={"ansvarsSted"}
-              >
+              <Table.ColumnHeader sortKey={"ansvarsSted"}>
                 Ansvarssted
               </Table.ColumnHeader>
             </Table.Row>
