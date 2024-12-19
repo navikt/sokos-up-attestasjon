@@ -40,14 +40,18 @@ export default function DetaljerPage() {
     saksbehandlerIdent: data?.saksbehandlerIdent ?? "",
     linjer:
       data?.linjer.filter((linje) => {
-        if (sokeData?.alternativer === "3") {
+        if (sokeData && sokeData.alternativer === "ATTESTERT") {
           return linje.oppdragsLinje.attestert;
         } else if (
-          sokeData?.alternativer === "1" ||
-          sokeData?.alternativer === "2"
+          sokeData &&
+          [
+            "IKKE_FERDIG_ATTESTERT_EKSL_EGNE",
+            "IKKE_FERDIG_ATTESTERT_INKL_EGNE",
+          ].includes(sokeData.alternativer)
         ) {
           return !linje.oppdragsLinje.attestert;
-        } else return true;
+        } // Hvis man har valgt EGNE_ATTESTERTE eller ALLE skal alle rader vises
+        else return true;
       }) ?? [],
   };
 

@@ -29,7 +29,7 @@ import { FagOmraade } from "../../types/FagOmraade";
 import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
-import { SOK, attestertStatusText } from "../../umami/umami";
+import { SOK } from "../../umami/umami";
 import { isEmpty } from "../../util/commonUtils";
 import styles from "./SokPage.module.css";
 
@@ -283,22 +283,28 @@ export default function SokPage() {
                 <RadioGroup
                   legend="Status"
                   name="alternativer"
-                  defaultValue="2"
+                  defaultValue="IKKE_FERDIG_ATTESTERT_INKL_EGNE"
                   size={"small"}
                 >
-                  <Radio value="1" {...register("alternativer")}>
+                  <Radio
+                    value="IKKE_FERDIG_ATTESTERT_EKSL_EGNE"
+                    {...register("alternativer")}
+                  >
                     Ikke ferdig attestert eksl. egne
                   </Radio>
-                  <Radio value="2" {...register("alternativer")}>
+                  <Radio
+                    value="IKKE_FERDIG_ATTESTERT_INKL_EGNE"
+                    {...register("alternativer")}
+                  >
                     Ikke ferdig attestert inkl. egne
                   </Radio>
-                  <Radio value="3" {...register("alternativer")}>
+                  <Radio value="ATTESTERT" {...register("alternativer")}>
                     Attestert
                   </Radio>
-                  <Radio value="4" {...register("alternativer")}>
+                  <Radio value="ALLE" {...register("alternativer")}>
                     Alle
                   </Radio>
-                  <Radio value="5" {...register("alternativer")}>
+                  <Radio value="EGEN_ATTESTERTE" {...register("alternativer")}>
                     Egne attesterte
                   </Radio>
                 </RadioGroup>
@@ -327,9 +333,7 @@ export default function SokPage() {
                 data-umami-event-fagsystemid={!!sokeData?.fagSystemId}
                 data-umami-event-faggruppe={sokeData?.fagGruppe?.type}
                 data-umami-event-fagomraade={sokeData?.fagOmraade?.kode}
-                data-umami-event-attestert={attestertStatusText(
-                  sokeData?.alternativer,
-                )}
+                data-umami-event-attestert={sokeData?.alternativer}
                 id={"search"}
                 type="submit"
                 size={"small"}
