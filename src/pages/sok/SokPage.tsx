@@ -28,8 +28,9 @@ import { FagGruppe } from "../../types/FagGruppe";
 import { FagOmraade } from "../../types/FagOmraade";
 import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
+import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
-import { SOK, TREFFLISTE, logUmamiEvent } from "../../umami/umami";
+import { SOK } from "../../umami/umami";
 import { isEmpty } from "../../util/commonUtils";
 import styles from "./SokPage.module.css";
 
@@ -95,22 +96,6 @@ export default function SokPage() {
     setIsLoading(true);
     setError(null);
 
-    if (sokeData.gjelderId) {
-      logUmamiEvent(SOK.GJELDERID);
-    } else if (sokeData.fagSystemId && sokeData.fagOmraade) {
-      logUmamiEvent(SOK.FAGSYSTEM);
-    } else if (
-      sokeData.fagGruppe &&
-      ["1", "2"].includes(sokeData.alternativer)
-    ) {
-      logUmamiEvent(SOK.FAGGRUPPE);
-    } else if (
-      sokeData.fagOmraade &&
-      ["1", "2"].includes(sokeData.alternativer)
-    ) {
-      logUmamiEvent(SOK.FAGOMRAADE);
-    }
-
     const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
 
     hentOppdrag(sokeParameter)
@@ -126,7 +111,6 @@ export default function SokPage() {
             message:
               "Ingen treff på søket. Prøv igjen med andre søkekriterier.",
           });
-          logUmamiEvent(TREFFLISTE.EMPTY);
         }
       })
       .catch((error) => {
@@ -136,7 +120,6 @@ export default function SokPage() {
           message: statusError.message,
         });
         setIsLoading(false);
-        logUmamiEvent(TREFFLISTE.ERROR);
       });
   }
 
@@ -145,7 +128,6 @@ export default function SokPage() {
     setError(null);
     resetState();
     reset();
-    logUmamiEvent(SOK.RESET);
   }
 
   function convertFagomraadeToComboboxValue(selectedFagomraade: FagOmraade) {
@@ -302,22 +284,37 @@ export default function SokPage() {
                 <RadioGroup
                   legend="Status"
                   name="alternativer"
-                  defaultValue="2"
+                  defaultValue={AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE}
                   size={"small"}
                 >
-                  <Radio value="1" {...register("alternativer")}>
+                  <Radio
+                    value={AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE}
+                    {...register("alternativer")}
+                  >
                     Ikke ferdig attestert eksl. egne
                   </Radio>
-                  <Radio value="2" {...register("alternativer")}>
+                  <Radio
+                    value={AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE}
+                    {...register("alternativer")}
+                  >
                     Ikke ferdig attestert inkl. egne
                   </Radio>
-                  <Radio value="3" {...register("alternativer")}>
+                  <Radio
+                    value={AttestertStatus.ATTESTERT}
+                    {...register("alternativer")}
+                  >
                     Attestert
                   </Radio>
-                  <Radio value="4" {...register("alternativer")}>
+                  <Radio
+                    value={AttestertStatus.ALLE}
+                    {...register("alternativer")}
+                  >
                     Alle
                   </Radio>
-                  <Radio value="5" {...register("alternativer")}>
+                  <Radio
+                    value={AttestertStatus.EGEN_ATTESTERTE}
+                    {...register("alternativer")}
+                  >
                     Egne attesterte
                   </Radio>
                 </RadioGroup>
@@ -342,6 +339,11 @@ export default function SokPage() {
             <div className={styles["attestasjonsok-button"]}>
               <Button
                 data-umami-event={SOK.SUBMIT}
+                data-umami-event-fnr={!!sokeData?.gjelderId}
+                data-umami-event-fagsystemid={!!sokeData?.fagSystemId}
+                data-umami-event-faggruppe={sokeData?.fagGruppe?.type}
+                data-umami-event-fagomraade={sokeData?.fagOmraade?.kode}
+                data-umami-event-attestert={sokeData?.alternativer}
                 id={"search"}
                 type="submit"
                 size={"small"}
@@ -352,6 +354,7 @@ export default function SokPage() {
                 Søk
               </Button>
               <Button
+                data-umami-event={SOK.RESET}
                 id={"nullstill"}
                 variant="secondary"
                 size={"small"}

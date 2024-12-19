@@ -1,27 +1,25 @@
 export const SOK = {
   SUBMIT: "søkeknapp trykket",
-  GJELDERID: "søk med gjelderId",
-  FAGSYSTEM: "søk med fagsystemid",
-  FAGGRUPPE: "søk ikke attesterte i faggruppe",
-  FAGOMRAADE: "søk ikke attesterte i fagområde",
+  RESET: "søk resatt",
+};
+
+export const BREADCRUMBS = {
+  LINK: "link trykket",
   RESET: "søk resatt",
 };
 
 export const TREFFLISTE = {
-  EMPTY: "treffliste tomt svar",
-  ERROR: "treffliste feil",
+  SORTER: "sortert",
 };
 
 export const DETALJER = {
-  AAPNE_ALLE_RADER: "detaljer åpne alle rader trykket",
-  OPPDATER_TRYKKET: "detaljer oppdater trykket",
-  ATTESTERT: "detaljer attestering",
-  AVATTESTERT: "detaljer avattestering",
-  ERROR: "detaljer kall til zos feilet",
+  AAPNE_ALLE_RADER: "åpne alle rader trykket",
+  OPPDATER_TRYKKET: "oppdater trykket",
+  REDIGERTE_DATO: "redigerte dato",
+  SUMMODAL: "summodal åpnet",
+  VELG_ALLE: "velg alle trykket",
 };
 
-export function logUmamiEvent(s: string): void {
-  if (typeof window !== "undefined" && window.umami) {
-    window.umami.track(s);
-  }
+export function logUserEvent(name: string, data?: object): void {
+  window?.umami?.track(name, data);
 }

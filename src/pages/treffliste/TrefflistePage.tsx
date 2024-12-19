@@ -5,6 +5,7 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
+import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { BASENAME } from "../../util/constants";
 import TreffTabell from "./TreffTabell";
 import styles from "./TrefflistePage.module.css";
@@ -13,13 +14,17 @@ export default function TrefflistePage() {
   const { oppdragList, sokeData, gjelderNavn, setGjelderNavn } = useStore();
 
   function getAttestertStatusText() {
-    if (sokeData?.alternativer === "1") {
+    if (
+      sokeData?.alternativer === AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE
+    ) {
       return "Ikke ferdig attestert eksl. egne";
-    } else if (sokeData?.alternativer === "2") {
+    } else if (
+      sokeData?.alternativer === AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE
+    ) {
       return "Ikke ferdig attestert inkl. egne";
-    } else if (sokeData?.alternativer === "3") {
+    } else if (sokeData?.alternativer === AttestertStatus.ATTESTERT) {
       return "Attestert";
-    } else if (sokeData?.alternativer === "4") {
+    } else if (sokeData?.alternativer === AttestertStatus.ALLE) {
       return "Alle";
     } else {
       return "Egne attesterte";
