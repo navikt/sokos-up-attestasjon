@@ -248,18 +248,19 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
         >
           Attester alle
         </Checkbox>
-        {sokeData?.alternativer !== "3" && (
+        {sokeData?.alternativer !== "ATTESTERT" && (
           <SumModal
             tittel={"Sum per klassekode som attesteres"}
             sum={calculateSum("attesteres")}
           />
         )}
-        {sokeData?.alternativer !== "1" && sokeData?.alternativer !== "2" && (
-          <SumModal
-            tittel={"Sum per klassekode tidligere attestert"}
-            sum={calculateSum("tidligere")}
-          />
-        )}
+        {sokeData?.alternativer !== "IKKE_FERDIG_ATTESTERT_EKSL_EGNE" &&
+          sokeData?.alternativer !== "IKKE_FERDIG_ATTESTERT_INKL_EGNE" && (
+            <SumModal
+              tittel={"Sum per klassekode tidligere attestert"}
+              sum={calculateSum("tidligere")}
+            />
+          )}
       </div>
       <div className={styles.detaljertabell}>
         <Table id={"detaljertabell"}>

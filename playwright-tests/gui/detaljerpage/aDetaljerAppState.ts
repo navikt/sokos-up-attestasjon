@@ -23,7 +23,7 @@ const detaljerAppState: State = {
     },
     sokeData: {
       gjelderId: "",
-      alternativer: "4",
+      alternativer: "ALLE",
       fagSystemId: "666-",
       fagGruppe: {
         navn: "Selveste faggruppen",

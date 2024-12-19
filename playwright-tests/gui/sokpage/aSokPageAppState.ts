@@ -20,7 +20,11 @@ export function aStateWith(sokeData: Partial<SokeData>): {
   return {
     state: {
       gjelderNavn: "",
-      sokeData: { gjelderId: "", alternativer: "2", ...sokeData },
+      sokeData: {
+        gjelderId: "",
+        alternativer: "IKKE_FERDIG_ATTESTERT_INKL_EGNE",
+        ...sokeData,
+      },
     },
     version: 0,
   };

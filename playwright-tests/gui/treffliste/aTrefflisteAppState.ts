@@ -33,7 +33,7 @@ const state: { state: AppState; version: number } = {
     ],
     sokeData: {
       gjelderId: "",
-      alternativer: "2",
+      alternativer: "IKKE_FERDIG_ATTESTERT_INKL_EGNE",
       fagSystemId: "666-",
       fagGruppe: {
         navn: "Selveste faggruppen",
