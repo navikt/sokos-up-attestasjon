@@ -12,7 +12,8 @@ import {
   AttestasjonlinjeList,
 } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
-import { DETALJER } from "../../umami/umami";
+import { AttestertStatus } from "../../types/schema/AttestertStatus";
+import { DETALJER, logUserEvent } from "../../umami/umami";
 import { formaterTilNorskTall } from "../../util/commonUtils";
 import {
   dagensDato,
@@ -132,6 +133,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
   }
 
   function handleToggleAll(type: Linjetype) {
+    logUserEvent(DETALJER.VELG_ALLE, { type });
     const isAllChecked = getCheckedStatus(type) === "alle";
     setAttestasjonlinjer((prev) =>
       prev.map((linje) => ({
@@ -218,6 +220,8 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
         <Button
           type={"submit"}
           data-umami-event={DETALJER.OPPDATER_TRYKKET}
+          data-umami-event-attester={getCheckedStatus("attester")}
+          data-umami-event-fjern={getCheckedStatus("fjern")}
           size={"medium"}
           loading={props.isLoading}
           onClick={() => props.handleSubmit(attestasjonlinjer)}
@@ -245,18 +249,21 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
         >
           Attester alle
         </Checkbox>
-        {sokeData?.alternativer !== "3" && (
+        {sokeData?.alternativer !== AttestertStatus.ATTESTERT && (
           <SumModal
             tittel={"Sum per klassekode som attesteres"}
             sum={calculateSum("attesteres")}
           />
         )}
-        {sokeData?.alternativer !== "1" && sokeData?.alternativer !== "2" && (
-          <SumModal
-            tittel={"Sum per klassekode tidligere attestert"}
-            sum={calculateSum("tidligere")}
-          />
-        )}
+        {sokeData?.alternativer !==
+          AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE &&
+          sokeData?.alternativer !==
+            AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE && (
+            <SumModal
+              tittel={"Sum per klassekode tidligere attestert"}
+              sum={calculateSum("tidligere")}
+            />
+          )}
       </div>
       <div className={styles.detaljertabell}>
         <Table id={"detaljertabell"}>

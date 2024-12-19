@@ -5,6 +5,7 @@ import RowsPerPageSelector from "../../components/RowsPerPageSelector";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { OppdragList } from "../../types/Oppdrag";
+import { TREFFLISTE, logUserEvent } from "../../umami/umami";
 
 interface TreffTabellProps {
   oppdragList: OppdragList;
@@ -28,6 +29,7 @@ export default function TreffTabell(props: TreffTabellProps) {
   const antall = props.oppdragList.length ?? 0;
 
   const handleSort = (sortKey: ScopedSortState["orderBy"]) => {
+    logUserEvent(TREFFLISTE.SORTER, { sortKey: sortKey });
     setSort(
       sort && sortKey === sort.orderBy && sort.direction === "descending"
         ? undefined

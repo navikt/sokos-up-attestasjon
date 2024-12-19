@@ -1,4 +1,5 @@
 import { AppState } from "../../../src/store/AppState";
+import { AttestertStatus } from "../../../src/types/schema/AttestertStatus";
 
 type State = {
   state: AppState;
@@ -23,7 +24,7 @@ const detaljerAppState: State = {
     },
     sokeData: {
       gjelderId: "",
-      alternativer: "4",
+      alternativer: AttestertStatus.ALLE,
       fagSystemId: "666-",
       fagGruppe: {
         navn: "Selveste faggruppen",

@@ -16,7 +16,7 @@ import commonstyles from "../../styles/common-styles.module.css";
 import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
-import { DETALJER, logUmamiEvent } from "../../umami/umami";
+import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { ROOT } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
@@ -41,14 +41,18 @@ export default function DetaljerPage() {
     saksbehandlerIdent: data?.saksbehandlerIdent ?? "",
     linjer:
       data?.linjer.filter((linje) => {
-        if (sokeData?.alternativer === "3") {
+        if (sokeData && sokeData.alternativer === AttestertStatus.ATTESTERT) {
           return linje.oppdragsLinje.attestert;
         } else if (
-          sokeData?.alternativer === "1" ||
-          sokeData?.alternativer === "2"
+          sokeData &&
+          [
+            AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE,
+            AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
+          ].includes(sokeData.alternativer)
         ) {
           return !linje.oppdragsLinje.attestert;
-        } else return true;
+        } // Hvis man har valgt EGNE_ATTESTERTE eller ALLE skal alle rader vises
+        else return true;
       }) ?? [],
   };
 
@@ -101,23 +105,9 @@ export default function DetaljerPage() {
             variant: "success",
           });
 
-          if (
-            attestasjonlinjer.filter((linje) => linje.properties.attester)
-              .length > 0
-          ) {
-            logUmamiEvent(DETALJER.ATTESTERT);
-          }
-          if (
-            attestasjonlinjer.filter((linje) => linje.properties.fjern).length >
-            0
-          ) {
-            logUmamiEvent(DETALJER.AVATTESTERT);
-          }
-
           mutate();
         })
         .catch((error) => {
-          logUmamiEvent(DETALJER.ERROR);
           setAlertMessage({ message: error, variant: "error" });
         });
 
