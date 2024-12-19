@@ -1,5 +1,6 @@
 import { AppState } from "../../../src/store/AppState";
 import { SokeData } from "../../../src/types/SokeData";
+import { AttestertStatus } from "../../../src/types/schema/AttestertStatus";
 
 export default {
   state: {
@@ -22,7 +23,7 @@ export function aStateWith(sokeData: Partial<SokeData>): {
       gjelderNavn: "",
       sokeData: {
         gjelderId: "",
-        alternativer: "IKKE_FERDIG_ATTESTERT_INKL_EGNE",
+        alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
         ...sokeData,
       },
     },

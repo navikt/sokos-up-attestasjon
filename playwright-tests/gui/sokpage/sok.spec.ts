@@ -1,5 +1,6 @@
 import { Page, expect, test } from "@playwright/test";
 import { AppState } from "../../../src/store/AppState";
+import { AttestertStatus } from "../../../src/types/schema/AttestertStatus";
 import faggrupper from "../../stubs/faggrupper";
 import fagomraader from "../../stubs/fagomraader";
 import { aStateWith } from "./aSokPageAppState";
@@ -147,7 +148,9 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
   }) => {
     testStore(
       page,
-      aStateWith({ alternativer: "IKKE_FERDIG_ATTESTERT_EKSL_EGNE" }),
+      aStateWith({
+        alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE,
+      }),
     );
 
     await page.goto("/attestasjon");
@@ -168,7 +171,9 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
   }) => {
     testStore(
       page,
-      aStateWith({ alternativer: "IKKE_FERDIG_ATTESTERT_INKL_EGNE" }),
+      aStateWith({
+        alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
+      }),
     );
 
     await page.goto("/attestasjon");
@@ -185,7 +190,7 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
     await expect(radiobutton(page, "Egne attesterte")).not.toBeChecked();
   });
   test(`Attestert radiobutton should be checked`, async ({ page }) => {
-    testStore(page, aStateWith({ alternativer: "ATTESTERT" }));
+    testStore(page, aStateWith({ alternativer: AttestertStatus.ATTESTERT }));
 
     await page.goto("/attestasjon");
     await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
@@ -201,7 +206,7 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
     await expect(radiobutton(page, "Egne attesterte")).not.toBeChecked();
   });
   test(`Alle radiobutton should be checked`, async ({ page }) => {
-    testStore(page, aStateWith({ alternativer: "ALLE" }));
+    testStore(page, aStateWith({ alternativer: AttestertStatus.ALLE }));
 
     await page.goto("/attestasjon");
     await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();
@@ -217,7 +222,10 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
     await expect(radiobutton(page, "Egne attesterte")).not.toBeChecked();
   });
   test(`Egne attesterte radiobutton should be checked`, async ({ page }) => {
-    testStore(page, aStateWith({ alternativer: "EGEN_ATTESTERTE" }));
+    testStore(
+      page,
+      aStateWith({ alternativer: AttestertStatus.EGEN_ATTESTERTE }),
+    );
 
     await page.goto("/attestasjon");
     await expect(page.getByRole("heading", { name: "Søk" })).toBeVisible();

@@ -1,4 +1,5 @@
 import { ZodEffects, ZodString, z } from "zod";
+import { AttestertStatus, AttestertStatusSchema } from "./AttestertStatus";
 import { FaggruppeSchema } from "./FagGruppeSchema";
 import { FagOmraadeSchema } from "./FagOmraadeSchema";
 
@@ -26,29 +27,23 @@ export const SokeDataSchema = z
     fagSystemId: z.optional(fagSystemIdRule),
     fagGruppe: z.optional(FaggruppeSchema),
     fagOmraade: z.optional(FagOmraadeSchema),
-    alternativer: z.enum([
-      "IKKE_FERDIG_ATTESTERT_EKSL_EGNE",
-      "IKKE_FERDIG_ATTESTERT_INKL_EGNE",
-      "ATTESTERT",
-      "ALLE",
-      "EGEN_ATTESTERTE",
-    ]),
+    alternativer: AttestertStatusSchema,
   })
   .refine(
     (data) => {
       if (
         data.fagGruppe &&
         [
-          "IKKE_FERDIG_ATTESTERT_EKSL_EGNE",
-          "IKKE_FERDIG_ATTESTERT_INKL_EGNE",
+          AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE,
+          AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
         ].includes(data.alternativer)
       )
         return true;
       if (
         data.fagOmraade &&
         [
-          "IKKE_FERDIG_ATTESTERT_EKSL_EGNE",
-          "IKKE_FERDIG_ATTESTERT_INKL_EGNE",
+          AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE,
+          AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
         ].includes(data.alternativer)
       )
         return true;

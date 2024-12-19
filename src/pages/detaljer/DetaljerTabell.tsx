@@ -12,6 +12,7 @@ import {
   AttestasjonlinjeList,
 } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { DETALJER, logUserEvent } from "../../umami/umami";
 import { formaterTilNorskTall } from "../../util/commonUtils";
 import {
@@ -248,14 +249,16 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
         >
           Attester alle
         </Checkbox>
-        {sokeData?.alternativer !== "ATTESTERT" && (
+        {sokeData?.alternativer !== AttestertStatus.ATTESTERT && (
           <SumModal
             tittel={"Sum per klassekode som attesteres"}
             sum={calculateSum("attesteres")}
           />
         )}
-        {sokeData?.alternativer !== "IKKE_FERDIG_ATTESTERT_EKSL_EGNE" &&
-          sokeData?.alternativer !== "IKKE_FERDIG_ATTESTERT_INKL_EGNE" && (
+        {sokeData?.alternativer !==
+          AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE &&
+          sokeData?.alternativer !==
+            AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE && (
             <SumModal
               tittel={"Sum per klassekode tidligere attestert"}
               sum={calculateSum("tidligere")}

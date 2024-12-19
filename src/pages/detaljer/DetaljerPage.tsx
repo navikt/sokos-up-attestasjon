@@ -16,6 +16,7 @@ import commonstyles from "../../styles/common-styles.module.css";
 import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
+import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { ROOT } from "../../util/constants";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
@@ -40,13 +41,13 @@ export default function DetaljerPage() {
     saksbehandlerIdent: data?.saksbehandlerIdent ?? "",
     linjer:
       data?.linjer.filter((linje) => {
-        if (sokeData && sokeData.alternativer === "ATTESTERT") {
+        if (sokeData && sokeData.alternativer === AttestertStatus.ATTESTERT) {
           return linje.oppdragsLinje.attestert;
         } else if (
           sokeData &&
           [
-            "IKKE_FERDIG_ATTESTERT_EKSL_EGNE",
-            "IKKE_FERDIG_ATTESTERT_INKL_EGNE",
+            AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE,
+            AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
           ].includes(sokeData.alternativer)
         ) {
           return !linje.oppdragsLinje.attestert;

@@ -28,6 +28,7 @@ import { FagGruppe } from "../../types/FagGruppe";
 import { FagOmraade } from "../../types/FagOmraade";
 import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
+import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
 import { SOK } from "../../umami/umami";
 import { isEmpty } from "../../util/commonUtils";
@@ -283,28 +284,37 @@ export default function SokPage() {
                 <RadioGroup
                   legend="Status"
                   name="alternativer"
-                  defaultValue="IKKE_FERDIG_ATTESTERT_INKL_EGNE"
+                  defaultValue={AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE}
                   size={"small"}
                 >
                   <Radio
-                    value="IKKE_FERDIG_ATTESTERT_EKSL_EGNE"
+                    value={AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE}
                     {...register("alternativer")}
                   >
                     Ikke ferdig attestert eksl. egne
                   </Radio>
                   <Radio
-                    value="IKKE_FERDIG_ATTESTERT_INKL_EGNE"
+                    value={AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE}
                     {...register("alternativer")}
                   >
                     Ikke ferdig attestert inkl. egne
                   </Radio>
-                  <Radio value="ATTESTERT" {...register("alternativer")}>
+                  <Radio
+                    value={AttestertStatus.ATTESTERT}
+                    {...register("alternativer")}
+                  >
                     Attestert
                   </Radio>
-                  <Radio value="ALLE" {...register("alternativer")}>
+                  <Radio
+                    value={AttestertStatus.ALLE}
+                    {...register("alternativer")}
+                  >
                     Alle
                   </Radio>
-                  <Radio value="EGEN_ATTESTERTE" {...register("alternativer")}>
+                  <Radio
+                    value={AttestertStatus.EGEN_ATTESTERTE}
+                    {...register("alternativer")}
+                  >
                     Egne attesterte
                   </Radio>
                 </RadioGroup>
