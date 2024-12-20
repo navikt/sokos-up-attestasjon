@@ -1,9 +1,4 @@
-import React, {
-  ChangeEvent,
-  PropsWithChildren,
-  useEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, useEffect, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
 import { Button, Checkbox, Table, TextField, Tooltip } from "@navikt/ds-react";
 import { useStore } from "../../store/AppState";
@@ -22,7 +17,7 @@ import {
   isoDatoTilNorskDato,
 } from "../../util/datoUtil";
 import styles from "./DetaljerTabell.module.css";
-import ExpandableRow from "./ExpandableRow";
+import RowWrapper from "./RowWrapper";
 import SumModal from "./SumModal";
 import { tranformToAttestasjonlinje } from "./detaljerUtils";
 
@@ -190,30 +185,6 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     return { sumPerKlassekode, totalsum };
   }
 
-  const RowWrapper = ({
-    linje,
-    children,
-    index,
-  }: PropsWithChildren & { linje: Attestasjonlinje; index: number }) => {
-    if (!linje.properties.vises) return <Table.Row>{children}</Table.Row>;
-    else
-      return (
-        <Table.ExpandableRow
-          content={<ExpandableRow data={linje} />}
-          togglePlacement="right"
-          expandOnRowClick
-          key={index}
-          open={openRows[index] || false}
-          onOpenChange={(open) => handleRowToggle(index, open)}
-          selected={
-            linje.attestant ? linje.properties.fjern : linje.properties.attester
-          }
-        >
-          {children}
-        </Table.ExpandableRow>
-      );
-  };
-
   return (
     <>
       <div className={styles["detaljertabell-knapperad"]}>
@@ -305,7 +276,15 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
           </Table.Header>
           <Table.Body>
             {attestasjonlinjer.map((linje, index) => (
-              <RowWrapper key={"row" + index} linje={linje} index={index}>
+              <RowWrapper
+                key={"row" + index}
+                linje={linje}
+                index={index}
+                openRows={openRows}
+                handleRowToggle={handleRowToggle}
+                handleTextFieldChange={handleTextFieldChange}
+                toggleCheckbox={toggleCheckbox}
+              >
                 <Tooltip content={linje.kontonummer}>
                   <Table.DataCell>
                     {linje.properties.vises && linje.kodeKlasse}
@@ -339,6 +318,12 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                           isoDatoTilNorskDato(linje.datoUgyldigFom)
                         }
                         onChange={(e) => handleTextFieldChange(e, index, linje)}
+                        onBlur={() => {
+                          logUserEvent(DETALJER.REDIGERTE_DATO, {
+                            dato: linje.properties
+                              .activelyChangedDatoUgyldigFom,
+                          });
+                        }}
                         error={linje.properties.dateError}
                         disabled={!linje.properties.fjern}
                       />
