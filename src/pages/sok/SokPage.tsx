@@ -56,6 +56,8 @@ export default function SokPage() {
     formState: { errors },
   } = useForm<SokeData>({
     resolver: zodResolver(SokeDataSchema),
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
   });
 
   useEffect(() => {
@@ -176,7 +178,17 @@ export default function SokPage() {
                   <TextField
                     label="Gjelder"
                     size={"small"}
-                    error={errors.gjelderId?.message}
+                    error={
+                      errors.gjelderId?.message && (
+                        <span
+                          className={
+                            styles["attestasjonsok-error-message-nowrap"]
+                          }
+                        >
+                          {errors.gjelderId?.message}
+                        </span>
+                      )
+                    }
                     id="gjelderId"
                     {...register("gjelderId", {
                       setValueAs: (value: string) => value.trim(),

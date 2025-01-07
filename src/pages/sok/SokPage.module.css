@@ -15,7 +15,7 @@
 }
 
 .attestasjonsok-gjelder {
-  @apply w-36;
+  @apply relative w-36;
 }
 
 .attestasjonsok-fagsystem {
@@ -44,4 +44,8 @@
 
 .attestasjonsok-combobox {
   @apply min-w-[660px];
+}
+
+.attestasjonsok-error-message-nowrap {
+  @apply absolute left-2 ml-3 whitespace-nowrap;
 }
