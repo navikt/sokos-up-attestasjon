@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { EraserIcon } from "@navikt/aksel-icons";
 import { Button } from "@navikt/ds-react";
 import { useStore } from "../store/AppState";
-import { BREADCRUMBS } from "../umami/umami";
+import { EVENT_NAME } from "../umami/umami";
 import { ROOT } from "../util/constants";
 
 export default function ResetButton() {
@@ -18,7 +18,7 @@ export default function ResetButton() {
 
   return (
     <Button
-      data-umami-event={BREADCRUMBS.RESET}
+      data-umami-event={EVENT_NAME.RESET}
       size="small"
       variant="tertiary"
       iconPosition="right"

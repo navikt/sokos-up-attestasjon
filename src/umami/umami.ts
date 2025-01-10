@@ -1,21 +1,11 @@
-export const SOK = {
-  SUBMIT: "søkeknapp trykket",
-  RESET: "søk resatt",
-};
-
-export const BREADCRUMBS = {
-  LINK: "link trykket",
-  RESET: "søk resatt",
-};
-
-export const TREFFLISTE = {
-  SORTER: "sortert",
-};
-
-export const DETALJER = {
+export const EVENT_NAME = {
   AAPNE_ALLE_RADER: "åpne alle rader trykket",
+  LINK: "link trykket",
   OPPDATER_TRYKKET: "oppdater trykket",
   REDIGERTE_DATO: "redigerte dato",
+  RESET: "søk resatt",
+  SORTER: "sortert",
+  SUBMIT: "søkeknapp trykket",
   SUMMODAL: "summodal åpnet",
   VELG_ALLE: "velg alle trykket",
 };

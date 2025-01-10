@@ -2,7 +2,7 @@ import { Link } from "react-router";
 import { ChevronRightIcon } from "@navikt/aksel-icons";
 import { BodyShort } from "@navikt/ds-react";
 import commonstyles from "../styles/common-styles.module.css";
-import { BREADCRUMBS } from "../umami/umami";
+import { EVENT_NAME } from "../umami/umami";
 import styles from "./Breadcrumbs.module.css";
 import ResetButton from "./ResetButton";
 
@@ -24,7 +24,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
             <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
                 <Link
-                  data-umami-event={BREADCRUMBS.LINK}
+                  data-umami-event={EVENT_NAME.LINK}
                   to={"/"}
                   className={commonstyles.link}
                 >
@@ -44,7 +44,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
               <ChevronRightIcon focusable={"false"} title="Pil høyre" />
               <BodyShort size="large">
                 <Link
-                  data-umami-event={BREADCRUMBS.LINK}
+                  data-umami-event={EVENT_NAME.LINK}
                   to={"/treffliste"}
                   className={commonstyles.link}
                 >
@@ -64,7 +64,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
               <ChevronRightIcon title="Pil høyre" />
               <BodyShort size="large">
                 <Link
-                  data-umami-event={BREADCRUMBS.LINK}
+                  data-umami-event={EVENT_NAME.LINK}
                   to={"/detaljer"}
                   className={commonstyles.link}
                 >

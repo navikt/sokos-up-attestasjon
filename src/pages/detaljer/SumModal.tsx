@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { Button, Modal, Table } from "@navikt/ds-react";
-import { DETALJER } from "../../umami/umami";
+import { EVENT_NAME } from "../../umami/umami";
 import { formaterTilNorskTall } from "../../util/commonUtils";
 
 type SumModalProps = {
@@ -21,7 +21,7 @@ export default function SumModal({ tittel, sum }: SumModalProps) {
   return (
     <div>
       <Button
-        data-umami-event={DETALJER.SUMMODAL}
+        data-umami-event={EVENT_NAME.SUMMODAL}
         data-umami-event-tittel={tittel}
         variant="secondary"
         size="small"

@@ -30,7 +30,7 @@ import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
-import { SOK } from "../../umami/umami";
+import { EVENT_NAME } from "../../umami/umami";
 import { isEmpty } from "../../util/commonUtils";
 import styles from "./SokPage.module.css";
 
@@ -350,7 +350,7 @@ export default function SokPage() {
             )}
             <div className={styles["attestasjonsok-button"]}>
               <Button
-                data-umami-event={SOK.SUBMIT}
+                data-umami-event={EVENT_NAME.SUBMIT}
                 data-umami-event-fnr={!!sokeData?.gjelderId}
                 data-umami-event-fagsystemid={!!sokeData?.fagSystemId}
                 data-umami-event-faggruppe={sokeData?.fagGruppe?.type}
@@ -366,7 +366,7 @@ export default function SokPage() {
                 Søk
               </Button>
               <Button
-                data-umami-event={SOK.RESET}
+                data-umami-event={EVENT_NAME.RESET}
                 id={"nullstill"}
                 variant="secondary"
                 size={"small"}

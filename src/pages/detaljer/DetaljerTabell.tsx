@@ -8,7 +8,7 @@ import {
 } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
-import { DETALJER, logUserEvent } from "../../umami/umami";
+import { EVENT_NAME, logUserEvent } from "../../umami/umami";
 import { formaterTilNorskTall } from "../../util/commonUtils";
 import {
   dagensDato,
@@ -128,7 +128,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
   }
 
   function handleToggleAll(type: Linjetype) {
-    logUserEvent(DETALJER.VELG_ALLE, { type });
+    logUserEvent(EVENT_NAME.VELG_ALLE, { type });
     const isAllChecked = getCheckedStatus(type) === "alle";
     setAttestasjonlinjer((prev) =>
       prev.map((linje) => ({
@@ -190,7 +190,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
       <div className={styles["detaljertabell-knapperad"]}>
         <Button
           type={"submit"}
-          data-umami-event={DETALJER.OPPDATER_TRYKKET}
+          data-umami-event={EVENT_NAME.OPPDATER_TRYKKET}
           data-umami-event-attester={getCheckedStatus("attester")}
           data-umami-event-fjern={getCheckedStatus("fjern")}
           size={"medium"}
@@ -256,7 +256,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                 <div className={styles["detaljertabell-toggle-rows"]}>
                   <Button
                     size={"small"}
-                    data-umami-event={DETALJER.AAPNE_ALLE_RADER}
+                    data-umami-event={EVENT_NAME.AAPNE_ALLE_RADER}
                     icon={
                       toggleAllRows ? (
                         <ChevronUpIcon title="Pil opp" />
@@ -319,7 +319,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                         }
                         onChange={(e) => handleTextFieldChange(e, index, linje)}
                         onBlur={() => {
-                          logUserEvent(DETALJER.REDIGERTE_DATO, {
+                          logUserEvent(EVENT_NAME.REDIGERTE_DATO, {
                             dato: linje.properties
                               .activelyChangedDatoUgyldigFom,
                           });
