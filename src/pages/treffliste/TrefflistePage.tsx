@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useNavigate } from "react-router";
 import { Heading } from "@navikt/ds-react";
 import { hentNavn } from "../../api/apiService";
 import Breadcrumbs from "../../components/Breadcrumbs";
@@ -6,12 +7,13 @@ import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
-import { BASENAME } from "../../util/constants";
+import { ROOT } from "../../util/constants";
 import TreffTabell from "./TreffTabell";
 import styles from "./TrefflistePage.module.css";
 
 export default function TrefflistePage() {
   const { oppdragList, sokeData, gjelderNavn, setGjelderNavn } = useStore();
+  const navigate = useNavigate();
 
   function getAttestertStatusText() {
     if (
@@ -33,15 +35,17 @@ export default function TrefflistePage() {
 
   useEffect(() => {
     if (!oppdragList) {
-      window.location.replace(BASENAME);
+      navigate(ROOT);
     }
+  }, [navigate, oppdragList]);
 
+  useEffect(() => {
     if (sokeData?.gjelderId !== "" && !gjelderNavn) {
       hentNavn({ gjelderId: sokeData?.gjelderId }).then((response) => {
         setGjelderNavn(response.navn);
       });
     }
-  }, [oppdragList, gjelderNavn, setGjelderNavn, sokeData]);
+  }, [gjelderNavn, setGjelderNavn, sokeData]);
 
   return (
     <>

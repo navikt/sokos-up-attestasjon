@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import { ChevronRightIcon } from "@navikt/aksel-icons";
 import { BodyShort } from "@navikt/ds-react";
 import commonstyles from "../styles/common-styles.module.css";
-import { BREADCRUMBS } from "../umami/umami";
 import styles from "./Breadcrumbs.module.css";
 import ResetButton from "./ResetButton";
 
@@ -23,11 +22,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
           {props.searchLink && (
             <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
-                <Link
-                  data-umami-event={BREADCRUMBS.LINK}
-                  to={"/"}
-                  className={commonstyles.link}
-                >
+                <Link to="/" className={commonstyles.link}>
                   Gjeldende Søk
                 </Link>
               </BodyShort>
@@ -43,11 +38,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
             <div className={styles["breadcrumbs-crumb"]}>
               <ChevronRightIcon focusable={"false"} title="Pil høyre" />
               <BodyShort size="large">
-                <Link
-                  data-umami-event={BREADCRUMBS.LINK}
-                  to={"/treffliste"}
-                  className={commonstyles.link}
-                >
+                <Link to="/treffliste" className={commonstyles.link}>
                   Treffliste
                 </Link>
               </BodyShort>
@@ -63,11 +54,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
             <div className={styles["breadcrumbs-crumb"]}>
               <ChevronRightIcon title="Pil høyre" />
               <BodyShort size="large">
-                <Link
-                  data-umami-event={BREADCRUMBS.LINK}
-                  to={"/detaljer"}
-                  className={commonstyles.link}
-                >
+                <Link to="/detaljer" className={commonstyles.link}>
                   Detaljer
                 </Link>
               </BodyShort>
