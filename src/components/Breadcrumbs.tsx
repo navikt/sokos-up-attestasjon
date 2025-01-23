@@ -21,9 +21,11 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
         <div className={styles["breadcrumbs-contents"]}>
           {props.searchLink && (
             <div className={styles["breadcrumbs-crumb"]}>
-              <Link to="/" className={commonstyles.link}>
-                Gjeldende Søk
-              </Link>
+              <BodyShort size="large">
+                <Link to="/" className={commonstyles.link}>
+                  Gjeldende Søk
+                </Link>
+              </BodyShort>
             </div>
           )}
           {props.treffliste && (
@@ -35,9 +37,11 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
           {props.trefflistelink && (
             <div className={styles["breadcrumbs-crumb"]}>
               <ChevronRightIcon focusable={"false"} title="Pil høyre" />
-              <Link to="/treffliste" className={commonstyles.link}>
-                Treffliste
-              </Link>
+              <BodyShort size="large">
+                <Link to="/treffliste" className={commonstyles.link}>
+                  Treffliste
+                </Link>
+              </BodyShort>
             </div>
           )}
           {props.detaljer && (
