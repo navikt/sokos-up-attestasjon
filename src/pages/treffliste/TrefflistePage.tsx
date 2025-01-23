@@ -7,7 +7,7 @@ import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
-import { BASENAME } from "../../util/constants";
+import { ROOT } from "../../util/constants";
 import TreffTabell from "./TreffTabell";
 import styles from "./TrefflistePage.module.css";
 
@@ -35,7 +35,7 @@ export default function TrefflistePage() {
 
   useEffect(() => {
     if (!oppdragList) {
-      navigate(BASENAME);
+      navigate(ROOT);
     }
   }, [navigate, oppdragList]);
 
