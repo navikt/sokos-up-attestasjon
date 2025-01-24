@@ -1,21 +1,21 @@
-import { FagOmraade } from "../../src/types/FagOmraade";
+import { FagOmraadeDTOList } from "../../src/types/FagOmraade";
 
-const fagomraader: FagOmraade[] = [
+const fagomraader: FagOmraadeDTOList = [
   {
-    navn: "Arbeidsavklaringspenger",
-    kode: "AAP",
+    navnFagomraade: "Arbeidsavklaringspenger",
+    kodeFagomraade: "AAP",
   },
   {
-    navn: "Arbeidsavklaringspenger",
-    kode: "AAPARENA",
+    navnFagomraade: "Arbeidsavklaringspenger",
+    kodeFagomraade: "AAPARENA",
   },
   {
-    navn: "Lønnskomp arbeidsgiver, permitterte",
-    kode: "AGPERM",
+    navnFagomraade: "Lønnskomp arbeidsgiver, permitterte",
+    kodeFagomraade: "AGPERM",
   },
   {
-    navn: "Barnetrygd",
-    kode: "BA",
+    navnFagomraade: "Barnetrygd",
+    kodeFagomraade: "BA",
   },
 ];
 export default fagomraader;

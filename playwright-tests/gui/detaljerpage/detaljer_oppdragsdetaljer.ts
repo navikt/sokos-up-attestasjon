@@ -1,5 +1,5 @@
-import { OppdragsDetaljer } from "../../../src/types/OppdragsDetaljer";
-import { OppdragsLinje } from "../../../src/types/OppdragsLinje";
+import { OppdragsDetaljerDTO } from "../../../src/types/OppdragsDetaljer";
+import { OppdragsLinjeDTO } from "../../../src/types/OppdragsLinje";
 
 function generateNumbers(n: number) {
   return Array.from({ length: n }, (_, i) => i + 1);
@@ -7,15 +7,15 @@ function generateNumbers(n: number) {
 
 function anAttestasjon(n: number) {
   return {
-    attestant: n === 1 ? "A111111" : "B222222",
+    attestantId: n === 1 ? "A111111" : "B222222",
     datoUgyldigFom: "9999-12-31",
   };
 }
 
-function anOppdragslinje(
+function anOppdragslinjeDto(
   n: number,
   antallAttestasjoner: 0 | 1 | 2,
-): OppdragsLinje {
+): OppdragsLinjeDTO {
   return {
     oppdragsLinje: {
       attestert: false,
@@ -27,9 +27,10 @@ function anOppdragslinje(
       oppdragsId: 98765432,
       sats: 1234.0 + n * 100,
       typeSats: "ENG",
-      kontonummer: "1231234",
+      hovedkontonr: "123",
+      underkontonr: "4567",
     },
-    attestasjoner:
+    attestasjonList:
       antallAttestasjoner === 0
         ? []
         : generateNumbers(antallAttestasjoner).map((n) => anAttestasjon(n)),
@@ -40,10 +41,10 @@ function oppdragsdetaljer(
   antallLinjer: number,
   antallAttestasjoner: 0 | 1 | 2,
   saksbehandlerIdent?: string,
-): OppdragsDetaljer {
+): OppdragsDetaljerDTO {
   return {
-    linjer: generateNumbers(antallLinjer).map((n) =>
-      anOppdragslinje(n, antallAttestasjoner),
+    oppdragsLinjeList: generateNumbers(antallLinjer).map((n) =>
+      anOppdragslinjeDto(n, antallAttestasjoner),
     ),
     saksbehandlerIdent: saksbehandlerIdent ?? "X31337",
   };

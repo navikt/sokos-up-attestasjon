@@ -1,5 +1,5 @@
 import { Page, expect, test } from "@playwright/test";
-import { OppdragsDetaljer } from "../../../src/types/OppdragsDetaljer";
+import { OppdragsDetaljerDTO } from "../../../src/types/OppdragsDetaljer";
 import { detaljerStateWith } from "./aDetaljerAppState";
 import oppdragsdetaljerWith from "./detaljer_oppdragsdetaljer";
 
@@ -21,7 +21,7 @@ async function gotoAndAssertBeingOnDetaljerPage(page: Page) {
 
 async function backendWillReturn(
   page: Page,
-  oppdragsdetaljer: OppdragsDetaljer,
+  oppdragsdetaljer: OppdragsDetaljerDTO,
 ) {
   await page.route("*/**/oppdragsdetaljer", async (route) => {
     await route.fulfill({ json: oppdragsdetaljer });
@@ -42,11 +42,11 @@ test.describe("Detaljer", () => {
     }) => {
       const linjerCount = 3;
       const previousAttestasjoner = 0;
-      const oppdragsdetaljer = oppdragsdetaljerWith(
+      const oppdragsdetaljerDTO = oppdragsdetaljerWith(
         linjerCount,
         previousAttestasjoner,
       );
-      await backendWillReturn(page, oppdragsdetaljer);
+      await backendWillReturn(page, oppdragsdetaljerDTO);
       await gotoAndAssertBeingOnDetaljerPage(page);
 
       const tableRows = await locateTableRows(page);
