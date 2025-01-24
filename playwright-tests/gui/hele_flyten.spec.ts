@@ -1,7 +1,6 @@
 import { expect, test } from "@playwright/test";
 import faggrupper from "../stubs/faggrupper";
 import fagomraader from "../stubs/fagomraader";
-import oppdaterAttestasjonResponse from "../stubs/oppdaterAttestasjonResponse";
 import sok from "../stubs/sok";
 import oppdragsdetaljer from "./hele_flyten_oppdragsdetaljer";
 import oppdragsdetaljerEtterAttestering from "./hele_flyten_oppdragsdetaljerEtterAttestering";
@@ -42,7 +41,7 @@ test.describe("Attestasjon", () => {
       .click();
 
     await page.route("*/**/attestere", async (route) => {
-      await route.fulfill({ json: oppdaterAttestasjonResponse });
+      await route.fulfill({ json: "" });
     });
     await page.getByLabel("Attester", { exact: true }).check();
     await page.waitForLoadState("networkidle");

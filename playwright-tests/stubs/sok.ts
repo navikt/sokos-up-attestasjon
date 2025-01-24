@@ -13,6 +13,7 @@ const sok: OppdragList = [
     kostnadsSted: "8128",
     oppdragsId: 87654321,
     erSkjermetForSaksbehandler: false,
+    hasWriteAccess: true,
   },
   {
     ansvarsSted: "1234",
@@ -26,6 +27,7 @@ const sok: OppdragList = [
     kostnadsSted: "5972",
     oppdragsId: 98765432,
     erSkjermetForSaksbehandler: false,
+    hasWriteAccess: true,
   },
 ];
 
