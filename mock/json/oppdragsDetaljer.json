@@ -1,5 +1,5 @@
 {
-  "linjer": [
+  "oppdragsLinjeList": [
     {
       "oppdragsLinje": {
         "attestert": false,
@@ -11,16 +11,17 @@
         "oppdragsId": 32464186,
         "sats": 1009,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345678",
-        "skyldner": "98765432100",
-        "refusjonsid": "REF123456",
-        "utbetalesTil": "12345678903",
+        "skyldnerId": "98765432100",
+        "refunderesId": "REF123456",
+        "utbetalesTilId": "12345678903",
         "grad": 60
       },
-      "attestasjoner": [
+      "attestasjonList": [
         {
-          "attestant": "K2786FPW",
+          "attestantId": "K2786FPW",
           "datoUgyldigFom": "9999-12-31"
         }
       ]
@@ -36,16 +37,17 @@
         "oppdragsId": 32464186,
         "sats": 1155,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345679",
-        "skyldner": "98765432100",
-        "refusjonsid": "REF123457",
-        "utbetalesTil": "12345678903",
+        "skyldnerId": "98765432100",
+        "refunderesId": "REF123457",
+        "utbetalesTilId": "12345678903",
         "grad": 100
       },
-      "attestasjoner": [
+      "attestasjonList": [
         {
-          "attestant": "K2786FPW",
+          "attestantId": "K2786FPW",
           "datoUgyldigFom": "9999-12-31"
         }
       ]
@@ -61,14 +63,15 @@
         "oppdragsId": 32464186,
         "sats": 1255,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345680",
-        "skyldner": "98765432100",
-        "refusjonsid": "REF123458",
-        "utbetalesTil": "12345678903",
+        "skyldnerId": "98765432100",
+        "refunderesId": "REF123458",
+        "utbetalesTilId": "12345678903",
         "grad": 50
       },
-      "attestasjoner": []
+      "attestasjonList": []
     },
     {
       "oppdragsLinje": {
@@ -81,16 +84,17 @@
         "oppdragsId": 32464187,
         "sats": 1100,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345681",
-        "skyldner": "98765432101",
-        "refusjonsid": "REF123459",
-        "utbetalesTil": "12345678904",
+        "skyldnerId": "98765432101",
+        "refunderesId": "REF123459",
+        "utbetalesTilId": "12345678904",
         "grad": 70
       },
-      "attestasjoner": [
+      "attestasjonList": [
         {
-          "attestant": "K2786FPX",
+          "attestantId": "K2786FPX",
           "datoUgyldigFom": "9999-12-31"
         }
       ]
@@ -106,14 +110,15 @@
         "oppdragsId": 32464188,
         "sats": 1200,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345682",
-        "skyldner": "98765432102",
-        "refusjonsid": "REF123460",
-        "utbetalesTil": "12345678905",
+        "skyldnerId": "98765432102",
+        "refunderesId": "REF123460",
+        "utbetalesTilId": "12345678905",
         "grad": 80
       },
-      "attestasjoner": []
+      "attestasjonList": []
     },
     {
       "oppdragsLinje": {
@@ -126,16 +131,17 @@
         "oppdragsId": 32464189,
         "sats": 1300,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345683",
-        "skyldner": "98765432103",
-        "refusjonsid": "REF123461",
-        "utbetalesTil": "12345678906",
+        "skyldnerId": "98765432103",
+        "refunderesId": "REF123461",
+        "utbetalesTilId": "12345678906",
         "grad": 90
       },
-      "attestasjoner": [
+      "attestasjonList": [
         {
-          "attestant": "K2786FPY",
+          "attestantId": "K2786FPY",
           "datoUgyldigFom": "9999-12-31"
         }
       ]
@@ -151,14 +157,15 @@
         "oppdragsId": 32464190,
         "sats": 1400,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345684",
-        "skyldner": "98765432104",
-        "refusjonsid": "REF123462",
-        "utbetalesTil": "12345678907",
+        "skyldnerId": "98765432104",
+        "refunderesId": "REF123462",
+        "utbetalesTilId": "12345678907",
         "grad": 100
       },
-      "attestasjoner": []
+      "attestasjonList": []
     },
     {
       "oppdragsLinje": {
@@ -171,16 +178,17 @@
         "oppdragsId": 32464191,
         "sats": 1500,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345685",
-        "skyldner": "98765432105",
-        "refusjonsid": "REF123463",
-        "utbetalesTil": "12345678908",
+        "skyldnerId": "98765432105",
+        "refunderesId": "REF123463",
+        "utbetalesTilId": "12345678908",
         "grad": 110
       },
-      "attestasjoner": [
+      "attestasjonList": [
         {
-          "attestant": "K2786FPZ",
+          "attestantId": "K2786FPZ",
           "datoUgyldigFom": "9999-12-31"
         }
       ]
@@ -196,14 +204,15 @@
         "oppdragsId": 32464192,
         "sats": 1600,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345686",
-        "skyldner": "98765432106",
-        "refusjonsid": "REF123464",
-        "utbetalesTil": "12345678909",
+        "skyldnerId": "98765432106",
+        "refunderesId": "REF123464",
+        "utbetalesTilId": "12345678909",
         "grad": 120
       },
-      "attestasjoner": []
+      "attestasjonList": []
     },
     {
       "oppdragsLinje": {
@@ -216,16 +225,17 @@
         "oppdragsId": 32464193,
         "sats": 1700,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345687",
-        "skyldner": "98765432107",
-        "refusjonsid": "REF123465",
-        "utbetalesTil": "12345678910",
+        "skyldnerId": "98765432107",
+        "refunderesId": "REF123465",
+        "utbetalesTilId": "12345678910",
         "grad": 130
       },
-      "attestasjoner": [
+      "attestasjonList": [
         {
-          "attestant": "K2786FPA",
+          "attestantId": "K2786FPA",
           "datoUgyldigFom": "9999-12-31"
         }
       ]
@@ -241,14 +251,15 @@
         "oppdragsId": 32464194,
         "sats": 1800,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345688",
-        "skyldner": "98765432108",
-        "refusjonsid": "REF123466",
-        "utbetalesTil": "12345678911",
+        "skyldnerId": "98765432108",
+        "refunderesId": "REF123466",
+        "utbetalesTilId": "12345678911",
         "grad": 140
       },
-      "attestasjoner": []
+      "attestasjonList": []
     },
     {
       "oppdragsLinje": {
@@ -261,16 +272,17 @@
         "oppdragsId": 32464195,
         "sats": 1900,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345689",
-        "skyldner": "98765432109",
-        "refusjonsid": "REF123467",
-        "utbetalesTil": "12345678912",
+        "skyldnerId": "98765432109",
+        "refunderesId": "REF123467",
+        "utbetalesTilId": "12345678912",
         "grad": 150
       },
-      "attestasjoner": [
+      "attestasjonList": [
         {
-          "attestant": "K2786FPB",
+          "attestantId": "K2786FPB",
           "datoUgyldigFom": "9999-12-31"
         }
       ]
@@ -286,14 +298,15 @@
         "oppdragsId": 32464196,
         "sats": 2000,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345690",
-        "skyldner": "98765432110",
-        "refusjonsid": "REF123468",
-        "utbetalesTil": "12345678913",
+        "skyldnerId": "98765432110",
+        "refunderesId": "REF123468",
+        "utbetalesTilId": "12345678913",
         "grad": 160
       },
-      "attestasjoner": []
+      "attestasjonList": []
     },
     {
       "oppdragsLinje": {
@@ -306,16 +319,17 @@
         "oppdragsId": 32464197,
         "sats": 2100,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345691",
-        "skyldner": "98765432111",
-        "refusjonsid": "REF123469",
-        "utbetalesTil": "12345678914",
+        "skyldnerId": "98765432111",
+        "refunderesId": "REF123469",
+        "utbetalesTilId": "12345678914",
         "grad": 170
       },
-      "attestasjoner": [
+      "attestasjonList": [
         {
-          "attestant": "K2786FPC",
+          "attestantId": "K2786FPC",
           "datoUgyldigFom": "9999-12-31"
         }
       ]
@@ -331,14 +345,15 @@
         "oppdragsId": 32464198,
         "sats": 2200,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345692",
-        "skyldner": "98765432112",
-        "refusjonsid": "REF123470",
-        "utbetalesTil": "12345678915",
+        "skyldnerId": "98765432112",
+        "refunderesId": "REF123470",
+        "utbetalesTilId": "12345678915",
         "grad": 180
       },
-      "attestasjoner": []
+      "attestasjonList": []
     },
     {
       "oppdragsLinje": {
@@ -351,16 +366,17 @@
         "oppdragsId": 32464199,
         "sats": 2300,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345693",
-        "skyldner": "98765432113",
-        "refusjonsid": "REF123471",
-        "utbetalesTil": "12345678916",
+        "skyldnerId": "98765432113",
+        "refunderesId": "REF123471",
+        "utbetalesTilId": "12345678916",
         "grad": 190
       },
-      "attestasjoner": [
+      "attestasjonList": [
         {
-          "attestant": "K2786FPD",
+          "attestantId": "K2786FPD",
           "datoUgyldigFom": "9999-12-31"
         }
       ]
@@ -376,14 +392,15 @@
         "oppdragsId": 32464200,
         "sats": 2400,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345694",
-        "skyldner": "98765432114",
-        "refusjonsid": "REF123472",
-        "utbetalesTil": "12345678917",
+        "skyldnerId": "98765432114",
+        "refunderesId": "REF123472",
+        "utbetalesTilId": "12345678917",
         "grad": 200
       },
-      "attestasjoner": []
+      "attestasjonList": []
     },
     {
       "oppdragsLinje": {
@@ -396,16 +413,17 @@
         "oppdragsId": 32464201,
         "sats": 2500,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345695",
-        "skyldner": "98765432115",
-        "refusjonsid": "REF123473",
-        "utbetalesTil": "12345678918",
+        "skyldnerId": "98765432115",
+        "refunderesId": "REF123473",
+        "utbetalesTilId": "12345678918",
         "grad": 210
       },
-      "attestasjoner": [
+      "attestasjonList": [
         {
-          "attestant": "K2786FPE",
+          "attestantId": "K2786FPE",
           "datoUgyldigFom": "9999-12-31"
         }
       ]
@@ -421,14 +439,15 @@
         "oppdragsId": 32464202,
         "sats": 2600,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345696",
-        "skyldner": "98765432116",
-        "refusjonsid": "REF123474",
-        "utbetalesTil": "12345678919",
+        "skyldnerId": "98765432116",
+        "refunderesId": "REF123474",
+        "utbetalesTilId": "12345678919",
         "grad": 220
       },
-      "attestasjoner": []
+      "attestasjonList": []
     },
     {
       "oppdragsLinje": {
@@ -441,16 +460,17 @@
         "oppdragsId": 32464203,
         "sats": 2700,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345697",
-        "skyldner": "98765432117",
-        "refusjonsid": "REF123475",
-        "utbetalesTil": "12345678920",
+        "skyldnerId": "98765432117",
+        "refunderesId": "REF123475",
+        "utbetalesTilId": "12345678920",
         "grad": 230
       },
-      "attestasjoner": [
+      "attestasjonList": [
         {
-          "attestant": "K2786FPF",
+          "attestantId": "K2786FPF",
           "datoUgyldigFom": "9999-12-31"
         }
       ]
@@ -466,14 +486,15 @@
         "oppdragsId": 32464204,
         "sats": 2800,
         "typeSats": "ENG",
-        "kontonummer": "1234567",
+        "hovedkontonr": "123",
+        "underkontonr": "5678",
         "kid": "123456789012345698",
-        "skyldner": "98765432118",
-        "refusjonsid": "REF123476",
-        "utbetalesTil": "12345678921",
+        "skyldnerId": "98765432118",
+        "refunderesId": "REF123476",
+        "utbetalesTilId": "12345678921",
         "grad": 240
       },
-      "attestasjoner": []
+      "attestasjonList": []
     }
   ],
   "saksbehandlerIdent": ""

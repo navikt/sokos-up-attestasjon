@@ -1,1146 +1,1146 @@
 [
   {
-    "navn": "Arbeidsavklaringspenger",
-    "kode": "AAP"
+    "navnFagomraade": "Arbeidsavklaringspenger",
+    "kodeFagomraade": "AAP"
   },
   {
-    "navn": "Arbeidsavklaringspenger",
-    "kode": "AAPARENA"
+    "navnFagomraade": "Arbeidsavklaringspenger",
+    "kodeFagomraade": "AAPARENA"
   },
   {
-    "navn": "Lønnskomp arbeidsgiver, permitterte",
-    "kode": "AGPERM"
+    "navnFagomraade": "Lønnskomp arbeidsgiver, permitterte",
+    "kodeFagomraade": "AGPERM"
   },
   {
-    "navn": "Barnetrygd",
-    "kode": "BA"
+    "navnFagomraade": "Barnetrygd",
+    "kodeFagomraade": "BA"
   },
   {
-    "navn": "Barnebriller",
-    "kode": "BARNBRIL"
+    "navnFagomraade": "Barnebriller",
+    "kodeFagomraade": "BARNBRIL"
   },
   {
-    "navn": "Barnepensjon",
-    "kode": "BARNEPE"
+    "navnFagomraade": "Barnepensjon",
+    "kodeFagomraade": "BARNEPE"
   },
   {
-    "navn": "Bidragsreskontro tilbakebetaling",
-    "kode": "BIDRINKR"
+    "navnFagomraade": "Bidragsreskontro tilbakebetaling",
+    "kodeFagomraade": "BIDRINKR"
   },
   {
-    "navn": "Bidragsreskontro forskudd/bidrag",
-    "kode": "BIDRRESK"
+    "navnFagomraade": "Bidragsreskontro forskudd/bidrag",
+    "kodeFagomraade": "BIDRRESK"
   },
   {
-    "navn": "Bidragssystemet",
-    "kode": "BISYS"
+    "navnFagomraade": "Bidragssystemet",
+    "kodeFagomraade": "BISYS"
   },
   {
-    "navn": "Dagpenger",
-    "kode": "DP"
+    "navnFagomraade": "Dagpenger",
+    "kodeFagomraade": "DP"
   },
   {
-    "navn": "Dagpenger",
-    "kode": "DPARENA"
+    "navnFagomraade": "Dagpenger",
+    "kodeFagomraade": "DPARENA"
   },
   {
-    "navn": "Enslig forsørger - Barnetilsyn",
-    "kode": "EFBT"
+    "navnFagomraade": "Enslig forsørger - Barnetilsyn",
+    "kodeFagomraade": "EFBT"
   },
   {
-    "navn": "Enslig forsørger overgangsstønad",
-    "kode": "EFOG"
+    "navnFagomraade": "Enslig forsørger overgangsstønad",
+    "kodeFagomraade": "EFOG"
   },
   {
-    "navn": "Enslig forsørger - Overgangsstønad",
-    "kode": "EFOGNY"
+    "navnFagomraade": "Enslig forsørger - Overgangsstønad",
+    "kodeFagomraade": "EFOGNY"
   },
   {
-    "navn": "Enslig forsørger - Skolepenger",
-    "kode": "EFSP"
+    "navnFagomraade": "Enslig forsørger - Skolepenger",
+    "kodeFagomraade": "EFSP"
   },
   {
-    "navn": "Apotek og bandasjistoppgjør",
-    "kode": "ERESEPT"
+    "navnFagomraade": "Apotek og bandasjistoppgjør",
+    "kodeFagomraade": "ERESEPT"
   },
   {
-    "navn": "FORSKUDD til feilutbetaling",
-    "kode": "FORSKRAV"
+    "navnFagomraade": "FORSKUDD til feilutbetaling",
+    "kodeFagomraade": "FORSKRAV"
   },
   {
-    "navn": "Forskudd tilbakekreving",
-    "kode": "FORSKTBK"
+    "navnFagomraade": "Forskudd tilbakekreving",
+    "kodeFagomraade": "FORSKTBK"
   },
   {
-    "navn": "Forskudd permit og dagpenger",
-    "kode": "FORSKUDD"
+    "navnFagomraade": "Forskudd permit og dagpenger",
+    "kodeFagomraade": "FORSKUDD"
   },
   {
-    "navn": "Foreldrepenger",
-    "kode": "FP"
+    "navnFagomraade": "Foreldrepenger",
+    "kodeFagomraade": "FP"
   },
   {
-    "navn": "Foreldrepenger, AG refusjon",
-    "kode": "FPREF"
+    "navnFagomraade": "Foreldrepenger, AG refusjon",
+    "kodeFagomraade": "FPREF"
   },
   {
-    "navn": "Egenandelsrefusjon frikort tak 1",
-    "kode": "FRIKORT1"
+    "navnFagomraade": "Egenandelsrefusjon frikort tak 1",
+    "kodeFagomraade": "FRIKORT1"
   },
   {
-    "navn": "Kompensasjon inntektstap Frilanser og Næring",
-    "kode": "FRISINN"
+    "navnFagomraade": "Kompensasjon inntektstap Frilanser og Næring",
+    "kodeFagomraade": "FRISINN"
   },
   {
-    "navn": "Helserefusjoner NAV",
-    "kode": "HELSREF"
+    "navnFagomraade": "Helserefusjoner NAV",
+    "kodeFagomraade": "HELSREF"
   },
   {
-    "navn": "Ikke trekkoppgjør",
-    "kode": "INGENOPP"
+    "navnFagomraade": "Ikke trekkoppgjør",
+    "kodeFagomraade": "INGENOPP"
   },
   {
-    "navn": "Interne trekk",
-    "kode": "INTERNTR"
+    "navnFagomraade": "Interne trekk",
+    "kodeFagomraade": "INTERNTR"
   },
   {
-    "navn": "Gravferdsstønad",
-    "kode": "ITGS"
+    "navnFagomraade": "Gravferdsstønad",
+    "kodeFagomraade": "ITGS"
   },
   {
-    "navn": "Barnetrygd",
-    "kode": "IT05"
+    "navnFagomraade": "Barnetrygd",
+    "kodeFagomraade": "IT05"
   },
   {
-    "navn": "Kontantstøtte",
-    "kode": "IT18"
+    "navnFagomraade": "Kontantstøtte",
+    "kodeFagomraade": "IT18"
   },
   {
-    "navn": "Menerstatning Yrkesskade",
-    "kode": "IT24"
+    "navnFagomraade": "Menerstatning Yrkesskade",
+    "kodeFagomraade": "IT24"
   },
   {
-    "navn": "Tidsbegrenset uførestønad",
-    "kode": "IT26"
+    "navnFagomraade": "Tidsbegrenset uførestønad",
+    "kodeFagomraade": "IT26"
   },
   {
-    "navn": "Supplerende stønad",
-    "kode": "IT27"
+    "navnFagomraade": "Supplerende stønad",
+    "kodeFagomraade": "IT27"
   },
   {
-    "navn": "Grunnstønad",
-    "kode": "IT28"
+    "navnFagomraade": "Grunnstønad",
+    "kodeFagomraade": "IT28"
   },
   {
-    "navn": "Hjelpestønad",
-    "kode": "IT29"
+    "navnFagomraade": "Hjelpestønad",
+    "kodeFagomraade": "IT29"
   },
   {
-    "navn": "Enslig forsørger - Barnetilsyn",
-    "kode": "IT30BT"
+    "navnFagomraade": "Enslig forsørger - Barnetilsyn",
+    "kodeFagomraade": "IT30BT"
   },
   {
-    "navn": "Enslig forsørger - Tilskott til flytting",
-    "kode": "IT30FL"
+    "navnFagomraade": "Enslig forsørger - Tilskott til flytting",
+    "kodeFagomraade": "IT30FL"
   },
   {
-    "navn": "Enslig forsørger - Overgangsstønad",
-    "kode": "IT30OG"
+    "navnFagomraade": "Enslig forsørger - Overgangsstønad",
+    "kodeFagomraade": "IT30OG"
   },
   {
-    "navn": "Enslig forsørger - Utdanningsstønad",
-    "kode": "IT30UT"
+    "navnFagomraade": "Enslig forsørger - Utdanningsstønad",
+    "kodeFagomraade": "IT30UT"
   },
   {
-    "navn": "Gjenlevendepensjon Virkemidler",
-    "kode": "IT31"
+    "navnFagomraade": "Gjenlevendepensjon Virkemidler",
+    "kodeFagomraade": "IT31"
   },
   {
-    "navn": "Familiepleier Virkemidler",
-    "kode": "IT32"
+    "navnFagomraade": "Familiepleier Virkemidler",
+    "kodeFagomraade": "IT32"
   },
   {
-    "navn": "Kreditoroppgjør(disponerer)",
-    "kode": "KREDDISP"
+    "navnFagomraade": "Kreditoroppgjør(disponerer)",
+    "kodeFagomraade": "KREDDISP"
   },
   {
-    "navn": "Kreditoroppgjør(ordinær)",
-    "kode": "KREDREF"
+    "navnFagomraade": "Kreditoroppgjør(ordinær)",
+    "kodeFagomraade": "KREDREF"
   },
   {
-    "navn": "Kontantstøtte",
-    "kode": "KS"
+    "navnFagomraade": "Kontantstøtte",
+    "kodeFagomraade": "KS"
   },
   {
-    "navn": "Arbeidsavklaringspenger, manuell postering",
-    "kode": "MAAP"
+    "navnFagomraade": "Arbeidsavklaringspenger, manuell postering",
+    "kodeFagomraade": "MAAP"
   },
   {
-    "navn": "Arbeidsavklaringspenger, manuell postering",
-    "kode": "MAAPAREN"
+    "navnFagomraade": "Arbeidsavklaringspenger, manuell postering",
+    "kodeFagomraade": "MAAPAREN"
   },
   {
-    "navn": "Lønnskomp arbeidsgiver, permitterte - manuell",
-    "kode": "MAGPERM"
+    "navnFagomraade": "Lønnskomp arbeidsgiver, permitterte - manuell",
+    "kodeFagomraade": "MAGPERM"
   },
   {
-    "navn": "Barnetrygd",
-    "kode": "MBA"
+    "navnFagomraade": "Barnetrygd",
+    "kodeFagomraade": "MBA"
   },
   {
-    "navn": "Barnepensjon, manuell postering",
-    "kode": "MBARNEPE"
+    "navnFagomraade": "Barnepensjon, manuell postering",
+    "kodeFagomraade": "MBARNEPE"
   },
   {
-    "navn": "Dagpenger, manuell postering",
-    "kode": "MDP"
+    "navnFagomraade": "Dagpenger, manuell postering",
+    "kodeFagomraade": "MDP"
   },
   {
-    "navn": "Dagpenger, manuell postering",
-    "kode": "MDPARENA"
+    "navnFagomraade": "Dagpenger, manuell postering",
+    "kodeFagomraade": "MDPARENA"
   },
   {
-    "navn": "Enslig forsørger - Barnetilsyn, manuell",
-    "kode": "MEFBT"
+    "navnFagomraade": "Enslig forsørger - Barnetilsyn, manuell",
+    "kodeFagomraade": "MEFBT"
   },
   {
-    "navn": "Enslig forsørger - Overgangsstønad - Manuell",
-    "kode": "MEFOGNY"
+    "navnFagomraade": "Enslig forsørger - Overgangsstønad - Manuell",
+    "kodeFagomraade": "MEFOGNY"
   },
   {
-    "navn": "Enslig forsørger - Skolepenger, manuell",
-    "kode": "MEFSP"
+    "navnFagomraade": "Enslig forsørger - Skolepenger, manuell",
+    "kodeFagomraade": "MEFSP"
   },
   {
-    "navn": "Tilbakekreving EF manuelle posteringer",
-    "kode": "MEFTB"
+    "navnFagomraade": "Tilbakekreving EF manuelle posteringer",
+    "kodeFagomraade": "MEFTB"
   },
   {
-    "navn": "Manuell postering FORSKUDD",
-    "kode": "MFORSK"
+    "navnFagomraade": "Manuell postering FORSKUDD",
+    "kodeFagomraade": "MFORSK"
   },
   {
-    "navn": "Foreldrepenger, manuell",
-    "kode": "MFP"
+    "navnFagomraade": "Foreldrepenger, manuell",
+    "kodeFagomraade": "MFP"
   },
   {
-    "navn": "Foreldrepenger, manuell. AG refusjon",
-    "kode": "MFPREF"
+    "navnFagomraade": "Foreldrepenger, manuell. AG refusjon",
+    "kodeFagomraade": "MFPREF"
   },
   {
-    "navn": "Kompensasjon inntektstap Frilanser og Næring",
-    "kode": "MFRISINN"
+    "navnFagomraade": "Kompensasjon inntektstap Frilanser og Næring",
+    "kodeFagomraade": "MFRISINN"
   },
   {
-    "navn": "Tilbakekreving GH manuelle posteringer",
-    "kode": "MGHTB"
+    "navnFagomraade": "Tilbakekreving GH manuelle posteringer",
+    "kodeFagomraade": "MGHTB"
   },
   {
-    "navn": "Helserefusjoner NAV, manuell",
-    "kode": "MHELSREF"
+    "navnFagomraade": "Helserefusjoner NAV, manuell",
+    "kodeFagomraade": "MHELSREF"
   },
   {
-    "navn": "Gravferdstønad manuell postering",
-    "kode": "MITGS"
+    "navnFagomraade": "Gravferdstønad manuell postering",
+    "kodeFagomraade": "MITGS"
   },
   {
-    "navn": "Barnetrygd manuell postering",
-    "kode": "MIT05"
+    "navnFagomraade": "Barnetrygd manuell postering",
+    "kodeFagomraade": "MIT05"
   },
   {
-    "navn": "Kontantstøtte manuell postering",
-    "kode": "MIT18"
+    "navnFagomraade": "Kontantstøtte manuell postering",
+    "kodeFagomraade": "MIT18"
   },
   {
-    "navn": "Menerstatning Yrkesskade - Manuell postering",
-    "kode": "MIT24"
+    "navnFagomraade": "Menerstatning Yrkesskade - Manuell postering",
+    "kodeFagomraade": "MIT24"
   },
   {
-    "navn": "Tidsbegrenset uførestønad, manuell",
-    "kode": "MIT26"
+    "navnFagomraade": "Tidsbegrenset uførestønad, manuell",
+    "kodeFagomraade": "MIT26"
   },
   {
-    "navn": "Supplerende stønad manuell postering",
-    "kode": "MIT27"
+    "navnFagomraade": "Supplerende stønad manuell postering",
+    "kodeFagomraade": "MIT27"
   },
   {
-    "navn": "Grunnstønad - Manuell postering",
-    "kode": "MIT28"
+    "navnFagomraade": "Grunnstønad - Manuell postering",
+    "kodeFagomraade": "MIT28"
   },
   {
-    "navn": "Hjelpestønad - Manuell postering",
-    "kode": "MIT29"
+    "navnFagomraade": "Hjelpestønad - Manuell postering",
+    "kodeFagomraade": "MIT29"
   },
   {
-    "navn": "Enslig forsørger - Barnetilsyn - Manuell",
-    "kode": "MIT30BT"
+    "navnFagomraade": "Enslig forsørger - Barnetilsyn - Manuell",
+    "kodeFagomraade": "MIT30BT"
   },
   {
-    "navn": "Enslig forsørger - Tilskott til flytting - Manuell",
-    "kode": "MIT30FL"
+    "navnFagomraade": "Enslig forsørger - Tilskott til flytting - Manuell",
+    "kodeFagomraade": "MIT30FL"
   },
   {
-    "navn": "Enslig forsørger - Overgangsstønad - Manuell",
-    "kode": "MIT30OG"
+    "navnFagomraade": "Enslig forsørger - Overgangsstønad - Manuell",
+    "kodeFagomraade": "MIT30OG"
   },
   {
-    "navn": "Enslig forsørger - Utdanningsstønad - Manuell",
-    "kode": "MIT30UT"
+    "navnFagomraade": "Enslig forsørger - Utdanningsstønad - Manuell",
+    "kodeFagomraade": "MIT30UT"
   },
   {
-    "navn": "Gjenlevendepensjon Virkemidler manuell postering",
-    "kode": "MIT31"
+    "navnFagomraade": "Gjenlevendepensjon Virkemidler manuell postering",
+    "kodeFagomraade": "MIT31"
   },
   {
-    "navn": "Familiepleier Virkemidler manuell postering",
-    "kode": "MIT32"
+    "navnFagomraade": "Familiepleier Virkemidler manuell postering",
+    "kodeFagomraade": "MIT32"
   },
   {
-    "navn": "Kontantstøtte, manuell postering",
-    "kode": "MKS"
+    "navnFagomraade": "Kontantstøtte, manuell postering",
+    "kodeFagomraade": "MKS"
   },
   {
-    "navn": "Kontoplan korttid",
-    "kode": "MKTALLE"
+    "navnFagomraade": "Kontoplan korttid",
+    "kodeFagomraade": "MKTALLE"
   },
   {
-    "navn": "Balansekonti korttid",
-    "kode": "MKTBAL"
+    "navnFagomraade": "Balansekonti korttid",
+    "kodeFagomraade": "MKTBAL"
   },
   {
-    "navn": "Tilbakekreving korttid",
-    "kode": "MKTTB"
+    "navnFagomraade": "Tilbakekreving korttid",
+    "kodeFagomraade": "MKTTB"
   },
   {
-    "navn": "Omstillingsstønad",
-    "kode": "MOMSTILL"
+    "navnFagomraade": "Omstillingsstønad",
+    "kodeFagomraade": "MOMSTILL"
   },
   {
-    "navn": "Oms-, oppl.- og pleiepenger, manuell",
-    "kode": "MOOP"
+    "navnFagomraade": "Oms-, oppl.- og pleiepenger, manuell",
+    "kodeFagomraade": "MOOP"
   },
   {
-    "navn": "Oms-, oppl.- og pleiepenger man. AG refusjon",
-    "kode": "MOOPREF"
+    "navnFagomraade": "Oms-, oppl.- og pleiepenger man. AG refusjon",
+    "kodeFagomraade": "MOOPREF"
   },
   {
-    "navn": "Økonomi stønad alle",
-    "kode": "MOSALLE"
+    "navnFagomraade": "Økonomi stønad alle",
+    "kodeFagomraade": "MOSALLE"
   },
   {
-    "navn": "Avtalefestet pensjon manuell postering",
-    "kode": "MPENAFP"
+    "navnFagomraade": "Avtalefestet pensjon manuell postering",
+    "kodeFagomraade": "MPENAFP"
   },
   {
-    "navn": "Avtalefestet pensjon i privat sektor manuell post",
-    "kode": "MPENAFPP"
+    "navnFagomraade": "Avtalefestet pensjon i privat sektor manuell post",
+    "kodeFagomraade": "MPENAFPP"
   },
   {
-    "navn": "Kontoplan pensjon",
-    "kode": "MPENALLE"
+    "navnFagomraade": "Kontoplan pensjon",
+    "kodeFagomraade": "MPENALLE"
   },
   {
-    "navn": "Andre utbetalinger",
-    "kode": "MPENAND"
+    "navnFagomraade": "Andre utbetalinger",
+    "kodeFagomraade": "MPENAND"
   },
   {
-    "navn": "Alderspensjon manuell postering",
-    "kode": "MPENAP"
+    "navnFagomraade": "Alderspensjon manuell postering",
+    "kodeFagomraade": "MPENAP"
   },
   {
-    "navn": "Balansekonti",
-    "kode": "MPENBAL"
+    "navnFagomraade": "Balansekonti",
+    "kodeFagomraade": "MPENBAL"
   },
   {
-    "navn": "Barnepensjon manuell postering",
-    "kode": "MPENBP"
+    "navnFagomraade": "Barnepensjon manuell postering",
+    "kodeFagomraade": "MPENBP"
   },
   {
-    "navn": "Diverse utbetalinger",
-    "kode": "MPENDIV"
+    "navnFagomraade": "Diverse utbetalinger",
+    "kodeFagomraade": "MPENDIV"
   },
   {
-    "navn": "Tidligere familiepleierpensjon manuell postering",
-    "kode": "MPENFP"
+    "navnFagomraade": "Tidligere familiepleierpensjon manuell postering",
+    "kodeFagomraade": "MPENFP"
   },
   {
-    "navn": "Gjenlevendepensjon manuell postering",
-    "kode": "MPENGJ"
+    "navnFagomraade": "Gjenlevendepensjon manuell postering",
+    "kodeFagomraade": "MPENGJ"
   },
   {
-    "navn": "Gammel yrkesskadepensjon manuell postering",
-    "kode": "MPENGY"
+    "navnFagomraade": "Gammel yrkesskadepensjon manuell postering",
+    "kodeFagomraade": "MPENGY"
   },
   {
-    "navn": "Krigspensjon manuell postering",
-    "kode": "MPENKP"
+    "navnFagomraade": "Krigspensjon manuell postering",
+    "kodeFagomraade": "MPENKP"
   },
   {
-    "navn": "Nødutbetaling",
-    "kode": "MPENNODU"
+    "navnFagomraade": "Nødutbetaling",
+    "kodeFagomraade": "MPENNODU"
   },
   {
-    "navn": "Oslo kommune tilleggspensjon manuell postering",
-    "kode": "MPENOSLO"
+    "navnFagomraade": "Oslo kommune tilleggspensjon manuell postering",
+    "kodeFagomraade": "MPENOSLO"
   },
   {
-    "navn": "Pensjonstrygden for sjømenn manuell postering",
-    "kode": "MPENPTS"
+    "navnFagomraade": "Pensjonstrygden for sjømenn manuell postering",
+    "kodeFagomraade": "MPENPTS"
   },
   {
-    "navn": "Statens pensjonskasse manuell postering",
-    "kode": "MPENSPK"
+    "navnFagomraade": "Statens pensjonskasse manuell postering",
+    "kodeFagomraade": "MPENSPK"
   },
   {
-    "navn": "Tilbakekreving PEN manuell postering",
-    "kode": "MPENTB"
+    "navnFagomraade": "Tilbakekreving PEN manuell postering",
+    "kodeFagomraade": "MPENTB"
   },
   {
-    "navn": "Uførepensjon manuell postering",
-    "kode": "MPENUP"
+    "navnFagomraade": "Uførepensjon manuell postering",
+    "kodeFagomraade": "MPENUP"
   },
   {
-    "navn": "Manuell postering PERMIT",
-    "kode": "MPERMIT"
+    "navnFagomraade": "Manuell postering PERMIT",
+    "kodeFagomraade": "MPERMIT"
   },
   {
-    "navn": "Ref. helseutgifter, reise. Manuell postering",
-    "kode": "MREFUSJ"
+    "navnFagomraade": "Ref. helseutgifter, reise. Manuell postering",
+    "kodeFagomraade": "MREFUSJ"
   },
   {
-    "navn": "Refusjon utgiftsdekning, manuell",
-    "kode": "MREFUTG"
+    "navnFagomraade": "Refusjon utgiftsdekning, manuell",
+    "kodeFagomraade": "MREFUTG"
   },
   {
-    "navn": "Manuell opprydding skatt",
-    "kode": "MSKATT"
+    "navnFagomraade": "Manuell opprydding skatt",
+    "kodeFagomraade": "MSKATT"
   },
   {
-    "navn": "Sykepenger, manuell",
-    "kode": "MSP"
+    "navnFagomraade": "Sykepenger, manuell",
+    "kodeFagomraade": "MSP"
   },
   {
-    "navn": "Sykepenger, manuell. AG refusjon",
-    "kode": "MSPREF"
+    "navnFagomraade": "Sykepenger, manuell. AG refusjon",
+    "kodeFagomraade": "MSPREF"
   },
   {
-    "navn": "Kontoplan sentralisering regnskap",
-    "kode": "MSRALLE"
+    "navnFagomraade": "Kontoplan sentralisering regnskap",
+    "kodeFagomraade": "MSRALLE"
   },
   {
-    "navn": "Balansekonti sentralisering regnskap",
-    "kode": "MSRBAL"
+    "navnFagomraade": "Balansekonti sentralisering regnskap",
+    "kodeFagomraade": "MSRBAL"
   },
   {
-    "navn": "Tilbakekreving SR manuelle posteringer",
-    "kode": "MSRTB"
+    "navnFagomraade": "Tilbakekreving SR manuelle posteringer",
+    "kodeFagomraade": "MSRTB"
   },
   {
-    "navn": "Supplerende stønad alder, manuell",
-    "kode": "MSUALDER"
+    "navnFagomraade": "Supplerende stønad alder, manuell",
+    "kodeFagomraade": "MSUALDER"
   },
   {
-    "navn": "Tilbakekreving SU manuelle posteringer",
-    "kode": "MSUTB"
+    "navnFagomraade": "Tilbakekreving SU manuelle posteringer",
+    "kodeFagomraade": "MSUTB"
   },
   {
-    "navn": "Supplerende stønad uføre, manuell",
-    "kode": "MSUUFORE"
+    "navnFagomraade": "Supplerende stønad uføre, manuell",
+    "kodeFagomraade": "MSUUFORE"
   },
   {
-    "navn": "Svangerskapspenger, manuell",
-    "kode": "MSVP"
+    "navnFagomraade": "Svangerskapspenger, manuell",
+    "kodeFagomraade": "MSVP"
   },
   {
-    "navn": "Svangerskapspenger, manuell. AG refusjon",
-    "kode": "MSVPREF"
+    "navnFagomraade": "Svangerskapspenger, manuell. AG refusjon",
+    "kodeFagomraade": "MSVPREF"
   },
   {
-    "navn": "Tilbakekreving ARBYT, manuelle posteringer",
-    "kode": "MTBBTARE"
+    "navnFagomraade": "Tilbakekreving ARBYT, manuelle posteringer",
+    "kodeFagomraade": "MTBBTARE"
   },
   {
-    "navn": "Tilleggsstønad, manuell postering",
-    "kode": "MTILLST"
+    "navnFagomraade": "Tilleggsstønad, manuell postering",
+    "kodeFagomraade": "MTILLST"
   },
   {
-    "navn": "Tiltakspenger, manuell postering",
-    "kode": "MTILTPEN"
+    "navnFagomraade": "Tiltakspenger, manuell postering",
+    "kodeFagomraade": "MTILTPEN"
   },
   {
-    "navn": "Tiltakspenger, manuell postering",
-    "kode": "MTPARENA"
+    "navnFagomraade": "Tiltakspenger, manuell postering",
+    "kodeFagomraade": "MTPARENA"
   },
   {
-    "navn": "Manuell opprydding trekk",
-    "kode": "MTREKK"
+    "navnFagomraade": "Manuell opprydding trekk",
+    "kodeFagomraade": "MTREKK"
   },
   {
-    "navn": "Tilleggstønad, manuell postering",
-    "kode": "MTSTAREN"
+    "navnFagomraade": "Tilleggstønad, manuell postering",
+    "kodeFagomraade": "MTSTAREN"
   },
   {
-    "navn": "Tilbakekreving TU manuelle posteringer",
-    "kode": "MTUTB"
+    "navnFagomraade": "Tilbakekreving TU manuelle posteringer",
+    "kodeFagomraade": "MTUTB"
   },
   {
-    "navn": "Uføretrygd manuell postering",
-    "kode": "MUFOREUT"
+    "navnFagomraade": "Uføretrygd manuell postering",
+    "kodeFagomraade": "MUFOREUT"
   },
   {
-    "navn": "Uførepensjon fra SPK, manuell postering",
-    "kode": "MUFORSPK"
+    "navnFagomraade": "Uførepensjon fra SPK, manuell postering",
+    "kodeFagomraade": "MUFORSPK"
   },
   {
-    "navn": "Uføretrygd manuell postering alle",
-    "kode": "MUTALLE"
+    "navnFagomraade": "Uføretrygd manuell postering alle",
+    "kodeFagomraade": "MUTALLE"
   },
   {
-    "navn": "Uføretrygd manuell postering balanse",
-    "kode": "MUTBAL"
+    "navnFagomraade": "Uføretrygd manuell postering balanse",
+    "kodeFagomraade": "MUTBAL"
   },
   {
-    "navn": "Uføretrygd nødutbetaling",
-    "kode": "MUTNODU"
+    "navnFagomraade": "Uføretrygd nødutbetaling",
+    "kodeFagomraade": "MUTNODU"
   },
   {
-    "navn": "Tilbakekreving UT manuell",
-    "kode": "MUTTB"
+    "navnFagomraade": "Tilbakekreving UT manuell",
+    "kodeFagomraade": "MUTTB"
   },
   {
-    "navn": "Tilbakekreving YS manuelle posteringer",
-    "kode": "MYSTB"
+    "navnFagomraade": "Tilbakekreving YS manuelle posteringer",
+    "kodeFagomraade": "MYSTB"
   },
   {
-    "navn": "Negative trekkoppgjør",
-    "kode": "NEGKRED"
+    "navnFagomraade": "Negative trekkoppgjør",
+    "kodeFagomraade": "NEGKRED"
   },
   {
-    "navn": "Negative skatteoppgjør",
-    "kode": "NEGSKATT"
+    "navnFagomraade": "Negative skatteoppgjør",
+    "kodeFagomraade": "NEGSKATT"
   },
   {
-    "navn": "Nødutbetaling,arbeidsytelser",
-    "kode": "NODUARB"
+    "navnFagomraade": "Nødutbetaling,arbeidsytelser",
+    "kodeFagomraade": "NODUARB"
   },
   {
-    "navn": "Nødutbetaling barnetrygd",
-    "kode": "NODUBA"
+    "navnFagomraade": "Nødutbetaling barnetrygd",
+    "kodeFagomraade": "NODUBA"
   },
   {
-    "navn": "Nødutbetaling, korttid",
-    "kode": "NODUKORT"
+    "navnFagomraade": "Nødutbetaling, korttid",
+    "kodeFagomraade": "NODUKORT"
   },
   {
-    "navn": "Nødutbetaling kontantstøtte",
-    "kode": "NODUKS"
+    "navnFagomraade": "Nødutbetaling kontantstøtte",
+    "kodeFagomraade": "NODUKS"
   },
   {
-    "navn": "Omsorgspenger",
-    "kode": "OM"
+    "navnFagomraade": "Omsorgspenger",
+    "kodeFagomraade": "OM"
   },
   {
-    "navn": "Omsorgspenger AG Refusjon",
-    "kode": "OMREF"
+    "navnFagomraade": "Omsorgspenger AG Refusjon",
+    "kodeFagomraade": "OMREF"
   },
   {
-    "navn": "Omstillingsstønad",
-    "kode": "OMSTILL"
+    "navnFagomraade": "Omstillingsstønad",
+    "kodeFagomraade": "OMSTILL"
   },
   {
-    "navn": "Oms-, oppl.- og pleiepenger",
-    "kode": "OOP"
+    "navnFagomraade": "Oms-, oppl.- og pleiepenger",
+    "kodeFagomraade": "OOP"
   },
   {
-    "navn": "Oms-, oppl.- og pleiepenger AG refusjon",
-    "kode": "OOPREF"
+    "navnFagomraade": "Oms-, oppl.- og pleiepenger AG refusjon",
+    "kodeFagomraade": "OOPREF"
   },
   {
-    "navn": "Opplæringspenger",
-    "kode": "OPP"
+    "navnFagomraade": "Opplæringspenger",
+    "kodeFagomraade": "OPP"
   },
   {
-    "navn": "Opplæringspenger AG refusjon",
-    "kode": "OPPREF"
+    "navnFagomraade": "Opplæringspenger AG refusjon",
+    "kodeFagomraade": "OPPREF"
   },
   {
-    "navn": "Pleiepenger barn",
-    "kode": "PB"
+    "navnFagomraade": "Pleiepenger barn",
+    "kodeFagomraade": "PB"
   },
   {
-    "navn": "Pleiepenger barn AG refusjon",
-    "kode": "PBREF"
+    "navnFagomraade": "Pleiepenger barn AG refusjon",
+    "kodeFagomraade": "PBREF"
   },
   {
-    "navn": "Avtalefestet pensjon",
-    "kode": "PENAFP"
+    "navnFagomraade": "Avtalefestet pensjon",
+    "kodeFagomraade": "PENAFP"
   },
   {
-    "navn": "Avtalefestet pensjon i privat sektor",
-    "kode": "PENAFPP"
+    "navnFagomraade": "Avtalefestet pensjon i privat sektor",
+    "kodeFagomraade": "PENAFPP"
   },
   {
-    "navn": "Alderspensjon",
-    "kode": "PENAP"
+    "navnFagomraade": "Alderspensjon",
+    "kodeFagomraade": "PENAP"
   },
   {
-    "navn": "Barnepensjon",
-    "kode": "PENBP"
+    "navnFagomraade": "Barnepensjon",
+    "kodeFagomraade": "PENBP"
   },
   {
-    "navn": "Tidligere familiepleierpensjon",
-    "kode": "PENFP"
+    "navnFagomraade": "Tidligere familiepleierpensjon",
+    "kodeFagomraade": "PENFP"
   },
   {
-    "navn": "Gjenlevendepensjon",
-    "kode": "PENGJ"
+    "navnFagomraade": "Gjenlevendepensjon",
+    "kodeFagomraade": "PENGJ"
   },
   {
-    "navn": "Gammel yrkesskadepensjon",
-    "kode": "PENGY"
+    "navnFagomraade": "Gammel yrkesskadepensjon",
+    "kodeFagomraade": "PENGY"
   },
   {
-    "navn": "Krigspensjon",
-    "kode": "PENKP"
+    "navnFagomraade": "Krigspensjon",
+    "kodeFagomraade": "PENKP"
   },
   {
-    "navn": "Oslo kommune tilleggspensjon",
-    "kode": "PENOSLO"
+    "navnFagomraade": "Oslo kommune tilleggspensjon",
+    "kodeFagomraade": "PENOSLO"
   },
   {
-    "navn": "Pensjonstrygden for sjømenn",
-    "kode": "PENPTS"
+    "navnFagomraade": "Pensjonstrygden for sjømenn",
+    "kodeFagomraade": "PENPTS"
   },
   {
-    "navn": "Statens pensjonskasse",
-    "kode": "PENSPK"
+    "navnFagomraade": "Statens pensjonskasse",
+    "kodeFagomraade": "PENSPK"
   },
   {
-    "navn": "Uførepensjon",
-    "kode": "PENUP"
+    "navnFagomraade": "Uførepensjon",
+    "kodeFagomraade": "PENUP"
   },
   {
-    "navn": "Permitteringspenger, korona",
-    "kode": "PERMIT"
+    "navnFagomraade": "Permitteringspenger, korona",
+    "kodeFagomraade": "PERMIT"
   },
   {
-    "navn": "Pleiepenger nærstående",
-    "kode": "PN"
+    "navnFagomraade": "Pleiepenger nærstående",
+    "kodeFagomraade": "PN"
   },
   {
-    "navn": "Pleiepenger nærstående AG refusjon",
-    "kode": "PNREF"
+    "navnFagomraade": "Pleiepenger nærstående AG refusjon",
+    "kodeFagomraade": "PNREF"
   },
   {
-    "navn": "Interne trekk til TI",
-    "kode": "PREDATOR"
+    "navnFagomraade": "Interne trekk til TI",
+    "kodeFagomraade": "PREDATOR"
   },
   {
-    "navn": "Refusjon utgiftsdekning",
-    "kode": "REFUTG"
+    "navnFagomraade": "Refusjon utgiftsdekning",
+    "kodeFagomraade": "REFUTG"
   },
   {
-    "navn": "Behandleroppgjør",
-    "kode": "SAPO01"
+    "navnFagomraade": "Behandleroppgjør",
+    "kodeFagomraade": "SAPO01"
   },
   {
-    "navn": "Skatteoppgjør",
-    "kode": "SKATOPPG"
+    "navnFagomraade": "Skatteoppgjør",
+    "kodeFagomraade": "SKATOPPG"
   },
   {
-    "navn": "Sykepenger",
-    "kode": "SP"
+    "navnFagomraade": "Sykepenger",
+    "kodeFagomraade": "SP"
   },
   {
-    "navn": "Sykepenger, AG refusjon",
-    "kode": "SPREF"
+    "navnFagomraade": "Sykepenger, AG refusjon",
+    "kodeFagomraade": "SPREF"
   },
   {
-    "navn": "Supplerende stønad alder",
-    "kode": "SUALDER"
+    "navnFagomraade": "Supplerende stønad alder",
+    "kodeFagomraade": "SUALDER"
   },
   {
-    "navn": "Supplerende stønad uføre",
-    "kode": "SUUFORE"
+    "navnFagomraade": "Supplerende stønad uføre",
+    "kodeFagomraade": "SUUFORE"
   },
   {
-    "navn": "Svalbardskatt",
-    "kode": "SVALSKAT"
+    "navnFagomraade": "Svalbardskatt",
+    "kodeFagomraade": "SVALSKAT"
   },
   {
-    "navn": "Svangerskapspenger",
-    "kode": "SVP"
+    "navnFagomraade": "Svangerskapspenger",
+    "kodeFagomraade": "SVP"
   },
   {
-    "navn": "Svangerskapspenger, AG refusjon",
-    "kode": "SVPREF"
+    "navnFagomraade": "Svangerskapspenger, AG refusjon",
+    "kodeFagomraade": "SVPREF"
   },
   {
-    "navn": "AAP ikke innkreving",
-    "kode": "TBAAP"
+    "navnFagomraade": "AAP ikke innkreving",
+    "kodeFagomraade": "TBAAP"
   },
   {
-    "navn": "AAP til innkreving",
-    "kode": "TBAAPKR"
+    "navnFagomraade": "AAP til innkreving",
+    "kodeFagomraade": "TBAAPKR"
   },
   {
-    "navn": "AFP ikke innkreving",
-    "kode": "TBAFP"
+    "navnFagomraade": "AFP ikke innkreving",
+    "kodeFagomraade": "TBAFP"
   },
   {
-    "navn": "AFP til innkreving",
-    "kode": "TBAFPKR"
+    "navnFagomraade": "AFP til innkreving",
+    "kodeFagomraade": "TBAFPKR"
   },
   {
-    "navn": "AFP Privat ikke innkreving",
-    "kode": "TBAFPP"
+    "navnFagomraade": "AFP Privat ikke innkreving",
+    "kodeFagomraade": "TBAFPP"
   },
   {
-    "navn": "AFP Privat til innkreving",
-    "kode": "TBAFPPKR"
+    "navnFagomraade": "AFP Privat til innkreving",
+    "kodeFagomraade": "TBAFPPKR"
   },
   {
-    "navn": "AGPERM ikke innkreving",
-    "kode": "TBAG"
+    "navnFagomraade": "AGPERM ikke innkreving",
+    "kodeFagomraade": "TBAG"
   },
   {
-    "navn": "AGPERM til innkreving",
-    "kode": "TBAGKR"
+    "navnFagomraade": "AGPERM til innkreving",
+    "kodeFagomraade": "TBAGKR"
   },
   {
-    "navn": "Alder ikke innkreving",
-    "kode": "TBAP"
+    "navnFagomraade": "Alder ikke innkreving",
+    "kodeFagomraade": "TBAP"
   },
   {
-    "navn": "Alder til innkreving",
-    "kode": "TBAPKR"
+    "navnFagomraade": "Alder til innkreving",
+    "kodeFagomraade": "TBAPKR"
   },
   {
-    "navn": "AAP ikke innkreving",
-    "kode": "TBARENA"
+    "navnFagomraade": "AAP ikke innkreving",
+    "kodeFagomraade": "TBARENA"
   },
   {
-    "navn": "AAP til innkreving",
-    "kode": "TBARENKR"
+    "navnFagomraade": "AAP til innkreving",
+    "kodeFagomraade": "TBARENKR"
   },
   {
-    "navn": "BA ikke innkreving",
-    "kode": "TBBA"
+    "navnFagomraade": "BA ikke innkreving",
+    "kodeFagomraade": "TBBA"
   },
   {
-    "navn": "BA til innkreving",
-    "kode": "TBBAKR"
+    "navnFagomraade": "BA til innkreving",
+    "kodeFagomraade": "TBBAKR"
   },
   {
-    "navn": "Barnepensjon ikke innkreving",
-    "kode": "TBBP"
+    "navnFagomraade": "Barnepensjon ikke innkreving",
+    "kodeFagomraade": "TBBP"
   },
   {
-    "navn": "Barnepensjon til innkreving",
-    "kode": "TBBPKR"
+    "navnFagomraade": "Barnepensjon til innkreving",
+    "kodeFagomraade": "TBBPKR"
   },
   {
-    "navn": "Nedbetalt AAP",
-    "kode": "TBBTAAP"
+    "navnFagomraade": "Nedbetalt AAP",
+    "kodeFagomraade": "TBBTAAP"
   },
   {
-    "navn": "Nedbetalt Avtalefestet Pensjon",
-    "kode": "TBBTAFP"
+    "navnFagomraade": "Nedbetalt Avtalefestet Pensjon",
+    "kodeFagomraade": "TBBTAFP"
   },
   {
-    "navn": "Nedbetalt Avtalefestet Pensjon i privat",
-    "kode": "TBBTAFPP"
+    "navnFagomraade": "Nedbetalt Avtalefestet Pensjon i privat",
+    "kodeFagomraade": "TBBTAFPP"
   },
   {
-    "navn": "Nedbetalt Lønnskomp. arbeidsgiver",
-    "kode": "TBBTAGPE"
+    "navnFagomraade": "Nedbetalt Lønnskomp. arbeidsgiver",
+    "kodeFagomraade": "TBBTAGPE"
   },
   {
-    "navn": "Nedbetalt Alderspensjon",
-    "kode": "TBBTAP"
+    "navnFagomraade": "Nedbetalt Alderspensjon",
+    "kodeFagomraade": "TBBTAP"
   },
   {
-    "navn": "Nedbetalt Arenaytelser",
-    "kode": "TBBTARE"
+    "navnFagomraade": "Nedbetalt Arenaytelser",
+    "kodeFagomraade": "TBBTARE"
   },
   {
-    "navn": "Nedbetalt barnetrygd",
-    "kode": "TBBTBA"
+    "navnFagomraade": "Nedbetalt barnetrygd",
+    "kodeFagomraade": "TBBTBA"
   },
   {
-    "navn": "Nedbetalt Barnepensjon",
-    "kode": "TBBTBP"
+    "navnFagomraade": "Nedbetalt Barnepensjon",
+    "kodeFagomraade": "TBBTBP"
   },
   {
-    "navn": "Nedbetalt DP",
-    "kode": "TBBTDP"
+    "navnFagomraade": "Nedbetalt DP",
+    "kodeFagomraade": "TBBTDP"
   },
   {
-    "navn": "Nedbetalt enslig forsørger barnetilsyn",
-    "kode": "TBBTEFBT"
+    "navnFagomraade": "Nedbetalt enslig forsørger barnetilsyn",
+    "kodeFagomraade": "TBBTEFBT"
   },
   {
-    "navn": "Nedbetalt enslig forsørger overgangsstønad",
-    "kode": "TBBTEFOG"
+    "navnFagomraade": "Nedbetalt enslig forsørger overgangsstønad",
+    "kodeFagomraade": "TBBTEFOG"
   },
   {
-    "navn": "Nedbetalt Foreldrepenger",
-    "kode": "TBBTFOP"
+    "navnFagomraade": "Nedbetalt Foreldrepenger",
+    "kodeFagomraade": "TBBTFOP"
   },
   {
-    "navn": "Nedbetalt Tidligere familiepleierpensjon",
-    "kode": "TBBTFP"
+    "navnFagomraade": "Nedbetalt Tidligere familiepleierpensjon",
+    "kodeFagomraade": "TBBTFP"
   },
   {
-    "navn": "Nedbetalt Komp. inntektstap Frilanser og Næring",
-    "kode": "TBBTFRIS"
+    "navnFagomraade": "Nedbetalt Komp. inntektstap Frilanser og Næring",
+    "kodeFagomraade": "TBBTFRIS"
   },
   {
-    "navn": "Nedbetalt Gjenlevendepensjon",
-    "kode": "TBBTGJ"
+    "navnFagomraade": "Nedbetalt Gjenlevendepensjon",
+    "kodeFagomraade": "TBBTGJ"
   },
   {
-    "navn": "Nedbetalt Gammel yrkeskadepensjon",
-    "kode": "TBBTGY"
+    "navnFagomraade": "Nedbetalt Gammel yrkeskadepensjon",
+    "kodeFagomraade": "TBBTGY"
   },
   {
-    "navn": "Nedbetalt Krigspensjon",
-    "kode": "TBBTKP"
+    "navnFagomraade": "Nedbetalt Krigspensjon",
+    "kodeFagomraade": "TBBTKP"
   },
   {
-    "navn": "Nedbetalt kontantstøtte",
-    "kode": "TBBTKS"
+    "navnFagomraade": "Nedbetalt kontantstøtte",
+    "kodeFagomraade": "TBBTKS"
   },
   {
-    "navn": "Nedbetalt enslig forsørger skolepenger",
-    "kode": "TBBTEFSP"
+    "navnFagomraade": "Nedbetalt enslig forsørger skolepenger",
+    "kodeFagomraade": "TBBTEFSP"
   },
   {
-    "navn": "Nedbetalt lønnskompensasjon, PERMIT",
-    "kode": "TBBTLKPE"
+    "navnFagomraade": "Nedbetalt lønnskompensasjon, PERMIT",
+    "kodeFagomraade": "TBBTLKPE"
   },
   {
-    "navn": "Nedbetalt Omsorgspenger",
-    "kode": "TBBTOM"
+    "navnFagomraade": "Nedbetalt Omsorgspenger",
+    "kodeFagomraade": "TBBTOM"
   },
   {
-    "navn": "Nedbetalt omstillingsstønad",
-    "kode": "TBBTOMST"
+    "navnFagomraade": "Nedbetalt omstillingsstønad",
+    "kodeFagomraade": "TBBTOMST"
   },
   {
-    "navn": "Nedbetalt Opplæringspenger",
-    "kode": "TBBTOPP"
+    "navnFagomraade": "Nedbetalt Opplæringspenger",
+    "kodeFagomraade": "TBBTOPP"
   },
   {
-    "navn": "Nedbetalt pleipenger",
-    "kode": "TBBTPB"
+    "navnFagomraade": "Nedbetalt pleipenger",
+    "kodeFagomraade": "TBBTPB"
   },
   {
-    "navn": "Nedbetalt pleiepenger nærstående",
-    "kode": "TBBTPN"
+    "navnFagomraade": "Nedbetalt pleiepenger nærstående",
+    "kodeFagomraade": "TBBTPN"
   },
   {
-    "navn": "Nedbetalt Refusjon utgiftsdekning",
-    "kode": "TBBTREFU"
+    "navnFagomraade": "Nedbetalt Refusjon utgiftsdekning",
+    "kodeFagomraade": "TBBTREFU"
   },
   {
-    "navn": "Nedbetalt Supplerende stønad alder",
-    "kode": "TBBTSUAL"
+    "navnFagomraade": "Nedbetalt Supplerende stønad alder",
+    "kodeFagomraade": "TBBTSUAL"
   },
   {
-    "navn": "Nedbetalt Supplerende stønad Uføre",
-    "kode": "TBBTSUUF"
+    "navnFagomraade": "Nedbetalt Supplerende stønad Uføre",
+    "kodeFagomraade": "TBBTSUUF"
   },
   {
-    "navn": "Nedbetalt Svangerskapspenger",
-    "kode": "TBBTSVP"
+    "navnFagomraade": "Nedbetalt Svangerskapspenger",
+    "kodeFagomraade": "TBBTSVP"
   },
   {
-    "navn": "Nedbetalt tiltakspenger",
-    "kode": "TBBTTP"
+    "navnFagomraade": "Nedbetalt tiltakspenger",
+    "kodeFagomraade": "TBBTTP"
   },
   {
-    "navn": "Nedbetalt Tilleggsstønad",
-    "kode": "TBBTTST"
+    "navnFagomraade": "Nedbetalt Tilleggsstønad",
+    "kodeFagomraade": "TBBTTST"
   },
   {
-    "navn": "Nedbetalt Uførepensjon",
-    "kode": "TBBTUP"
+    "navnFagomraade": "Nedbetalt Uførepensjon",
+    "kodeFagomraade": "TBBTUP"
   },
   {
-    "navn": "Nedbetalt uføretrygd",
-    "kode": "TBBTUT"
+    "navnFagomraade": "Nedbetalt uføretrygd",
+    "kodeFagomraade": "TBBTUT"
   },
   {
-    "navn": "DP ikke innkreving",
-    "kode": "TBDP"
+    "navnFagomraade": "DP ikke innkreving",
+    "kodeFagomraade": "TBDP"
   },
   {
-    "navn": "DP ikke innkreving",
-    "kode": "TBDPAR"
+    "navnFagomraade": "DP ikke innkreving",
+    "kodeFagomraade": "TBDPAR"
   },
   {
-    "navn": "DP til innkreving",
-    "kode": "TBDPKR"
+    "navnFagomraade": "DP til innkreving",
+    "kodeFagomraade": "TBDPKR"
   },
   {
-    "navn": "Enslig forsørger barnetilsyn ikke innkreving",
-    "kode": "TBEFBT"
+    "navnFagomraade": "Enslig forsørger barnetilsyn ikke innkreving",
+    "kodeFagomraade": "TBEFBT"
   },
   {
-    "navn": "Enslig forsørger barnetilsyn innkreving",
-    "kode": "TBEFBTKR"
+    "navnFagomraade": "Enslig forsørger barnetilsyn innkreving",
+    "kodeFagomraade": "TBEFBTKR"
   },
   {
-    "navn": "Enslig forsørger overgangsstønad ikke innkreving",
-    "kode": "TBEFOG"
+    "navnFagomraade": "Enslig forsørger overgangsstønad ikke innkreving",
+    "kodeFagomraade": "TBEFOG"
   },
   {
-    "navn": "Enslig forsørger overgangsstønad innkreving",
-    "kode": "TBEFOGKR"
+    "navnFagomraade": "Enslig forsørger overgangsstønad innkreving",
+    "kodeFagomraade": "TBEFOGKR"
   },
   {
-    "navn": "Enslig forsørger skolepenger ikke innkreving",
-    "kode": "TBEFSP"
+    "navnFagomraade": "Enslig forsørger skolepenger ikke innkreving",
+    "kodeFagomraade": "TBEFSP"
   },
   {
-    "navn": "Enslig forsørger skolepenger innkreving",
-    "kode": "TBEFSPKR"
+    "navnFagomraade": "Enslig forsørger skolepenger innkreving",
+    "kodeFagomraade": "TBEFSPKR"
   },
   {
-    "navn": "Engangstønad ikke innkreving",
-    "kode": "TBES"
+    "navnFagomraade": "Engangstønad ikke innkreving",
+    "kodeFagomraade": "TBES"
   },
   {
-    "navn": "Engangstønad til innkreving",
-    "kode": "TBESKR"
+    "navnFagomraade": "Engangstønad til innkreving",
+    "kodeFagomraade": "TBESKR"
   },
   {
-    "navn": "FORSKUDD ikke innkreving",
-    "kode": "TBFO"
+    "navnFagomraade": "FORSKUDD ikke innkreving",
+    "kodeFagomraade": "TBFO"
   },
   {
-    "navn": "FORSKUDD til innkreving",
-    "kode": "TBFOKR"
+    "navnFagomraade": "FORSKUDD til innkreving",
+    "kodeFagomraade": "TBFOKR"
   },
   {
-    "navn": "Foreldrepenger ikke innkreving",
-    "kode": "TBFORP"
+    "navnFagomraade": "Foreldrepenger ikke innkreving",
+    "kodeFagomraade": "TBFORP"
   },
   {
-    "navn": "Foreldrepenger til innkreving",
-    "kode": "TBFORPKR"
+    "navnFagomraade": "Foreldrepenger til innkreving",
+    "kodeFagomraade": "TBFORPKR"
   },
   {
-    "navn": "Familiepleier ikke innkreving",
-    "kode": "TBFP"
+    "navnFagomraade": "Familiepleier ikke innkreving",
+    "kodeFagomraade": "TBFP"
   },
   {
-    "navn": "Familiepleier til innkreving",
-    "kode": "TBFPKR"
+    "navnFagomraade": "Familiepleier til innkreving",
+    "kodeFagomraade": "TBFPKR"
   },
   {
-    "navn": "FRISINN ikke innkreving",
-    "kode": "TBFRIS"
+    "navnFagomraade": "FRISINN ikke innkreving",
+    "kodeFagomraade": "TBFRIS"
   },
   {
-    "navn": "FRISINN til innkreving",
-    "kode": "TBFRISKR"
+    "navnFagomraade": "FRISINN til innkreving",
+    "kodeFagomraade": "TBFRISKR"
   },
   {
-    "navn": "Gjenlevende ikke innkreving",
-    "kode": "TBGJ"
+    "navnFagomraade": "Gjenlevende ikke innkreving",
+    "kodeFagomraade": "TBGJ"
   },
   {
-    "navn": "Gjenlevende til innkreving",
-    "kode": "TBGJKR"
+    "navnFagomraade": "Gjenlevende til innkreving",
+    "kodeFagomraade": "TBGJKR"
   },
   {
-    "navn": "Gammel Yrkesskade ikke innkreving",
-    "kode": "TBGY"
+    "navnFagomraade": "Gammel Yrkesskade ikke innkreving",
+    "kodeFagomraade": "TBGY"
   },
   {
-    "navn": "Gammel Yrkesskade til innkreving",
-    "kode": "TBGYKR"
+    "navnFagomraade": "Gammel Yrkesskade til innkreving",
+    "kodeFagomraade": "TBGYKR"
   },
   {
-    "navn": "Krigspensjon ikke innkreving",
-    "kode": "TBKP"
+    "navnFagomraade": "Krigspensjon ikke innkreving",
+    "kodeFagomraade": "TBKP"
   },
   {
-    "navn": "Krigspensjon til innkreving",
-    "kode": "TBKPKR"
+    "navnFagomraade": "Krigspensjon til innkreving",
+    "kodeFagomraade": "TBKPKR"
   },
   {
-    "navn": "Tilbakekrevingskrav",
-    "kode": "TBKRAV"
+    "navnFagomraade": "Tilbakekrevingskrav",
+    "kodeFagomraade": "TBKRAV"
   },
   {
-    "navn": "KS ikke innkreving",
-    "kode": "TBKS"
+    "navnFagomraade": "KS ikke innkreving",
+    "kodeFagomraade": "TBKS"
   },
   {
-    "navn": "KS til innkreving",
-    "kode": "TBKSKR"
+    "navnFagomraade": "KS til innkreving",
+    "kodeFagomraade": "TBKSKR"
   },
   {
-    "navn": "OM ikke innkreving",
-    "kode": "TBOM"
+    "navnFagomraade": "OM ikke innkreving",
+    "kodeFagomraade": "TBOM"
   },
   {
-    "navn": "OM til innkreving",
-    "kode": "TBOMKR"
+    "navnFagomraade": "OM til innkreving",
+    "kodeFagomraade": "TBOMKR"
   },
   {
-    "navn": "Omstillingsstønad ikke innkreving",
-    "kode": "TBOMST"
+    "navnFagomraade": "Omstillingsstønad ikke innkreving",
+    "kodeFagomraade": "TBOMST"
   },
   {
-    "navn": "Omstillingsstønad til innkreving",
-    "kode": "TBOMSTKR"
+    "navnFagomraade": "Omstillingsstønad til innkreving",
+    "kodeFagomraade": "TBOMSTKR"
   },
   {
-    "navn": "OOP ikke innkreving",
-    "kode": "TBOOP"
+    "navnFagomraade": "OOP ikke innkreving",
+    "kodeFagomraade": "TBOOP"
   },
   {
-    "navn": "OOP til innkreving",
-    "kode": "TBOOPKR"
+    "navnFagomraade": "OOP til innkreving",
+    "kodeFagomraade": "TBOOPKR"
   },
   {
-    "navn": "OPP ikke innkreving",
-    "kode": "TBOPP"
+    "navnFagomraade": "OPP ikke innkreving",
+    "kodeFagomraade": "TBOPP"
   },
   {
-    "navn": "OPP til innkreving",
-    "kode": "TBOPPKR"
+    "navnFagomraade": "OPP til innkreving",
+    "kodeFagomraade": "TBOPPKR"
   },
   {
-    "navn": "PB ikke innkreving",
-    "kode": "TBPB"
+    "navnFagomraade": "PB ikke innkreving",
+    "kodeFagomraade": "TBPB"
   },
   {
-    "navn": "PB til innkreving",
-    "kode": "TBPBKR"
+    "navnFagomraade": "PB til innkreving",
+    "kodeFagomraade": "TBPBKR"
   },
   {
-    "navn": "PERMIT ikke innkreving",
-    "kode": "TBPE"
+    "navnFagomraade": "PERMIT ikke innkreving",
+    "kodeFagomraade": "TBPE"
   },
   {
-    "navn": "PERMIT til innkreving",
-    "kode": "TBPEKR"
+    "navnFagomraade": "PERMIT til innkreving",
+    "kodeFagomraade": "TBPEKR"
   },
   {
-    "navn": "PN ikke innkreving",
-    "kode": "TBPN"
+    "navnFagomraade": "PN ikke innkreving",
+    "kodeFagomraade": "TBPN"
   },
   {
-    "navn": "PN til innkreving",
-    "kode": "TBPNKR"
+    "navnFagomraade": "PN til innkreving",
+    "kodeFagomraade": "TBPNKR"
   },
   {
-    "navn": "Sykepenger ikke innkreving",
-    "kode": "TBSP"
+    "navnFagomraade": "Sykepenger ikke innkreving",
+    "kodeFagomraade": "TBSP"
   },
   {
-    "navn": "Sykepenger til innkreving",
-    "kode": "TBSPKR"
+    "navnFagomraade": "Sykepenger til innkreving",
+    "kodeFagomraade": "TBSPKR"
   },
   {
-    "navn": "Supplerende stønad alder, innkreving",
-    "kode": "TBSUAL"
+    "navnFagomraade": "Supplerende stønad alder, innkreving",
+    "kodeFagomraade": "TBSUAL"
   },
   {
-    "navn": "Supplerende stønad alder, ikke innkreving",
-    "kode": "TBSUALKR"
+    "navnFagomraade": "Supplerende stønad alder, ikke innkreving",
+    "kodeFagomraade": "TBSUALKR"
   },
   {
-    "navn": "Supplerende stønad Uføre, innkreving",
-    "kode": "TBSUUFKR"
+    "navnFagomraade": "Supplerende stønad Uføre, innkreving",
+    "kodeFagomraade": "TBSUUFKR"
   },
   {
-    "navn": "Supplerende stønad Uføre, ikke innkreving",
-    "kode": "TBSUUFOR"
+    "navnFagomraade": "Supplerende stønad Uføre, ikke innkreving",
+    "kodeFagomraade": "TBSUUFOR"
   },
   {
-    "navn": "Svangerskapspenger ikke innkreving",
-    "kode": "TBSVP"
+    "navnFagomraade": "Svangerskapspenger ikke innkreving",
+    "kodeFagomraade": "TBSVP"
   },
   {
-    "navn": "Svangerskapspenger til innkreving",
-    "kode": "TBSVPKR"
+    "navnFagomraade": "Svangerskapspenger til innkreving",
+    "kodeFagomraade": "TBSVPKR"
   },
   {
-    "navn": "Tilleggsstønad til innkreving",
-    "kode": "TBTILLKR"
+    "navnFagomraade": "Tilleggsstønad til innkreving",
+    "kodeFagomraade": "TBTILLKR"
   },
   {
-    "navn": "Tilleggstønad ikke innkreving",
-    "kode": "TBTILLST"
+    "navnFagomraade": "Tilleggstønad ikke innkreving",
+    "kodeFagomraade": "TBTILLST"
   },
   {
-    "navn": "Tiltakspenger til innkreving",
-    "kode": "TBTILTKR"
+    "navnFagomraade": "Tiltakspenger til innkreving",
+    "kodeFagomraade": "TBTILTKR"
   },
   {
-    "navn": "Tiltakspenger ikke innkreving",
-    "kode": "TBTILTP"
+    "navnFagomraade": "Tiltakspenger ikke innkreving",
+    "kodeFagomraade": "TBTILTP"
   },
   {
-    "navn": "Tiltakspenger ikke innkreving",
-    "kode": "TBTPAR"
+    "navnFagomraade": "Tiltakspenger ikke innkreving",
+    "kodeFagomraade": "TBTPAR"
   },
   {
-    "navn": "Tilleggstønad ikke innkreving",
-    "kode": "TBTSTAR"
+    "navnFagomraade": "Tilleggstønad ikke innkreving",
+    "kodeFagomraade": "TBTSTAR"
   },
   {
-    "navn": "Uførepensjon ikke innkreving",
-    "kode": "TBUP"
+    "navnFagomraade": "Uførepensjon ikke innkreving",
+    "kodeFagomraade": "TBUP"
   },
   {
-    "navn": "Uførepensjon til innkreving",
-    "kode": "TBUPKR"
+    "navnFagomraade": "Uførepensjon til innkreving",
+    "kodeFagomraade": "TBUPKR"
   },
   {
-    "navn": "Uføretrygd ikke innkreving",
-    "kode": "TBUT"
+    "navnFagomraade": "Uføretrygd ikke innkreving",
+    "kodeFagomraade": "TBUT"
   },
   {
-    "navn": "Uføretrygd til innkreving",
-    "kode": "TBUTKR"
+    "navnFagomraade": "Uføretrygd til innkreving",
+    "kodeFagomraade": "TBUTKR"
   },
   {
-    "navn": "Tilleggsstønad",
-    "kode": "TILLST"
+    "navnFagomraade": "Tilleggsstønad",
+    "kodeFagomraade": "TILLST"
   },
   {
-    "navn": "Tiltakspenger",
-    "kode": "TILTPENG"
+    "navnFagomraade": "Tiltakspenger",
+    "kodeFagomraade": "TILTPENG"
   },
   {
-    "navn": "Tiltakspenger",
-    "kode": "TPARENA"
+    "navnFagomraade": "Tiltakspenger",
+    "kodeFagomraade": "TPARENA"
   },
   {
-    "navn": "Tilleggsstønad",
-    "kode": "TSTARENA"
+    "navnFagomraade": "Tilleggsstønad",
+    "kodeFagomraade": "TSTARENA"
   },
   {
-    "navn": "Uføretrygdede engangsutbetaling",
-    "kode": "UFORENG"
+    "navnFagomraade": "Uføretrygdede engangsutbetaling",
+    "kodeFagomraade": "UFORENG"
   },
   {
-    "navn": "Uførepensjon fra SPK",
-    "kode": "UFORESPK"
+    "navnFagomraade": "Uførepensjon fra SPK",
+    "kodeFagomraade": "UFORESPK"
   },
   {
-    "navn": "Uføretrygd",
-    "kode": "UFOREUT"
+    "navnFagomraade": "Uføretrygd",
+    "kodeFagomraade": "UFOREUT"
   },
   {
-    "navn": "Utbetaling for mye innkrevd",
-    "kode": "UTBINNKR"
+    "navnFagomraade": "Utbetaling for mye innkrevd",
+    "kodeFagomraade": "UTBINNKR"
   }
 ]
