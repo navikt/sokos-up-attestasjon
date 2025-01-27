@@ -108,7 +108,7 @@ export default function DetaljerPage() {
           mutate();
         })
         .catch((error) => {
-          setAlertMessage({ message: error, variant: "error" });
+          setAlertMessage({ message: error.message, variant: "error" });
         });
 
       const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
