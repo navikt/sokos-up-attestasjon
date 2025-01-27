@@ -1,10 +1,13 @@
 import useSWRImmutable from "swr/immutable";
 import { AttestasjonlinjeList } from "../types/Attestasjonlinje";
 import { FagGruppeList } from "../types/FagGruppe";
-import { FagOmraadeList } from "../types/FagOmraade";
+import { FagOmraadeDTOList, FagOmraadeList } from "../types/FagOmraade";
 import { GjelderNavn } from "../types/GjelderNavn";
-import { OppdragList } from "../types/Oppdrag";
-import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
+import { OppdragDTOList, OppdragList } from "../types/Oppdrag";
+import {
+  OppdragsDetaljer,
+  OppdragsDetaljerDTO,
+} from "../types/OppdragsDetaljer";
 import { SokeParameter } from "../types/SokeParameter";
 import { norskDatoTilIsoDato } from "../util/datoUtil";
 import { axiosFetcher, axiosPostFetcher } from "./config/apiConfig";
@@ -44,39 +47,96 @@ export function useFetchFaggrupper() {
 }
 
 export function useFetchFagomraader() {
-  const { data, error, isValidating } = useSWRImmutable<FagOmraadeList>(
-    `/fagomraader`,
-    {
-      ...swrConfig<FagOmraadeList>((url) =>
-        axiosFetcher<FagOmraadeList>(BASE_URI.ATTESTASJON_API, url),
-      ),
-      fallbackData: [],
-      revalidateOnMount: true,
-    },
-  );
-  const isLoading = (!error && !data) || isValidating;
+  const {
+    data: response,
+    error,
+    isValidating,
+  } = useSWRImmutable<FagOmraadeDTOList>(`/fagomraader`, {
+    ...swrConfig<FagOmraadeDTOList>((url) =>
+      axiosFetcher<FagOmraadeDTOList>(BASE_URI.ATTESTASJON_API, url),
+    ),
+    fallbackData: [],
+    revalidateOnMount: true,
+  });
+  const isLoading = (!error && !response) || isValidating;
+
+  const data: FagOmraadeList = response?.map((dto) => ({
+    navn: dto.navnFagomraade,
+    kode: dto.kodeFagomraade,
+  })) as FagOmraadeList;
 
   return { data, error, isLoading };
 }
 
 export function useFetchOppdragsdetaljer(oppdragsId?: number) {
-  const { data, isLoading, mutate } = useSWRImmutable<OppdragsDetaljer>(
+  const {
+    data: response,
+    isLoading,
+    mutate,
+  } = useSWRImmutable<OppdragsDetaljerDTO>(
     oppdragsId ? `/${oppdragsId.toString()}/oppdragsdetaljer` : null,
-    swrConfig<OppdragsDetaljer>((url) =>
-      axiosFetcher<OppdragsDetaljer>(BASE_URI.ATTESTASJON_API, url),
+    swrConfig<OppdragsDetaljerDTO>((url) =>
+      axiosFetcher<OppdragsDetaljerDTO>(BASE_URI.ATTESTASJON_API, url),
     ),
   );
+
+  const data: OppdragsDetaljer | null = response
+    ? {
+        saksbehandlerIdent: response.saksbehandlerIdent,
+        linjer: response.oppdragsLinjeList.map((dto) => ({
+          oppdragsLinje: {
+            attestert: dto.oppdragsLinje.attestert,
+            datoVedtakFom: dto.oppdragsLinje.datoVedtakFom,
+            datoVedtakTom: dto.oppdragsLinje.datoVedtakTom,
+            delytelseId: dto.oppdragsLinje.delytelseId,
+            kodeKlasse: dto.oppdragsLinje.kodeKlasse,
+            linjeId: dto.oppdragsLinje.linjeId,
+            oppdragsId: dto.oppdragsLinje.oppdragsId,
+            sats: dto.oppdragsLinje.sats,
+            typeSats: dto.oppdragsLinje.typeSats,
+            kontonummer: `${dto.oppdragsLinje.hovedkontonr ?? ""}${dto.oppdragsLinje.underkontonr ?? ""}`,
+            kid: dto.oppdragsLinje.kid,
+            skyldner: dto.oppdragsLinje.skyldnerId,
+            refusjonsid: dto.oppdragsLinje.refunderesId,
+            utbetalesTil: dto.oppdragsLinje.utbetalesTilId,
+            grad: dto.oppdragsLinje.grad,
+          },
+          ansvarsStedForOppdragsLinje: dto.ansvarsStedForOppdragsLinje,
+          kostnadsStedForOppdragsLinje: dto.kostnadsStedForOppdragsLinje,
+          attestasjoner: dto.attestasjonList.map((attestasjon) => ({
+            attestant: attestasjon.attestantId,
+            datoUgyldigFom: attestasjon.datoUgyldigFom,
+          })),
+        })),
+      }
+    : null;
 
   return { data, isLoading, mutate };
 }
 
 export async function hentOppdrag(request: SokeParameter) {
   const url = `/api/v1/attestasjon/sok`;
-  return await axiosPostFetcher<SokeParameter, OppdragList>(
+  return await axiosPostFetcher<SokeParameter, OppdragDTOList>(
     BASE_URI.URI,
     url,
     request,
-  );
+  ).then((response) => {
+    const oppdragList: OppdragList = response.map((dto) => ({
+      ansvarsSted: dto.ansvarssted,
+      antallAttestanter: dto.antAttestanter,
+      fagGruppe: dto.navnFaggruppe,
+      fagOmraade: dto.navnFagomraade,
+      fagSystemId: dto.fagSystemId,
+      gjelderId: dto.oppdragGjelderId,
+      kodeFagGruppe: dto.kodeFaggruppe,
+      kodeFagOmraade: dto.kodeFagomraade,
+      kostnadsSted: dto.kostnadssted,
+      oppdragsId: dto.oppdragsId,
+      erSkjermetForSaksbehandler: dto.erSkjermetForSaksbehandler,
+      hasWriteAccess: dto.hasWriteAccess,
+    }));
+    return oppdragList;
+  });
 }
 
 export async function hentNavn(request: GjelderIdRequest) {

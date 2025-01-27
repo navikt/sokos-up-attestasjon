@@ -1,7 +1,7 @@
-import { OppdragsDetaljer } from "../../src/types/OppdragsDetaljer";
+import { OppdragsDetaljerDTO } from "../../src/types/OppdragsDetaljer";
 
-const oppdragslinjer: OppdragsDetaljer = {
-  linjer: [
+const oppdragslinjer: OppdragsDetaljerDTO = {
+  oppdragsLinjeList: [
     {
       oppdragsLinje: {
         attestert: false,
@@ -13,11 +13,12 @@ const oppdragslinjer: OppdragsDetaljer = {
         oppdragsId: 98765432,
         sats: 1234.0,
         typeSats: "ENG",
-        kontonummer: "1234567",
+        hovedkontonr: "123",
+        underkontonr: "4567",
       },
-      attestasjoner: [
+      attestasjonList: [
         {
-          attestant: "G133837",
+          attestantId: "G133837",
           datoUgyldigFom: "9999-12-31",
         },
       ],

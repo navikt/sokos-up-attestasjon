@@ -17,6 +17,7 @@ const state: { state: AppState; version: number } = {
         kostnadsSted: "7777",
         oppdragsId: 98769876,
         erSkjermetForSaksbehandler: true,
+        hasWriteAccess: true,
       },
       {
         ansvarsSted: "1337",
@@ -30,6 +31,7 @@ const state: { state: AppState; version: number } = {
         kostnadsSted: "6789",
         oppdragsId: 67896789,
         erSkjermetForSaksbehandler: false,
+        hasWriteAccess: true,
       },
     ],
     sokeData: {

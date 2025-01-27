@@ -21,6 +21,7 @@ const detaljerAppState: State = {
       kostnadsSted: "8128",
       oppdragsId: 98765432,
       erSkjermetForSaksbehandler: false,
+      hasWriteAccess: true,
     },
     sokeData: {
       gjelderId: "",

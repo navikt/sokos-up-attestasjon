@@ -1,7 +1,7 @@
-import { OppdragsDetaljer } from "../../src/types/OppdragsDetaljer";
+import { OppdragsDetaljerDTO } from "../../src/types/OppdragsDetaljer";
 
-const oppdragsdetaljerEtterAttestering: OppdragsDetaljer = {
-  linjer: [
+const oppdragsdetaljerEtterAttestering: OppdragsDetaljerDTO = {
+  oppdragsLinjeList: [
     {
       oppdragsLinje: {
         attestert: false,
@@ -13,19 +13,20 @@ const oppdragsdetaljerEtterAttestering: OppdragsDetaljer = {
         oppdragsId: 98765432,
         sats: 1234.0,
         typeSats: "ENG",
-        kontonummer: "1234567",
-        skyldner: "Ola Nordmann",
-        refusjonsid: "1234567",
-        utbetalesTil: "Ola Nordmann",
+        hovedkontonr: "123",
+        underkontonr: "4567",
+        skyldnerId: "Ola Nordmann",
+        refunderesId: "1234567",
+        utbetalesTilId: "Ola Nordmann",
         grad: 100,
       },
-      attestasjoner: [
+      attestasjonList: [
         {
-          attestant: "G133837",
+          attestantId: "G133837",
           datoUgyldigFom: "9999-12-31",
         },
         {
-          attestant: "H135685",
+          attestantId: "H135685",
           datoUgyldigFom: "9999-12-31",
         },
       ],

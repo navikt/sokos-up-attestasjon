@@ -1,31 +1,33 @@
-import { OppdragList } from "../../src/types/Oppdrag";
+import { OppdragDTOList } from "../../src/types/Oppdrag";
 
-const sok: OppdragList = [
+const sok: OppdragDTOList = [
   {
-    ansvarsSted: "1337",
-    antallAttestanter: 2,
-    fagGruppe: "Pensjoner",
-    fagOmraade: "Avtalefestet pensjon manuell postering",
+    ansvarssted: "1337",
+    antAttestanter: 2,
+    navnFaggruppe: "Pensjoner",
+    navnFagomraade: "Avtalefestet pensjon manuell postering",
     fagSystemId: "detteErEtLiteOppdrag",
-    gjelderId: "12345678901",
-    kodeFagGruppe: "PEN",
-    kodeFagOmraade: "MPENAFP",
-    kostnadsSted: "8128",
+    oppdragGjelderId: "12345678901",
+    kodeFaggruppe: "PEN",
+    kodeFagomraade: "MPENAFP",
+    kostnadssted: "8128",
     oppdragsId: 87654321,
     erSkjermetForSaksbehandler: false,
+    hasWriteAccess: true,
   },
   {
-    ansvarsSted: "1234",
-    antallAttestanter: 2,
-    fagGruppe: "Memoposteringer pensjon",
-    fagOmraade: "Kontoplan pensjon",
+    ansvarssted: "1234",
+    antAttestanter: 2,
+    navnFaggruppe: "Memoposteringer pensjon",
+    navnFagomraade: "Kontoplan pensjon",
     fagSystemId: "detteErEtLiteOppdragTil",
-    gjelderId: "12345678901",
-    kodeFagGruppe: "PENPOST",
-    kodeFagOmraade: "MPENALLE",
-    kostnadsSted: "5972",
+    oppdragGjelderId: "12345678901",
+    kodeFaggruppe: "PENPOST",
+    kodeFagomraade: "MPENALLE",
+    kostnadssted: "5972",
     oppdragsId: 98765432,
     erSkjermetForSaksbehandler: false,
+    hasWriteAccess: true,
   },
 ];
 
