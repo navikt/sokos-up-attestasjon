@@ -35,7 +35,7 @@ export default function TrefflistePage() {
 
   useEffect(() => {
     if (!oppdragList) {
-      navigate(ROOT);
+      navigate(ROOT, { replace: true });
     }
   }, [navigate, oppdragList]);
 
