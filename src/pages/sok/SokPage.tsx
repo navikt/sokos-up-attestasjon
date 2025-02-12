@@ -106,7 +106,7 @@ export default function SokPage() {
         setError(null);
         if (!isEmpty(response)) {
           setOppdragList(response);
-          navigate("/treffliste", { replace: true });
+          navigate("/treffliste");
         } else {
           setError({
             variant: "info",
