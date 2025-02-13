@@ -17,4 +17,5 @@ jobs:
   build-pr:
     name: Build and test
     uses: navikt/mob-gha-workflows/.github/workflows/node-build-pr.yaml@fix_404
+
     secrets: inherit
