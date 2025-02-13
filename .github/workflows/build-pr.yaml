@@ -13,6 +13,11 @@ on:
       - ".github/workflows/security.yaml"
       - ".github/dependabot.yaml"
 
+permissions:
+  contents: read
+  packages: write
+  id-token: write
+
 jobs:
   build-pr:
     name: Build and test
