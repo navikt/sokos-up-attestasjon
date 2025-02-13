@@ -70,7 +70,7 @@ export default defineConfig({
     // },
   ],
   webServer: {
-    command: "pnpm run dev:backend",
+    command: "yarn run dev:backend",
     url: "http://localhost:5173/attestasjon",
     reuseExistingServer: !process.env.CI,
   },
