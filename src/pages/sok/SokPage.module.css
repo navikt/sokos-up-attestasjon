@@ -3,6 +3,7 @@
   position: relative;
   max-width: 1440px;
   border-radius: 0.5rem;
+  margin: auto;
   background-color: var(--a-surface-alt-1-subtle);
 }
 

@@ -2,6 +2,8 @@
   margin: 0.75rem auto;
   min-width: 1024px;
   max-width: 1440px;
+  display: flex;
+  flex-direction: column;
   gap: 1.5rem;
 }
 
@@ -9,6 +11,8 @@
   margin-left: 9rem;
   margin-right: 9rem;
   min-width: 1024px;
+  display: flex;
+  flex-direction: column;
   gap: 1.25rem;
 }
 

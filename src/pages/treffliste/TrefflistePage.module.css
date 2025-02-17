@@ -1,15 +1,19 @@
 .treffliste {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
   margin: 0.75rem auto;
   min-width: 1024px;
   max-width: 1440px;
-  gap: 1.5rem;
 }
 
 .treffliste-top {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
   margin-left: 9rem;
   margin-right: 9rem;
   min-width: 1024px;
-  gap: 1.25rem;
 }
 
 .treffliste-top-info {
