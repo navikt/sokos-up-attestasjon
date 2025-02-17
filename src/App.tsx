@@ -5,7 +5,7 @@ import ContentLoader from "./components/ContentLoader";
 import DetaljerPage from "./pages/detaljer/DetaljerPage";
 import SokPage from "./pages/sok/SokPage";
 import TrefflistePage from "./pages/treffliste/TrefflistePage";
-import { BASENAME, ROOT } from "./util/constants";
+import { ROOT } from "./util/constants";
 import { initGrafanaFaro } from "./util/grafanaFaro";
 
 const App = () => {
@@ -21,11 +21,11 @@ const App = () => {
   return (
     <Suspense fallback={<ContentLoader />}>
       <Routes>
-        <Route path={BASENAME + ROOT} ErrorBoundary={ErrorBoundary}>
-          <Route path={BASENAME + ROOT} element={<SokPage />} />
-          <Route path={BASENAME + "/treffliste"} element={<TrefflistePage />} />
+        <Route path={ROOT} ErrorBoundary={ErrorBoundary}>
+          <Route path={ROOT} element={<SokPage />} />
+          <Route path={"/treffliste"} element={<TrefflistePage />} />
           ,
-          <Route path={BASENAME + "/detaljer"} element={<DetaljerPage />} />,
+          <Route path={"/detaljer"} element={<DetaljerPage />} />,
         </Route>
       </Routes>
     </Suspense>

@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router";
 import App from "./App";
 import "./index.css";
+import { BASENAME } from "./util/constants";
 
 const startMsw = async () => {
   if (import.meta.env.MODE === "mock") {
@@ -23,7 +25,9 @@ startMsw().then(() =>
       <div className="page-wrapper">
         <div className="page-layout">
           <main>
-            <App />
+            <BrowserRouter basename={BASENAME}>
+              <App />
+            </BrowserRouter>
           </main>
         </div>
       </div>
