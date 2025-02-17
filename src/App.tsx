@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from "react";
-import { BrowserRouter, Route, Routes, useRouteError } from "react-router";
+import { Route, Routes, useRouteError } from "react-router";
 import "./App.module.css";
 import ContentLoader from "./components/ContentLoader";
 import DetaljerPage from "./pages/detaljer/DetaljerPage";
@@ -20,15 +20,14 @@ const App = () => {
 
   return (
     <Suspense fallback={<ContentLoader />}>
-      <BrowserRouter basename={BASENAME}>
-        <Routes>
-          <Route path={ROOT} ErrorBoundary={ErrorBoundary}>
-            <Route path={ROOT} element={<SokPage />} />
-            <Route path={"/treffliste"} element={<TrefflistePage />} />,
-            <Route path={"/detaljer"} element={<DetaljerPage />} />,
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path={BASENAME + ROOT} ErrorBoundary={ErrorBoundary}>
+          <Route path={BASENAME + ROOT} element={<SokPage />} />
+          <Route path={BASENAME + "/treffliste"} element={<TrefflistePage />} />
+          ,
+          <Route path={BASENAME + "/detaljer"} element={<DetaljerPage />} />,
+        </Route>
+      </Routes>
     </Suspense>
   );
 };
