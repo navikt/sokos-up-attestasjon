@@ -1,23 +1,46 @@
 .detaljer {
-  @apply mx-auto my-3 min-w-1024 max-w-[1440px] space-y-6;
+  margin: 0.75rem auto;
+  min-width: 1024px;
+  max-width: 1440px;
+  gap: 1.5rem;
 }
 
 .detaljer-top {
-  @apply mx-36 min-w-1024 space-y-5;
+  margin-left: 9rem;
+  margin-right: 9rem;
+  min-width: 1024px;
+  gap: 1.25rem;
 }
 
 .detaljer-alerts {
-  @apply mx-36 min-w-1024 max-w-[1440px] pb-3;
+  margin-left: 9rem;
+  margin-right: 9rem;
+  min-width: 1024px;
+  max-width: 1440px;
+  padding-bottom: 0.75rem;
 }
 
 .detaljer-label {
-  @apply flex flex-wrap gap-10 rounded-lg bg-white pb-5 pl-5 pt-5;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  padding-bottom: 1.25rem;
+  padding-left: 1.25rem;
+  padding-top: 1.25rem;
 }
 
 .detaljer-columns {
-  @apply flex w-11/12 flex-row justify-between space-x-16;
+  display: flex;
+  width: 91.67%;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 4rem;
 }
 
 .detaljer-column {
-  @apply flex flex-col space-y-3;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
 }

@@ -1,43 +1,55 @@
 .pageheading {
-  @apply text-center;
+  text-align: center;
 }
 
 .contentloader {
-  @apply w-full py-16 text-center;
+  width: 100%;
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+  text-align: center;
 }
 
 .labeltext-label {
-  @apply whitespace-nowrap font-bold;
+  white-space: nowrap;
+  font-weight: bold;
 }
 
 .labeltext {
-  @apply flex flex-row gap-2 whitespace-nowrap;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  white-space: nowrap;
 }
 
 .link {
-  @apply underline;
+  text-decoration: underline;
 }
 
 .link:hover {
-  @apply no-underline;
+  text-decoration: none;
 }
 
 .aksel-danger {
-  @apply text-[var(--a-nav-red)];
+  color: var(--a-nav-red);
 }
 
 .nowrap {
-  @apply whitespace-nowrap;
+  white-space: nowrap;
 }
 
 .sortable-table-topinfo {
-  @apply flex flex-row justify-between;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .sortable-table {
-  @apply min-w-1400 bg-[--a-surface-default];
+  min-width: 1400px;
+  background-color: var(--a-surface-default);
 }
 
 .sortable-table-pagination {
-  @apply flex flex-row place-content-center;
+  display: flex;
+  flex-direction: row;
+  place-content: center;
 }

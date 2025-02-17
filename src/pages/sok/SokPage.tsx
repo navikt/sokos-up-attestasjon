@@ -21,7 +21,7 @@ import {
   useFetchFagomraader,
 } from "../../api/apiService";
 import { useStore } from "../../store/AppState";
-import commonstyles from "../../styles/common-styles.module.css";
+import commonStyles from "../../styles/common-styles.module.css";
 import { ErrorMessage } from "../../types/ErrorMessage";
 import { HttpStatusCodeError } from "../../types/Errors";
 import { FagGruppe } from "../../types/FagGruppe";
@@ -150,7 +150,7 @@ export default function SokPage() {
 
   return (
     <>
-      <div className={commonstyles.pageheading}>
+      <div className={commonStyles.pageheading}>
         <Heading level="1" size="large" spacing>
           Attestasjon: Søk
         </Heading>

@@ -1,27 +1,47 @@
 .treffliste {
-  @apply mx-auto my-3 min-w-1024 max-w-[1440px] space-y-6;
+  margin: 0.75rem auto;
+  min-width: 1024px;
+  max-width: 1440px;
+  gap: 1.5rem;
 }
 
 .treffliste-top {
-  @apply mx-36 min-w-1024 space-y-5;
+  margin-left: 9rem;
+  margin-right: 9rem;
+  min-width: 1024px;
+  gap: 1.25rem;
 }
 
 .treffliste-top-info {
-  @apply bg-[--a-surface-alt-1-subtle] px-5 py-2;
+  background-color: var(--a-surface-alt-1-subtle);
+  padding: 0.5rem 1.25rem;
 }
 
 .treffliste-trefftabell {
-  @apply mx-auto min-w-[1200px] max-w-[1600px] rounded-lg bg-white;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 1200px;
+  max-width: 1600px;
+  border-radius: 0.5rem;
+  background-color: white;
 }
 
 .treffliste-error {
-  @apply pt-5;
+  padding-top: 1.25rem;
 }
 
 .sokekriterier {
-  @apply flex min-w-1024 flex-col rounded-xl bg-white p-5;
+  display: flex;
+  min-width: 1024px;
+  flex-direction: column;
+  border-radius: 0.75rem;
+  background-color: white;
+  padding: 1.25rem;
 }
 
 .sokekriterier-content {
-  @apply flex flex-row gap-10 pt-5;
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+  padding-top: 1.25rem;
 }
