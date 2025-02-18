@@ -1,51 +1,73 @@
 .attestasjonsok {
-  @apply relative mx-auto min-w-[900px] max-w-[1440px] rounded-[8px] bg-[--a-surface-alt-1-subtle] p-5;
+  padding: 1rem;
+  position: relative;
+  max-width: 1440px;
+  border-radius: 0.5rem;
+  margin: auto;
+  background-color: var(--a-surface-alt-1-subtle);
 }
 
 .attestasjonsok-form {
-  @apply flex flex-row gap-10;
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
 }
 
 .attestasjonsok-helptext {
-  @apply absolute right-5 top-5;
+  position: absolute;
+  right: 1.25rem;
+  top: 1.25rem;
 }
 
 .attestasjonsok-inputfields {
-  @apply flex w-fit flex-col gap-3;
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  gap: 0.75rem;
 }
 
 .attestasjonsok-gjelder {
-  @apply relative w-36;
+  position: relative;
+  width: 9rem;
 }
 
 .attestasjonsok-fagsystem {
-  @apply w-56;
+  width: 14rem;
 }
 
 .attestasjonsok-radiobutton {
-  @apply flex flex-col;
+  display: flex;
+  flex-direction: column;
 }
 
 .attestasjonsok-divider {
-  @apply min-w-0.5 bg-[--a-border-default];
+  min-width: 0.125rem;
+  background-color: var(--a-border-default);
 }
 
 .attestasjonsok-error {
-  @apply pt-5;
+  padding-top: 1.25rem;
 }
 
 .attestasjonsok-error-summary {
-  @apply max-w-2xl pt-2;
+  max-width: 32rem;
+  padding-top: 0.5rem;
 }
 
 .attestasjonsok-button {
-  @apply flex flex-row-reverse gap-6 pt-5;
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 1.5rem;
+  padding-top: 1.25rem;
 }
 
 .attestasjonsok-combobox {
-  @apply min-w-[660px];
+  min-width: 41.25rem;
 }
 
 .attestasjonsok-error-message-nowrap {
-  @apply absolute left-2 ml-3 whitespace-nowrap;
+  position: absolute;
+  left: 0.5rem;
+  margin-left: 0.75rem;
+  white-space: nowrap;
 }
