@@ -58,7 +58,7 @@ export default function DetaljerPage() {
 
   useEffect(() => {
     if (!oppdrag) {
-      navigate(ROOT);
+      navigate(ROOT, { replace: true });
     }
   }, [navigate, oppdrag]);
 
