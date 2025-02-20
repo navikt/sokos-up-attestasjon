@@ -13,7 +13,7 @@ export default function ResetButton() {
   const handleReset = (e: FormEvent) => {
     e.preventDefault();
     resetState();
-    navigate(ROOT);
+    navigate(ROOT, { replace: true });
   };
 
   return (

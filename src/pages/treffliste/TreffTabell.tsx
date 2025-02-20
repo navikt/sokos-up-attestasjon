@@ -126,6 +126,7 @@ export default function TreffTabell(props: TreffTabellProps) {
                     ref={(element) => (skjermingRowRefs.current[row] = element)}
                     to={oppdrag.erSkjermetForSaksbehandler ? "#" : "/detaljer"}
                     className={commonstyles.link}
+                    replace
                     onClick={() => {
                       if (oppdrag.erSkjermetForSaksbehandler) {
                         setSkjermingRow(row);

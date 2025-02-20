@@ -22,7 +22,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
           {props.searchLink && (
             <div className={styles["breadcrumbs-crumb"]}>
               <BodyShort size="large">
-                <Link to="/" className={commonstyles.link}>
+                <Link to="/" replace className={commonstyles.link}>
                   Gjeldende Søk
                 </Link>
               </BodyShort>
@@ -38,7 +38,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
             <div className={styles["breadcrumbs-crumb"]}>
               <ChevronRightIcon focusable={"false"} title="Pil høyre" />
               <BodyShort size="large">
-                <Link to="/treffliste" className={commonstyles.link}>
+                <Link to="/treffliste" replace className={commonstyles.link}>
                   Treffliste
                 </Link>
               </BodyShort>
@@ -54,7 +54,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
             <div className={styles["breadcrumbs-crumb"]}>
               <ChevronRightIcon title="Pil høyre" />
               <BodyShort size="large">
-                <Link to="/detaljer" className={commonstyles.link}>
+                <Link to="/detaljer" replace className={commonstyles.link}>
                   Detaljer
                 </Link>
               </BodyShort>
