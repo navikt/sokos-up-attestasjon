@@ -16,10 +16,10 @@ import { AttesterOppdragResponse } from "./models/AttesterOppdragResponse";
 import { GjelderIdRequest } from "./models/GjelderIdRequest";
 
 const BASE_URI = {
-  URI: "/oppdrag-api",
-  ATTESTASJON_API: "/oppdrag-api/api/v1/attestasjon",
-  INTEGRATION_API: "/oppdrag-api/api/v1/integration",
-  OPPDRAGSINFO_API: "/oppdrag-api/api/v1/oppdragsinfo",
+  URI: "https://sokos-oppdrag.dev-fss-pub.nais.io/api/v1/",
+  ATTESTASJON_API: "/attestasjon",
+  INTEGRATION_API: "/integration",
+  OPPDRAGSINFO_API: "/oppdragsinfo",
 };
 
 function swrConfig<T>(fetcher: (uri: string) => Promise<T>) {
