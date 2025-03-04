@@ -23,6 +23,7 @@ spec:
   ingresses:
     - "https://utbetalingsportalen.intern.dev.nav.no/sokos-up-attestasjon"
     - "https://utbetalingsportalen-qx.intern.dev.nav.no/sokos-up-attestasjon"
+    - "https://sokos-utbetalingsportalen-astro.intern.dev.nav.no/sokos-up-attestasjon"
   resources:
     limits:
       cpu: "3"
