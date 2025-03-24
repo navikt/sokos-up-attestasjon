@@ -16,10 +16,9 @@ import { AttesterOppdragResponse } from "./models/AttesterOppdragResponse";
 import { GjelderIdRequest } from "./models/GjelderIdRequest";
 
 const BASE_URI = {
-  URI: "/oppdrag-api",
   ATTESTASJON_API: "/oppdrag-api/api/v1/attestasjon",
   INTEGRATION_API: "/oppdrag-api/api/v1/integration",
-  OPPDRAGSINFO_API: "/oppdrag-api/api/v1/oppdragsinfo",
+  KODEVERK: "/oppdrag-api/api/v1/kodeverk",
 };
 
 function swrConfig<T>(fetcher: (uri: string) => Promise<T>) {
@@ -36,7 +35,7 @@ export function useFetchFaggrupper() {
     `/faggrupper`,
     {
       ...swrConfig<FagGruppeList>((url) =>
-        axiosFetcher<FagGruppeList>(BASE_URI.OPPDRAGSINFO_API, url),
+        axiosFetcher<FagGruppeList>(BASE_URI.KODEVERK, url),
       ),
       fallbackData: [],
       revalidateOnMount: true,
@@ -53,7 +52,7 @@ export function useFetchFagomraader() {
     isValidating,
   } = useSWRImmutable<FagOmraadeDTOList>(`/fagomraader`, {
     ...swrConfig<FagOmraadeDTOList>((url) =>
-      axiosFetcher<FagOmraadeDTOList>(BASE_URI.ATTESTASJON_API, url),
+      axiosFetcher<FagOmraadeDTOList>(BASE_URI.KODEVERK, url),
     ),
     fallbackData: [],
     revalidateOnMount: true,
@@ -115,10 +114,9 @@ export function useFetchOppdragsdetaljer(oppdragsId?: number) {
 }
 
 export async function hentOppdrag(request: SokeParameter) {
-  const url = `/api/v1/attestasjon/sok`;
   return await axiosPostFetcher<SokeParameter, OppdragDTOList>(
-    BASE_URI.URI,
-    url,
+    BASE_URI.ATTESTASJON_API,
+    "/sok",
     request,
   ).then((response) => {
     const oppdragList: OppdragList = response.map((dto) => ({
