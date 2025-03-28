@@ -351,7 +351,14 @@ export default function SokPage() {
             <div className={styles["attestasjonsok-button"]}>
               <Button
                 data-umami-event={SOK.SUBMIT}
-                data-umami-event-fnr={!!sokeData?.gjelderId}
+                data-umami-event-fnr={
+                  !!sokeData?.gjelderId &&
+                  /^(?!00)\d{11}$/.test(sokeData?.gjelderId)
+                }
+                data-umami-event-orgnr={
+                  !!sokeData?.gjelderId &&
+                  /^(00\d{9}|\d{9})$/.test(sokeData?.gjelderId)
+                }
                 data-umami-event-fagsystemid={!!sokeData?.fagSystemId}
                 data-umami-event-faggruppe={sokeData?.fagGruppe?.type}
                 data-umami-event-fagomraade={sokeData?.fagOmraade?.kode}
