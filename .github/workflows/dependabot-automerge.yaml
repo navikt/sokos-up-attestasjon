@@ -17,4 +17,9 @@ jobs:
     if: github.event.pull_request.user.login == 'dependabot[bot]'
     name: Dependabot auto-merge
     uses: navikt/mob-gha-workflows/.github/workflows/dependabot-automerge.yaml@main
+    with:
+      github-token: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+      pull-requests: write
     secrets: inherit
