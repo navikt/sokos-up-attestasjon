@@ -1,0 +1,24 @@
+name: Dependabot auto-merge
+on:
+  pull_request:
+    paths-ignore:
+      - "**.md"
+      - "LICENCE"
+      - "CODEOWNERS"
+      - ".gitignore"
+      - ".github/workflows/deploy.yaml"
+      - ".github/workflows/manual-deploy-dev.yaml"
+      - ".github/workflows/playwright.yaml"
+      - ".github/workflows/security.yaml"
+      - ".github/dependabot.yaml"
+
+  workflow_run:
+    workflows: ["Build/test and validate PR"]
+    types:
+      - completed
+jobs:
+  dependabot-automerge:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_commit.author.name == 'dependabot[bot]'
+    name: Dependabot auto-merge
+    uses: navikt/mob-gha-workflows/.github/workflows/dependabot-automerge.yaml@main
+    secrets: inherit
