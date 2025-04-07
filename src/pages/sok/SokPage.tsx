@@ -106,6 +106,7 @@ export default function SokPage() {
         setError(null);
         if (!isEmpty(response)) {
           console.log("Kommer hit?? 1");
+          console.log("response: ", response);
           setOppdragList(response);
           navigate("/treffliste", { replace: false });
         } else {
@@ -120,6 +121,7 @@ export default function SokPage() {
       .catch((error) => {
         console.log("Kommer hit?? 3");
         const statusError = error as HttpStatusCodeError;
+        console.log("status: ", statusError);
         setError({
           variant: statusError.statusCode == 400 ? "warning" : "error",
           message: statusError.message,
