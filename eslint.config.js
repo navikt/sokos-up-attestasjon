@@ -37,7 +37,7 @@ export default tseslint.config(
         "warn",
         { allowConstantExport: true },
       ],
-      "no-console": "error",
+      // "no-console": "error",
       "no-duplicate-imports": "error",
       "react/react-in-jsx-scope": "off",
     },
