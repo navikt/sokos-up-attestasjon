@@ -51,7 +51,10 @@ export const handlers = [
       const sokeParameter = await request.json();
       console.log("Attester parameter:", sokeParameter);
       return HttpResponse.json(
-        { successMessage: "Vellykket!" },
+        {
+          /* errorMessage: "Oppdatering feilet!" */ successMessage:
+            "Oppdatering vellykket!",
+        },
         { status: 200 },
       );
     },

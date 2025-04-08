@@ -98,7 +98,7 @@ test.describe("When using Sok in Attestasjoner", () => {
     page,
   }) => {
     await page.route("*/**/sok", async (route) => {
-      await route.fulfill({ json: [] });
+      await route.fulfill({ json: { data: [], errorMessage: "" } });
     });
 
     const fnrfelt = page.getByLabel("Gjelder");

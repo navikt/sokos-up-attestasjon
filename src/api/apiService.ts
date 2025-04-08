@@ -11,7 +11,7 @@ import {
 import { SokeParameter } from "../types/SokeParameter";
 import { WrappedResponseWithErrorDTO } from "../types/WrappedResponseWithErrorDTO";
 import { norskDatoTilIsoDato } from "../util/datoUtil";
-import { axiosFetcher, axiosPostFetcher } from "./config/apiConfig";
+import { axiosFetcher, axiosPostFetcher } from "./apiConfig";
 import { AttesterOppdragRequest } from "./models/AttesterOppdragRequest";
 import { AttesterOppdragResponse } from "./models/AttesterOppdragResponse";
 import { GjelderIdRequest } from "./models/GjelderIdRequest";
