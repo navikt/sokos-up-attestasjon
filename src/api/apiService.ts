@@ -19,7 +19,7 @@ import { GjelderIdRequest } from "./models/GjelderIdRequest";
 const BASE_URI = {
   ATTESTASJON_API: "/oppdrag-api/api/v1/attestasjon",
   INTEGRATION_API: "/oppdrag-api/api/v1/integration",
-  KODEVERK: "/oppdrag-api/api/v1/kodeverk",
+  KODEVERK_API: "/oppdrag-api/api/v1/kodeverk",
 };
 
 function swrConfig<T>(fetcher: (uri: string) => Promise<T>) {
@@ -36,7 +36,7 @@ export function useFetchFaggrupper() {
     `/faggrupper`,
     {
       ...swrConfig<FagGruppeList>((url) =>
-        axiosFetcher<FagGruppeList>(BASE_URI.KODEVERK, url),
+        axiosFetcher<FagGruppeList>(BASE_URI.KODEVERK_API, url),
       ),
       fallbackData: [],
       revalidateOnMount: true,
@@ -53,7 +53,7 @@ export function useFetchFagomraader() {
     isValidating,
   } = useSWRImmutable<FagOmraadeDTOList>(`/fagomraader`, {
     ...swrConfig<FagOmraadeDTOList>((url) =>
-      axiosFetcher<FagOmraadeDTOList>(BASE_URI.KODEVERK, url),
+      axiosFetcher<FagOmraadeDTOList>(BASE_URI.KODEVERK_API, url),
     ),
     fallbackData: [],
     revalidateOnMount: true,
