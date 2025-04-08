@@ -23,7 +23,6 @@ import {
 import { useStore } from "../../store/AppState";
 import commonStyles from "../../styles/common-styles.module.css";
 import { ErrorMessage } from "../../types/ErrorMessage";
-import { HttpStatusCodeError } from "../../types/Errors";
 import { FagGruppe } from "../../types/FagGruppe";
 import { FagOmraade } from "../../types/FagOmraade";
 import { SokeData } from "../../types/SokeData";
@@ -116,10 +115,9 @@ export default function SokPage() {
         }
       })
       .catch((error) => {
-        const statusError = error as HttpStatusCodeError;
         setError({
-          variant: statusError.statusCode == 400 ? "warning" : "error",
-          message: statusError.message,
+          variant: error.statusCode == 400 ? "warning" : "error",
+          message: error.message,
         });
         setIsLoading(false);
       });

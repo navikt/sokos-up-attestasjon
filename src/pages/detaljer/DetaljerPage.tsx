@@ -101,7 +101,7 @@ export default function DetaljerPage() {
       await oppdaterAttestasjon(request)
         .then((response) => {
           setAlertMessage({
-            message: response.message || "",
+            message: response.successMessage || "",
             variant: "success",
           });
 

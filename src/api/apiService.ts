@@ -3,12 +3,13 @@ import { AttestasjonlinjeList } from "../types/Attestasjonlinje";
 import { FagGruppeList } from "../types/FagGruppe";
 import { FagOmraadeDTOList, FagOmraadeList } from "../types/FagOmraade";
 import { GjelderNavn } from "../types/GjelderNavn";
-import { OppdragDTOList, OppdragList } from "../types/Oppdrag";
+import { OppdragList } from "../types/Oppdrag";
 import {
   OppdragsDetaljer,
   OppdragsDetaljerDTO,
 } from "../types/OppdragsDetaljer";
 import { SokeParameter } from "../types/SokeParameter";
+import { WrappedResponseWithErrorDTO } from "../types/WrappedResponseWithErrorDTO";
 import { norskDatoTilIsoDato } from "../util/datoUtil";
 import { axiosFetcher, axiosPostFetcher } from "./config/apiConfig";
 import { AttesterOppdragRequest } from "./models/AttesterOppdragRequest";
@@ -114,12 +115,15 @@ export function useFetchOppdragsdetaljer(oppdragsId?: number) {
 }
 
 export async function hentOppdrag(request: SokeParameter) {
-  return await axiosPostFetcher<SokeParameter, OppdragDTOList>(
+  return await axiosPostFetcher<SokeParameter, WrappedResponseWithErrorDTO>(
     BASE_URI.ATTESTASJON_API,
     "/sok",
     request,
   ).then((response) => {
-    const oppdragList: OppdragList = response.map((dto) => ({
+    if (response.errorMessage) {
+      throw new Error(response.errorMessage);
+    }
+    const oppdragList: OppdragList = response.data.map((dto) => ({
       ansvarsSted: dto.ansvarssted,
       antallAttestanter: dto.antAttestanter,
       fagGruppe: dto.navnFaggruppe,
@@ -149,7 +153,12 @@ export async function oppdaterAttestasjon(request: AttesterOppdragRequest) {
   return await axiosPostFetcher<
     AttesterOppdragRequest,
     AttesterOppdragResponse
-  >(BASE_URI.ATTESTASJON_API, "/attestere", request);
+  >(BASE_URI.ATTESTASJON_API, "/attestere", request).then((response) => {
+    if (response.errorMessage) {
+      throw new Error(response.errorMessage);
+    }
+    return response;
+  });
 }
 
 export function attesterOppdragRequest(
