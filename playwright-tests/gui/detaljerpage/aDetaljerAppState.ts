@@ -1,12 +1,7 @@
 import { AppState } from "../../../src/store/AppState";
 import { AttestertStatus } from "../../../src/types/schema/AttestertStatus";
 
-type State = {
-  state: AppState;
-  version: number;
-};
-
-const detaljerAppState: State = {
+const detaljerAppState: { state: AppState; version: number } = {
   state: {
     gjelderNavn: "Unused",
     oppdrag: {
@@ -35,6 +30,7 @@ const detaljerAppState: State = {
   },
   version: 0,
 };
+
 export default detaljerAppState;
 
 export function detaljerStateWith({

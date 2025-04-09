@@ -1,6 +1,6 @@
 import { WrappedResponseWithErrorDTO } from "../../src/types/WrappedResponseWithErrorDTO";
 
-const sok: WrappedResponseWithErrorDTO = {
+const wrappedResponseWithErrorDto: WrappedResponseWithErrorDTO = {
   data: [
     {
       ansvarssted: "1337",
@@ -34,4 +34,4 @@ const sok: WrappedResponseWithErrorDTO = {
   errorMessage: "",
 };
 
-export default sok;
+export default wrappedResponseWithErrorDto;

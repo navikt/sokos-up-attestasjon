@@ -1,8 +1,8 @@
 import { Page, expect, test } from "@playwright/test";
 import { AppState } from "../../../src/store/AppState";
 import { AttestertStatus } from "../../../src/types/schema/AttestertStatus";
-import faggrupper from "../../stubs/faggrupper";
-import fagomraader from "../../stubs/fagomraader";
+import faggruppeList from "../../stubs/faggrupper";
+import fagomraadeList from "../../stubs/fagomraader";
 import { aStateWith } from "./aSokPageAppState";
 
 function testStore(page: Page, appState: { state: AppState; version: number }) {
@@ -23,10 +23,10 @@ test.describe("When using Sok in Attestasjoner", () => {
   test.beforeEach(async ({ page }) => {
     await page.setViewportSize({ width: 1920, height: 1080 });
     await page.route("*/**/faggrupper", async (route) => {
-      await route.fulfill({ json: faggrupper });
+      await route.fulfill({ json: faggruppeList });
     });
     await page.route("*/**/fagomraader", async (route) => {
-      await route.fulfill({ json: fagomraader });
+      await route.fulfill({ json: fagomraadeList });
     });
     await page.goto("/attestasjon");
   });
@@ -136,10 +136,10 @@ test.describe("When using Sok in Attestasjoner", () => {
 test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in store", () => {
   test.beforeEach(async ({ page }) => {
     await page.route("*/**/faggrupper", async (route) => {
-      await route.fulfill({ json: faggrupper });
+      await route.fulfill({ json: faggruppeList });
     });
     await page.route("*/**/fagomraader", async (route) => {
-      await route.fulfill({ json: fagomraader });
+      await route.fulfill({ json: fagomraadeList });
     });
   });
 

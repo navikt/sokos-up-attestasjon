@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import { HttpResponse, http } from "msw";
-import fagGrupper from "./json/faggrupper.json";
-import fagOmraader from "./json/fagomraader.json";
-import oppdragsDetaljer from "./json/oppdragsDetaljer.json";
-import sokOppdrag from "./json/sokOppdrag.json";
+import { fagGrupperList } from "./data/faggrupper";
+import { fagomraadeDtoList } from "./data/fagomraader";
+import { oppdragsDetaljerDto } from "./data/oppdragsDetaljer";
+import { oppdragDtoList } from "./data/sokOppdrag";
 
 export const handlers = [
   http.post("/oppdrag-api/api/v1/attestasjon/sok", async ({ request }) => {
@@ -32,7 +32,7 @@ export const handlers = [
 
     return HttpResponse.json(
       {
-        data: sokOppdrag,
+        data: oppdragDtoList,
         errorMessage: "", // Include empty error message for success case
       },
       { status: 200 },
@@ -63,15 +63,15 @@ export const handlers = [
   http.get(
     "/oppdrag-api/api/v1/attestasjon/:oppdragsId/oppdragsdetaljer",
     () => {
-      return HttpResponse.json(oppdragsDetaljer, { status: 200 });
+      return HttpResponse.json(oppdragsDetaljerDto, { status: 200 });
     },
   ),
 
   http.get("/oppdrag-api/api/v1/kodeverk/faggrupper", () => {
-    return HttpResponse.json(fagGrupper, { status: 200 });
+    return HttpResponse.json(fagGrupperList, { status: 200 });
   }),
 
   http.get("/oppdrag-api/api/v1/kodeverk/fagomraader", () => {
-    return HttpResponse.json(fagOmraader, { status: 200 });
+    return HttpResponse.json(fagomraadeDtoList, { status: 200 });
   }),
 ];

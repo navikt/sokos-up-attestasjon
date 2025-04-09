@@ -1,4 +1,6 @@
-export default [
+import { FagGruppeList } from "../../src/types/FagGruppe";
+
+const faggruppeList: FagGruppeList = [
   {
     navn: "Apotek og bandasjistoppgjør",
     type: "ERESEPT",
@@ -20,3 +22,5 @@ export default [
     type: "SAPO01",
   },
 ];
+
+export default faggruppeList;

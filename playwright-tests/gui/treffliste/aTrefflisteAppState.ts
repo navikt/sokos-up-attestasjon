@@ -46,4 +46,5 @@ const state: { state: AppState; version: number } = {
   },
   version: 0,
 };
+
 export default state;
