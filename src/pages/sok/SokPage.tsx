@@ -129,7 +129,9 @@ export default function SokPage() {
     e.preventDefault();
     setError(null);
     resetState();
-    reset();
+    reset({
+      alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE, // Set default value for the radio group
+    });
   }
 
   function convertFagomraadeToComboboxValue(selectedFagomraade: FagOmraade) {
