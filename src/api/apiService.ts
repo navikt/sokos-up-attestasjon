@@ -3,7 +3,6 @@ import { AttestasjonlinjeList } from "../types/Attestasjonlinje";
 import { FagGruppeList } from "../types/FagGruppe";
 import { FagOmraadeDTOList, FagOmraadeList } from "../types/FagOmraade";
 import { GjelderNavn } from "../types/GjelderNavn";
-import { OppdragList } from "../types/Oppdrag";
 import {
   OppdragsDetaljer,
   OppdragsDetaljerDTO,
@@ -123,21 +122,8 @@ export async function hentOppdrag(request: SokeParameter) {
     if (response.errorMessage) {
       throw new Error(response.errorMessage);
     }
-    const oppdragList: OppdragList = response.data.map((dto) => ({
-      ansvarsSted: dto.ansvarssted,
-      antallAttestanter: dto.antAttestanter,
-      fagGruppe: dto.navnFaggruppe,
-      fagOmraade: dto.navnFagomraade,
-      fagSystemId: dto.fagSystemId,
-      gjelderId: dto.oppdragGjelderId,
-      kodeFagGruppe: dto.kodeFaggruppe,
-      kodeFagOmraade: dto.kodeFagomraade,
-      kostnadsSted: dto.kostnadssted,
-      oppdragsId: dto.oppdragsId,
-      erSkjermetForSaksbehandler: dto.erSkjermetForSaksbehandler,
-      hasWriteAccess: dto.hasWriteAccess,
-    }));
-    return oppdragList;
+
+    return response.data;
   });
 }
 

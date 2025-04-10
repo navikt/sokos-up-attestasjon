@@ -38,7 +38,7 @@ export default function SokPage() {
   const [error, setError] = useState<ErrorMessage | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { setSokeData, sokeData, setOppdragList, resetState } = useStore();
+  const { setSokeData, sokeData, setOppdragDtoList, resetState } = useStore();
 
   const { data: faggrupper, isLoading: faggrupperIsLoading } =
     useFetchFaggrupper();
@@ -104,7 +104,7 @@ export default function SokPage() {
         setIsLoading(false);
         setError(null);
         if (!isEmpty(response)) {
-          setOppdragList(response);
+          setOppdragDtoList(response);
           navigate("/treffliste", { replace: false });
         } else {
           setError({
