@@ -4,16 +4,16 @@ import { AttestertStatus } from "../../../src/types/schema/AttestertStatus";
 const detaljerAppState: { state: AppState; version: number } = {
   state: {
     gjelderNavn: "Unused",
-    oppdrag: {
-      ansvarsSted: "1337",
-      antallAttestanter: 1,
-      fagGruppe: "HELSETJENESTER FRIKORT TAK 1 OG 2",
-      fagOmraade: "Egenandelsrefusjon frikort tak 1",
+    oppdragDto: {
+      ansvarssted: "1337",
+      antAttestanter: 1,
+      navnFaggruppe: "HELSETJENESTER FRIKORT TAK 1 OG 2",
+      navnFagomraade: "Egenandelsrefusjon frikort tak 1",
       fagSystemId: "9876-5432-mock",
-      gjelderId: "12345612345",
-      kodeFagGruppe: "FRIKORT",
-      kodeFagOmraade: "FRIKORT1",
-      kostnadsSted: "8128",
+      oppdragGjelderId: "12345612345",
+      kodeFaggruppe: "FRIKORT",
+      kodeFagomraade: "FRIKORT1",
+      kostnadssted: "8128",
       oppdragsId: 98765432,
       erSkjermetForSaksbehandler: false,
       hasWriteAccess: true,
@@ -43,7 +43,7 @@ export function detaljerStateWith({
     state: {
       ...detaljerAppState.state,
       oppdrag: {
-        ...detaljerAppState.state.oppdrag,
+        ...detaljerAppState.state.oppdragDto,
         antallAttestanter,
       },
     },
