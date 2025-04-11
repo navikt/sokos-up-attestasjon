@@ -1,6 +1,6 @@
 import { Page, expect, test } from "@playwright/test";
-import { OppdragsDetaljer } from "../../../src/types/OppdragsDetaljer";
-import oppdragsdetaljer from "../../stubs/oppdragsdetaljer";
+import { OppdragsDetaljerDTO } from "../../../src/types/OppdragsDetaljerDTO";
+import oppdragsDetaljerDto from "../../stubs/oppdragsdetaljer";
 import aTrefflisteAppState from "./aTrefflisteAppState";
 
 async function setStore(page: Page) {
@@ -18,10 +18,10 @@ async function gotoAndAssertBeingOnTrefflistePage(page: Page) {
 
 async function backendWillReturn(
   page: Page,
-  oppdragsdetaljer: OppdragsDetaljer,
+  oppdragsDetaljerDto: OppdragsDetaljerDTO,
 ) {
   await page.route("*/**/oppdragsdetaljer", async (route) => {
-    await route.fulfill({ json: oppdragsdetaljer });
+    await route.fulfill({ json: oppdragsDetaljerDto });
   });
 }
 
@@ -37,7 +37,7 @@ test.describe("Treffliste", () => {
       await page.getByRole("link", { name: "98765498765" }).click();
       expect(page.getByText("Denne personen er skjermet")).toBeVisible();
 
-      backendWillReturn(page, oppdragsdetaljer);
+      backendWillReturn(page, oppdragsDetaljerDto);
       await page.getByRole("link", { name: "12345612345" }).click();
 
       await expect(

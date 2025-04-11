@@ -4,19 +4,19 @@ import { Pagination, Popover, SortState, Table } from "@navikt/ds-react";
 import RowsPerPageSelector from "../../components/RowsPerPageSelector";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
-import { OppdragList } from "../../types/Oppdrag";
+import { OppdragDTOList } from "../../types/Oppdrag";
 import { TREFFLISTE, logUserEvent } from "../../umami/umami";
 
 interface TreffTabellProps {
-  oppdragList: OppdragList;
+  oppdragDtoList: OppdragDTOList;
 }
 
 export default function TreffTabell(props: TreffTabellProps) {
   interface ScopedSortState extends SortState {
-    orderBy: keyof (typeof props.oppdragList)[0];
+    orderBy: keyof (typeof props.oppdragDtoList)[0];
   }
 
-  const { setOppdrag } = useStore();
+  const { setOppdragDto } = useStore();
   const [isSkjermet, setIsSkjermet] = useState(false);
   const [skjermingRow, setSkjermingRow] = useState<number | null>(null);
   const skjermingRowRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -24,9 +24,9 @@ export default function TreffTabell(props: TreffTabellProps) {
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState<number>(10);
 
-  const pagecount = Math.ceil(props.oppdragList.length / rowsPerPage);
+  const pagecount = Math.ceil(props.oppdragDtoList.length / rowsPerPage);
 
-  const antall = props.oppdragList.length ?? 0;
+  const antall = props.oppdragDtoList.length ?? 0;
 
   const handleSort = (sortKey: ScopedSortState["orderBy"]) => {
     logUserEvent(TREFFLISTE.SORTER, { sortKey: sortKey });
@@ -53,7 +53,7 @@ export default function TreffTabell(props: TreffTabellProps) {
     return 0;
   }
 
-  const sortedData = props.oppdragList.slice().sort((a, b) => {
+  const sortedData = props.oppdragDtoList.slice().sort((a, b) => {
     if (sort) {
       return sort.direction === "ascending"
         ? comparator(b, a, sort.orderBy)
@@ -132,18 +132,18 @@ export default function TreffTabell(props: TreffTabellProps) {
                         setSkjermingRow(row);
                         setIsSkjermet(!isSkjermet);
                       } else {
-                        setOppdrag(oppdrag);
+                        setOppdragDto(oppdrag);
                       }
                     }}
                   >
-                    {oppdrag.gjelderId}
+                    {oppdrag.oppdragGjelderId}
                   </Link>
                 </Table.DataCell>
-                <Table.DataCell>{oppdrag.fagGruppe}</Table.DataCell>
+                <Table.DataCell>{oppdrag.navnFaggruppe}</Table.DataCell>
                 <Table.DataCell>{oppdrag.fagSystemId}</Table.DataCell>
-                <Table.DataCell>{oppdrag.fagOmraade}</Table.DataCell>
-                <Table.DataCell>{oppdrag.kostnadsSted}</Table.DataCell>
-                <Table.DataCell>{oppdrag.ansvarsSted}</Table.DataCell>
+                <Table.DataCell>{oppdrag.navnFagomraade}</Table.DataCell>
+                <Table.DataCell>{oppdrag.kostnadssted}</Table.DataCell>
+                <Table.DataCell>{oppdrag.ansvarssted}</Table.DataCell>
               </Table.Row>
             ))}
           </Table.Body>

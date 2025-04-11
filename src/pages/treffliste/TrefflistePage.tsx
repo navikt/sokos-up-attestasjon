@@ -12,7 +12,7 @@ import TreffTabell from "./TreffTabell";
 import styles from "./TrefflistePage.module.css";
 
 export default function TrefflistePage() {
-  const { oppdragList, sokeData, gjelderNavn, setGjelderNavn } = useStore();
+  const { oppdragDtoList, sokeData, gjelderNavn, setGjelderNavn } = useStore();
   const navigate = useNavigate();
 
   function getAttestertStatusText() {
@@ -34,10 +34,10 @@ export default function TrefflistePage() {
   }
 
   useEffect(() => {
-    if (!oppdragList) {
+    if (!oppdragDtoList) {
       navigate(ROOT, { replace: true });
     }
-  }, [navigate, oppdragList]);
+  }, [navigate, oppdragDtoList]);
 
   useEffect(() => {
     if (sokeData?.gjelderId !== "" && !gjelderNavn) {
@@ -68,7 +68,7 @@ export default function TrefflistePage() {
               <LabelText label={"Faggruppe"} text={sokeData?.fagGruppe?.type} />
               <LabelText
                 label={"Fagområde"}
-                text={sokeData?.fagOmraade?.kode}
+                text={sokeData?.fagOmraade?.kodeFagomraade}
               />
               <LabelText
                 label={"Attestert status"}
@@ -78,7 +78,7 @@ export default function TrefflistePage() {
           </div>
         </div>
 
-        {oppdragList && <TreffTabell oppdragList={oppdragList} />}
+        {oppdragDtoList && <TreffTabell oppdragDtoList={oppdragDtoList} />}
       </div>
     </>
   );

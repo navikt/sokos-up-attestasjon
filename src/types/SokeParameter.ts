@@ -9,7 +9,7 @@ export const SokeDataToSokeParameter = SokeDataSchema.transform((sokeData) => {
     gjelderId: sokeData.gjelderId,
     fagSystemId: sokeData.fagSystemId,
     kodeFagGruppe: sokeData.fagGruppe?.type,
-    kodeFagOmraade: sokeData.fagOmraade?.kode,
+    kodeFagOmraade: sokeData.fagOmraade?.kodeFagomraade,
     attestertStatus: sokeData.alternativer,
   };
 });

@@ -1,24 +1,19 @@
 import { AppState } from "../../../src/store/AppState";
 import { AttestertStatus } from "../../../src/types/schema/AttestertStatus";
 
-type State = {
-  state: AppState;
-  version: number;
-};
-
-const detaljerAppState: State = {
+const detaljerAppState: { state: AppState; version: number } = {
   state: {
     gjelderNavn: "Unused",
-    oppdrag: {
-      ansvarsSted: "1337",
-      antallAttestanter: 1,
-      fagGruppe: "HELSETJENESTER FRIKORT TAK 1 OG 2",
-      fagOmraade: "Egenandelsrefusjon frikort tak 1",
+    oppdragDto: {
+      ansvarssted: "1337",
+      antAttestanter: 1,
+      navnFaggruppe: "HELSETJENESTER FRIKORT TAK 1 OG 2",
+      navnFagomraade: "Egenandelsrefusjon frikort tak 1",
       fagSystemId: "9876-5432-mock",
-      gjelderId: "12345612345",
-      kodeFagGruppe: "FRIKORT",
-      kodeFagOmraade: "FRIKORT1",
-      kostnadsSted: "8128",
+      oppdragGjelderId: "12345612345",
+      kodeFaggruppe: "FRIKORT",
+      kodeFagomraade: "FRIKORT1",
+      kostnadssted: "8128",
       oppdragsId: 98765432,
       erSkjermetForSaksbehandler: false,
       hasWriteAccess: true,
@@ -35,20 +30,21 @@ const detaljerAppState: State = {
   },
   version: 0,
 };
+
 export default detaljerAppState;
 
 export function detaljerStateWith({
-  antallAttestanter,
+  antAttestanter,
 }: {
-  antallAttestanter: number;
+  antAttestanter: number;
 }) {
   return {
     ...detaljerAppState,
     state: {
       ...detaljerAppState.state,
-      oppdrag: {
-        ...detaljerAppState.state.oppdrag,
-        antallAttestanter,
+      oppdragDto: {
+        ...detaljerAppState.state.oppdragDto,
+        antAttestanter,
       },
     },
   };

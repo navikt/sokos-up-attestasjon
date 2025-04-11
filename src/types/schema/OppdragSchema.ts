@@ -15,20 +15,4 @@ export const OppdragDTOSchema = z.object({
   hasWriteAccess: z.boolean(),
 });
 
-export const OppdragSchema = z.object({
-  ansvarsSted: z.string().optional(),
-  antallAttestanter: z.number().int(),
-  fagGruppe: z.string(),
-  fagOmraade: z.string(),
-  fagSystemId: z.string(),
-  gjelderId: z.string(),
-  kodeFagGruppe: z.string(),
-  kodeFagOmraade: z.string(),
-  kostnadsSted: z.string(),
-  oppdragsId: z.number().int(),
-  erSkjermetForSaksbehandler: z.boolean(),
-  hasWriteAccess: z.boolean(),
-});
-
 export const OppdragDTOListSchema = z.array(OppdragDTOSchema);
-export const OppdragListSchema = z.array(OppdragSchema);

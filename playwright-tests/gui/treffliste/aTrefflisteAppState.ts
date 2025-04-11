@@ -4,31 +4,31 @@ import { AttestertStatus } from "../../../src/types/schema/AttestertStatus";
 const state: { state: AppState; version: number } = {
   state: {
     gjelderNavn: "",
-    oppdragList: [
+    oppdragDtoList: [
       {
-        ansvarsSted: "1337",
-        antallAttestanter: 1,
-        fagGruppe: "Selveste faggruppen",
-        fagOmraade: "Det hemmelige fagområdet",
+        ansvarssted: "1337",
+        antAttestanter: 1,
+        navnFaggruppe: "Selveste faggruppen",
+        navnFagomraade: "Det hemmelige fagområdet",
         fagSystemId: "666-98769876",
-        gjelderId: "98765498765",
-        kodeFagGruppe: "FAGGRUPPEN",
-        kodeFagOmraade: "HEMMELIG",
-        kostnadsSted: "7777",
+        oppdragGjelderId: "98765498765",
+        kodeFaggruppe: "FAGGRUPPEN",
+        kodeFagomraade: "HEMMELIG",
+        kostnadssted: "7777",
         oppdragsId: 98769876,
         erSkjermetForSaksbehandler: true,
         hasWriteAccess: true,
       },
       {
-        ansvarsSted: "1337",
-        antallAttestanter: 1,
-        fagGruppe: "Selveste faggruppen",
-        fagOmraade: "Selveste fagområdet",
+        ansvarssted: "1337",
+        antAttestanter: 1,
+        navnFaggruppe: "Selveste faggruppen",
+        navnFagomraade: "Selveste fagområdet",
         fagSystemId: "666-67896789",
-        gjelderId: "12345612345",
-        kodeFagGruppe: "FAGGRUPPEN",
-        kodeFagOmraade: "FAGOMRÅDET",
-        kostnadsSted: "6789",
+        oppdragGjelderId: "12345612345",
+        kodeFaggruppe: "FAGGRUPPEN",
+        kodeFagomraade: "FAGOMRÅDET",
+        kostnadssted: "6789",
         oppdragsId: 67896789,
         erSkjermetForSaksbehandler: false,
         hasWriteAccess: true,
@@ -46,4 +46,5 @@ const state: { state: AppState; version: number } = {
   },
   version: 0,
 };
+
 export default state;

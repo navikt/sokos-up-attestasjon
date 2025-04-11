@@ -23,7 +23,6 @@ import {
 import { useStore } from "../../store/AppState";
 import commonStyles from "../../styles/common-styles.module.css";
 import { ErrorMessage } from "../../types/ErrorMessage";
-import { HttpStatusCodeError } from "../../types/Errors";
 import { FagGruppe } from "../../types/FagGruppe";
 import { FagOmraade } from "../../types/FagOmraade";
 import { SokeData } from "../../types/SokeData";
@@ -39,7 +38,7 @@ export default function SokPage() {
   const [error, setError] = useState<ErrorMessage | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const { setSokeData, sokeData, setOppdragList, resetState } = useStore();
+  const { setSokeData, sokeData, setOppdragDtoList, resetState } = useStore();
 
   const { data: faggrupper, isLoading: faggrupperIsLoading } =
     useFetchFaggrupper();
@@ -83,7 +82,7 @@ export default function SokPage() {
   const fagomraadetypeLabelMap = fagomraader
     ? fagomraader.reduce(
         (map, fagomraade) => {
-          map[fagomraade.kode] = fagomraade.navn;
+          map[fagomraade.kodeFagomraade] = fagomraade.navnFagomraade;
           return map;
         },
         {} as Record<string, string>,
@@ -105,7 +104,7 @@ export default function SokPage() {
         setIsLoading(false);
         setError(null);
         if (!isEmpty(response)) {
-          setOppdragList(response);
+          setOppdragDtoList(response);
           navigate("/treffliste", { replace: false });
         } else {
           setError({
@@ -116,10 +115,9 @@ export default function SokPage() {
         }
       })
       .catch((error) => {
-        const statusError = error as HttpStatusCodeError;
         setError({
-          variant: statusError.statusCode == 400 ? "warning" : "error",
-          message: statusError.message,
+          variant: error.statusCode == 400 ? "warning" : "error",
+          message: error.message,
         });
         setIsLoading(false);
       });
@@ -134,8 +132,8 @@ export default function SokPage() {
 
   function convertFagomraadeToComboboxValue(selectedFagomraade: FagOmraade) {
     return {
-      value: selectedFagomraade.kode,
-      label: `${selectedFagomraade.navn}(${selectedFagomraade.kode})`,
+      value: selectedFagomraade.kodeFagomraade,
+      label: `${selectedFagomraade.navnFagomraade}(${selectedFagomraade.kodeFagomraade})`,
     };
   }
 
@@ -264,7 +262,9 @@ export default function SokPage() {
                         onToggleSelected={(kode, isSelected) => {
                           if (isSelected) {
                             field.onChange(
-                              fagomraader?.find((f) => f.kode == kode),
+                              fagomraader?.find(
+                                (f) => f.kodeFagomraade == kode,
+                              ),
                             );
                             setValue("fagGruppe", undefined);
                           } else {
@@ -278,10 +278,11 @@ export default function SokPage() {
                         selectedOptions={[
                           {
                             label: field.value
-                              ? fagomraadetypeLabelMap[field.value.kode] +
-                                ` (${field.value.kode})`
+                              ? fagomraadetypeLabelMap[
+                                  field.value.kodeFagomraade
+                                ] + ` (${field.value.kodeFagomraade})`
                               : "",
-                            value: field.value?.kode ?? "",
+                            value: field.value?.kodeFagomraade ?? "",
                           },
                         ]}
                         shouldAutocomplete={true}
@@ -361,7 +362,9 @@ export default function SokPage() {
                 }
                 data-umami-event-fagsystemid={!!sokeData?.fagSystemId}
                 data-umami-event-faggruppe={sokeData?.fagGruppe?.type}
-                data-umami-event-fagomraade={sokeData?.fagOmraade?.kode}
+                data-umami-event-fagomraade={
+                  sokeData?.fagOmraade?.kodeFagomraade
+                }
                 data-umami-event-attestert={sokeData?.alternativer}
                 id={"search"}
                 type="submit"

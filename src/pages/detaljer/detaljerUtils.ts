@@ -2,30 +2,30 @@ import {
   Attestasjonlinje,
   AttestasjonlinjeList,
 } from "../../types/Attestasjonlinje";
-import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
-import { OppdragsLinje } from "../../types/OppdragsLinje";
+import { OppdragsDetaljerDTO } from "../../types/OppdragsDetaljerDTO";
+import { OppdragsLinjeDTO } from "../../types/OppdragsLinjeDTO";
 
 function splittOgLeggTilEkstraLinjeForManuellePosteringer(
-  oppdragslinje: OppdragsLinje,
+  oppdragslinjeDto: OppdragsLinjeDTO,
   antallAttestanter: number,
   innloggetSaksbehandlerIdent: string,
 ): AttestasjonlinjeList {
   const enLinjeUtenAttestasjon: Attestasjonlinje = {
-    attestert: oppdragslinje.oppdragsLinje.attestert,
-    kodeKlasse: oppdragslinje.oppdragsLinje.kodeKlasse,
-    delytelseId: oppdragslinje.oppdragsLinje.delytelseId,
-    sats: oppdragslinje.oppdragsLinje.sats,
-    typeSats: oppdragslinje.oppdragsLinje.typeSats,
-    datoVedtakFom: oppdragslinje.oppdragsLinje.datoVedtakFom,
-    datoVedtakTom: oppdragslinje.oppdragsLinje.datoVedtakTom,
-    oppdragsId: oppdragslinje.oppdragsLinje.oppdragsId,
-    linjeId: oppdragslinje.oppdragsLinje.linjeId,
-    kontonummer: oppdragslinje.oppdragsLinje.kontonummer,
-    kid: oppdragslinje.oppdragsLinje.kid,
-    skyldner: oppdragslinje.oppdragsLinje.skyldner,
-    refusjonsid: oppdragslinje.oppdragsLinje.refusjonsid,
-    utbetalesTil: oppdragslinje.oppdragsLinje.utbetalesTil,
-    grad: oppdragslinje.oppdragsLinje.grad,
+    attestert: oppdragslinjeDto.oppdragsLinje.attestert,
+    kodeKlasse: oppdragslinjeDto.oppdragsLinje.kodeKlasse,
+    delytelseId: oppdragslinjeDto.oppdragsLinje.delytelseId,
+    sats: oppdragslinjeDto.oppdragsLinje.sats,
+    typeSats: oppdragslinjeDto.oppdragsLinje.typeSats,
+    datoVedtakFom: oppdragslinjeDto.oppdragsLinje.datoVedtakFom,
+    datoVedtakTom: oppdragslinjeDto.oppdragsLinje.datoVedtakTom,
+    oppdragsId: oppdragslinjeDto.oppdragsLinje.oppdragsId,
+    linjeId: oppdragslinjeDto.oppdragsLinje.linjeId,
+    kontonummer: `${oppdragslinjeDto.oppdragsLinje.hovedkontonr ?? ""}${oppdragslinjeDto.oppdragsLinje.underkontonr ?? ""}`,
+    kid: oppdragslinjeDto.oppdragsLinje.kid,
+    skyldner: oppdragslinjeDto.oppdragsLinje.skyldnerId,
+    refusjonsid: oppdragslinjeDto.oppdragsLinje.refunderesId,
+    utbetalesTil: oppdragslinjeDto.oppdragsLinje.utbetalesTilId,
+    grad: oppdragslinjeDto.oppdragsLinje.grad,
     properties: {
       activelyChangedDatoUgyldigFom: "",
       attester: false,
@@ -37,16 +37,16 @@ function splittOgLeggTilEkstraLinjeForManuellePosteringer(
   };
 
   const enLinjeForHverEksisterendeAttestasjon: AttestasjonlinjeList =
-    oppdragslinje.attestasjoner.map((attestasjon) => ({
+    oppdragslinjeDto.attestasjonList.map((attestasjon) => ({
       ...enLinjeUtenAttestasjon,
-      attestant: attestasjon.attestant,
+      attestant: attestasjon.attestantId,
       datoUgyldigFom: attestasjon.datoUgyldigFom,
     }));
 
   const sjekkAntallAttestanterOgInnloggetSaksbehandler =
-    antallAttestanter > oppdragslinje.attestasjoner.length &&
-    !oppdragslinje.attestasjoner.some(
-      (attestasjon) => attestasjon.attestant === innloggetSaksbehandlerIdent,
+    antallAttestanter > oppdragslinjeDto.attestasjonList.length &&
+    !oppdragslinjeDto.attestasjonList.some(
+      (attestasjon) => attestasjon.attestantId === innloggetSaksbehandlerIdent,
     );
 
   if (sjekkAntallAttestanterOgInnloggetSaksbehandler) {
@@ -57,15 +57,15 @@ function splittOgLeggTilEkstraLinjeForManuellePosteringer(
 }
 
 export function tranformToAttestasjonlinje(
-  oppdragsdetaljer: OppdragsDetaljer,
+  oppdragsdetaljerDto: OppdragsDetaljerDTO,
   antallAttestanter: number,
 ): AttestasjonlinjeList {
-  return oppdragsdetaljer.linjer
+  return oppdragsdetaljerDto.oppdragsLinjeList
     .map((oppdragslinje) =>
       splittOgLeggTilEkstraLinjeForManuellePosteringer(
         oppdragslinje,
         antallAttestanter,
-        oppdragsdetaljer.saksbehandlerIdent,
+        oppdragsdetaljerDto.saksbehandlerIdent,
       ),
     )
     .flatMap((linjer) =>
