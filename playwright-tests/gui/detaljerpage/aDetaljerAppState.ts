@@ -34,17 +34,17 @@ const detaljerAppState: { state: AppState; version: number } = {
 export default detaljerAppState;
 
 export function detaljerStateWith({
-  antallAttestanter,
+  antAttestanter,
 }: {
-  antallAttestanter: number;
+  antAttestanter: number;
 }) {
   return {
     ...detaljerAppState,
     state: {
       ...detaljerAppState.state,
-      oppdrag: {
+      oppdragDto: {
         ...detaljerAppState.state.oppdragDto,
-        antallAttestanter,
+        antAttestanter,
       },
     },
   };

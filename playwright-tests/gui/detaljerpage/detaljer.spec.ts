@@ -8,7 +8,7 @@ async function setStore(page: Page, antallAttestanterSomTrengs: number) {
     (appState) => {
       window.sessionStorage.setItem("app-state", JSON.stringify(appState));
     },
-    detaljerStateWith({ antallAttestanter: antallAttestanterSomTrengs }),
+    detaljerStateWith({ antAttestanter: antallAttestanterSomTrengs }),
   );
 }
 
