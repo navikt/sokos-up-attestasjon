@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { HttpResponse, http } from "msw";
 import { fagGrupperList } from "./data/faggrupper";
-import { fagomraadeDtoList } from "./data/fagomraader";
+import { fagomraadeList } from "./data/fagomraader";
 import { oppdragsDetaljerDto } from "./data/oppdragsDetaljer";
 import { oppdragDtoList } from "./data/sokOppdrag";
 
@@ -72,6 +72,6 @@ export const handlers = [
   }),
 
   http.get("/oppdrag-api/api/v1/kodeverk/fagomraader", () => {
-    return HttpResponse.json(fagomraadeDtoList, { status: 200 });
+    return HttpResponse.json(fagomraadeList, { status: 200 });
   }),
 ];

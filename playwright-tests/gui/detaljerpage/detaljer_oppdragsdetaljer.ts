@@ -1,5 +1,5 @@
-import { OppdragsDetaljerDTO } from "../../../src/types/OppdragsDetaljer";
-import { OppdragsLinjeDTO } from "../../../src/types/OppdragsLinje";
+import { OppdragsDetaljerDTO } from "../../../src/types/OppdragsDetaljerDTO";
+import { OppdragsLinjeDTO } from "../../../src/types/OppdragsLinjeDTO";
 
 function generateNumbers(n: number) {
   return Array.from({ length: n }, (_, i) => i + 1);

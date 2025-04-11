@@ -1,5 +1,5 @@
 import { Page, expect, test } from "@playwright/test";
-import { OppdragsDetaljerDTO } from "../../../src/types/OppdragsDetaljer";
+import { OppdragsDetaljerDTO } from "../../../src/types/OppdragsDetaljerDTO";
 import oppdragsDetaljerDto from "../../stubs/oppdragsdetaljer";
 import aTrefflisteAppState from "./aTrefflisteAppState";
 

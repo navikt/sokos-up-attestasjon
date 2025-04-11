@@ -1,6 +1,6 @@
-import { FagOmraadeDTOList } from "../../src/types/FagOmraade";
+import { FagOmraadeList } from "../../src/types/FagOmraade";
 
-export const fagomraadeDtoList: FagOmraadeDTOList = [
+export const fagomraadeList: FagOmraadeList = [
   {
     navnFagomraade: "Arbeidsavklaringspenger",
     kodeFagomraade: "AAP",
