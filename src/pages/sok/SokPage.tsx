@@ -82,7 +82,7 @@ export default function SokPage() {
   const fagomraadetypeLabelMap = fagomraader
     ? fagomraader.reduce(
         (map, fagomraade) => {
-          map[fagomraade.kode] = fagomraade.navn;
+          map[fagomraade.kodeFagomraade] = fagomraade.navnFagomraade;
           return map;
         },
         {} as Record<string, string>,
@@ -132,8 +132,8 @@ export default function SokPage() {
 
   function convertFagomraadeToComboboxValue(selectedFagomraade: FagOmraade) {
     return {
-      value: selectedFagomraade.kode,
-      label: `${selectedFagomraade.navn}(${selectedFagomraade.kode})`,
+      value: selectedFagomraade.kodeFagomraade,
+      label: `${selectedFagomraade.navnFagomraade}(${selectedFagomraade.kodeFagomraade})`,
     };
   }
 
@@ -262,7 +262,9 @@ export default function SokPage() {
                         onToggleSelected={(kode, isSelected) => {
                           if (isSelected) {
                             field.onChange(
-                              fagomraader?.find((f) => f.kode == kode),
+                              fagomraader?.find(
+                                (f) => f.kodeFagomraade == kode,
+                              ),
                             );
                             setValue("fagGruppe", undefined);
                           } else {
@@ -276,10 +278,11 @@ export default function SokPage() {
                         selectedOptions={[
                           {
                             label: field.value
-                              ? fagomraadetypeLabelMap[field.value.kode] +
-                                ` (${field.value.kode})`
+                              ? fagomraadetypeLabelMap[
+                                  field.value.kodeFagomraade
+                                ] + ` (${field.value.kodeFagomraade})`
                               : "",
-                            value: field.value?.kode ?? "",
+                            value: field.value?.kodeFagomraade ?? "",
                           },
                         ]}
                         shouldAutocomplete={true}
@@ -359,7 +362,9 @@ export default function SokPage() {
                 }
                 data-umami-event-fagsystemid={!!sokeData?.fagSystemId}
                 data-umami-event-faggruppe={sokeData?.fagGruppe?.type}
-                data-umami-event-fagomraade={sokeData?.fagOmraade?.kode}
+                data-umami-event-fagomraade={
+                  sokeData?.fagOmraade?.kodeFagomraade
+                }
                 data-umami-event-attestert={sokeData?.alternativer}
                 id={"search"}
                 type="submit"

@@ -259,7 +259,9 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
   test(`fagområde combobox should have value from store`, async ({ page }) => {
     testStore(
       page,
-      aStateWith({ fagOmraade: { navn: "Barnetrygd", kode: "BA" } }),
+      aStateWith({
+        fagOmraade: { navnFagomraade: "Barnetrygd", kodeFagomraade: "BA" },
+      }),
     );
     await page.goto("/attestasjon");
 

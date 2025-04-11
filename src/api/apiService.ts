@@ -1,7 +1,7 @@
 import useSWRImmutable from "swr/immutable";
 import { AttestasjonlinjeList } from "../types/Attestasjonlinje";
 import { FagGruppeList } from "../types/FagGruppe";
-import { FagOmraadeDTOList, FagOmraadeList } from "../types/FagOmraade";
+import { FagOmraadeList } from "../types/FagOmraade";
 import { GjelderNavn } from "../types/GjelderNavn";
 import {
   OppdragsDetaljer,
@@ -46,23 +46,17 @@ export function useFetchFaggrupper() {
 }
 
 export function useFetchFagomraader() {
-  const {
-    data: response,
-    error,
-    isValidating,
-  } = useSWRImmutable<FagOmraadeDTOList>(`/fagomraader`, {
-    ...swrConfig<FagOmraadeDTOList>((url) =>
-      axiosFetcher<FagOmraadeDTOList>(BASE_URI.KODEVERK_API, url),
-    ),
-    fallbackData: [],
-    revalidateOnMount: true,
-  });
-  const isLoading = (!error && !response) || isValidating;
-
-  const data: FagOmraadeList = response?.map((dto) => ({
-    navn: dto.navnFagomraade,
-    kode: dto.kodeFagomraade,
-  })) as FagOmraadeList;
+  const { data, error, isValidating } = useSWRImmutable<FagOmraadeList>(
+    `/fagomraader`,
+    {
+      ...swrConfig<FagOmraadeList>((url) =>
+        axiosFetcher<FagOmraadeList>(BASE_URI.KODEVERK_API, url),
+      ),
+      fallbackData: [],
+      revalidateOnMount: true,
+    },
+  );
+  const isLoading = (!error && !data) || isValidating;
 
   return { data, error, isLoading };
 }
