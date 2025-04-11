@@ -14,7 +14,7 @@ import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
-import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import { OppdragsDetaljerDTO } from "../../types/OppdragsDetaljerDTO";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { ROOT } from "../../util/constants";
@@ -36,11 +36,11 @@ export default function DetaljerPage() {
     oppdragDto?.oppdragsId,
   );
 
-  const linjerSomSkalVises: OppdragsDetaljer | undefined = {
+  const linjerSomSkalVises: OppdragsDetaljerDTO | undefined = {
     ...data,
     saksbehandlerIdent: data?.saksbehandlerIdent ?? "",
-    linjer:
-      data?.linjer.filter((linje) => {
+    oppdragsLinjeList:
+      data?.oppdragsLinjeList.filter((linje) => {
         if (sokeData && sokeData.alternativer === AttestertStatus.ATTESTERT) {
           return linje.oppdragsLinje.attestert;
         } else if (

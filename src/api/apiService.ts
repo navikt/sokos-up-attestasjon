@@ -3,10 +3,7 @@ import { AttestasjonlinjeList } from "../types/Attestasjonlinje";
 import { FagGruppeList } from "../types/FagGruppe";
 import { FagOmraadeList } from "../types/FagOmraade";
 import { GjelderNavn } from "../types/GjelderNavn";
-import {
-  OppdragsDetaljer,
-  OppdragsDetaljerDTO,
-} from "../types/OppdragsDetaljer";
+import { OppdragsDetaljerDTO } from "../types/OppdragsDetaljerDTO";
 import { SokeParameter } from "../types/SokeParameter";
 import { WrappedResponseWithErrorDTO } from "../types/WrappedResponseWithErrorDTO";
 import { norskDatoTilIsoDato } from "../util/datoUtil";
@@ -62,47 +59,12 @@ export function useFetchFagomraader() {
 }
 
 export function useFetchOppdragsdetaljer(oppdragsId?: number) {
-  const {
-    data: response,
-    isLoading,
-    mutate,
-  } = useSWRImmutable<OppdragsDetaljerDTO>(
+  const { data, isLoading, mutate } = useSWRImmutable<OppdragsDetaljerDTO>(
     oppdragsId ? `/${oppdragsId.toString()}/oppdragsdetaljer` : null,
     swrConfig<OppdragsDetaljerDTO>((url) =>
       axiosFetcher<OppdragsDetaljerDTO>(BASE_URI.ATTESTASJON_API, url),
     ),
   );
-
-  const data: OppdragsDetaljer | null = response
-    ? {
-        saksbehandlerIdent: response.saksbehandlerIdent,
-        linjer: response.oppdragsLinjeList.map((dto) => ({
-          oppdragsLinje: {
-            attestert: dto.oppdragsLinje.attestert,
-            datoVedtakFom: dto.oppdragsLinje.datoVedtakFom,
-            datoVedtakTom: dto.oppdragsLinje.datoVedtakTom,
-            delytelseId: dto.oppdragsLinje.delytelseId,
-            kodeKlasse: dto.oppdragsLinje.kodeKlasse,
-            linjeId: dto.oppdragsLinje.linjeId,
-            oppdragsId: dto.oppdragsLinje.oppdragsId,
-            sats: dto.oppdragsLinje.sats,
-            typeSats: dto.oppdragsLinje.typeSats,
-            kontonummer: `${dto.oppdragsLinje.hovedkontonr ?? ""}${dto.oppdragsLinje.underkontonr ?? ""}`,
-            kid: dto.oppdragsLinje.kid,
-            skyldner: dto.oppdragsLinje.skyldnerId,
-            refusjonsid: dto.oppdragsLinje.refunderesId,
-            utbetalesTil: dto.oppdragsLinje.utbetalesTilId,
-            grad: dto.oppdragsLinje.grad,
-          },
-          ansvarsStedForOppdragsLinje: dto.ansvarsStedForOppdragsLinje,
-          kostnadsStedForOppdragsLinje: dto.kostnadsStedForOppdragsLinje,
-          attestasjoner: dto.attestasjonList.map((attestasjon) => ({
-            attestant: attestasjon.attestantId,
-            datoUgyldigFom: attestasjon.datoUgyldigFom,
-          })),
-        })),
-      }
-    : null;
 
   return { data, isLoading, mutate };
 }

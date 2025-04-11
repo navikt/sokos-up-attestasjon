@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
 import { OppdragDTO, OppdragDTOList } from "../types/Oppdrag";
-import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
+import { OppdragsDetaljer } from "../types/OppdragsDetaljerDTO";
 import { SokeData } from "../types/SokeData";
 
 export type AppState = {
