@@ -89,7 +89,7 @@ export default function DetaljerPage() {
 
     const request = attesterOppdragRequest(
       oppdragDto?.fagSystemId ?? "",
-      oppdragDto?.navnFagomraade ?? "",
+      oppdragDto?.kodeFagomraade ?? "",
       oppdragDto?.oppdragGjelderId ?? "",
       oppdragDto?.oppdragsId ?? 0,
       attestasjonlinjer,
