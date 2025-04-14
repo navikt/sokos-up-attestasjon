@@ -131,6 +131,18 @@ test.describe("When using Sok in Attestasjoner", () => {
 
     await expect(page.getByText("Ingen søketreff")).toBeVisible();
   });
+
+  test("when clicking nullstill button, all fields should be empty and status should be set to ikke ferdig attestert inkl egne", async ({
+    page,
+  }) => {
+    const nullstillButton = page.getByText("Nullstill søk");
+
+    await nullstillButton.click();
+
+    await expect(
+      page.getByText("Ikke ferdig attestert inkl. egne"),
+    ).toBeChecked();
+  });
 });
 
 test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in store", () => {
@@ -166,6 +178,7 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
     await expect(radiobutton(page, "Alle")).not.toBeChecked();
     await expect(radiobutton(page, "Egne attesterte")).not.toBeChecked();
   });
+
   test(`Ikke ferdig attestert inkl. egne radiobutton should be checked`, async ({
     page,
   }) => {
@@ -189,6 +202,7 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
     await expect(radiobutton(page, "Alle")).not.toBeChecked();
     await expect(radiobutton(page, "Egne attesterte")).not.toBeChecked();
   });
+
   test(`Attestert radiobutton should be checked`, async ({ page }) => {
     testStore(page, aStateWith({ alternativer: AttestertStatus.ATTESTERT }));
 
