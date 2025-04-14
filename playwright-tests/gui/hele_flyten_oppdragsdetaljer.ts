@@ -1,4 +1,4 @@
-import { OppdragsDetaljerDTO } from "../../src/types/OppdragsDetaljer";
+import { OppdragsDetaljerDTO } from "../../src/types/OppdragsDetaljerDTO";
 
 const oppdragslinjer: OppdragsDetaljerDTO = {
   oppdragsLinjeList: [

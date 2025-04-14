@@ -1,6 +1,6 @@
-import { OppdragsDetaljerDTO } from "../../src/types/OppdragsDetaljer";
+import { OppdragsDetaljerDTO } from "../../src/types/OppdragsDetaljerDTO";
 
-const oppdragsdetaljer: OppdragsDetaljerDTO = {
+const oppdragsDetaljerDto: OppdragsDetaljerDTO = {
   oppdragsLinjeList: [
     {
       oppdragsLinje: {
@@ -27,4 +27,4 @@ const oppdragsdetaljer: OppdragsDetaljerDTO = {
   saksbehandlerIdent: "H135685",
 };
 
-export default oppdragsdetaljer;
+export default oppdragsDetaljerDto;

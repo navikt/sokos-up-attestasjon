@@ -14,7 +14,7 @@ import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
-import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import { OppdragsDetaljerDTO } from "../../types/OppdragsDetaljerDTO";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { ROOT } from "../../util/constants";
@@ -23,9 +23,9 @@ import DetaljerTabell from "./DetaljerTabell";
 
 export default function DetaljerPage() {
   const navigate = useNavigate();
-  const { oppdrag, sokeData, setOppdragList } = useStore();
+  const { oppdragDto, sokeData, setOppdragDtoList } = useStore();
 
-  const antallAttestanter = oppdrag?.antallAttestanter ?? 1;
+  const antallAttestanter = oppdragDto?.antAttestanter ?? 1;
   const [alertMessage, setAlertMessage] = useState<{
     message: string;
     variant: "success" | "error" | "warning";
@@ -33,14 +33,14 @@ export default function DetaljerPage() {
   const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
 
   const { data, isLoading, mutate } = useFetchOppdragsdetaljer(
-    oppdrag?.oppdragsId,
+    oppdragDto?.oppdragsId,
   );
 
-  const linjerSomSkalVises: OppdragsDetaljer | undefined = {
+  const linjerSomSkalVises: OppdragsDetaljerDTO | undefined = {
     ...data,
     saksbehandlerIdent: data?.saksbehandlerIdent ?? "",
-    linjer:
-      data?.linjer.filter((linje) => {
+    oppdragsLinjeList:
+      data?.oppdragsLinjeList.filter((linje) => {
         if (sokeData && sokeData.alternativer === AttestertStatus.ATTESTERT) {
           return linje.oppdragsLinje.attestert;
         } else if (
@@ -57,10 +57,10 @@ export default function DetaljerPage() {
   };
 
   useEffect(() => {
-    if (!oppdrag) {
+    if (!oppdragDto) {
       navigate(ROOT, { replace: true });
     }
-  }, [navigate, oppdrag]);
+  }, [navigate, oppdragDto]);
 
   async function handleSubmit(attestasjonlinjer: AttestasjonlinjeList) {
     if (
@@ -88,10 +88,10 @@ export default function DetaljerPage() {
     }
 
     const request = attesterOppdragRequest(
-      oppdrag?.fagSystemId ?? "",
-      oppdrag?.kodeFagOmraade ?? "",
-      oppdrag?.gjelderId ?? "",
-      oppdrag?.oppdragsId ?? 0,
+      oppdragDto?.fagSystemId ?? "",
+      oppdragDto?.kodeFagomraade ?? "",
+      oppdragDto?.oppdragGjelderId ?? "",
+      oppdragDto?.oppdragsId ?? 0,
       attestasjonlinjer,
     );
 
@@ -101,7 +101,7 @@ export default function DetaljerPage() {
       await oppdaterAttestasjon(request)
         .then((response) => {
           setAlertMessage({
-            message: response.message || "",
+            message: response.successMessage || "",
             variant: "success",
           });
 
@@ -112,7 +112,7 @@ export default function DetaljerPage() {
         });
 
       const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
-      await hentOppdrag(sokeParameter).then((res) => setOppdragList(res));
+      await hentOppdrag(sokeParameter).then((res) => setOppdragDtoList(res));
     } finally {
       if (!isLoading) {
         setIsZosLoading(false);
@@ -130,13 +130,13 @@ export default function DetaljerPage() {
       <div className={styles["detaljer"]}>
         <div className={styles["detaljer-top"]}>
           <Breadcrumbs searchLink trefflistelink detaljer />
-          {oppdrag && (
+          {oppdragDto && (
             <div className={styles["detaljer-label"]}>
-              <LabelText label="Gjelder" text={oppdrag.gjelderId} />
-              <LabelText label="Fagsystem id" text={oppdrag.fagSystemId} />
-              <LabelText label="Ansvarssted" text={oppdrag.ansvarsSted} />
-              <LabelText label="Kostnadssted" text={oppdrag.kostnadsSted} />
-              <LabelText label="Fagområde" text={oppdrag.fagOmraade} />
+              <LabelText label="Gjelder" text={oppdragDto.oppdragGjelderId} />
+              <LabelText label="Fagsystem id" text={oppdragDto.fagSystemId} />
+              <LabelText label="Ansvarssted" text={oppdragDto.ansvarssted} />
+              <LabelText label="Kostnadssted" text={oppdragDto.kostnadssted} />
+              <LabelText label="Fagområde" text={oppdragDto.navnFagomraade} />
             </div>
           )}
         </div>

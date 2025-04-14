@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
 import { Button, Checkbox, Table, TextField, Tooltip } from "@navikt/ds-react";
 import { useStore } from "../../store/AppState";
@@ -6,7 +6,7 @@ import {
   Attestasjonlinje,
   AttestasjonlinjeList,
 } from "../../types/Attestasjonlinje";
-import { OppdragsDetaljer } from "../../types/OppdragsDetaljer";
+import { OppdragsDetaljerDTO } from "../../types/OppdragsDetaljerDTO";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { DETALJER, logUserEvent } from "../../umami/umami";
 import { formaterTilNorskTall } from "../../util/commonUtils";
@@ -23,7 +23,7 @@ import { tranformToAttestasjonlinje } from "./detaljerUtils";
 
 type DetaljerTabellProps = {
   antallAttestanter: number;
-  oppdragsDetaljer: OppdragsDetaljer;
+  oppdragsDetaljer: OppdragsDetaljerDTO;
   handleSubmit: (linjer: AttestasjonlinjeList) => void;
   isLoading: boolean;
 };

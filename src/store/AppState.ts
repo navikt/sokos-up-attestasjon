@@ -1,32 +1,29 @@
 import { create } from "zustand";
 import { createJSONStorage, devtools, persist } from "zustand/middleware";
-import { Oppdrag, OppdragList } from "../types/Oppdrag";
-import { OppdragsDetaljer } from "../types/OppdragsDetaljer";
+import { OppdragDTO, OppdragDTOList } from "../types/Oppdrag";
 import { SokeData } from "../types/SokeData";
 
 export type AppState = {
   gjelderNavn: string;
-  oppdragList?: OppdragList;
-  oppdragsDetaljer?: OppdragsDetaljer;
+  oppdragDtoList?: OppdragDTOList;
   sokeData?: SokeData;
-  oppdrag?: Oppdrag;
+  oppdragDto?: OppdragDTO;
 };
 
 type AppStateActions = {
   resetState: () => void;
   setGjelderNavn: (gjelderNavn: string) => void;
-  setOppdragList: (oppdragList: OppdragList) => void;
-  setOppdragsDetaljer: (oppdragsDetaljer: OppdragsDetaljer) => void;
+  setOppdragDtoList: (oppdragDtoList: OppdragDTOList) => void;
   setSokeData: (sokeData: SokeData) => void;
-  setOppdrag: (oppdrag: Oppdrag | undefined) => void;
+  setOppdragDto: (oppdragDto: OppdragDTO | undefined) => void;
 };
 
 const initAppState = {
   gjelderNavn: "",
-  oppdragList: undefined,
+  oppdragDtoList: undefined,
   oppdragsDetaljer: undefined,
   sokeData: undefined,
-  oppdrag: undefined,
+  oppdragDto: undefined,
 };
 
 export const useStore = create<AppState & AppStateActions>()(
@@ -36,11 +33,11 @@ export const useStore = create<AppState & AppStateActions>()(
         ...initAppState,
         resetState: () => set({ ...initAppState }),
         setGjelderNavn: (gjelderNavn: string) => set({ gjelderNavn }),
-        setOppdragList: (oppdragList: OppdragList) => set({ oppdragList }),
-        setOppdragsDetaljer: (oppdragsDetaljer: OppdragsDetaljer) =>
-          set({ oppdragsDetaljer }),
+        setOppdragDtoList: (oppdragDtoList: OppdragDTOList) =>
+          set({ oppdragDtoList }),
         setSokeData: (sokeData: SokeData) => set({ sokeData }),
-        setOppdrag: (oppdrag: Oppdrag | undefined) => set({ oppdrag }),
+        setOppdragDto: (oppdragDto: OppdragDTO | undefined) =>
+          set({ oppdragDto }),
       }),
       {
         name: "app-state",
