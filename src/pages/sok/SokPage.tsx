@@ -128,7 +128,7 @@ export default function SokPage() {
     setError(null);
     resetState();
     reset({
-      alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE, // Set default value for the radio group
+      alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
     });
   }
 
