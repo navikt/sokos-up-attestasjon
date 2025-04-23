@@ -135,13 +135,44 @@ test.describe("When using Sok in Attestasjoner", () => {
   test("when clicking nullstill button, all fields should be empty and status should be set to ikke ferdig attestert inkl egne", async ({
     page,
   }) => {
-    const nullstillButton = page.getByText("Nullstill søk");
+    // Arrange
+    await page.getByLabel("Gjelder").fill("12345612345");
+    await page.getByLabel("Fagsystem id").fill("1234");
 
+    await page.getByLabel("Fagområde").fill("bar");
+    const fagomrade = page.getByRole("option", { name: "Barnetrygd" });
+    await expect(fagomrade).toBeVisible();
+    await fagomrade.click();
+    await expect(
+      dropdownbox(page, "Fagområde").getByText("Barnetrygd"),
+    ).toBeVisible();
+
+    await page.getByLabel("Faggruppe").fill("sap");
+    const option = page.getByRole("option", { name: "Behandleroppgjør" });
+    await expect(option).toBeVisible();
+    await option.click();
+    await expect(
+      dropdownbox(page, "Faggruppe").getByText("Behandleroppgjør"),
+    ).toBeVisible();
+
+    await radiobutton(page, "Attestert").click();
+
+    await expect(page.getByLabel("Gjelder")).toHaveValue("12345612345");
+    await expect(page.getByLabel("Fagsystem id")).toHaveValue("1234");
+    await expect(radiobutton(page, "Attestert")).toBeChecked();
+
+    // Act
+    const nullstillButton = page.getByText("Nullstill søk");
     await nullstillButton.click();
 
+    // Assert
     await expect(
-      page.getByText("Ikke ferdig attestert inkl. egne"),
+      radiobutton(page, "Ikke ferdig attestert inkl. egne"),
     ).toBeChecked();
+    await expect(page.getByLabel("Gjelder")).toHaveValue("");
+    await expect(page.getByLabel("Fagsystem id")).toHaveValue("");
+    await expect(page.getByLabel("Faggruppe")).toHaveValue("");
+    await expect(page.getByLabel("Fagområde")).toHaveValue("");
   });
 });
 
