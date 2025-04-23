@@ -127,7 +127,9 @@ export default function SokPage() {
     e.preventDefault();
     setError(null);
     resetState();
-    reset();
+    reset({
+      alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
+    });
   }
 
   function convertFagomraadeToComboboxValue(selectedFagomraade: FagOmraade) {

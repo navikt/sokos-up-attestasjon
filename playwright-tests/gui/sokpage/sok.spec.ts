@@ -131,6 +131,49 @@ test.describe("When using Sok in Attestasjoner", () => {
 
     await expect(page.getByText("Ingen søketreff")).toBeVisible();
   });
+
+  test("when clicking nullstill button, all fields should be empty and status should be set to ikke ferdig attestert inkl egne", async ({
+    page,
+  }) => {
+    // Arrange
+    await page.getByLabel("Gjelder").fill("12345612345");
+    await page.getByLabel("Fagsystem id").fill("1234");
+
+    await page.getByLabel("Fagområde").fill("bar");
+    const fagomrade = page.getByRole("option", { name: "Barnetrygd" });
+    await expect(fagomrade).toBeVisible();
+    await fagomrade.click();
+    await expect(
+      dropdownbox(page, "Fagområde").getByText("Barnetrygd"),
+    ).toBeVisible();
+
+    await page.getByLabel("Faggruppe").fill("sap");
+    const option = page.getByRole("option", { name: "Behandleroppgjør" });
+    await expect(option).toBeVisible();
+    await option.click();
+    await expect(
+      dropdownbox(page, "Faggruppe").getByText("Behandleroppgjør"),
+    ).toBeVisible();
+
+    await radiobutton(page, "Attestert").click();
+
+    await expect(page.getByLabel("Gjelder")).toHaveValue("12345612345");
+    await expect(page.getByLabel("Fagsystem id")).toHaveValue("1234");
+    await expect(radiobutton(page, "Attestert")).toBeChecked();
+
+    // Act
+    const nullstillButton = page.getByText("Nullstill søk");
+    await nullstillButton.click();
+
+    // Assert
+    await expect(
+      radiobutton(page, "Ikke ferdig attestert inkl. egne"),
+    ).toBeChecked();
+    await expect(page.getByLabel("Gjelder")).toHaveValue("");
+    await expect(page.getByLabel("Fagsystem id")).toHaveValue("");
+    await expect(page.getByLabel("Faggruppe")).toHaveValue("");
+    await expect(page.getByLabel("Fagområde")).toHaveValue("");
+  });
 });
 
 test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in store", () => {
@@ -166,6 +209,7 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
     await expect(radiobutton(page, "Alle")).not.toBeChecked();
     await expect(radiobutton(page, "Egne attesterte")).not.toBeChecked();
   });
+
   test(`Ikke ferdig attestert inkl. egne radiobutton should be checked`, async ({
     page,
   }) => {
@@ -189,6 +233,7 @@ test.describe("When returning to Sok in Attestasjoner with Sokeparameters set in
     await expect(radiobutton(page, "Alle")).not.toBeChecked();
     await expect(radiobutton(page, "Egne attesterte")).not.toBeChecked();
   });
+
   test(`Attestert radiobutton should be checked`, async ({ page }) => {
     testStore(page, aStateWith({ alternativer: AttestertStatus.ATTESTERT }));
 
