@@ -8,6 +8,7 @@ import {
 } from "react-router";
 import "./App.module.css";
 import ContentLoader from "./components/ContentLoader";
+import NotFound from "./components/NotFound";
 import DetaljerPage from "./pages/detaljer/DetaljerPage";
 import SokPage from "./pages/sok/SokPage";
 import TrefflistePage from "./pages/treffliste/TrefflistePage";
@@ -33,6 +34,7 @@ const App = () => {
               <Route path={ROOT} element={<SokPage />} />
               <Route path={"/treffliste"} element={<TrefflistePage />} />,
               <Route path={"/detaljer"} element={<DetaljerPage />} />,
+              <Route path={"*"} element={<NotFound />} />,
             </Route>,
           ),
           { basename: BASENAME },
