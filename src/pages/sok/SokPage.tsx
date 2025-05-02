@@ -109,6 +109,7 @@ export default function SokPage() {
       orgnr: isOrgnr,
       fagsystemid: !!sokeData?.fagSystemId,
       faggruppe: sokeData?.fagGruppe?.type,
+      fagomraade: sokeData?.fagOmraade?.kodeFagomraade,
       attestert: sokeData?.alternativer,
     });
 
