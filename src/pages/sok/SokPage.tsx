@@ -29,7 +29,7 @@ import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
-import { SOK } from "../../umami/umami";
+import { SOK, logUserEvent } from "../../umami/umami";
 import { isEmpty } from "../../util/commonUtils";
 import styles from "./SokPage.module.css";
 
@@ -98,6 +98,19 @@ export default function SokPage() {
     setError(null);
 
     const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
+
+    const isFnr =
+      !!sokeData?.gjelderId && /^(?!00)\d{11}$/.test(sokeData?.gjelderId);
+    const isOrgnr =
+      !!sokeData?.gjelderId && /^(00\d{9}|\d{9})$/.test(sokeData?.gjelderId);
+
+    logUserEvent(SOK.SUBMIT, {
+      fnr: isFnr,
+      orgnr: isOrgnr,
+      fagsystemid: !!sokeData?.fagSystemId,
+      faggruppe: sokeData?.fagGruppe?.type,
+      attestert: sokeData?.alternativer,
+    });
 
     hentOppdrag(sokeParameter)
       .then((response) => {
@@ -353,21 +366,6 @@ export default function SokPage() {
             )}
             <div className={styles["attestasjonsok-button"]}>
               <Button
-                data-umami-event={SOK.SUBMIT}
-                data-umami-event-fnr={
-                  !!sokeData?.gjelderId &&
-                  /^(?!00)\d{11}$/.test(sokeData?.gjelderId)
-                }
-                data-umami-event-orgnr={
-                  !!sokeData?.gjelderId &&
-                  /^(00\d{9}|\d{9})$/.test(sokeData?.gjelderId)
-                }
-                data-umami-event-fagsystemid={!!sokeData?.fagSystemId}
-                data-umami-event-faggruppe={sokeData?.fagGruppe?.type}
-                data-umami-event-fagomraade={
-                  sokeData?.fagOmraade?.kodeFagomraade
-                }
-                data-umami-event-attestert={sokeData?.alternativer}
                 id={"search"}
                 type="submit"
                 size={"small"}
