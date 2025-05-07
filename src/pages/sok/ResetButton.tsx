@@ -20,6 +20,9 @@ export default function ResetButton({
     resetState();
     reset({
       gjelderId: "",
+      fagSystemId: "",
+      fagGruppe: undefined,
+      fagOmraade: undefined,
       alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
     });
   }
