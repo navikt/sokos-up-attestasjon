@@ -3,7 +3,6 @@ import { useFormContext } from "react-hook-form";
 import { EraserIcon } from "@navikt/aksel-icons";
 import { Button } from "@navikt/ds-react";
 import { useStore } from "../../store/AppState";
-import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { SOK } from "../../umami/umami";
 
 export default function ResetButton({
@@ -18,13 +17,7 @@ export default function ResetButton({
     e.preventDefault();
     clearError();
     resetState();
-    reset({
-      gjelderId: "",
-      fagSystemId: "",
-      fagGruppe: undefined,
-      fagOmraade: undefined,
-      alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
-    });
+    reset();
   }
   return (
     <Button

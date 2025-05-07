@@ -9,6 +9,7 @@ import commonStyles from "../../styles/common-styles.module.css";
 import { ErrorMessage } from "../../types/ErrorMessage";
 import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
+import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
 import { SOK, logUserEvent } from "../../umami/umami";
 import { isEmpty } from "../../util/commonUtils";
@@ -33,6 +34,13 @@ export default function SokPage() {
     resolver: zodResolver(SokeDataSchema),
     mode: "onSubmit",
     reValidateMode: "onSubmit",
+    defaultValues: {
+      gjelderId: "",
+      fagSystemId: "",
+      fagGruppe: undefined,
+      fagOmraade: undefined,
+      alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
+    },
   });
 
   const { handleSubmit, setValue } = form;
