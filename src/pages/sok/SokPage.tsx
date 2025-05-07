@@ -106,7 +106,7 @@ export default function SokPage() {
         <>
           <SokPageHelpText />
           <form onSubmit={handleSubmit(onSubmit)}>
-            <FormProvider {...form} setValue={setValue}>
+            <FormProvider {...form}>
               <div className={styles["attestasjonsok-form"]}>
                 <div className={styles["attestasjonsok-inputfields"]}>
                   <GjelderIdTextField />
