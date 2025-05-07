@@ -120,7 +120,7 @@ export default function SokPage() {
               <SokFormFeilmeldinger />
               <div className={styles["attestasjonsok-button"]}>
                 <SokButton isLoading={isLoading} />
-                <ResetButton setError={setError} />
+                <ResetButton clearError={() => setError(null)} />
               </div>
             </FormProvider>
           </form>

@@ -6,13 +6,17 @@ import { useStore } from "../../store/AppState";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { SOK } from "../../umami/umami";
 
-export default function ResetButton({ setError }: { setError: (_) => void }) {
+export default function ResetButton({
+  clearError,
+}: {
+  clearError: () => void;
+}) {
   const { resetState } = useStore();
   const { reset } = useFormContext();
 
   function handleReset(e: FormEvent) {
     e.preventDefault();
-    setError(null);
+    clearError();
     resetState();
     reset({
       gjelderId: "",
