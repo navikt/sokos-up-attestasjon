@@ -17,7 +17,7 @@ import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljerDTO } from "../../types/OppdragsDetaljerDTO";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
-import { ROOT } from "../../util/constants";
+import { ROOT } from "../../util/routenames";
 import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
 
