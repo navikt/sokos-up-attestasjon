@@ -31,6 +31,14 @@ test.describe("When using Sok in Attestasjoner", () => {
     await page.goto("/attestasjon");
   });
 
+  test(`pressing nullstill then search should show error message about Ikke gyldig kombinasjon`, async ({
+    page,
+  }) => {
+    await page.getByRole("button", { name: "Nullstill søk" }).click();
+    await page.locator("#search").click();
+    await expect(page.getByText("Ikke gyldig kombinasjon av sø")).toBeVisible();
+  });
+
   test(`a letter in gjelderId-field should display error`, async ({ page }) => {
     const fnrfelt = page.getByLabel("Gjelder");
     await fnrfelt.fill("123456a");
