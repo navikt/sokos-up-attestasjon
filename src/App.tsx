@@ -5,8 +5,8 @@ import NotFound from "./components/NotFound";
 import DetaljerPage from "./pages/detaljer/DetaljerPage";
 import SokPage from "./pages/sok/SokPage";
 import TrefflistePage from "./pages/treffliste/TrefflistePage";
-import { BASENAME, ROOT } from "./util/constants";
 import { initGrafanaFaro } from "./util/grafanaFaro";
+import { BASENAME, DETALJER, ROOT, TREFFLISTE } from "./util/routenames";
 
 const App = () => {
   useEffect(() => {
@@ -22,8 +22,8 @@ const App = () => {
     <BrowserRouter basename={BASENAME}>
       <Routes>
         <Route path={ROOT} element={<SokPage />} />
-        <Route path={"/treffliste"} element={<TrefflistePage />} />,
-        <Route path={"/detaljer"} element={<DetaljerPage />} />,
+        <Route path={TREFFLISTE} element={<TrefflistePage />} />,
+        <Route path={DETALJER} element={<DetaljerPage />} />,
         <Route path={"*"} element={<NotFound />} />,
       </Routes>
     </BrowserRouter>
