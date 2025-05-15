@@ -14,7 +14,7 @@
 
 For å få tilgang til selve skjermbildet (basistilgang):
 
-- `0000-GA-SOKOS-MF-ATTESTASJON` (selve applikasjon i Utbetalingsportalen)
+- `0000-CA-SOKOS-MF-ATTESTASJON` (selve applikasjon i Utbetalingsportalen)
 
 Tilgang fås ved ta kontakt med din identansvarlig. Det kan noen ganger være en strevsomt å få på plass tilganger
 i identrutinene. Det er derfor viktig å benytte riktig begrep i kommunikasjon med dem.
@@ -23,16 +23,16 @@ i identrutinene. Det er derfor viktig å benytte riktig begrep i kommunikasjon m
 
 | Navn Identrutinen                                             | AD-gruppe                                    | Beskrivelse                                                             |
 | ------------------------------------------------------------- | -------------------------------------------- | ----------------------------------------------------------------------- |
-| Utbetalingsportalen - attestasjon - Applikasjonstilgang       | 0000-GA-SOKOS-MF-Attestasjon                 | Basis tilgang                                                           |
-| Utbetalingsportalen – attestasjon - lesetilgang - NØS         | 0000-GA-SOKOS-MF-Attestasjon-NØS-READ        | Lese tilgang for NØS                                                    |
-| Utbetalingsportalen – attestasjon - lesetilgang - NØP         | 0000-GA-SOKOS-MF-Attestasjon-NØP-READ        | Lese tilgang for NØP                                                    |
-| Utbetalingsportalen – attestasjon - lesetilgang – nasjonalt   | 0000-GA-SOKOS-MF-Attestasjon-nasjonalt-READ  | Lese tilgang for landekkende                                            |
-| Utbetalingsportalen – attestasjon - skrivetilgang - NØS       | 0000-GA-SOKOS-MF-Attestasjon-NØS-WRITE       | Skrive tilgang for NØS                                                  |
-| Utbetalingsportalen – attestasjon - skrivetilgang - NØP       | 0000-GA-SOKOS-MF-Attestasjon-NØP-WRITE       | Skrive tilgang for NØP                                                  |
-| Utbetalingsportalen – attestasjon - skrivetilgang – nasjonalt | 0000-GA-SOKOS-MF-Attestasjon-nasjonalt-WRITE | Skrive tilgang for landekkende                                          |
-| Økonomiportalen - Egne ansatte                                | 0000-GA-okonomi-egne_ansatte                 | Tilgang for å se egne ansatte                                           |
-| Økonomiportalen - Fortrolig                                   | 0000-GA-okonomi-fortrolig                    | Tilgang for å se fortrolig, kode 6 (Adressebeskyttede personer)         |
-| Økonomiportalen - Strengt fortrolig                           | 0000-GA-okonomi-strengt_fortrolig            | Tilgang for å se strengt fortrolig, kode 7 (Adressebeskyttede personer) |
+| Utbetalingsportalen - attestasjon - Applikasjonstilgang       | 0000-CA-SOKOS-MF-Attestasjon                 | Basis tilgang                                                           |
+| Utbetalingsportalen – attestasjon - lesetilgang - NØS         | 0000-CA-SOKOS-MF-Attestasjon-NØS-READ        | Lese tilgang for NØS                                                    |
+| Utbetalingsportalen – attestasjon - lesetilgang - NØP         | 0000-CA-SOKOS-MF-Attestasjon-NØP-READ        | Lese tilgang for NØP                                                    |
+| Utbetalingsportalen – attestasjon - lesetilgang – nasjonalt   | 0000-CA-SOKOS-MF-Attestasjon-nasjonalt-READ  | Lese tilgang for landekkende                                            |
+| Utbetalingsportalen – attestasjon - skrivetilgang - NØS       | 0000-CA-SOKOS-MF-Attestasjon-NØS-WRITE       | Skrive tilgang for NØS                                                  |
+| Utbetalingsportalen – attestasjon - skrivetilgang - NØP       | 0000-CA-SOKOS-MF-Attestasjon-NØP-WRITE       | Skrive tilgang for NØP                                                  |
+| Utbetalingsportalen – attestasjon - skrivetilgang – nasjonalt | 0000-CA-SOKOS-MF-Attestasjon-nasjonalt-WRITE | Skrive tilgang for landekkende                                          |
+| Økonomiportalen - Egne ansatte                                | 0000-CA-okonomi-egne_ansatte                 | Tilgang for å se egne ansatte                                           |
+| Økonomiportalen - Fortrolig                                   | 0000-CA-okonomi-fortrolig                    | Tilgang for å se fortrolig, kode 6 (Adressebeskyttede personer)         |
+| Økonomiportalen - Strengt fortrolig                           | 0000-CA-okonomi-strengt_fortrolig            | Tilgang for å se strengt fortrolig, kode 7 (Adressebeskyttede personer) |
 
 ## Kom i gang
 
@@ -43,8 +43,3 @@ i identrutinene. Det er derfor viktig å benytte riktig begrep i kommunikasjon m
 5. Appen nås på <http://localhost:5173/attestasjon>
 
 NB! Anbefaler sette opp [ModHeader](https://modheader.com/) extension på Chrome for å sende med Obo-token i `Authorization` header når du kjører mot backend lokalt da den krever at token inneholder NavIdent.
-
-# Henvendelser
-
-Spørsmål knyttet til koden eller prosjektet kan stilles som issues her på Github.
-Interne henvendelser kan sendes via Slack i kanalen #po-utbetaling.

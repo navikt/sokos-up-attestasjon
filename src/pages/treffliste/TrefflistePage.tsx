@@ -7,7 +7,7 @@ import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
-import { ROOT } from "../../util/constants";
+import { ROOT } from "../../util/routenames";
 import TreffTabell from "./TreffTabell";
 import styles from "./TrefflistePage.module.css";
 

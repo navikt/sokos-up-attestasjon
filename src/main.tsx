@@ -22,9 +22,7 @@ startMsw().then(() =>
     <React.StrictMode>
       <div className="page-wrapper">
         <div className="page-layout">
-          <main>
-            <App />
-          </main>
+          <App />
         </div>
       </div>
     </React.StrictMode>,
