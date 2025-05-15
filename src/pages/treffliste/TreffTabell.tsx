@@ -123,10 +123,7 @@ export default function TreffTabell(props: TreffTabellProps) {
               <Table.Row key={btoa("" + oppdrag.oppdragsId)}>
                 <Table.DataCell>
                   <Link
-                    ref={(element) => {
-                      skjermingRowRefs.current[row] = element;
-                      return;
-                    }}
+                    ref={(element) => (skjermingRowRefs.current[row] = element)}
                     to={oppdrag.erSkjermetForSaksbehandler ? "#" : "/detaljer"}
                     className={commonstyles.link}
                     replace
