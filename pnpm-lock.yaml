@@ -15,7 +15,7 @@ importers:
         version: 1.17.2
       "@hookform/resolvers":
         specifier: ^5.0.1
-        version: 5.0.1(react-hook-form@7.56.2(react@19.1.0))
+        version: 5.0.1(react-hook-form@7.56.2(react@18.3.1))
       "@navikt/aksel-icons":
         specifier: ^7.21.0
         version: 7.21.0
@@ -24,7 +24,7 @@ importers:
         version: 7.21.0
       "@navikt/ds-react":
         specifier: ^7.21.0
-        version: 7.21.0(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 7.21.0(@types/react@19.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       axios:
         specifier: ^1.9.0
         version: 1.9.0
@@ -32,26 +32,26 @@ importers:
         specifier: ^1.11.13
         version: 1.11.13
       react:
-        specifier: ^19.1.0
-        version: 19.1.0
+        specifier: ^18.3.1
+        version: 18.3.1
       react-dom:
-        specifier: ^19.1.0
-        version: 19.1.0(react@19.1.0)
+        specifier: ^18.3.1
+        version: 18.3.1(react@18.3.1)
       react-hook-form:
         specifier: ^7.56.1
-        version: 7.56.2(react@19.1.0)
+        version: 7.56.2(react@18.3.1)
       react-router:
         specifier: ^7.5.3
-        version: 7.5.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+        version: 7.5.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       swr:
         specifier: ^2.3.3
-        version: 2.3.3(react@19.1.0)
+        version: 2.3.3(react@18.3.1)
       zod:
         specifier: ^3.24.4
         version: 3.24.4
       zustand:
         specifier: ^5.0.4
-        version: 5.0.4(@types/react@19.1.4)(react@19.1.0)(use-sync-external-store@1.4.0(react@19.1.0))
+        version: 5.0.4(@types/react@19.1.4)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1))
     devDependencies:
       "@eslint/js":
         specifier: ^9.26.0
@@ -114,7 +114,7 @@ importers:
         specifier: ^15.5.1
         version: 15.5.1
       msw:
-        specifier: ^2.7.6
+        specifier: 2.7.6
         version: 2.7.6(@types/node@22.15.3)(typescript@5.8.3)
       postcss:
         specifier: ^8.5.3
@@ -4149,13 +4149,13 @@ packages:
     peerDependencies:
       react: ">=16.8.0"
 
-  react-dom@19.1.0:
+  react-dom@18.3.1:
     resolution:
       {
-        integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==,
+        integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==,
       }
     peerDependencies:
-      react: ^19.1.0
+      react: ^18.3.1
 
   react-hook-form@7.56.2:
     resolution:
@@ -4192,10 +4192,10 @@ packages:
       react-dom:
         optional: true
 
-  react@19.1.0:
+  react@18.3.1:
     resolution:
       {
-        integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==,
+        integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==,
       }
     engines: { node: ">=0.10.0" }
 
@@ -4341,10 +4341,10 @@ packages:
       }
     engines: { node: ">=v12.22.7" }
 
-  scheduler@0.26.0:
+  scheduler@0.23.2:
     resolution:
       {
-        integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==,
+        integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==,
       }
 
   semver@6.3.1:
@@ -5661,18 +5661,18 @@ snapshots:
       "@floating-ui/core": 1.7.0
       "@floating-ui/utils": 0.2.9
 
-  "@floating-ui/react-dom@2.1.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)":
+  "@floating-ui/react-dom@2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)":
     dependencies:
       "@floating-ui/dom": 1.7.0
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
-  "@floating-ui/react@0.25.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)":
+  "@floating-ui/react@0.25.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)":
     dependencies:
-      "@floating-ui/react-dom": 2.1.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      "@floating-ui/react-dom": 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       "@floating-ui/utils": 0.1.6
-      react: 19.1.0
-      react-dom: 19.1.0(react@19.1.0)
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
       tabbable: 6.2.0
 
   "@floating-ui/utils@0.1.6": {}
@@ -5690,10 +5690,10 @@ snapshots:
       ua-parser-js: 1.0.40
       web-vitals: 4.2.4
 
-  "@hookform/resolvers@5.0.1(react-hook-form@7.56.2(react@19.1.0))":
+  "@hookform/resolvers@5.0.1(react-hook-form@7.56.2(react@18.3.1))":
     dependencies:
       "@standard-schema/utils": 0.3.0
-      react-hook-form: 7.56.2(react@19.1.0)
+      react-hook-form: 7.56.2(react@18.3.1)
 
   "@humanfs/core@0.19.1": {}
 
@@ -5790,16 +5790,16 @@ snapshots:
 
   "@navikt/ds-css@7.21.0": {}
 
-  "@navikt/ds-react@7.21.0(@types/react@19.1.4)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)":
+  "@navikt/ds-react@7.21.0(@types/react@19.1.4)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)":
     dependencies:
-      "@floating-ui/react": 0.25.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      "@floating-ui/react-dom": 2.1.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      "@floating-ui/react": 0.25.4(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      "@floating-ui/react-dom": 2.1.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       "@navikt/aksel-icons": 7.21.0
       "@navikt/ds-tokens": 7.21.0
       clsx: 2.1.1
       date-fns: 4.1.0
-      react: 19.1.0
-      react-day-picker: 9.6.1(react@19.1.0)
+      react: 18.3.1
+      react-day-picker: 9.6.1(react@18.3.1)
     optionalDependencies:
       "@types/react": 19.1.4
     transitivePeerDependencies:
@@ -7759,36 +7759,39 @@ snapshots:
       iconv-lite: 0.6.3
       unpipe: 1.0.0
 
-  react-day-picker@9.6.1(react@19.1.0):
+  react-day-picker@9.6.1(react@18.3.1):
     dependencies:
       "@date-fns/tz": 1.2.0
       date-fns: 4.1.0
       date-fns-jalali: 4.1.0-0
-      react: 19.1.0
+      react: 18.3.1
 
-  react-dom@19.1.0(react@19.1.0):
+  react-dom@18.3.1(react@18.3.1):
     dependencies:
-      react: 19.1.0
-      scheduler: 0.26.0
+      loose-envify: 1.4.0
+      react: 18.3.1
+      scheduler: 0.23.2
 
-  react-hook-form@7.56.2(react@19.1.0):
+  react-hook-form@7.56.2(react@18.3.1):
     dependencies:
-      react: 19.1.0
+      react: 18.3.1
 
   react-is@16.13.1: {}
 
   react-refresh@0.17.0: {}
 
-  react-router@7.5.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+  react-router@7.5.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       cookie: 1.0.2
-      react: 19.1.0
+      react: 18.3.1
       set-cookie-parser: 2.7.1
       turbo-stream: 2.4.0
     optionalDependencies:
-      react-dom: 19.1.0(react@19.1.0)
+      react-dom: 18.3.1(react@18.3.1)
 
-  react@19.1.0: {}
+  react@18.3.1:
+    dependencies:
+      loose-envify: 1.4.0
 
   reflect.getprototypeof@1.0.10:
     dependencies:
@@ -7904,7 +7907,9 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
-  scheduler@0.26.0: {}
+  scheduler@0.23.2:
+    dependencies:
+      loose-envify: 1.4.0
 
   semver@6.3.1: {}
 
@@ -8182,11 +8187,11 @@ snapshots:
 
   svg-tags@1.0.0: {}
 
-  swr@2.3.3(react@19.1.0):
+  swr@2.3.3(react@18.3.1):
     dependencies:
       dequal: 2.0.3
-      react: 19.1.0
-      use-sync-external-store: 1.4.0(react@19.1.0)
+      react: 18.3.1
+      use-sync-external-store: 1.4.0(react@18.3.1)
 
   symbol-tree@3.2.4: {}
 
@@ -8344,9 +8349,9 @@ snapshots:
       querystringify: 2.2.0
       requires-port: 1.0.0
 
-  use-sync-external-store@1.4.0(react@19.1.0):
+  use-sync-external-store@1.4.0(react@18.3.1):
     dependencies:
-      react: 19.1.0
+      react: 18.3.1
 
   util-deprecate@1.0.2: {}
 
@@ -8569,8 +8574,8 @@ snapshots:
 
   zod@3.24.4: {}
 
-  zustand@5.0.4(@types/react@19.1.4)(react@19.1.0)(use-sync-external-store@1.4.0(react@19.1.0)):
+  zustand@5.0.4(@types/react@19.1.4)(react@18.3.1)(use-sync-external-store@1.4.0(react@18.3.1)):
     optionalDependencies:
       "@types/react": 19.1.4
-      react: 19.1.0
-      use-sync-external-store: 1.4.0(react@19.1.0)
+      react: 18.3.1
+      use-sync-external-store: 1.4.0(react@18.3.1)
