@@ -22,7 +22,7 @@ export default function TreffTabell(props: TreffTabellProps) {
   const skjermingRowRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const [sort, setSort] = useState<ScopedSortState | undefined>();
   const [page, setPage] = useState(1);
-  const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(25);
 
   const pagecount = Math.ceil(props.oppdragDtoList.length / rowsPerPage);
 
