@@ -10,13 +10,13 @@ body {
   background-color: var(--a-gray-100);
 }
 
-.page-wrapper {
+.page-container {
   height: auto;
   min-height: 100%;
   margin: 5px;
 }
 
-.page-layout {
+.page-container__layout {
   display: flex;
   justify-content: center;
   align-items: center;

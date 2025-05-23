@@ -30,7 +30,7 @@ export default function FagomraadeCombobox() {
   const field = getValues("fagOmraade");
 
   return (
-    <div className={styles["attestasjonsok-combobox"]}>
+    <div className={styles["sok__combobox"]}>
       <UNSAFE_Combobox
         error={
           formState.errors.fagOmraade?.message ? "Ikke gyldig verdi" : undefined

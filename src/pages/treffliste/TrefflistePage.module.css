@@ -7,31 +7,13 @@
   max-width: 1440px;
 }
 
-.treffliste-top {
+.treffliste__top {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
   margin-left: 9rem;
   margin-right: 9rem;
   min-width: 1024px;
-}
-
-.treffliste-top-info {
-  background-color: var(--a-surface-alt-1-subtle);
-  padding: 0.5rem 1.25rem;
-}
-
-.treffliste-trefftabell {
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 1200px;
-  max-width: 1600px;
-  border-radius: 0.5rem;
-  background-color: white;
-}
-
-.treffliste-error {
-  padding-top: 1.25rem;
 }
 
 .sokekriterier {
@@ -43,7 +25,7 @@
   padding: 1.25rem;
 }
 
-.sokekriterier-content {
+.sokekriterier__content {
   display: flex;
   flex-direction: row;
   gap: 2.5rem;

@@ -14,8 +14,8 @@ export default function LabelText({
   return (
     visible &&
     text && (
-      <div className={commonstyles.labeltext}>
-        <div className={commonstyles["labeltext-label"]}>{label}:</div>
+      <div className={commonstyles["label"]}>
+        <div className={commonstyles["label__text"]}>{label}:</div>
         <div>{text}</div>
       </div>
     )
