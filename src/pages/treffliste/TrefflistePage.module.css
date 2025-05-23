@@ -16,24 +16,6 @@
   min-width: 1024px;
 }
 
-.treffliste__info {
-  background-color: var(--a-surface-alt-1-subtle);
-  padding: 0.5rem 1.25rem;
-}
-
-.treffliste__table {
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 1200px;
-  max-width: 1600px;
-  border-radius: 0.5rem;
-  background-color: white;
-}
-
-.treffliste__error {
-  padding-top: 1.25rem;
-}
-
 .sokekriterier {
   display: flex;
   min-width: 1024px;

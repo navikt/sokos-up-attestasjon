@@ -11,7 +11,7 @@ interface RowsPerPageSelectorProps {
 export default function RowsPerPageSelector(props: RowsPerPageSelectorProps) {
   return (
     <>
-      <div className={styles["rows-selector"]}>
+      <div className={styles["rows-per-page-selector"]}>
         <Dropdown>
           <Button
             size={"xsmall"}

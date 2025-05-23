@@ -1,28 +1,15 @@
-.page {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .page__heading {
   text-align: center;
 }
 
-.page__content-loader {
-  width: 100%;
-  padding-top: 4rem;
-  padding-bottom: 4rem;
-  text-align: center;
-}
-
-.label-text {
+.label {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
   white-space: nowrap;
 }
 
-.label-text__label {
+.label__text {
   font-weight: bold;
   white-space: nowrap;
 }

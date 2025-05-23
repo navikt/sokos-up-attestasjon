@@ -15,7 +15,7 @@ export default function GjelderIdTextField() {
         size={"small"}
         error={
           errors.gjelderId?.message && (
-            <span className={styles["sok__error-message--nowrap"]}>
+            <span className={styles["sok__error--nowrap"]}>
               {errors.gjelderId?.message?.toString()}
             </span>
           )

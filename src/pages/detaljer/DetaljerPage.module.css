@@ -32,27 +32,3 @@
   padding: 1.25rem;
   background-color: white;
 }
-
-.detaljer__tabell {
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  background-color: white;
-}
-
-.detaljer__label-collapse {
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  background-color: white;
-}
-
-.detaljer__buttons {
-  margin-top: 0.5rem;
-  display: flex;
-  flex-direction: row-reverse;
-}
-
-.detaljer__button-group {
-  display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-}
