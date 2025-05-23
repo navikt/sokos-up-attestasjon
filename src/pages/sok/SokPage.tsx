@@ -126,8 +126,8 @@ export default function SokPage() {
             </div>
             <SokFormFeilmeldinger />
             <div className={styles["sok__submit-wrapper"]}>
-              <ResetButton clearError={() => setError(null)} />
               <SokButton isLoading={isLoading} />
+              <ResetButton clearError={() => setError(null)} />
             </div>
           </FormProvider>
         </form>

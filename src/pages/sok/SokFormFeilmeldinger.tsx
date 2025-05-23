@@ -11,7 +11,7 @@ export default function SokFormFeilmeldinger() {
 
   return (
     filteredErrors.length > 0 && (
-      <div className={styles["attestasjonsok-error-summary"]}>
+      <div className={styles["sok__error-summary"]}>
         <ErrorSummary
           heading={"Du må fikse disse feilene før du kan fortsette"}
         >
