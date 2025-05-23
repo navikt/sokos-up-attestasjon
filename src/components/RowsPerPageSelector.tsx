@@ -11,7 +11,7 @@ interface RowsPerPageSelectorProps {
 export default function RowsPerPageSelector(props: RowsPerPageSelectorProps) {
   return (
     <>
-      <div className={styles.rowsperpageselector}>
+      <div className={styles["rows-selector"]}>
         <Dropdown>
           <Button
             size={"xsmall"}
@@ -37,7 +37,7 @@ export default function RowsPerPageSelector(props: RowsPerPageSelectorProps) {
             </Dropdown.Menu.GroupedList>
           </Dropdown.Menu>
         </Dropdown>
-        <div className={commonstyles.nowrap}>
+        <div className={commonstyles["u-nowrap"]}>
           <p>Vis {props.rowsPerPage} per side</p>
         </div>
       </div>

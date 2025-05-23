@@ -29,7 +29,7 @@ export default function FaggruppeCombobox() {
   const field = getValues("fagGruppe");
 
   return (
-    <div className={styles["attestasjonsok-combobox"]}>
+    <div className={styles["sok__combobox"]}>
       <UNSAFE_Combobox
         error={
           formState.errors.fagGruppe?.message ? "Ikke gyldig verdi" : undefined

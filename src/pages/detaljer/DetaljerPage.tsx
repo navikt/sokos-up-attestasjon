@@ -128,10 +128,10 @@ export default function DetaljerPage() {
         </Heading>
       </div>
       <div className={styles["detaljer"]}>
-        <div className={styles["detaljer-top"]}>
+        <div className={styles["detaljer__top"]}>
           <Breadcrumbs searchLink trefflistelink detaljer />
           {oppdragDto && (
-            <div className={styles["detaljer-label"]}>
+            <div className={styles["detaljer__label"]}>
               <LabelText label="Gjelder" text={oppdragDto.oppdragGjelderId} />
               <LabelText label="Fagsystem id" text={oppdragDto.fagSystemId} />
               <LabelText label="Ansvarssted" text={oppdragDto.ansvarssted} />
@@ -140,7 +140,7 @@ export default function DetaljerPage() {
             </div>
           )}
         </div>
-        <div className={styles["detaljer-alerts"]}>
+        <div className={styles["detaljer__alerts"]}>
           {!!alertMessage && (
             <AlertWithCloseButton
               show={!!alertMessage}

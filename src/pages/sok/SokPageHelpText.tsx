@@ -3,7 +3,7 @@ import styles from "./SokPage.module.css";
 
 export default function SokPageHelpText() {
   return (
-    <div className={styles["attestasjonsok-helptext"]}>
+    <div className={styles["sok__help-text"]}>
       <HelpText title="Søkekriterier" placement="left" strategy="fixed">
         <List
           as="ul"

@@ -7,7 +7,7 @@
   max-width: 1440px;
 }
 
-.treffliste-top {
+.treffliste__top {
   display: flex;
   flex-direction: column;
   gap: 1.25rem;
@@ -16,12 +16,12 @@
   min-width: 1024px;
 }
 
-.treffliste-top-info {
+.treffliste__info {
   background-color: var(--a-surface-alt-1-subtle);
   padding: 0.5rem 1.25rem;
 }
 
-.treffliste-trefftabell {
+.treffliste__table {
   margin-left: auto;
   margin-right: auto;
   min-width: 1200px;
@@ -30,7 +30,7 @@
   background-color: white;
 }
 
-.treffliste-error {
+.treffliste__error {
   padding-top: 1.25rem;
 }
 
@@ -43,7 +43,7 @@
   padding: 1.25rem;
 }
 
-.sokekriterier-content {
+.sokekriterier__content {
   display: flex;
   flex-direction: row;
   gap: 2.5rem;

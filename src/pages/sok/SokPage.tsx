@@ -101,41 +101,39 @@ export default function SokPage() {
       });
   }
 
-  const Divider = () => <div className={styles["attestasjonsok-divider"]} />;
+  const Divider = () => <div className={styles["sok__divider"]} />;
 
   return (
     <>
-      <div className={commonStyles.pageheading}>
+      <div className={commonStyles["page__heading"]}>
         <Heading level="1" size="large" spacing>
           Attestasjon: Søk
         </Heading>
       </div>
-      <div className={styles["attestasjonsok"]}>
-        <>
-          <SokPageHelpText />
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormProvider {...form}>
-              <div className={styles["attestasjonsok-form"]}>
-                <div className={styles["attestasjonsok-inputfields"]}>
-                  <GjelderIdTextField />
-                  <FagsystemIdTextField />
-                  <FaggruppeCombobox />
-                  <FagomraadeCombobox />
-                </div>
-                <Divider />
-                <StatuserRadioButtons />
+      <div className={styles["sok"]}>
+        <SokPageHelpText />
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <FormProvider {...form}>
+            <div className={styles["sok__form"]}>
+              <div className={styles["sok__input-fields"]}>
+                <GjelderIdTextField />
+                <FagsystemIdTextField />
+                <FaggruppeCombobox />
+                <FagomraadeCombobox />
               </div>
-              <SokFormFeilmeldinger />
-              <div className={styles["attestasjonsok-button"]}>
-                <SokButton isLoading={isLoading} />
-                <ResetButton clearError={() => setError(null)} />
-              </div>
-            </FormProvider>
-          </form>
-        </>
+              <Divider />
+              <StatuserRadioButtons />
+            </div>
+            <SokFormFeilmeldinger />
+            <div className={styles["sok__submit-wrapper"]}>
+              <ResetButton clearError={() => setError(null)} />
+              <SokButton isLoading={isLoading} />
+            </div>
+          </FormProvider>
+        </form>
       </div>
       {error && (
-        <div className={styles["attestasjonsok-error"]}>
+        <div className={styles["sok__error"]}>
           <Alert variant={error.variant} role="status">
             {error.message}
           </Alert>

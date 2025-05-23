@@ -49,19 +49,19 @@ export default function TrefflistePage() {
 
   return (
     <>
-      <div className={commonstyles.pageheading}>
+      <div className={commonstyles["page__heading"]}>
         <Heading level="1" size="large" spacing>
           Attestasjon: Treffliste
         </Heading>
       </div>
       <div className={styles["treffliste"]}>
-        <div className={styles["treffliste-top"]}>
+        <div className={styles["treffliste__top"]}>
           <Breadcrumbs searchLink treffliste />
-          <div className={styles.sokekriterier}>
+          <div className={styles["sokekriterier"]}>
             <Heading size={"small"} level={"2"}>
               Søkekriterier benyttet:
             </Heading>
-            <div className={styles["sokekriterier-content"]}>
+            <div className={styles["sokekriterier__content"]}>
               <LabelText label={"Gjelder"} text={sokeData?.gjelderId} />
               <LabelText label={"Navn"} text={gjelderNavn} />
               <LabelText label={"Fagsystem id"} text={sokeData?.fagSystemId} />

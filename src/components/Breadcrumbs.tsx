@@ -17,10 +17,10 @@ type BreadcrumbsProps = {
 export default function Breadcrumbs(props: BreadcrumbsProps) {
   return (
     <div role="navigation" className={styles["breadcrumbs"]}>
-      <div className={styles["breadcrumbs-left"]}>
-        <div className={styles["breadcrumbs-contents"]}>
+      <div className={styles["breadcrumbs__left"]}>
+        <div className={styles["breadcrumbs__contents"]}>
           {props.searchLink && (
-            <div className={styles["breadcrumbs-crumb"]}>
+            <div className={styles["breadcrumbs__crumb"]}>
               <BodyShort size="large">
                 <Link to="/" replace className={commonstyles.link}>
                   Gjeldende Søk
@@ -29,13 +29,13 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
             </div>
           )}
           {props.treffliste && (
-            <div className={styles["breadcrumbs-crumb"]}>
+            <div className={styles["breadcrumbs__crumb"]}>
               <ChevronRightIcon focusable={"false"} title="Pil høyre" />
               <BodyShort size="large">Treffliste</BodyShort>
             </div>
           )}
           {props.trefflistelink && (
-            <div className={styles["breadcrumbs-crumb"]}>
+            <div className={styles["breadcrumbs__crumb"]}>
               <ChevronRightIcon focusable={"false"} title="Pil høyre" />
               <BodyShort size="large">
                 <Link to="/treffliste" replace className={commonstyles.link}>
@@ -45,13 +45,13 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
             </div>
           )}
           {props.detaljer && (
-            <div className={styles["breadcrumbs-crumb"]}>
+            <div className={styles["breadcrumbs__crumb"]}>
               <ChevronRightIcon title="Chevron ikon" />
               <BodyShort size="large">Detaljer</BodyShort>
             </div>
           )}
           {props.detaljerLink && (
-            <div className={styles["breadcrumbs-crumb"]}>
+            <div className={styles["breadcrumbs__crumb"]}>
               <ChevronRightIcon title="Pil høyre" />
               <BodyShort size="large">
                 <Link to="/detaljer" replace className={commonstyles.link}>
@@ -61,14 +61,14 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
             </div>
           )}
           {props.oppdragsdetaljer && (
-            <div className={styles["breadcrumbs-crumb"]}>
+            <div className={styles["breadcrumbs__crumb"]}>
               <ChevronRightIcon title="Pil høyre" />
               Detaljer
             </div>
           )}
         </div>
       </div>
-      <div className={styles["breadcrumbs-right"]}>
+      <div className={styles["breadcrumbs__right"]}>
         <ResetButton />
       </div>
     </div>

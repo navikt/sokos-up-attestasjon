@@ -1,23 +1,29 @@
-.pageheading {
+.page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.page__heading {
   text-align: center;
 }
 
-.contentloader {
+.page__content-loader {
   width: 100%;
   padding-top: 4rem;
   padding-bottom: 4rem;
   text-align: center;
 }
 
-.labeltext-label {
-  white-space: nowrap;
-  font-weight: bold;
-}
-
-.labeltext {
+.label-text {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.label-text__label {
+  font-weight: bold;
   white-space: nowrap;
 }
 
@@ -29,26 +35,26 @@
   text-decoration: none;
 }
 
-.aksel-danger {
+.status--danger {
   color: var(--a-nav-red);
 }
 
-.nowrap {
+.u-nowrap {
   white-space: nowrap;
 }
 
-.sortable-table-topinfo {
+.table {
+  min-width: 1400px;
+  background-color: var(--a-surface-default);
+}
+
+.table__top-info {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.sortable-table {
-  min-width: 1400px;
-  background-color: var(--a-surface-default);
-}
-
-.sortable-table-pagination {
+.table__pagination {
   display: flex;
   flex-direction: row;
   place-content: center;

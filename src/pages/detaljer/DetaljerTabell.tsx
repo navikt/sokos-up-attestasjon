@@ -187,7 +187,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
 
   return (
     <>
-      <div className={styles["detaljertabell-knapperad"]}>
+      <div className={styles["detaljer-table__button-row"]}>
         <Button
           type={"submit"}
           data-umami-event={DETALJER.OPPDATER_TRYKKET}
@@ -236,7 +236,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
             />
           )}
       </div>
-      <div className={styles.detaljertabell}>
+      <div className={styles["detaljer-table"]}>
         <Table id={"detaljertabell"}>
           <Table.Header>
             <Table.Row>
@@ -253,7 +253,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
               <Table.HeaderCell scope="col">Ugyldig f.o.m</Table.HeaderCell>
               <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
               <Table.HeaderCell scope="col">
-                <div className={styles["detaljertabell-toggle-rows"]}>
+                <div className={styles["detaljer-table__toggle"]}>
                   <Button
                     size={"small"}
                     data-umami-event={DETALJER.AAPNE_ALLE_RADER}
@@ -306,7 +306,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                 <Table.DataCell>{linje.attestant}</Table.DataCell>
                 <Table.DataCell>
                   {linje.attestant && (
-                    <div className={styles["detaljertabell-ugyldig-textfield"]}>
+                    <div className={styles["detaljer-table__input--invalid"]}>
                       <TextField
                         size="small"
                         label="Ugyldig FOM"

@@ -1,74 +1,105 @@
-.attestasjonsok {
-  padding: 1rem;
+.sok {
+  padding: 1.5rem;
   position: relative;
   max-width: 1440px;
-  min-width: 1280px;
+  width: 100%;
   border-radius: 0.5rem;
   margin: auto;
   background-color: var(--a-surface-alt-1-subtle);
 }
 
-.attestasjonsok-form {
+.sok__form {
   display: flex;
-  flex-direction: row;
-  gap: 2.5rem;
+  flex-wrap: wrap;
+  gap: 2rem;
+  position: relative;
+  padding-top: 2rem;
 }
 
-.attestasjonsok-helptext {
+.sok__help-text {
   position: absolute;
   right: 1.25rem;
   top: 1.25rem;
+  z-index: 5;
 }
 
-.attestasjonsok-inputfields {
+.sok__input-fields {
   display: flex;
-  width: fit-content;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 1rem;
+  flex: 1;
+  min-width: 280px;
 }
 
-.attestasjonsok-gjelder {
+.sok__gjelder {
   position: relative;
-  width: 9rem;
+  width: 100%;
+  max-width: 180px;
 }
 
-.attestasjonsok-fagsystem {
-  width: 14rem;
+.sok__fagsystem {
+  width: 100%;
+  max-width: 240px;
 }
 
-.attestasjonsok-radiobutton {
+.sok__combobox {
+  width: 100%;
+  min-width: 280px;
+}
+
+.sok__radio-group {
   display: flex;
   flex-direction: column;
+  flex: 1;
+  min-width: 250px;
 }
 
-.attestasjonsok-divider {
-  min-width: 0.125rem;
+.sok__divider {
+  width: 1px;
+  min-height: 180px;
   background-color: var(--a-border-default);
+  margin: 0 1rem;
 }
 
-.attestasjonsok-error {
+.sok__error {
   padding-top: 1.25rem;
 }
 
-.attestasjonsok-error-summary {
-  max-width: 32rem;
-  padding-top: 0.5rem;
-}
-
-.attestasjonsok-button {
-  display: flex;
-  flex-direction: row-reverse;
-  gap: 1.5rem;
-  padding-top: 1.25rem;
-}
-
-.attestasjonsok-combobox {
-  min-width: 41.25rem;
-}
-
-.attestasjonsok-error-message-nowrap {
-  position: absolute;
-  left: 0.5rem;
-  margin-left: 0.75rem;
+.sok__error-message--nowrap {
   white-space: nowrap;
+}
+
+.sok__submit-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-right: 0.5rem;
+}
+
+@media (width <= 768px) {
+  .sok {
+    padding: 1rem;
+    min-width: auto;
+  }
+
+  .sok__form {
+    flex-direction: column;
+  }
+
+  .sok__divider {
+    width: 100%;
+    min-height: 1px;
+    height: 1px;
+    margin: 0.5rem 0;
+  }
+}
+
+@media (width >= 769px) and (width <= 1280px) {
+  .sok {
+    min-width: auto;
+  }
 }

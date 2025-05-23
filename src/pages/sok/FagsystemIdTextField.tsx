@@ -11,7 +11,7 @@ export default function FagsystemIdTextField() {
   } = useFormContext();
 
   return (
-    <div className={styles["attestasjonsok-fagsystem"]}>
+    <div className={styles["sok__fagsystem"]}>
       <TextField
         size={"small"}
         id="fagSystemId"

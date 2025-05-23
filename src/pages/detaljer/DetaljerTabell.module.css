@@ -1,4 +1,4 @@
-.detaljertabell {
+.detaljer-table {
   margin-left: auto;
   margin-right: auto;
   min-width: 1400px;
@@ -8,11 +8,11 @@
   margin-bottom: 1rem;
 }
 
-.detaljertabell-ugyldig-textfield {
+.detaljer-table__input--invalid {
   width: 8rem;
 }
 
-.detaljertabell-knapperad {
+.detaljer-table__button-row {
   margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -25,6 +25,6 @@
   padding-right: 1rem;
 }
 
-.detaljertabell-toggle-rows {
+.detaljer-table__toggle {
   width: 8rem;
 }
