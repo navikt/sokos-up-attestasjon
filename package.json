@@ -92,7 +92,8 @@
         {
           "severity": "warning"
         }
-      ]
+      ],
+      "selector-class-pattern": null
     },
     "ignoreFiles": [
       "dist/**/*",
