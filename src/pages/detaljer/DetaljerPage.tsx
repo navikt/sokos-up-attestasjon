@@ -122,7 +122,7 @@ export default function DetaljerPage() {
 
   return (
     <>
-      <div className={commonstyles.pageheading}>
+      <div className={commonstyles["page__heading"]}>
         <Heading level="1" size="large" spacing>
           Attestasjon: Detaljer
         </Heading>
