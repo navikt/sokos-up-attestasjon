@@ -111,34 +111,36 @@ export default function SokPage() {
         </Heading>
       </div>
       <div className={styles["sok"]}>
-        <SokPageHelpText />
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormProvider {...form}>
-            <div className={styles["sok__form"]}>
-              <div className={styles["sok__input-fields"]}>
-                <GjelderIdTextField />
-                <FagsystemIdTextField />
-                <FaggruppeCombobox />
-                <FagomraadeCombobox />
+        <div className={styles["sok__box"]}>
+          <SokPageHelpText />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <FormProvider {...form}>
+              <div className={styles["sok__form"]}>
+                <div className={styles["sok__input-fields"]}>
+                  <GjelderIdTextField />
+                  <FagsystemIdTextField />
+                  <FaggruppeCombobox />
+                  <FagomraadeCombobox />
+                </div>
+                <Divider />
+                <StatuserRadioButtons />
               </div>
-              <Divider />
-              <StatuserRadioButtons />
-            </div>
-            <SokFormFeilmeldinger />
-            <div className={styles["sok__submit-wrapper"]}>
-              <SokButton isLoading={isLoading} />
-              <ResetButton clearError={() => setError(null)} />
-            </div>
-          </FormProvider>
-        </form>
-      </div>
-      {error && (
-        <div className={styles["sok__error"]}>
-          <Alert variant={error.variant} role="status">
-            {error.message}
-          </Alert>
+              <SokFormFeilmeldinger />
+              <div className={styles["sok__submit-wrapper"]}>
+                <SokButton isLoading={isLoading} />
+                <ResetButton clearError={() => setError(null)} />
+              </div>
+            </FormProvider>
+          </form>
         </div>
-      )}
+        {error && (
+          <div className={styles["sok__error"]}>
+            <Alert variant={error.variant} role="status">
+              {error.message}
+            </Alert>
+          </div>
+        )}
+      </div>
     </>
   );
 }

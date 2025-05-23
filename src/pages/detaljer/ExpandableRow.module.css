@@ -1,5 +1,5 @@
 .expandable-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 2.5rem; /* 10 * 0.25rem */
+  gap: 2.5rem;
 }
