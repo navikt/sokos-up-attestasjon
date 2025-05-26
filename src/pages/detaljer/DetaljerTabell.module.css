@@ -1,15 +1,16 @@
-.detaljer-tabell__input--ugyldigfom {
+.input--ugyldigfom {
   width: 8rem;
 }
 
-.detaljer-tabell__button-row {
+.button-row {
   display: flex;
   flex-direction: row-reverse;
+  min-width: 1400px;
   align-items: center;
   gap: 3rem;
   padding-right: 1rem;
 }
 
-.detaljer-tabell__toggle {
+.toggle {
   width: 8rem;
 }

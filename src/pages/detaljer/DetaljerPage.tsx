@@ -129,8 +129,8 @@ export default function DetaljerPage() {
       <div className={commonstyles["page__top"]}>
         <Breadcrumbs searchLink trefflistelink detaljer />
         {oppdragDto && (
-          <div className={commonstyles["sokekriterier"]}>
-            <div className={commonstyles["sokekriterier__content"]}>
+          <div className={commonstyles["page__top-sokekriterier"]}>
+            <div className={commonstyles["page__top-sokekriterier__content"]}>
               <LabelText label="Gjelder" text={oppdragDto.oppdragGjelderId} />
               <LabelText label="Fagsystem id" text={oppdragDto.fagSystemId} />
               <LabelText label="Ansvarssted" text={oppdragDto.ansvarssted} />

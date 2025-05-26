@@ -188,7 +188,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
 
   return (
     <>
-      <div className={styles["detaljer-tabell__button-row"]}>
+      <div className={styles["button-row"]}>
         <Button
           type={"submit"}
           data-umami-event={DETALJER.OPPDATER_TRYKKET}
@@ -254,7 +254,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
               <Table.HeaderCell scope="col">Ugyldig f.o.m</Table.HeaderCell>
               <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
               <Table.HeaderCell scope="col">
-                <div className={styles["detaljer-tabell__toggle"]}>
+                <div className={styles["toggle"]}>
                   <Button
                     size={"small"}
                     data-umami-event={DETALJER.AAPNE_ALLE_RADER}
@@ -307,9 +307,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                 <Table.DataCell>{linje.attestant}</Table.DataCell>
                 <Table.DataCell>
                   {linje.attestant && (
-                    <div
-                      className={styles["detaljer-tabell__input--ugyldigfom"]}
-                    >
+                    <div className={styles["input--ugyldigfom"]}>
                       <TextField
                         size="small"
                         label="Ugyldig FOM"

@@ -55,11 +55,11 @@ export default function TrefflistePage() {
       </div>
       <div className={commonstyles["page__top"]}>
         <Breadcrumbs searchLink treffliste />
-        <div className={commonstyles["sokekriterier"]}>
+        <div className={commonstyles["page__top-sokekriterier"]}>
           <Heading size={"small"} level={"2"}>
             Søkekriterier benyttet:
           </Heading>
-          <div className={commonstyles["sokekriterier__content"]}>
+          <div className={commonstyles["page__top-sokekriterier__content"]}>
             <LabelText label={"Gjelder"} text={sokeData?.gjelderId} />
             <LabelText label={"Navn"} text={gjelderNavn} />
             <LabelText label={"Fagsystem id"} text={sokeData?.fagSystemId} />

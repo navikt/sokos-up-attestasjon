@@ -1,7 +1,3 @@
-:root {
-  --min-width: 1400px;
-}
-
 .page {
   display: flex;
   flex-direction: column;
@@ -12,6 +8,7 @@
 .page__top {
   display: flex;
   flex-direction: column;
+  min-width: 1024px;
   gap: 1.25rem;
   margin-left: 9rem;
   margin-right: 9rem;
@@ -21,7 +18,7 @@
   text-align: center;
 }
 
-.sokekriterier {
+.page__top-sokekriterier {
   display: flex;
   flex-direction: column;
   border-radius: 0.75rem;
@@ -29,7 +26,7 @@
   padding: 1.25rem;
 }
 
-.sokekriterier__content {
+.page__top-sokekriterier__content {
   display: flex;
   flex-direction: row;
   gap: 2.5rem;
@@ -53,7 +50,7 @@
 }
 
 .table {
-  min-width: var(--min-width);
+  min-width: 1400px;
   border-radius: 0.5rem;
   background-color: var(--a-white);
 }
