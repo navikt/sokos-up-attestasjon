@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { Alert, Heading } from "@navikt/ds-react";
 import { hentOppdrag } from "../../api/apiService";
 import { useStore } from "../../store/AppState";
-import commonStyles from "../../styles/common-styles.module.css";
+import commonstyles from "../../styles/common-styles.module.css";
 import { ErrorMessage } from "../../types/ErrorMessage";
 import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
@@ -105,12 +105,12 @@ export default function SokPage() {
 
   return (
     <>
-      <div className={commonStyles["page__heading"]}>
-        <Heading level="1" size="large" spacing>
-          Attestasjon: Søk
-        </Heading>
-      </div>
       <div className={styles["sok"]}>
+        <div className={commonstyles["page__heading"]}>
+          <Heading level="1" size="large" spacing>
+            Attestasjon: Søk
+          </Heading>
+        </div>
         <div className={styles["sok__box"]}>
           <SokPageHelpText />
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -126,7 +126,7 @@ export default function SokPage() {
                 <StatuserRadioButtons />
               </div>
               <SokFormFeilmeldinger />
-              <div className={styles["sok__submit-wrapper"]}>
+              <div className={styles["sok__buttons"]}>
                 <SokButton isLoading={isLoading} />
                 <ResetButton clearError={() => setError(null)} />
               </div>

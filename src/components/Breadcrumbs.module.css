@@ -1,7 +1,8 @@
 .breadcrumbs {
-  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   height: 4rem;
-  max-width: 1440px;
   border-radius: 0.5rem;
   background-color: var(--a-surface-alt-1-subtle);
 }
@@ -12,17 +13,13 @@
 
 .breadcrumbs__contents {
   display: flex;
-  min-width: 14rem;
   flex-direction: row;
+  align-items: center;
+  gap: 0.3rem;
 }
 
 .breadcrumbs__left {
-  position: absolute;
-  left: 1.25rem;
-  top: 0;
-  display: flex;
-  height: 100%;
-  align-items: center;
+  padding-left: 1.25rem;
 }
 
 .breadcrumbs__crumb {
@@ -31,10 +28,5 @@
 }
 
 .breadcrumbs__right {
-  position: absolute;
-  right: 1.25rem;
-  top: 0;
-  display: flex;
-  height: 100%;
-  align-items: center;
+  padding-right: 1.25rem;
 }

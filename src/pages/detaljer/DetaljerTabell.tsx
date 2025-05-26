@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
 import { Button, Checkbox, Table, TextField, Tooltip } from "@navikt/ds-react";
 import { useStore } from "../../store/AppState";
+import commonstyles from "../../styles/common-styles.module.css";
 import {
   Attestasjonlinje,
   AttestasjonlinjeList,
@@ -236,7 +237,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
             />
           )}
       </div>
-      <div className={styles["detaljer-tabell"]}>
+      <div className={commonstyles["table"]}>
         <Table id={"detaljertabell"}>
           <Table.Header>
             <Table.Row>

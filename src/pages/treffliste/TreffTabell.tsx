@@ -90,7 +90,6 @@ export default function TreffTabell(props: TreffTabellProps) {
 
       <div className={commonstyles["table"]}>
         <Table
-          zebraStripes
           sort={sort}
           onSortChange={(sortKey) =>
             handleSort(sortKey as ScopedSortState["orderBy"])

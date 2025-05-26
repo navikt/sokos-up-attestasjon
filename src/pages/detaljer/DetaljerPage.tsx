@@ -18,7 +18,6 @@ import { OppdragsDetaljerDTO } from "../../types/OppdragsDetaljerDTO";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { ROOT } from "../../util/routenames";
-import styles from "./DetaljerPage.module.css";
 import DetaljerTabell from "./DetaljerTabell";
 
 export default function DetaljerPage() {
@@ -121,36 +120,34 @@ export default function DetaljerPage() {
   }
 
   return (
-    <>
+    <div className={commonstyles["page"]}>
       <div className={commonstyles["page__heading"]}>
         <Heading level="1" size="large" spacing>
           Attestasjon: Detaljer
         </Heading>
       </div>
-      <div className={styles["detaljer"]}>
-        <div className={styles["detaljer__top"]}>
-          <Breadcrumbs searchLink trefflistelink detaljer />
-          {oppdragDto && (
-            <div className={styles["detaljer__label"]}>
+      <div className={commonstyles["page__top"]}>
+        <Breadcrumbs searchLink trefflistelink detaljer />
+        {oppdragDto && (
+          <div className={commonstyles["sokekriterier"]}>
+            <div className={commonstyles["sokekriterier__content"]}>
               <LabelText label="Gjelder" text={oppdragDto.oppdragGjelderId} />
               <LabelText label="Fagsystem id" text={oppdragDto.fagSystemId} />
               <LabelText label="Ansvarssted" text={oppdragDto.ansvarssted} />
               <LabelText label="Kostnadssted" text={oppdragDto.kostnadssted} />
               <LabelText label="Fagområde" text={oppdragDto.navnFagomraade} />
             </div>
-          )}
-        </div>
-        <div className={styles["detaljer__alerts"]}>
-          {!!alertMessage && (
-            <AlertWithCloseButton
-              show={!!alertMessage}
-              setShow={() => setAlertMessage(null)}
-              variant={alertMessage.variant}
-            >
-              {alertMessage.message}
-            </AlertWithCloseButton>
-          )}{" "}
-        </div>
+          </div>
+        )}
+        {!!alertMessage && (
+          <AlertWithCloseButton
+            show={!!alertMessage}
+            setShow={() => setAlertMessage(null)}
+            variant={alertMessage.variant}
+          >
+            {alertMessage.message}
+          </AlertWithCloseButton>
+        )}{" "}
       </div>
       {isLoading && <ContentLoader />}
       {linjerSomSkalVises && (
@@ -161,6 +158,6 @@ export default function DetaljerPage() {
           oppdragsDetaljer={linjerSomSkalVises}
         />
       )}
-    </>
+    </div>
   );
 }

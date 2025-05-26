@@ -1,17 +1,39 @@
+:root {
+  --min-width: 1400px;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin: 0.75rem auto;
+}
+
+.page__top {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-left: 9rem;
+  margin-right: 9rem;
+}
+
 .page__heading {
   text-align: center;
 }
 
-.label {
+.sokekriterier {
   display: flex;
-  flex-direction: row;
-  gap: 0.5rem;
-  white-space: nowrap;
+  flex-direction: column;
+  border-radius: 0.75rem;
+  background-color: white;
+  padding: 1.25rem;
 }
 
-.label__text {
-  font-weight: bold;
-  white-space: nowrap;
+.sokekriterier__content {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+  padding-top: 1.25rem;
 }
 
 .link {
@@ -31,8 +53,9 @@
 }
 
 .table {
-  min-width: 1400px;
-  background-color: var(--a-surface-default);
+  min-width: var(--min-width);
+  border-radius: 0.5rem;
+  background-color: var(--a-white);
 }
 
 .table__top-info {

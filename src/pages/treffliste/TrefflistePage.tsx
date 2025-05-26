@@ -9,7 +9,6 @@ import commonstyles from "../../styles/common-styles.module.css";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { ROOT } from "../../util/routenames";
 import TreffTabell from "./TreffTabell";
-import styles from "./TrefflistePage.module.css";
 
 export default function TrefflistePage() {
   const { oppdragDtoList, sokeData, gjelderNavn, setGjelderNavn } = useStore();
@@ -48,38 +47,36 @@ export default function TrefflistePage() {
   }, [gjelderNavn, setGjelderNavn, sokeData]);
 
   return (
-    <>
+    <div className={commonstyles["page"]}>
       <div className={commonstyles["page__heading"]}>
         <Heading level="1" size="large" spacing>
           Attestasjon: Treffliste
         </Heading>
       </div>
-      <div className={styles["treffliste"]}>
-        <div className={styles["treffliste__top"]}>
-          <Breadcrumbs searchLink treffliste />
-          <div className={styles["sokekriterier"]}>
-            <Heading size={"small"} level={"2"}>
-              Søkekriterier benyttet:
-            </Heading>
-            <div className={styles["sokekriterier__content"]}>
-              <LabelText label={"Gjelder"} text={sokeData?.gjelderId} />
-              <LabelText label={"Navn"} text={gjelderNavn} />
-              <LabelText label={"Fagsystem id"} text={sokeData?.fagSystemId} />
-              <LabelText label={"Faggruppe"} text={sokeData?.fagGruppe?.type} />
-              <LabelText
-                label={"Fagområde"}
-                text={sokeData?.fagOmraade?.kodeFagomraade}
-              />
-              <LabelText
-                label={"Attestert status"}
-                text={getAttestertStatusText()}
-              />
-            </div>
+      <div className={commonstyles["page__top"]}>
+        <Breadcrumbs searchLink treffliste />
+        <div className={commonstyles["sokekriterier"]}>
+          <Heading size={"small"} level={"2"}>
+            Søkekriterier benyttet:
+          </Heading>
+          <div className={commonstyles["sokekriterier__content"]}>
+            <LabelText label={"Gjelder"} text={sokeData?.gjelderId} />
+            <LabelText label={"Navn"} text={gjelderNavn} />
+            <LabelText label={"Fagsystem id"} text={sokeData?.fagSystemId} />
+            <LabelText label={"Faggruppe"} text={sokeData?.fagGruppe?.type} />
+            <LabelText
+              label={"Fagområde"}
+              text={sokeData?.fagOmraade?.kodeFagomraade}
+            />
+            <LabelText
+              label={"Attestert status"}
+              text={getAttestertStatusText()}
+            />
           </div>
         </div>
-
-        {oppdragDtoList && <TreffTabell oppdragDtoList={oppdragDtoList} />}
       </div>
-    </>
+
+      {oppdragDtoList && <TreffTabell oppdragDtoList={oppdragDtoList} />}
+    </div>
   );
 }
