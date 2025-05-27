@@ -19,13 +19,6 @@
   padding-top: 2rem;
 }
 
-.sok__help-text {
-  position: absolute;
-  right: 1.25rem;
-  top: 1.25rem;
-  z-index: 5;
-}
-
 .sok__input-fields {
   display: flex;
   flex-direction: column;

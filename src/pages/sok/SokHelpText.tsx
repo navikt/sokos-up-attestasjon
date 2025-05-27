@@ -1,15 +1,14 @@
-import { HelpText, List } from "@navikt/ds-react";
-import styles from "./SokPage.module.css";
+import { Heading, HelpText, List } from "@navikt/ds-react";
+import styles from "./SokHelpText.module.css";
 
-export default function SokPageHelpText() {
+export default function SokHelpText() {
   return (
     <div className={styles["sok__help-text"]}>
       <HelpText title="Søkekriterier" placement="left" strategy="fixed">
-        <List
-          as="ul"
-          size="small"
-          title="Minimum ett av kriteriene må være utfylt"
-        >
+        <Heading as="h3" size="small">
+          Minimum ett av kriteriene må være utfylt
+        </Heading>
+        <List as="ul" size="small">
           <List.Item>Faggruppe og Ikke attestere</List.Item>
           <List.Item>Fagområde og Ikke attesterte</List.Item>
           <List.Item>Gjelder</List.Item>

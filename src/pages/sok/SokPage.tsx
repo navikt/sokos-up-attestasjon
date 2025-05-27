@@ -20,8 +20,8 @@ import GjelderIdTextField from "./GjelderIdTextField";
 import ResetButton from "./ResetButton";
 import SokButton from "./SokButton";
 import SokFormFeilmeldinger from "./SokFormFeilmeldinger";
+import SokHelpText from "./SokHelpText";
 import styles from "./SokPage.module.css";
-import SokPageHelpText from "./SokPageHelpText";
 import StatuserRadioButtons from "./StatuserRadioButtons";
 
 export default function SokPage() {
@@ -112,7 +112,7 @@ export default function SokPage() {
           </Heading>
         </div>
         <div className={styles["sok__box"]}>
-          <SokPageHelpText />
+          <SokHelpText />
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormProvider {...form}>
               <div className={styles["sok__form"]}>
