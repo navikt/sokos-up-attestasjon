@@ -5,7 +5,7 @@
 .button-row {
   display: flex;
   flex-direction: row-reverse;
-  min-width: 1400px;
+  min-width: var(--table-min-width);
   align-items: center;
   gap: 3rem;
   padding-right: 1rem;

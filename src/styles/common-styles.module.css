@@ -1,3 +1,7 @@
+:root {
+  --table-min-width: 1400px;
+}
+
 .page {
   display: flex;
   flex-direction: column;
@@ -50,7 +54,7 @@
 }
 
 .table {
-  min-width: 1400px;
+  min-width: var(--table-min-width);
   border-radius: 0.5rem;
   background-color: var(--a-white);
 }
@@ -59,6 +63,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  min-width: var(--table-min-width);
 }
 
 .table__pagination {
