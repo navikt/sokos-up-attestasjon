@@ -39,7 +39,7 @@
 
 .page__top-sokekriterier__content {
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   gap: 2.5rem;
   padding-top: 1.25rem;
 }
