@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import { Alert, Heading } from "@navikt/ds-react";
 import { hentOppdrag } from "../../api/apiService";
 import { useStore } from "../../store/AppState";
-import commonstyles from "../../styles/common-styles.module.css";
 import { ErrorMessage } from "../../types/ErrorMessage";
 import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
@@ -106,11 +105,9 @@ export default function SokPage() {
   return (
     <>
       <div className={styles["sok"]}>
-        <div className={commonstyles["page__heading"]}>
-          <Heading level="1" size="large" spacing>
-            Attestasjon: Søk
-          </Heading>
-        </div>
+        <Heading level="1" size="large" spacing align="center">
+          Attestasjon: Søk
+        </Heading>
         <div className={styles["sok__box"]}>
           <SokHelpText />
           <form onSubmit={handleSubmit(onSubmit)}>
