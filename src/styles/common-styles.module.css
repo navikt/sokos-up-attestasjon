@@ -14,8 +14,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-width: 1024px;
-  max-width: var(--table-min-width);
+  min-width: var(--table-min-width);
+  width: 100%;
   gap: 1.25rem;
   margin: 0 auto;
 }
@@ -35,6 +35,7 @@
   border-radius: 0.75rem;
   background-color: white;
   padding: 1.25rem;
+  box-sizing: border-box;
 }
 
 .page__top-sokekriterier__content {
@@ -62,6 +63,7 @@
 
 .table {
   min-width: var(--table-min-width);
+  width: 100%;
   border-radius: 0.5rem;
   background-color: var(--a-white);
 }
@@ -71,6 +73,7 @@
   flex-direction: row;
   justify-content: space-between;
   min-width: var(--table-min-width);
+  width: 100%;
 }
 
 .table__pagination {
