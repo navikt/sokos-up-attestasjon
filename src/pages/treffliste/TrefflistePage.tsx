@@ -48,11 +48,9 @@ export default function TrefflistePage() {
 
   return (
     <div className={commonstyles["page"]}>
-      <div className={commonstyles["page__heading"]}>
-        <Heading level="1" size="large" spacing>
-          Attestasjon: Treffliste
-        </Heading>
-      </div>
+      <Heading level="1" size="large" spacing align="center">
+        Attestasjon: Treffliste
+      </Heading>
       <div className={commonstyles["page__top"]}>
         <Breadcrumbs searchLink treffliste />
         <div className={commonstyles["page__top-sokekriterier"]}>
