@@ -1,5 +1,5 @@
 :root {
-  --page-min-width: 1440px;
+  --table-min-width: 1400px;
 }
 
 .page {
@@ -7,8 +7,8 @@
   flex-direction: column;
   gap: 1.25rem;
   margin: 0.75rem auto;
-  min-width: var(--page-min-width);
   max-width: 1600px;
+  width: 100%;
 }
 
 .page__top {
@@ -17,6 +17,7 @@
   justify-content: center;
   align-items: center;
   gap: 1.25rem;
+  width: 100%;
 }
 
 .page__top-sokekriterier {
@@ -53,6 +54,7 @@
 }
 
 .table {
+  min-width: var(--table-min-width);
   border-radius: 0.5rem;
   background-color: var(--a-white);
 }
@@ -61,6 +63,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  min-width: var(--table-min-width);
 }
 
 .table__pagination {

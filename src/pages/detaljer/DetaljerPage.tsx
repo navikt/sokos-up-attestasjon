@@ -122,7 +122,7 @@ export default function DetaljerPage() {
   return (
     <div className={commonstyles["page"]}>
       <div className={commonstyles["page__top"]}>
-        <Heading level="1" size="large" spacing align="center">
+        <Heading level="1" size="large" spacing>
           Attestasjon: Detaljer
         </Heading>
         <Breadcrumbs searchLink trefflistelink detaljer />
@@ -137,16 +137,16 @@ export default function DetaljerPage() {
             </div>
           </div>
         )}
-        {!!alertMessage && (
-          <AlertWithCloseButton
-            show={!!alertMessage}
-            setShow={() => setAlertMessage(null)}
-            variant={alertMessage.variant}
-          >
-            {alertMessage.message}
-          </AlertWithCloseButton>
-        )}{" "}
       </div>
+      {!!alertMessage && (
+        <AlertWithCloseButton
+          show={!!alertMessage}
+          setShow={() => setAlertMessage(null)}
+          variant={alertMessage.variant}
+        >
+          {alertMessage.message}
+        </AlertWithCloseButton>
+      )}{" "}
       {isLoading && <ContentLoader />}
       {linjerSomSkalVises && (
         <DetaljerTabell
