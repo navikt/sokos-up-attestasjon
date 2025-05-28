@@ -17,8 +17,7 @@
   min-width: 1024px;
   max-width: var(--table-min-width);
   gap: 1.25rem;
-  margin-left: 9rem;
-  margin-right: 9rem;
+  margin: 0 auto;
 }
 
 .page__breadcrumbs {
