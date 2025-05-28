@@ -18,6 +18,7 @@
   align-items: center;
   gap: 1.25rem;
   width: 100%;
+  min-width: 500px;
 }
 
 .page__top-sokekriterier {

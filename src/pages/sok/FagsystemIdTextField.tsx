@@ -17,7 +17,7 @@ export default function FagsystemIdTextField() {
         id="fagSystemId"
         label="Fagsystem id"
         {...register("fagSystemId")}
-        error={fagSystemId?.message?.toString()}
+        error={fagSystemId?.message && "Ugyldig format"}
       />
     </div>
   );

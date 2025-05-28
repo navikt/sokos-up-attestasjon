@@ -15,9 +15,12 @@ export default function SokFormFeilmeldinger() {
         <ErrorSummary
           heading={"Du må fikse disse feilene før du kan fortsette"}
         >
-          {filteredErrors.map((e) => (
-            <ErrorSummary.Item key={e}>
-              {(errors as { [key: string]: { message: string } })[e].message}
+          {filteredErrors.map((fieldName) => (
+            <ErrorSummary.Item key={fieldName} href={`#${fieldName}`}>
+              {
+                (errors as { [key: string]: { message: string } })[fieldName]
+                  .message
+              }
             </ErrorSummary.Item>
           ))}
         </ErrorSummary>

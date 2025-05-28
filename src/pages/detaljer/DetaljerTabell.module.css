@@ -8,7 +8,6 @@
   min-width: var(--table-min-width);
   align-items: center;
   gap: 3rem;
-  padding-right: 1rem;
 }
 
 .toggle {

@@ -16,7 +16,7 @@ export default function GjelderIdTextField() {
         error={
           errors.gjelderId?.message && (
             <span className={styles["sok__error--nowrap"]}>
-              {errors.gjelderId?.message?.toString()}
+              9 eller 11 siffer
             </span>
           )
         }
