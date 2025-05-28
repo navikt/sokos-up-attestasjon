@@ -11,13 +11,16 @@ export default function SokFormFeilmeldinger() {
 
   return (
     filteredErrors.length > 0 && (
-      <div className={styles["attestasjonsok-error-summary"]}>
+      <div className={styles["sok__error-summary"]}>
         <ErrorSummary
           heading={"Du må fikse disse feilene før du kan fortsette"}
         >
-          {filteredErrors.map((e) => (
-            <ErrorSummary.Item key={e}>
-              {(errors as { [key: string]: { message: string } })[e].message}
+          {filteredErrors.map((fieldName) => (
+            <ErrorSummary.Item key={fieldName} href={`#${fieldName}`}>
+              {
+                (errors as { [key: string]: { message: string } })[fieldName]
+                  .message
+              }
             </ErrorSummary.Item>
           ))}
         </ErrorSummary>

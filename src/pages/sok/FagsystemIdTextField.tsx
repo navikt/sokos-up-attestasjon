@@ -11,13 +11,13 @@ export default function FagsystemIdTextField() {
   } = useFormContext();
 
   return (
-    <div className={styles["attestasjonsok-fagsystem"]}>
+    <div className={styles["sok__fagsystem"]}>
       <TextField
         size={"small"}
         id="fagSystemId"
         label="Fagsystem id"
         {...register("fagSystemId")}
-        error={fagSystemId?.message?.toString()}
+        error={fagSystemId?.message && "Ugyldig format"}
       />
     </div>
   );

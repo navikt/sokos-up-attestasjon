@@ -20,8 +20,8 @@ const startMsw = async () => {
 startMsw().then(() =>
   ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <React.StrictMode>
-      <div className="page-wrapper">
-        <div className="page-layout">
+      <div className="page-container">
+        <div className="page-container__layout">
           <App />
         </div>
       </div>

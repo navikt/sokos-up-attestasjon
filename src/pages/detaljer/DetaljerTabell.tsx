@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
 import { Button, Checkbox, Table, TextField, Tooltip } from "@navikt/ds-react";
 import { useStore } from "../../store/AppState";
+import commonstyles from "../../styles/common-styles.module.css";
 import {
   Attestasjonlinje,
   AttestasjonlinjeList,
@@ -187,7 +188,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
 
   return (
     <>
-      <div className={styles["detaljertabell-knapperad"]}>
+      <div className={styles["button-row"]}>
         <Button
           type={"submit"}
           data-umami-event={DETALJER.OPPDATER_TRYKKET}
@@ -236,7 +237,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
             />
           )}
       </div>
-      <div className={styles.detaljertabell}>
+      <div className={commonstyles["table"]}>
         <Table id={"detaljertabell"}>
           <Table.Header>
             <Table.Row>
@@ -253,7 +254,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
               <Table.HeaderCell scope="col">Ugyldig f.o.m</Table.HeaderCell>
               <Table.HeaderCell scope="col">Aksjon</Table.HeaderCell>
               <Table.HeaderCell scope="col">
-                <div className={styles["detaljertabell-toggle-rows"]}>
+                <div className={styles["toggle"]}>
                   <Button
                     size={"small"}
                     data-umami-event={DETALJER.AAPNE_ALLE_RADER}
@@ -306,7 +307,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                 <Table.DataCell>{linje.attestant}</Table.DataCell>
                 <Table.DataCell>
                   {linje.attestant && (
-                    <div className={styles["detaljertabell-ugyldig-textfield"]}>
+                    <div className={styles["input--ugyldigfom"]}>
                       <TextField
                         size="small"
                         label="Ugyldig FOM"

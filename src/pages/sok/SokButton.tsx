@@ -10,7 +10,7 @@ export default function SokButton({ isLoading }: { isLoading: boolean }) {
       type="submit"
       size={"small"}
       loading={isLoading}
-      icon={<MagnifyingGlassIcon aria-hidden />}
+      icon={<MagnifyingGlassIcon title="Forstørrelsesglass ikon" />}
       iconPosition="right"
     >
       Søk

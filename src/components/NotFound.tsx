@@ -7,7 +7,7 @@ export default function NotFound() {
 
   return (
     <Box paddingBlock="20 16" data-aksel-template="404-v2">
-      <div className={styles["error-page"]}>
+      <div className={styles["not-found"]}>
         <Heading level="1" size="large" spacing>
           Beklager, vi fant ikke siden
         </Heading>
