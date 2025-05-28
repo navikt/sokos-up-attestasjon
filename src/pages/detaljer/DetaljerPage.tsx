@@ -121,10 +121,10 @@ export default function DetaljerPage() {
 
   return (
     <div className={commonstyles["page"]}>
-      <Heading level="1" size="large" spacing align="center">
-        Attestasjon: Detaljer
-      </Heading>
       <div className={commonstyles["page__top"]}>
+        <Heading level="1" size="large" spacing align="center">
+          Attestasjon: Detaljer
+        </Heading>
         <Breadcrumbs searchLink trefflistelink detaljer />
         {oppdragDto && (
           <div className={commonstyles["page__top-sokekriterier"]}>
