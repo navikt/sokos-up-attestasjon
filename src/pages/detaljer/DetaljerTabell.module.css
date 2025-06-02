@@ -1,30 +1,15 @@
-.detaljertabell {
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 1400px;
-  max-width: fit-content;
-  border-radius: 0.5rem;
-  background-color: white;
-  margin-bottom: 1rem;
-}
-
-.detaljertabell-ugyldig-textfield {
+.input--ugyldigfom {
   width: 8rem;
 }
 
-.detaljertabell-knapperad {
-  margin-left: auto;
-  margin-right: auto;
+.button-row {
   display: flex;
-  min-width: 1400px;
-  max-width: fit-content;
   flex-direction: row-reverse;
+  min-width: var(--table-min-width);
   align-items: center;
   gap: 3rem;
-  padding-bottom: 1rem;
-  padding-right: 1rem;
 }
 
-.detaljertabell-toggle-rows {
+.toggle {
   width: 8rem;
 }

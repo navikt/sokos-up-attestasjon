@@ -1,4 +1,4 @@
-import commonstyles from "../styles/common-styles.module.css";
+import styles from "./LabelText.module.css";
 
 interface LabelTextProps {
   label: string;
@@ -14,8 +14,8 @@ export default function LabelText({
   return (
     visible &&
     text && (
-      <div className={commonstyles.labeltext}>
-        <div className={commonstyles["labeltext-label"]}>{label}:</div>
+      <div className={styles["label"]}>
+        <div className={styles["label__text"]}>{label}:</div>
         <div>{text}</div>
       </div>
     )

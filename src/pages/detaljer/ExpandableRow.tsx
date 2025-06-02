@@ -4,7 +4,7 @@ import styles from "./ExpandableRow.module.css";
 
 export default function ExpandableRow({ data }: { data: Attestasjonlinje }) {
   return (
-    <div className={styles["expandable"]}>
+    <div className={styles["expandable-row"]}>
       <LabelText label="Kontonummer" text={data.kontonummer} />
       <LabelText label="Kid" text={data.kid} />
       <LabelText label="Skyldner" text={data.skyldner} />

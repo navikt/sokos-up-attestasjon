@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router";
 import { Pagination, Popover, SortState, Table } from "@navikt/ds-react";
 import RowsPerPageSelector from "../../components/RowsPerPageSelector";
@@ -74,8 +74,8 @@ export default function TreffTabell(props: TreffTabellProps) {
 
   return (
     <>
-      <div className={commonstyles["sortable-table-topinfo"]}>
-        <div className={commonstyles.nowrap}>
+      <div className={commonstyles["table__top-info"]}>
+        <div className={commonstyles["u-nowrap"]}>
           <p>
             {`${antall} treff`}
             {antall > rowsPerPage && `, ${page} av ${pagecount} sider`}
@@ -88,9 +88,8 @@ export default function TreffTabell(props: TreffTabellProps) {
         />
       </div>
 
-      <div className={commonstyles["sortable-table"]}>
+      <div className={commonstyles["table"]}>
         <Table
-          zebraStripes
           sort={sort}
           onSortChange={(sortKey) =>
             handleSort(sortKey as ScopedSortState["orderBy"])
@@ -163,7 +162,7 @@ export default function TreffTabell(props: TreffTabellProps) {
           placement="right"
         >
           <Popover.Content>
-            <div className={commonstyles["aksel-danger"]}>
+            <div className={commonstyles["status--danger"]}>
               Denne personen er skjermet. Du har ikke tilgang.
             </div>
           </Popover.Content>
@@ -171,7 +170,7 @@ export default function TreffTabell(props: TreffTabellProps) {
       </div>
 
       {pagecount > 1 && (
-        <div className={commonstyles["sortable-table-pagination"]}>
+        <div className={commonstyles["table__pagination"]}>
           <Pagination
             page={page}
             onPageChange={setPage}

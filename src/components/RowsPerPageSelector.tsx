@@ -11,14 +11,17 @@ interface RowsPerPageSelectorProps {
 export default function RowsPerPageSelector(props: RowsPerPageSelectorProps) {
   return (
     <>
-      <div className={styles.rowsperpageselector}>
+      <div className={styles["rows-per-page-selector"]}>
         <Dropdown>
           <Button
             size={"xsmall"}
             variant={"tertiary-neutral"}
             as={Dropdown.Toggle}
           >
-            <ChevronDownIcon title="a11y-title" fontSize="1.5rem" />
+            <ChevronDownIcon
+              title="Vis flere eller mindre treff"
+              fontSize="1.5rem"
+            />
           </Button>
           <Dropdown.Menu>
             <Dropdown.Menu.GroupedList>
@@ -37,7 +40,7 @@ export default function RowsPerPageSelector(props: RowsPerPageSelectorProps) {
             </Dropdown.Menu.GroupedList>
           </Dropdown.Menu>
         </Dropdown>
-        <div className={commonstyles.nowrap}>
+        <div className={commonstyles["u-nowrap"]}>
           <p>Vis {props.rowsPerPage} per side</p>
         </div>
       </div>

@@ -7,7 +7,7 @@ export default function StatuserRadioButtons() {
   const { register } = useFormContext();
 
   return (
-    <div className={styles["attestasjonsok-radiobutton"]}>
+    <div className={styles["sok__radio-group"]}>
       <RadioGroup
         legend="Status"
         name="alternativer"

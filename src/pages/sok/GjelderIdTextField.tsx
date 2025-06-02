@@ -9,14 +9,14 @@ export default function GjelderIdTextField() {
   } = useFormContext();
 
   return (
-    <div className={styles["attestasjonsok-gjelder"]}>
+    <div className={styles["sok__gjelder"]}>
       <TextField
         label="Gjelder"
         size={"small"}
         error={
           errors.gjelderId?.message && (
-            <span className={styles["attestasjonsok-error-message-nowrap"]}>
-              {errors.gjelderId?.message?.toString()}
+            <span className={styles["sok__error--nowrap"]}>
+              9 eller 11 siffer
             </span>
           )
         }

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router";
 import { Alert, Heading } from "@navikt/ds-react";
 import { hentOppdrag } from "../../api/apiService";
 import { useStore } from "../../store/AppState";
-import commonStyles from "../../styles/common-styles.module.css";
 import { ErrorMessage } from "../../types/ErrorMessage";
 import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
@@ -20,8 +19,8 @@ import GjelderIdTextField from "./GjelderIdTextField";
 import ResetButton from "./ResetButton";
 import SokButton from "./SokButton";
 import SokFormFeilmeldinger from "./SokFormFeilmeldinger";
+import SokHelpText from "./SokHelpText";
 import styles from "./SokPage.module.css";
-import SokPageHelpText from "./SokPageHelpText";
 import StatuserRadioButtons from "./StatuserRadioButtons";
 
 export default function SokPage() {
@@ -101,22 +100,20 @@ export default function SokPage() {
       });
   }
 
-  const Divider = () => <div className={styles["attestasjonsok-divider"]} />;
+  const Divider = () => <div className={styles["sok__divider"]} />;
 
   return (
     <>
-      <div className={commonStyles.pageheading}>
-        <Heading level="1" size="large" spacing>
+      <div className={styles["sok"]}>
+        <Heading level="1" size="large" spacing align="center">
           Attestasjon: Søk
         </Heading>
-      </div>
-      <div className={styles["attestasjonsok"]}>
-        <>
-          <SokPageHelpText />
+        <div className={styles["sok__box"]}>
+          <SokHelpText />
           <form onSubmit={handleSubmit(onSubmit)}>
             <FormProvider {...form}>
-              <div className={styles["attestasjonsok-form"]}>
-                <div className={styles["attestasjonsok-inputfields"]}>
+              <div className={styles["sok__form"]}>
+                <div className={styles["sok__input-fields"]}>
                   <GjelderIdTextField />
                   <FagsystemIdTextField />
                   <FaggruppeCombobox />
@@ -126,21 +123,21 @@ export default function SokPage() {
                 <StatuserRadioButtons />
               </div>
               <SokFormFeilmeldinger />
-              <div className={styles["attestasjonsok-button"]}>
+              <div className={styles["sok__buttons"]}>
                 <SokButton isLoading={isLoading} />
                 <ResetButton clearError={() => setError(null)} />
               </div>
             </FormProvider>
           </form>
-        </>
-      </div>
-      {error && (
-        <div className={styles["attestasjonsok-error"]}>
-          <Alert variant={error.variant} role="status">
-            {error.message}
-          </Alert>
         </div>
-      )}
+        {error && (
+          <div className={styles["sok__error"]}>
+            <Alert variant={error.variant} role="status">
+              {error.message}
+            </Alert>
+          </div>
+        )}
+      </div>
     </>
   );
 }
