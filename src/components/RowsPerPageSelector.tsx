@@ -18,7 +18,10 @@ export default function RowsPerPageSelector(props: RowsPerPageSelectorProps) {
             variant={"tertiary-neutral"}
             as={Dropdown.Toggle}
           >
-            <ChevronDownIcon title="a11y-title" fontSize="1.5rem" />
+            <ChevronDownIcon
+              title="Vis flere eller mindre treff"
+              fontSize="1.5rem"
+            />
           </Button>
           <Dropdown.Menu>
             <Dropdown.Menu.GroupedList>
