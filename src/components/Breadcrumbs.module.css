@@ -9,7 +9,7 @@
 }
 
 .breadcrumbs a {
-  color: var(--a-text-action-on-action-subtle);
+  color: var(--a-text-action);
 }
 
 .breadcrumbs__contents {
