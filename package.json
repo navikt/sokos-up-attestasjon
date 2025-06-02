@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@axe-core/playwright": "^4.10.1",
-    "@grafana/faro-web-sdk": "^1.18.1",
+    "@grafana/faro-web-sdk": "^1.18.2",
     "@hookform/resolvers": "^5.0.1",
     "@navikt/aksel-icons": "^7.21.1",
     "@navikt/ds-css": "^7.21.1",
@@ -51,7 +51,7 @@
     "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "lint-staged": "^16.0.0",
-    "msw": "2.7.6",
+    "msw": "2.8.7",
     "postcss": "^8.5.3",
     "prettier": "^3.5.3",
     "stylelint": "^16.19.1",
