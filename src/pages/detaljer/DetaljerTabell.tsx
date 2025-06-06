@@ -187,55 +187,64 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
   }
 
   return (
-    <>
+    <div className={commonstyles["table-container"]}>
       <div className={styles["button-row"]}>
-        <Button
-          type={"submit"}
-          data-umami-event={DETALJER.OPPDATER_TRYKKET}
-          data-umami-event-attester={getCheckedStatus("attester")}
-          data-umami-event-fjern={getCheckedStatus("fjern")}
-          size={"medium"}
-          loading={props.isLoading}
-          onClick={() => props.handleSubmit(attestasjonlinjer)}
-        >
-          Oppdater
-        </Button>
-        <Checkbox
-          checked={
-            fjernAntallAttestasjoner > 0 && getCheckedStatus("fjern") === "alle"
-          }
-          indeterminate={getCheckedStatus("fjern") === "noen"}
-          onChange={() => handleToggleAll("fjern")}
-          disabled={fjernAntallAttestasjoner === 0}
-        >
-          Avattester alle
-        </Checkbox>
-        <Checkbox
-          checked={
-            velgAntallAttestasjoner > 0 &&
-            getCheckedStatus("attester") === "alle"
-          }
-          indeterminate={getCheckedStatus("attester") === "noen"}
-          onChange={() => handleToggleAll("attester")}
-          disabled={velgAntallAttestasjoner === 0}
-        >
-          Attester alle
-        </Checkbox>
-        {sokeData?.alternativer !== AttestertStatus.ATTESTERT && (
-          <SumModal
-            tittel={"Sum per klassekode som attesteres"}
-            sum={calculateSum("attesteres")}
-          />
-        )}
-        {sokeData?.alternativer !==
-          AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE &&
-          sokeData?.alternativer !==
-            AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE && (
+        <div className={styles["button-row__left"]}>
+          {sokeData?.alternativer !== AttestertStatus.ATTESTERT && (
             <SumModal
-              tittel={"Sum per klassekode tidligere attestert"}
-              sum={calculateSum("tidligere")}
+              tittel={"Sum per klassekode som attesteres"}
+              sum={calculateSum("attesteres")}
             />
           )}
+          {sokeData?.alternativer !==
+            AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE &&
+            sokeData?.alternativer !==
+              AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE && (
+              <SumModal
+                tittel={"Sum per klassekode tidligere attestert"}
+                sum={calculateSum("tidligere")}
+              />
+            )}
+        </div>
+
+        <div className={styles["button-row__center"]}>
+          <Checkbox
+            checked={
+              fjernAntallAttestasjoner > 0 &&
+              getCheckedStatus("fjern") === "alle"
+            }
+            indeterminate={getCheckedStatus("fjern") === "noen"}
+            onChange={() => handleToggleAll("fjern")}
+            disabled={fjernAntallAttestasjoner === 0}
+          >
+            Avattester alle
+          </Checkbox>
+          <Checkbox
+            checked={
+              velgAntallAttestasjoner > 0 &&
+              getCheckedStatus("attester") === "alle"
+            }
+            indeterminate={getCheckedStatus("attester") === "noen"}
+            onChange={() => handleToggleAll("attester")}
+            disabled={velgAntallAttestasjoner === 0}
+          >
+            Attester alle
+          </Checkbox>
+        </div>
+
+        <div className={styles["button-row__right"]}>
+          <Button
+            type={"submit"}
+            data-umami-event={DETALJER.OPPDATER_TRYKKET}
+            data-umami-event-attester={getCheckedStatus("attester")}
+            data-umami-event-fjern={getCheckedStatus("fjern")}
+            size={"small"}
+            loading={props.isLoading}
+            onClick={() => props.handleSubmit(attestasjonlinjer)}
+          >
+            Oppdater
+          </Button>
+        </div>
       </div>
       <div className={commonstyles["table"]}>
         <Table id={"detaljertabell"}>
@@ -359,6 +368,6 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
           </Table.Body>
         </Table>
       </div>
-    </>
+    </div>
   );
 }

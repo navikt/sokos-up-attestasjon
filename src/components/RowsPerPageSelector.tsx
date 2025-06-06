@@ -1,17 +1,34 @@
 import { ChevronDownIcon } from "@navikt/aksel-icons";
 import { Button, Dropdown } from "@navikt/ds-react";
-import commonstyles from "../styles/common-styles.module.css";
 import styles from "./RowsPerPageSelector.module.css";
 
 interface RowsPerPageSelectorProps {
   rowsPerPage: number;
   updateRowsPerPage: (rows: number) => void;
+  totalCount: number;
+  currentPage?: number;
+  pageCount?: number;
 }
 
 export default function RowsPerPageSelector(props: RowsPerPageSelectorProps) {
+  const { totalCount, currentPage, pageCount, rowsPerPage } = props;
+
   return (
-    <>
-      <div className={styles["rows-per-page-selector"]}>
+    <div className={styles["rows-per-page-selector"]}>
+      <div className={styles["u-nowrap"]}>
+        <p>
+          {`${totalCount} treff`}
+          {totalCount > rowsPerPage &&
+            currentPage &&
+            pageCount &&
+            `, ${currentPage} av ${pageCount} sider`}
+        </p>
+      </div>
+
+      <div className={styles["dropdown-section"]}>
+        <div className={styles["u-nowrap"]}>
+          <p>Vis {rowsPerPage} per side</p>
+        </div>
         <Dropdown>
           <Button
             size={"xsmall"}
@@ -40,10 +57,7 @@ export default function RowsPerPageSelector(props: RowsPerPageSelectorProps) {
             </Dropdown.Menu.GroupedList>
           </Dropdown.Menu>
         </Dropdown>
-        <div className={commonstyles["u-nowrap"]}>
-          <p>Vis {props.rowsPerPage} per side</p>
-        </div>
       </div>
-    </>
+    </div>
   );
 }

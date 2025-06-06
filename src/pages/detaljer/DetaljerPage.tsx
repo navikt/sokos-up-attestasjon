@@ -128,6 +128,9 @@ export default function DetaljerPage() {
         <Breadcrumbs searchLink trefflistelink detaljer />
         {oppdragDto && (
           <div className={commonstyles["page__top-sokekriterier"]}>
+            <Heading size={"small"} level={"2"}>
+              Søkekriterier benyttet:
+            </Heading>
             <div className={commonstyles["page__top-sokekriterier__content"]}>
               <LabelText label="Gjelder" text={oppdragDto.oppdragGjelderId} />
               <LabelText label="Fagsystem id" text={oppdragDto.fagSystemId} />

@@ -4,10 +4,30 @@
 
 .button-row {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
+  justify-content: flex-end;
   min-width: var(--table-min-width);
   align-items: center;
   gap: 3rem;
+  margin-right: 2rem;
+}
+
+.button-row__left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.button-row__center {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.button-row__right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .toggle {

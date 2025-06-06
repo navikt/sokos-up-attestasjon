@@ -73,20 +73,14 @@ export default function TreffTabell(props: TreffTabellProps) {
   }
 
   return (
-    <>
-      <div className={commonstyles["table__top-info"]}>
-        <div className={commonstyles["u-nowrap"]}>
-          <p>
-            {`${antall} treff`}
-            {antall > rowsPerPage && `, ${page} av ${pagecount} sider`}
-          </p>
-        </div>
-
-        <RowsPerPageSelector
-          rowsPerPage={rowsPerPage}
-          updateRowsPerPage={updateRowsPerPage}
-        />
-      </div>
+    <div className={commonstyles["table-container"]}>
+      <RowsPerPageSelector
+        rowsPerPage={rowsPerPage}
+        updateRowsPerPage={updateRowsPerPage}
+        totalCount={antall}
+        currentPage={page}
+        pageCount={pagecount}
+      />
 
       <div className={commonstyles["table"]}>
         <Table
@@ -180,6 +174,6 @@ export default function TreffTabell(props: TreffTabellProps) {
           />
         </div>
       )}
-    </>
+    </div>
   );
 }
