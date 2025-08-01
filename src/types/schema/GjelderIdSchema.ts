@@ -1,14 +1,12 @@
-import { ZodEffects, ZodString, z } from "zod";
+import { z } from "zod";
 
-const ikkeblank: ZodString = z
-  .string()
-  .min(1, "Søkefeltet kan ikke være blankt");
+const ikkeblank = z.string().min(1, "Søkefeltet kan ikke være blankt");
 
-const baretallregel: ZodString = z
+const baretallregel = z
   .string()
   .regex(/^[0-9\s.]*$/, "Dette søkefeltet kan bare inneholde tall");
 
-const lengderegel: ZodEffects<ZodString, string, string> = z
+const lengderegel = z
   .string()
   .refine(
     (s) => [9, 11].includes(s.replace(/[\s.]/g, "").length),
