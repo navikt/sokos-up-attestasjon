@@ -40,7 +40,14 @@ export default defineConfig(({ mode }) => {
           },
         }),
         ...(mode === "mock" && {
+          // kan hende dette kan fjernes?
           "^/mockServiceWorker\\.js$": {
+            target: `http://localhost:${serverPort}`,
+            rewrite: () => "/attestasjon/mockServiceWorker.js",
+            changeOrigin: false,
+          },
+          // for å håndtere flere instanser på forskjellige porter
+          [`^/mockServiceWorker-${serverPort}\\.js$`]: {
             target: `http://localhost:${serverPort}`,
             rewrite: () => "/attestasjon/mockServiceWorker.js",
             changeOrigin: false,
