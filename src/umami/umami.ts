@@ -1,3 +1,5 @@
+import { SokeData } from "../types/SokeData";
+
 export const SOK = {
   VALIDATE: "søkeknapp trykket",
   SUBMIT: "søk utført",
@@ -23,4 +25,20 @@ export const DETALJER = {
 
 export function logUserEvent(name: string, data?: object): void {
   window?.umami?.track(name, data);
+}
+
+export function logSearchEvent(sokeData: SokeData) {
+  const isFnr =
+    !!sokeData?.gjelderId && /^(?!00)\d{11}$/.test(sokeData?.gjelderId);
+  const isOrgnr =
+    !!sokeData?.gjelderId && /^(00\d{9}|\d{9})$/.test(sokeData?.gjelderId);
+
+  logUserEvent(SOK.SUBMIT, {
+    fnr: isFnr,
+    orgnr: isOrgnr,
+    fagsystemid: !!sokeData?.fagSystemId,
+    faggruppe: sokeData?.fagGruppe?.type,
+    fagomraade: sokeData?.fagOmraade?.kodeFagomraade,
+    attestert: sokeData?.alternativer,
+  });
 }

@@ -10,7 +10,7 @@ import { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
-import { SOK, logUserEvent } from "../../umami/umami";
+import { logSearchEvent } from "../../umami/umami";
 import { isEmpty } from "../../util/commonUtils";
 import FaggruppeCombobox from "./FaggruppeCombobox";
 import FagomraadeCombobox from "./FagomraadeCombobox";
@@ -62,19 +62,7 @@ export default function SokPage() {
 
     const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
 
-    const isFnr =
-      !!sokeData?.gjelderId && /^(?!00)\d{11}$/.test(sokeData?.gjelderId);
-    const isOrgnr =
-      !!sokeData?.gjelderId && /^(00\d{9}|\d{9})$/.test(sokeData?.gjelderId);
-
-    logUserEvent(SOK.SUBMIT, {
-      fnr: isFnr,
-      orgnr: isOrgnr,
-      fagsystemid: !!sokeData?.fagSystemId,
-      faggruppe: sokeData?.fagGruppe?.type,
-      fagomraade: sokeData?.fagOmraade?.kodeFagomraade,
-      attestert: sokeData?.alternativer,
-    });
+    logSearchEvent(sokeData);
 
     hentOppdrag(sokeParameter)
       .then((response) => {
