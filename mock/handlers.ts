@@ -24,7 +24,16 @@ export const handlers = [
       return HttpResponse.json(
         {
           data: [],
-          errorMessage: "",
+          errorMessage: "Søket er for stort",
+        },
+        { status: 200 },
+      );
+    }
+
+    if (sokeParameter?.gjelderId === "33333333333") {
+      return HttpResponse.json(
+        {
+          data: [],
         },
         { status: 200 },
       );

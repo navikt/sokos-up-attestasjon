@@ -74,13 +74,7 @@ export async function hentOppdrag(request: SokeParameter) {
     BASE_URI.ATTESTASJON_API,
     "/sok",
     request,
-  ).then((response) => {
-    if (response.errorMessage) {
-      throw new Error(response.errorMessage);
-    }
-
-    return response.data;
-  });
+  );
 }
 
 export async function hentNavn(request: GjelderIdRequest) {

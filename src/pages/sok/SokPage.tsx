@@ -80,8 +80,17 @@ export default function SokPage() {
       .then((response) => {
         setIsLoading(false);
         setError(null);
-        if (!isEmpty(response)) {
-          setOppdragDtoList(response);
+
+        if (response.errorMessage) {
+          setError({
+            variant: "warning",
+            message: response.errorMessage,
+          });
+          return;
+        }
+
+        if (!isEmpty(response.data)) {
+          setOppdragDtoList(response.data);
           navigate("/treffliste", { replace: false });
         } else {
           setError({
