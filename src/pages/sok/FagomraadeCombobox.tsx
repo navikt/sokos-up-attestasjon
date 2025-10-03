@@ -16,6 +16,29 @@ export default function FagomraadeCombobox() {
     };
   }
 
+  function sortFagomraader(fagomraader: FagOmraade[]): FagOmraade[] {
+    const prioritized = ["MOSALLE", "MPENBAL", "MSRBAL"];
+
+    return [...fagomraader].sort((a, b) => {
+      const aIndex = prioritized.indexOf(a.kodeFagomraade);
+      const bIndex = prioritized.indexOf(b.kodeFagomraade);
+
+      if (aIndex !== -1 && bIndex !== -1) {
+        return aIndex - bIndex;
+      }
+
+      if (aIndex !== -1) {
+        return -1;
+      }
+
+      if (bIndex !== -1) {
+        return 1;
+      }
+
+      return a.kodeFagomraade.localeCompare(b.kodeFagomraade);
+    });
+  }
+
   const fagomraadetypeLabelMap = fagomraader
     ? fagomraader.reduce(
         (map, fagomraade) => {
@@ -48,7 +71,11 @@ export default function FagomraadeCombobox() {
           setValue("fagOmraade", undefined);
         }
       }}
-      options={fagomraader?.map(convertFagomraadeToComboboxValue) ?? []}
+      options={
+        fagomraader
+          ? sortFagomraader(fagomraader).map(convertFagomraadeToComboboxValue)
+          : []
+      }
       selectedOptions={[
         {
           label: field
