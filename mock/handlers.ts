@@ -3,7 +3,13 @@ import { HttpResponse, http } from "msw";
 import { fagGrupperList } from "./data/faggrupper";
 import { fagomraadeList } from "./data/fagomraader";
 import { oppdragsDetaljerDto } from "./data/oppdragsDetaljer";
+import {
+  oppdragsDetaljerAllAttested,
+  oppdragsDetaljerSingleLine,
+} from "./data/oppdragsDetaljerSingleLine";
 import { oppdragDtoList } from "./data/sokOppdrag";
+
+let singleLineAttested = false;
 
 export const handlers = [
   http.post("/oppdrag-api/api/v1/attestasjon/sok", async ({ request }) => {
@@ -30,10 +36,47 @@ export const handlers = [
       );
     }
 
+    // Test case: Single oppdrag with single line (for testing redirect after attestation)
+    if (sokeParameter?.gjelderId === "33333333333") {
+      if (singleLineAttested) {
+        console.log("Test: Returning empty result after attestation");
+        return HttpResponse.json(
+          {
+            data: [],
+            errorMessage: "",
+          },
+          { status: 200 },
+        );
+      }
+
+      return HttpResponse.json(
+        {
+          data: [
+            {
+              ansvarssted: "2340",
+              antAttestanter: 1,
+              navnFaggruppe: "Test Faggruppe",
+              navnFagomraade: "Test Fagområde",
+              fagSystemId: "TEST001",
+              oppdragGjelderId: "33333333333",
+              kodeFaggruppe: "TEST",
+              kodeFagomraade: "TEST1",
+              kostnadssted: "2360",
+              oppdragsId: 99999001,
+              erSkjermetForSaksbehandler: false,
+              hasWriteAccess: true,
+            },
+          ],
+          errorMessage: "",
+        },
+        { status: 200 },
+      );
+    }
+
     return HttpResponse.json(
       {
         data: oppdragDtoList,
-        errorMessage: "", // Include empty error message for success case
+        errorMessage: "",
       },
       { status: 200 },
     );
@@ -48,8 +91,14 @@ export const handlers = [
   http.post(
     "/oppdrag-api/api/v1/attestasjon/attestere",
     async ({ request }) => {
-      const sokeParameter = await request.json();
-      console.log("Attester parameter:", sokeParameter);
+      const attestRequest = (await request.json()) as { oppdragsId?: number };
+      console.log("Attester parameter:", attestRequest);
+
+      if (attestRequest.oppdragsId === 99999001) {
+        singleLineAttested = true;
+        console.log("Test: Single line marked as attested");
+      }
+
       return HttpResponse.json(
         {
           /* errorMessage: "Oppdatering feilet!" */ successMessage:
@@ -62,7 +111,23 @@ export const handlers = [
 
   http.get(
     "/oppdrag-api/api/v1/attestasjon/:oppdragsId/oppdragsdetaljer",
-    () => {
+    ({ params }) => {
+      const { oppdragsId } = params;
+
+      if (oppdragsId === "99999001") {
+        if (singleLineAttested) {
+          console.log("Test: Returning attested single line data");
+          return HttpResponse.json(oppdragsDetaljerAllAttested, {
+            status: 200,
+          });
+        }
+        return HttpResponse.json(oppdragsDetaljerSingleLine, { status: 200 });
+      }
+
+      if (oppdragsId === "99999002") {
+        return HttpResponse.json(oppdragsDetaljerAllAttested, { status: 200 });
+      }
+
       return HttpResponse.json(oppdragsDetaljerDto, { status: 200 });
     },
   ),
