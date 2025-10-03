@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { Heading } from "@navikt/ds-react";
+import { Alert, Heading } from "@navikt/ds-react";
 import { hentNavn } from "../../api/apiService";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import LabelText from "../../components/LabelText";
@@ -14,23 +14,22 @@ export default function TrefflistePage() {
   const { oppdragDtoList, sokeData, gjelderNavn, setGjelderNavn } = useStore();
   const navigate = useNavigate();
 
-  function getAttestertStatusText() {
-    if (
-      sokeData?.alternativer === AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE
-    ) {
-      return "Ikke ferdig attestert eksl. egne";
-    } else if (
-      sokeData?.alternativer === AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE
-    ) {
-      return "Ikke ferdig attestert inkl. egne";
-    } else if (sokeData?.alternativer === AttestertStatus.ATTESTERT) {
-      return "Attestert";
-    } else if (sokeData?.alternativer === AttestertStatus.ALLE) {
-      return "Alle";
-    } else {
-      return "Egne attesterte";
+  const getAttestertStatusText = () => {
+    switch (sokeData?.alternativer) {
+      case AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE:
+        return "Ikke ferdig attestert eksl. egne";
+      case AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE:
+        return "Ikke ferdig attestert inkl. egne";
+      case AttestertStatus.ATTESTERT:
+        return "Attestert";
+      case AttestertStatus.ALLE:
+        return "Alle";
+      case AttestertStatus.EGEN_ATTESTERTE:
+        return "Egne attesterte";
+      default:
+        return "";
     }
-  }
+  };
 
   useEffect(() => {
     if (!oppdragDtoList) {
@@ -39,12 +38,16 @@ export default function TrefflistePage() {
   }, [navigate, oppdragDtoList]);
 
   useEffect(() => {
-    if (sokeData?.gjelderId !== "" && !gjelderNavn) {
-      hentNavn({ gjelderId: sokeData?.gjelderId }).then((response) => {
+    if (sokeData?.gjelderId && !gjelderNavn) {
+      hentNavn({ gjelderId: sokeData.gjelderId }).then((response) => {
         setGjelderNavn(response.navn);
       });
     }
   }, [gjelderNavn, setGjelderNavn, sokeData]);
+
+  const hasNoResults = oppdragDtoList && oppdragDtoList.length === 0;
+
+  if (!oppdragDtoList) return null;
 
   return (
     <div className={commonstyles["page"]}>
@@ -54,27 +57,36 @@ export default function TrefflistePage() {
         </Heading>
         <Breadcrumbs searchLink treffliste />
         <div className={commonstyles["page__top-sokekriterier"]}>
-          <Heading size={"small"} level={"2"}>
+          <Heading size="small" level="2">
             Søkekriterier benyttet:
           </Heading>
           <div className={commonstyles["page__top-sokekriterier__content"]}>
-            <LabelText label={"Gjelder"} text={sokeData?.gjelderId} />
-            <LabelText label={"Navn"} text={gjelderNavn} />
-            <LabelText label={"Fagsystem id"} text={sokeData?.fagSystemId} />
-            <LabelText label={"Faggruppe"} text={sokeData?.fagGruppe?.type} />
+            <LabelText label="Gjelder" text={sokeData?.gjelderId} />
+            <LabelText label="Navn" text={gjelderNavn} />
+            <LabelText label="Fagsystem id" text={sokeData?.fagSystemId} />
+            <LabelText label="Faggruppe" text={sokeData?.fagGruppe?.type} />
             <LabelText
-              label={"Fagområde"}
+              label="Fagområde"
               text={sokeData?.fagOmraade?.kodeFagomraade}
             />
             <LabelText
-              label={"Attestert status"}
+              label="Attestert status"
               text={getAttestertStatusText()}
             />
           </div>
         </div>
       </div>
 
-      {oppdragDtoList && <TreffTabell oppdragDtoList={oppdragDtoList} />}
+      {hasNoResults ? (
+        <Alert variant="info">
+          <Heading spacing size="small" level="3">
+            Alle attestasjoner for dette søket er ferdig behandlet
+          </Heading>
+          Du kan gjøre et nytt søk eller endre søkekriteriene.
+        </Alert>
+      ) : (
+        <TreffTabell oppdragDtoList={oppdragDtoList} />
+      )}
     </div>
   );
 }
