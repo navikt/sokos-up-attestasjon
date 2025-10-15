@@ -4,6 +4,7 @@ import {
 } from "../../types/Attestasjonlinje";
 import { OppdragsDetaljerDTO } from "../../types/OppdragsDetaljerDTO";
 import { OppdragsLinjeDTO } from "../../types/OppdragsLinjeDTO";
+import { AttestertStatus } from "../../types/schema/AttestertStatus";
 
 function splittOgLeggTilEkstraLinjeForManuellePosteringer(
   oppdragslinjeDto: OppdragsLinjeDTO,
@@ -78,3 +79,20 @@ export function tranformToAttestasjonlinje(
       })),
     );
 }
+
+export const filterLinjerByAttestertStatus = (
+  linje: OppdragsLinjeDTO,
+  status?: string,
+): boolean => {
+  if (!status) return true;
+
+  switch (status) {
+    case AttestertStatus.ATTESTERT:
+      return linje.oppdragsLinje.attestert;
+    case AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE:
+    case AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE:
+      return !linje.oppdragsLinje.attestert;
+    default:
+      return true;
+  }
+};

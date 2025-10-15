@@ -14,46 +14,26 @@ import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
-import { OppdragsDetaljerDTO } from "../../types/OppdragsDetaljerDTO";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
-import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { ROOT } from "../../util/routenames";
 import DetaljerTabell from "./DetaljerTabell";
+import { filterLinjerByAttestertStatus } from "./detaljerUtils";
+
+type AlertVariant = "success" | "error" | "warning";
 
 export default function DetaljerPage() {
   const navigate = useNavigate();
   const { oppdragDto, sokeData, setOppdragDtoList } = useStore();
 
-  const antallAttestanter = oppdragDto?.antAttestanter ?? 1;
   const [alertMessage, setAlertMessage] = useState<{
     message: string;
-    variant: "success" | "error" | "warning";
+    variant: AlertVariant;
   } | null>(null);
-  const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
+  const [isZosLoading, setIsZosLoading] = useState(false);
 
   const { data, isLoading, mutate } = useFetchOppdragsdetaljer(
     oppdragDto?.oppdragsId,
   );
-
-  const linjerSomSkalVises: OppdragsDetaljerDTO | undefined = {
-    ...data,
-    saksbehandlerIdent: data?.saksbehandlerIdent ?? "",
-    oppdragsLinjeList:
-      data?.oppdragsLinjeList.filter((linje) => {
-        if (sokeData && sokeData.alternativer === AttestertStatus.ATTESTERT) {
-          return linje.oppdragsLinje.attestert;
-        } else if (
-          sokeData &&
-          [
-            AttestertStatus.IKKE_FERDIG_ATTESTERT_EKSL_EGNE,
-            AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
-          ].includes(sokeData.alternativer)
-        ) {
-          return !linje.oppdragsLinje.attestert;
-        } // Hvis man har valgt EGNE_ATTESTERTE eller ALLE skal alle rader vises
-        else return true;
-      }) ?? [],
-  };
 
   useEffect(() => {
     if (!oppdragDto) {
@@ -61,63 +41,78 @@ export default function DetaljerPage() {
     }
   }, [navigate, oppdragDto]);
 
-  async function handleSubmit(attestasjonlinjer: AttestasjonlinjeList) {
-    if (
-      attestasjonlinjer.filter(
-        (attestasjonlinje) => !!attestasjonlinje.properties.dateError,
-      ).length > 0
-    ) {
-      setAlertMessage({
-        message: "Du må rette feil i datoformat før du kan oppdatere",
-        variant: "error",
-      });
-      return;
+  const filteredLines = data?.oppdragsLinjeList.filter((linje) =>
+    filterLinjerByAttestertStatus(linje, sokeData?.alternativer),
+  );
+
+  useEffect(() => {
+    if (!isLoading && data && filteredLines?.length === 0) {
+      navigate("/treffliste", { replace: true });
+    }
+  }, [isLoading, data, filteredLines?.length, navigate]);
+
+  const validateAttestasjonlinjer = (
+    attestasjonlinjer: AttestasjonlinjeList,
+  ): string | null => {
+    if (attestasjonlinjer.some((linje) => !!linje.properties.dateError)) {
+      return "Du må rette feil i datoformat før du kan oppdatere";
     }
 
     if (
-      attestasjonlinjer.filter(
+      !attestasjonlinjer.some(
         (linje) => linje.properties.fjern || linje.properties.attester,
-      ).length === 0
+      )
     ) {
-      setAlertMessage({
-        message: "Du må velge minst en linje før du kan oppdatere",
-        variant: "error",
-      });
+      return "Du må velge minst en linje før du kan oppdatere";
+    }
+
+    return null;
+  };
+
+  const handleSubmit = async (attestasjonlinjer: AttestasjonlinjeList) => {
+    const validationError = validateAttestasjonlinjer(attestasjonlinjer);
+    if (validationError) {
+      setAlertMessage({ message: validationError, variant: "error" });
       return;
     }
+
+    if (!oppdragDto) return;
 
     const request = attesterOppdragRequest(
-      oppdragDto?.fagSystemId ?? "",
-      oppdragDto?.kodeFagomraade ?? "",
-      oppdragDto?.oppdragGjelderId ?? "",
-      oppdragDto?.oppdragsId ?? 0,
+      oppdragDto.fagSystemId,
+      oppdragDto.kodeFagomraade,
+      oppdragDto.oppdragGjelderId,
+      oppdragDto.oppdragsId,
       attestasjonlinjer,
     );
 
     setIsZosLoading(true);
 
     try {
-      await oppdaterAttestasjon(request)
-        .then((response) => {
-          setAlertMessage({
-            message: response.successMessage || "",
-            variant: "success",
-          });
+      const response = await oppdaterAttestasjon(request);
+      setAlertMessage({
+        message: response.successMessage || "",
+        variant: "success",
+      });
 
-          mutate();
-        })
-        .catch((error) => {
-          setAlertMessage({ message: error.message, variant: "error" });
-        });
+      await mutate();
 
-      const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
-      await hentOppdrag(sokeParameter).then((res) => setOppdragDtoList(res));
-    } finally {
-      if (!isLoading) {
-        setIsZosLoading(false);
+      if (sokeData) {
+        const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
+        const oppdragList = await hentOppdrag(sokeParameter);
+        setOppdragDtoList(oppdragList);
       }
+    } catch (error) {
+      setAlertMessage({
+        message: error instanceof Error ? error.message : "En feil oppstod",
+        variant: "error",
+      });
+    } finally {
+      setIsZosLoading(false);
     }
-  }
+  };
+
+  if (!oppdragDto) return null;
 
   return (
     <div className={commonstyles["page"]}>
@@ -126,37 +121,42 @@ export default function DetaljerPage() {
           Attestasjon: Detaljer
         </Heading>
         <Breadcrumbs searchLink trefflistelink detaljer />
-        {oppdragDto && (
-          <div className={commonstyles["page__top-sokekriterier"]}>
-            <Heading size={"small"} level={"2"}>
-              Søkekriterier benyttet:
-            </Heading>
-            <div className={commonstyles["page__top-sokekriterier__content"]}>
-              <LabelText label="Gjelder" text={oppdragDto.oppdragGjelderId} />
-              <LabelText label="Fagsystem id" text={oppdragDto.fagSystemId} />
-              <LabelText label="Ansvarssted" text={oppdragDto.ansvarssted} />
-              <LabelText label="Kostnadssted" text={oppdragDto.kostnadssted} />
-              <LabelText label="Fagområde" text={oppdragDto.navnFagomraade} />
-            </div>
+
+        <div className={commonstyles["page__top-sokekriterier"]}>
+          <Heading size="small" level="2">
+            Søkekriterier benyttet:
+          </Heading>
+          <div className={commonstyles["page__top-sokekriterier__content"]}>
+            <LabelText label="Gjelder" text={oppdragDto.oppdragGjelderId} />
+            <LabelText label="Fagsystem id" text={oppdragDto.fagSystemId} />
+            <LabelText label="Ansvarssted" text={oppdragDto.ansvarssted} />
+            <LabelText label="Kostnadssted" text={oppdragDto.kostnadssted} />
+            <LabelText label="Fagområde" text={oppdragDto.navnFagomraade} />
           </div>
-        )}
+        </div>
       </div>
-      {!!alertMessage && (
+
+      {alertMessage && (
         <AlertWithCloseButton
-          show={!!alertMessage}
+          show={true}
           setShow={() => setAlertMessage(null)}
           variant={alertMessage.variant}
         >
           {alertMessage.message}
         </AlertWithCloseButton>
-      )}{" "}
+      )}
+
       {isLoading && <ContentLoader />}
-      {linjerSomSkalVises && (
+
+      {data && filteredLines && (
         <DetaljerTabell
-          antallAttestanter={antallAttestanter}
+          antallAttestanter={oppdragDto.antAttestanter ?? 1}
           handleSubmit={handleSubmit}
           isLoading={isLoading || isZosLoading}
-          oppdragsDetaljer={linjerSomSkalVises}
+          oppdragsDetaljer={{
+            ...data,
+            oppdragsLinjeList: filteredLines,
+          }}
         />
       )}
     </div>
