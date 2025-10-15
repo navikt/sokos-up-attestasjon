@@ -164,7 +164,12 @@ export default function DetaljerPage() {
       )}
       {linjerSomSkalVises &&
         linjerSomSkalVises.oppdragsLinjeList.length === 0 &&
-        !isLoading && <EmptyList />}
+        !isLoading && (
+          <EmptyList
+            buttonText="Gå tilbake til Treffliste"
+            navigateTo="/treffliste"
+          />
+        )}
     </div>
   );
 }
