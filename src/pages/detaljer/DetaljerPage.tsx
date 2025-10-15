@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Heading } from "@navikt/ds-react";
+import { Heading, Loader } from "@navikt/ds-react";
 import {
   attesterOppdragRequest,
   hentOppdrag,
@@ -9,7 +9,7 @@ import {
 } from "../../api/apiService";
 import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import ContentLoader from "../../components/ContentLoader";
+import EmptyList from "../../components/EmptyList";
 import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
@@ -141,6 +141,9 @@ export default function DetaljerPage() {
           </div>
         )}
       </div>
+      {isLoading && (
+        <Loader size="2xlarge" title="Laster ..." variant="interaction" />
+      )}
       {!!alertMessage && (
         <AlertWithCloseButton
           show={!!alertMessage}
@@ -149,16 +152,19 @@ export default function DetaljerPage() {
         >
           {alertMessage.message}
         </AlertWithCloseButton>
-      )}{" "}
-      {isLoading && <ContentLoader />}
+      )}
       {linjerSomSkalVises && (
         <DetaljerTabell
           antallAttestanter={antallAttestanter}
           handleSubmit={handleSubmit}
           isLoading={isLoading || isZosLoading}
           oppdragsDetaljer={linjerSomSkalVises}
+          disable={linjerSomSkalVises.oppdragsLinjeList.length === 0}
         />
       )}
+      {linjerSomSkalVises &&
+        linjerSomSkalVises.oppdragsLinjeList.length === 0 &&
+        !isLoading && <EmptyList />}
     </div>
   );
 }
