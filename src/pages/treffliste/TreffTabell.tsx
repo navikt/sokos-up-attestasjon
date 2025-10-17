@@ -18,7 +18,8 @@ export default function TreffTabell(props: TreffTabellProps) {
 
   const { setOppdragDto } = useStore();
   const [isSkjermet, setIsSkjermet] = useState(false);
-  const [skjermingRow, setSkjermingRow] = useState<number | null>(null);
+  const [skjermingAnchor, setSkjermingAnchor] =
+    useState<HTMLAnchorElement | null>(null);
   const skjermingRowRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const [sort, setSort] = useState<ScopedSortState | undefined>();
   const [page, setPage] = useState(1);
@@ -125,7 +126,7 @@ export default function TreffTabell(props: TreffTabellProps) {
                     replace
                     onClick={() => {
                       if (oppdrag.erSkjermetForSaksbehandler) {
-                        setSkjermingRow(row);
+                        setSkjermingAnchor(skjermingRowRefs.current[row]);
                         setIsSkjermet(!isSkjermet);
                       } else {
                         setOppdragDto(oppdrag);
@@ -147,11 +148,7 @@ export default function TreffTabell(props: TreffTabellProps) {
         <Popover
           open={isSkjermet}
           onClose={() => setIsSkjermet(false)}
-          anchorEl={
-            skjermingRow !== null
-              ? skjermingRowRefs.current[skjermingRow]
-              : null
-          }
+          anchorEl={skjermingAnchor}
           flip={false}
           placement="right"
         >
