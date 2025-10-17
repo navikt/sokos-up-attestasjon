@@ -3,6 +3,7 @@ import { HttpResponse, http } from "msw";
 import { fagGrupperList } from "./data/faggrupper";
 import { fagomraadeList } from "./data/fagomraader";
 import { oppdragsDetaljerDto } from "./data/oppdragsDetaljer";
+import { oppdragsDetaljerDtoEmpty } from "./data/oppdragsDetaljerEmpty";
 import { oppdragDtoList } from "./data/sokOppdrag";
 
 export const handlers = [
@@ -30,10 +31,22 @@ export const handlers = [
       );
     }
 
+    if (sokeParameter?.gjelderId === "99999999999") {
+      return HttpResponse.json(
+        {
+          data: [
+            oppdragDtoList.find((oppdrag) => oppdrag.oppdragsId === 999999999),
+          ].filter(Boolean),
+          errorMessage: "",
+        },
+        { status: 200 },
+      );
+    }
+
     return HttpResponse.json(
       {
         data: oppdragDtoList,
-        errorMessage: "", // Include empty error message for success case
+        errorMessage: "",
       },
       { status: 200 },
     );
@@ -52,8 +65,7 @@ export const handlers = [
       console.log("Attester parameter:", sokeParameter);
       return HttpResponse.json(
         {
-          /* errorMessage: "Oppdatering feilet!" */ successMessage:
-            "Oppdatering vellykket!",
+          successMessage: "Oppdatering vellykket!",
         },
         { status: 200 },
       );
@@ -62,7 +74,13 @@ export const handlers = [
 
   http.get(
     "/oppdrag-api/api/v1/attestasjon/:oppdragsId/oppdragsdetaljer",
-    () => {
+    ({ params }) => {
+      const oppdragsId = params.oppdragsId as string;
+
+      if (oppdragsId === "999999999") {
+        return HttpResponse.json(oppdragsDetaljerDtoEmpty, { status: 200 });
+      }
+
       return HttpResponse.json(oppdragsDetaljerDto, { status: 200 });
     },
   ),

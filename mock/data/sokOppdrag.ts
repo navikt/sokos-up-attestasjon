@@ -220,4 +220,18 @@ export const oppdragDtoList: OppdragDTOList = [
     erSkjermetForSaksbehandler: false,
     hasWriteAccess: true,
   },
+  {
+    ansvarssted: "8020",
+    antAttestanter: 1,
+    navnFaggruppe: "Test Empty",
+    navnFagomraade: "Empty State Testing",
+    fagSystemId: "TEST999999999",
+    oppdragGjelderId: "99999999999",
+    kodeFaggruppe: "TEST",
+    kodeFagomraade: "EMPTY",
+    kostnadssted: "8020",
+    oppdragsId: 999999999,
+    erSkjermetForSaksbehandler: false,
+    hasWriteAccess: true,
+  },
 ];

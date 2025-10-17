@@ -4,6 +4,7 @@ import { Heading } from "@navikt/ds-react";
 import { hentNavn } from "../../api/apiService";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import LabelText from "../../components/LabelText";
+import NoRecordsFound from "../../components/NoRecordsFound";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
@@ -75,6 +76,9 @@ export default function TrefflistePage() {
       </div>
 
       {oppdragDtoList && <TreffTabell oppdragDtoList={oppdragDtoList} />}
+      {oppdragDtoList && oppdragDtoList.length === 0 && (
+        <NoRecordsFound buttonText="Gå tilbake til søk" navigateTo="/" />
+      )}
     </div>
   );
 }

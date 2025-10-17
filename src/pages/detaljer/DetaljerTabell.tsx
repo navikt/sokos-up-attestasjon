@@ -27,6 +27,7 @@ type DetaljerTabellProps = {
   oppdragsDetaljer: OppdragsDetaljerDTO;
   handleSubmit: (linjer: AttestasjonlinjeList) => void;
   isLoading: boolean;
+  disable: boolean;
 };
 
 type Linjetype = "fjern" | "attester";
@@ -235,6 +236,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
         <div className={styles["button-row__right"]}>
           <Button
             type={"submit"}
+            disabled={props.disable}
             data-umami-event={DETALJER.OPPDATER_TRYKKET}
             data-umami-event-attester={getCheckedStatus("attester")}
             data-umami-event-fjern={getCheckedStatus("fjern")}
@@ -266,6 +268,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                 <div className={styles["toggle"]}>
                   <Button
                     size={"small"}
+                    disabled={props.disable}
                     data-umami-event={DETALJER.AAPNE_ALLE_RADER}
                     icon={
                       toggleAllRows ? (
