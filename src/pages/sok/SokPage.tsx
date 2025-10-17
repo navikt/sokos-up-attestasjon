@@ -23,6 +23,8 @@ import SokHelpText from "./SokHelpText";
 import styles from "./SokPage.module.css";
 import StatuserRadioButtons from "./StatuserRadioButtons";
 
+const Divider = () => <div className={styles["sok__divider"]} />;
+
 export default function SokPage() {
   const navigate = useNavigate();
   const [error, setError] = useState<ErrorMessage | null>(null);
@@ -87,8 +89,6 @@ export default function SokPage() {
         setIsLoading(false);
       });
   }
-
-  const Divider = () => <div className={styles["sok__divider"]} />;
 
   return (
     <>
