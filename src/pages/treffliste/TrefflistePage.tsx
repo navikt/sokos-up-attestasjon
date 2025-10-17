@@ -3,7 +3,7 @@ import { useNavigate } from "react-router";
 import { Heading } from "@navikt/ds-react";
 import { hentNavn } from "../../api/apiService";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import EmptyList from "../../components/EmptyList";
+import NoRecordsFound from "../../components/EmptyList";
 import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
@@ -77,7 +77,7 @@ export default function TrefflistePage() {
 
       {oppdragDtoList && <TreffTabell oppdragDtoList={oppdragDtoList} />}
       {oppdragDtoList && oppdragDtoList.length === 0 && (
-        <EmptyList buttonText="Gå tilbake til søk" navigateTo="/" />
+        <NoRecordsFound buttonText="Gå tilbake til søk" navigateTo="/" />
       )}
     </div>
   );

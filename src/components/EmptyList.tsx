@@ -7,7 +7,7 @@ type EmptyListProps = {
   navigateTo?: string;
 };
 
-export default function EmptyList({
+export default function NoRecordsFound({
   buttonText = "Gå tilbake til søk",
   navigateTo = "/",
 }: EmptyListProps) {

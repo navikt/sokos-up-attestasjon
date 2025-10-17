@@ -9,7 +9,7 @@ import {
 } from "../../api/apiService";
 import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import EmptyList from "../../components/EmptyList";
+import NoRecordsFound from "../../components/EmptyList";
 import LabelText from "../../components/LabelText";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
@@ -165,7 +165,7 @@ export default function DetaljerPage() {
       {linjerSomSkalVises &&
         linjerSomSkalVises.oppdragsLinjeList.length === 0 &&
         !isLoading && (
-          <EmptyList
+          <NoRecordsFound
             buttonText="Gå tilbake til Treffliste"
             navigateTo="/treffliste"
           />
