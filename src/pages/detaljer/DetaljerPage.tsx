@@ -9,8 +9,8 @@ import {
 } from "../../api/apiService";
 import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import NoRecordsFound from "../../components/EmptyList";
 import LabelText from "../../components/LabelText";
+import NoRecordsFound from "../../components/NoRecordsFound";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestasjonlinjeList } from "../../types/Attestasjonlinje";

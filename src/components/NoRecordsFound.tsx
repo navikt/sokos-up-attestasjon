@@ -2,7 +2,7 @@ import { useNavigate } from "react-router";
 import { Button, Heading } from "@navikt/ds-react";
 import styles from "./EmptyList.module.css";
 
-type EmptyListProps = {
+type NoRecordsFoundProps = {
   buttonText?: string;
   navigateTo?: string;
 };
@@ -10,7 +10,7 @@ type EmptyListProps = {
 export default function NoRecordsFound({
   buttonText = "Gå tilbake til søk",
   navigateTo = "/",
-}: EmptyListProps) {
+}: NoRecordsFoundProps) {
   const navigate = useNavigate();
 
   const handleClick = () => {
