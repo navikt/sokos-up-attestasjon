@@ -8,7 +8,7 @@ type NoRecordsFoundProps = {
 };
 
 export default function NoRecordsFound({
-  buttonText = "Gå tilbake til søk",
+  buttonText,
   navigateTo = "/",
 }: NoRecordsFoundProps) {
   const navigate = useNavigate();
@@ -22,7 +22,13 @@ export default function NoRecordsFound({
       <Heading size="medium" spacing align="center">
         Listen er tom. Alle radene er behandlet.
       </Heading>
-      <Button size="small" className={styles.button} onClick={handleClick}>
+      <Button
+        size="small"
+        // eslint-disable-next-line jsx-a11y/no-autofocus
+        autoFocus
+        className={styles.button}
+        onClick={handleClick}
+      >
         {buttonText}
       </Button>
     </div>

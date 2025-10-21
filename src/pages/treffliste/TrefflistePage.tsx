@@ -77,7 +77,7 @@ export default function TrefflistePage() {
 
       {oppdragDtoList && <TreffTabell oppdragDtoList={oppdragDtoList} />}
       {oppdragDtoList && oppdragDtoList.length === 0 && (
-        <NoRecordsFound buttonText="Gå tilbake til søk" navigateTo="/" />
+        <NoRecordsFound buttonText="Gå tilbake til Søk" navigateTo="/" />
       )}
     </div>
   );
