@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { Heading } from "@navikt/ds-react";
+import { Button, HStack, Heading, TextField } from "@navikt/ds-react";
 import { hentNavn } from "../../api/apiService";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import LabelText from "../../components/LabelText";
 import NoRecordsFound from "../../components/NoRecordsFound";
 import { useStore } from "../../store/AppState";
+import { selectedId } from "../../store/shared";
 import commonstyles from "../../styles/common-styles.module.css";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { ROOT } from "../../util/routenames";
@@ -14,6 +15,7 @@ import TreffTabell from "./TreffTabell";
 export default function TrefflistePage() {
   const { oppdragDtoList, sokeData, gjelderNavn, setGjelderNavn } = useStore();
   const navigate = useNavigate();
+  const [testId, setTestId] = useState("");
 
   function getAttestertStatusText() {
     if (
@@ -47,6 +49,17 @@ export default function TrefflistePage() {
     }
   }, [gjelderNavn, setGjelderNavn, sokeData]);
 
+  const navigateToOppdragsinfo = (oppdragsId: string) => {
+    selectedId.set(oppdragsId);
+    window.location.href = "/oppdragsinfo";
+  };
+
+  const handleManualNavigation = () => {
+    if (testId.trim()) {
+      navigateToOppdragsinfo(testId.trim());
+    }
+  };
+
   return (
     <div className={commonstyles["page"]}>
       <div className={commonstyles["page__top"]}>
@@ -54,6 +67,17 @@ export default function TrefflistePage() {
           Attestasjon: Treffliste
         </Heading>
         <Breadcrumbs searchLink treffliste />
+        <HStack gap="4" align="end">
+          <TextField
+            label="Gå til Oppdragsinfo"
+            value={testId}
+            onChange={(e) => setTestId(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleManualNavigation()}
+          />
+          <Button onClick={handleManualNavigation} disabled={!testId.trim()}>
+            Naviger
+          </Button>
+        </HStack>
         <div className={commonstyles["page__top-sokekriterier"]}>
           <Heading size={"small"} level={"2"}>
             Søkekriterier benyttet:
