@@ -19,9 +19,7 @@ updates:
           - "minor"
           - "patch"
     cooldown:
-      semver-patch-days: 1
-      semver-minor-days: 3
-      semver-major-days: 7
+      default-days: 7
 
   - package-ecosystem: "npm"
     directory: "/server"
@@ -36,6 +34,4 @@ updates:
           - "minor"
           - "patch"
     cooldown:
-      semver-patch-days: 1
-      semver-minor-days: 3
-      semver-major-days: 7
+      default-days: 7
