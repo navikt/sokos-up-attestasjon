@@ -9,10 +9,7 @@ updates:
     directory: "/"
     registries: "*"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "08:00"
-      timezone: "Europe/Oslo"
+      interval: "daily"
     groups:
       all-minor-updates:
         update-types:
@@ -24,10 +21,7 @@ updates:
   - package-ecosystem: "npm"
     directory: "/server"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "08:00"
-      timezone: "Europe/Oslo"
+      interval: "daily"
     groups:
       all-minor-updates:
         update-types:
