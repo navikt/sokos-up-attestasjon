@@ -15,6 +15,7 @@ on:
       - ".github/workflows/dependabot-automerge.yaml"
       - ".github/workflows/manual-deploy.yaml"
       - ".github/workflows/playwright.yaml"
+      - ".github/workflows/vitest.yaml"
       - ".github/dependabot.yaml"
 
   repository_dispatch:

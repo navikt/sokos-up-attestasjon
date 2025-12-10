@@ -1,4 +1,4 @@
-name: Build & test PR
+name: Unit tests
 
 on:
   pull_request:
@@ -13,13 +13,12 @@ on:
       - ".github/workflows/deploy.yaml"
       - ".github/workflows/manual-deploy.yaml"
       - ".github/workflows/playwright.yaml"
-      - ".github/workflows/vitest.yaml"
       - ".github/dependabot.yaml"
 
 jobs:
-  build-test-pr:
+  vitest:
     permissions:
       contents: read
-    name: Build & test application
-    uses: navikt/mob-gha-workflows/.github/workflows/node-build-pr.yaml@main
+    name: Run unit tests
+    uses: navikt/mob-gha-workflows/.github/workflows/vitest.yaml@main
     secrets: inherit

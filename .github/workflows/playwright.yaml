@@ -14,6 +14,7 @@ on:
       - ".github/workflows/dependabot-automerge.yaml"
       - ".github/workflows/deploy.yaml"
       - ".github/workflows/manual-deploy.yaml"
+      - ".github/workflows/vitest.yaml"
       - ".github/dependabot.yaml"
 
   pull_request:
