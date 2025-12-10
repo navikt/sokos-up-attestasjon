@@ -8,8 +8,8 @@
     "dev:backend": "vite --mode backend",
     "dev:backend-q1": "vite --mode backend-q1",
     "build": "tsc && vite build",
-    "test": "playwright test",
-    "vitest": "vitest",
+    "test:playwright": "playwright test",
+    "test:vitest": "vitest",
     "lint": "eslint",
     "stylelint": "stylelint '**/*.css'",
     "prepare": "husky"

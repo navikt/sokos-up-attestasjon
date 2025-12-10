@@ -60,7 +60,7 @@ const mockOppdragsDetaljer: OppdragsDetaljerDTO = {
       attestasjonList: [],
     },
   ],
-  saksbehandlerIdent: "H135685",
+  saksbehandlerIdent: "B222222",
 };
 
 describe("DetaljerTabell - Attester alle checkbox", () => {
