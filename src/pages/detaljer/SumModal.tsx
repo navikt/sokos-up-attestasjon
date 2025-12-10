@@ -21,7 +21,7 @@ export default function SumModal({ tittel, sum }: SumModalProps) {
   return (
     <div>
       <Button
-        data-umami-event={DETALJER.SUMMODAL}
+        data-umami-event={DETALJER.SUM_MODAL_OPENED}
         data-umami-event-tittel={tittel}
         variant="secondary"
         size="small"

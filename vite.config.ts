@@ -1,3 +1,4 @@
+/// <reference types="vitest/config" />
 import terser from "@rollup/plugin-terser";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
@@ -25,6 +26,18 @@ export default defineConfig(({ mode }) => {
       modules: {
         generateScopedName: "[name]__[local]___[hash:base64:5]",
       },
+    },
+    test: {
+      globals: true,
+      environment: "jsdom",
+      setupFiles: "./src/test/setup.ts",
+      exclude: [
+        "**/node_modules/**",
+        "**/dist/**",
+        "**/playwright-tests/**",
+        "**/playwright-report/**",
+        "**/.{idea,git,cache,output,temp}/**",
+      ],
     },
     server: {
       port: Number(serverPort),

@@ -43,7 +43,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
   const [openRows, setOpenRows] = useState<Record<number, boolean>>({});
   const { sokeData } = useStore.getState();
 
-  function handleToggleAllRows() {
+  function toggleAllRowExpansions() {
     const newToggleAll = !toggleAllRows;
     setToggleAllRows(newToggleAll);
     const newOpenRows = attestasjonlinjer.reduce(
@@ -56,7 +56,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     setOpenRows(newOpenRows);
   }
 
-  function handleRowToggle(index: number, open: boolean) {
+  function toggleRowExpansion(index: number, open: boolean) {
     setOpenRows((prev) => {
       const newOpenRows = { ...prev, [index]: open };
       const allOpen = Object.values(newOpenRows).every((isOpen) => isOpen);
@@ -129,22 +129,31 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
     });
   }
 
-  function handleToggleAll(type: Linjetype) {
-    logUserEvent(DETALJER.VELG_ALLE, { type });
+  function toggleAllCheckboxes(type: Linjetype) {
+    logUserEvent(DETALJER.SELECT_ALL_CHECKBOX_CLICKED, { type });
     const isAllChecked = getCheckedStatus(type) === "alle";
     setAttestasjonlinjer((prev) =>
-      prev.map((linje) => ({
-        ...linje,
-        properties: {
-          ...linje.properties,
-          [type]: !isAllChecked,
-          suggestedDatoUgyldigFom: !isAllChecked
-            ? type === "fjern"
-              ? dagensDato()
-              : "31.12.9999"
-            : undefined,
-        },
-      })),
+      prev.map((linje) => {
+        const shouldUpdate =
+          type === "attester" ? !linje.attestant : linje.attestant;
+
+        if (!shouldUpdate) {
+          return linje;
+        }
+
+        return {
+          ...linje,
+          properties: {
+            ...linje.properties,
+            [type]: !isAllChecked,
+            suggestedDatoUgyldigFom: !isAllChecked
+              ? type === "fjern"
+                ? dagensDato()
+                : "31.12.9999"
+              : undefined,
+          },
+        };
+      }),
     );
   }
 
@@ -215,7 +224,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
               getCheckedStatus("fjern") === "alle"
             }
             indeterminate={getCheckedStatus("fjern") === "noen"}
-            onChange={() => handleToggleAll("fjern")}
+            onChange={() => toggleAllCheckboxes("fjern")}
             disabled={fjernAntallAttestasjoner === 0}
           >
             Avattester alle
@@ -226,7 +235,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
               getCheckedStatus("attester") === "alle"
             }
             indeterminate={getCheckedStatus("attester") === "noen"}
-            onChange={() => handleToggleAll("attester")}
+            onChange={() => toggleAllCheckboxes("attester")}
             disabled={velgAntallAttestasjoner === 0}
           >
             Attester alle
@@ -237,7 +246,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
           <Button
             type={"submit"}
             disabled={props.disable}
-            data-umami-event={DETALJER.OPPDATER_TRYKKET}
+            data-umami-event={DETALJER.UPDATE_CLICKED}
             data-umami-event-attester={getCheckedStatus("attester")}
             data-umami-event-fjern={getCheckedStatus("fjern")}
             size={"small"}
@@ -269,7 +278,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                   <Button
                     size={"small"}
                     disabled={props.disable}
-                    data-umami-event={DETALJER.AAPNE_ALLE_RADER}
+                    data-umami-event={DETALJER.EXPAND_ALL_ROWS_CLICKED}
                     icon={
                       toggleAllRows ? (
                         <ChevronUpIcon title="Pil opp" />
@@ -279,7 +288,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                     }
                     iconPosition="right"
                     variant="tertiary"
-                    onClick={handleToggleAllRows}
+                    onClick={toggleAllRowExpansions}
                   >
                     {toggleAllRows ? "Lukk alle" : "Åpne alle"}
                   </Button>
@@ -294,7 +303,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                 linje={linje}
                 index={index}
                 openRows={openRows}
-                handleRowToggle={handleRowToggle}
+                handleRowToggle={toggleRowExpansion}
                 handleTextFieldChange={handleTextFieldChange}
                 toggleCheckbox={toggleCheckbox}
               >
@@ -332,7 +341,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                         }
                         onChange={(e) => handleTextFieldChange(e, index, linje)}
                         onBlur={() => {
-                          logUserEvent(DETALJER.REDIGERTE_DATO, {
+                          logUserEvent(DETALJER.EDITED_DATE, {
                             dato: linje.properties
                               .activelyChangedDatoUgyldigFom,
                           });
