@@ -11,6 +11,7 @@ export const OppdragDTOSchema = z.object({
   kodeFagomraade: z.string(),
   kostnadssted: z.string(),
   oppdragsId: z.number().int(),
+  typeBilag: z.string().optional(),
   erSkjermetForSaksbehandler: z.boolean(),
   hasWriteAccess: z.boolean(),
 });

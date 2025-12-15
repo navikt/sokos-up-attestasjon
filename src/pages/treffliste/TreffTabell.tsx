@@ -138,7 +138,9 @@ export default function TreffTabell(props: TreffTabellProps) {
                 </Table.DataCell>
                 <Table.DataCell>{oppdrag.navnFaggruppe}</Table.DataCell>
                 <Table.DataCell>{oppdrag.fagSystemId}</Table.DataCell>
-                <Table.DataCell>{oppdrag.navnFagomraade}</Table.DataCell>
+                <Table.DataCell>
+                  {oppdrag.kodeFagomraade} ({oppdrag.navnFagomraade})
+                </Table.DataCell>
                 <Table.DataCell>{oppdrag.kostnadssted}</Table.DataCell>
                 <Table.DataCell>{oppdrag.ansvarssted}</Table.DataCell>
               </Table.Row>
