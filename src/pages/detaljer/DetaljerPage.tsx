@@ -136,7 +136,14 @@ export default function DetaljerPage() {
               <LabelText label="Fagsystem id" text={oppdragDto.fagSystemId} />
               <LabelText label="Ansvarssted" text={oppdragDto.ansvarssted} />
               <LabelText label="Kostnadssted" text={oppdragDto.kostnadssted} />
-              <LabelText label="Fagområde" text={oppdragDto.navnFagomraade} />
+              <LabelText
+                label="Fagområde"
+                text={
+                  `${oppdragDto.kodeFagomraade}` +
+                  ` (${oppdragDto.navnFagomraade})`
+                }
+              />
+              <LabelText label="Bilagstype" text={oppdragDto.typeBilag} />
             </div>
           </div>
         )}

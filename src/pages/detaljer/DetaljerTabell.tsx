@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { ChevronDownIcon, ChevronUpIcon } from "@navikt/aksel-icons";
-import { Button, Checkbox, Table, TextField, Tooltip } from "@navikt/ds-react";
+import { Button, Checkbox, Table, TextField } from "@navikt/ds-react";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import {
@@ -253,9 +253,8 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell scope="col">Klassekode</Table.HeaderCell>
-              <Table.HeaderCell scope="col" align="right">
-                Delytelse
-              </Table.HeaderCell>
+              <Table.HeaderCell scope="col">Kontonummer</Table.HeaderCell>
+              <Table.HeaderCell scope="col">Delytelse</Table.HeaderCell>
               <Table.HeaderCell scope="col" align="right">
                 Sats
               </Table.HeaderCell>
@@ -298,15 +297,16 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
                 handleTextFieldChange={handleTextFieldChange}
                 toggleCheckbox={toggleCheckbox}
               >
-                <Tooltip content={linje.kontonummer}>
-                  <Table.DataCell>
-                    {linje.properties.vises && linje.kodeKlasse}
-                  </Table.DataCell>
-                </Tooltip>
-                <Table.DataCell align="center">
+                <Table.DataCell>
+                  {linje.properties.vises && linje.kodeKlasse}
+                </Table.DataCell>
+                <Table.DataCell>
+                  {linje.properties.vises && linje.kontonummer}
+                </Table.DataCell>
+                <Table.DataCell>
                   {linje.properties.vises && linje.delytelseId}
                 </Table.DataCell>
-                <Table.DataCell align="center">
+                <Table.DataCell align="right">
                   {linje.properties.vises && formaterTilNorskTall(linje.sats)}
                 </Table.DataCell>
                 <Table.DataCell>
