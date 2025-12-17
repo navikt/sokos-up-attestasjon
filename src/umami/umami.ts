@@ -16,11 +16,11 @@ export const TREFFLISTE = {
 };
 
 export const DETALJER = {
-  AAPNE_ALLE_RADER: "åpne alle rader trykket",
-  OPPDATER_TRYKKET: "oppdater trykket",
-  REDIGERTE_DATO: "redigerte dato",
-  SUMMODAL: "summodal åpnet",
-  VELG_ALLE: "velg alle trykket",
+  EXPAND_ALL_ROWS_CLICKED: "åpne alle rader trykket",
+  UPDATE_CLICKED: "oppdater trykket",
+  EDITED_DATE: "redigerte dato",
+  SUM_MODAL_OPENED: "summodal åpnet",
+  SELECT_ALL_CHECKBOX_CLICKED: "velg alle trykket",
 };
 
 export function logUserEvent(name: string, data?: object): void {
