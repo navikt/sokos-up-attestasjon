@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noConsole: false positive */
 import { HttpResponse, http } from "msw";
 import { fagGrupperList } from "./data/faggrupper";
 import { fagomraadeList } from "./data/fagomraader";
@@ -8,7 +9,6 @@ import { oppdragDtoList } from "./data/sokOppdrag";
 export const handlers = [
 	http.post("/oppdrag-api/api/v1/attestasjon/sok", async ({ request }) => {
 		const sokeParameter = (await request.json()) as { gjelderId?: string };
-		// biome-ignore lint/suspicious/noConsole: debug code
 		console.log("Sok parameter:", sokeParameter);
 
 		if (sokeParameter?.gjelderId === "11111111111") {
@@ -54,7 +54,6 @@ export const handlers = [
 
 	http.post("/oppdrag-api/api/v1/integration/hentnavn", async ({ request }) => {
 		const sokeParameter = await request.json();
-		// biome-ignore lint/suspicious/noConsole: debug code
 		console.log("Hent navn parameter:", sokeParameter);
 		return HttpResponse.json({ navn: "Test Testesen" }, { status: 200 });
 	}),
@@ -63,7 +62,6 @@ export const handlers = [
 		"/oppdrag-api/api/v1/attestasjon/attestere",
 		async ({ request }) => {
 			const sokeParameter = await request.json();
-			// biome-ignore lint/suspicious/noConsole: debug code
 			console.log("Attester parameter:", sokeParameter);
 			return HttpResponse.json(
 				{
