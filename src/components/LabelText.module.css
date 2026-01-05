@@ -1,9 +1,9 @@
 .label {
-  display: flex;
-  flex-direction: row;
-  gap: 0.25rem;
+	display: flex;
+	flex-direction: row;
+	gap: 0.25rem;
 }
 
 .label__text {
-  font-weight: bold;
+	font-weight: bold;
 }

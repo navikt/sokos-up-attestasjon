@@ -1,15 +1,15 @@
 .container {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  border-radius: 0.75rem;
-  padding: 2rem;
-  margin-left: 3rem;
-  margin-right: 3rem;
-  margin-top: 1rem;
-  background-color: white;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	border-radius: 0.75rem;
+	padding: 2rem;
+	margin-left: 3rem;
+	margin-right: 3rem;
+	margin-top: 1rem;
+	background-color: white;
 }
 
 .button {
-  align-self: center;
+	align-self: center;
 }

@@ -1,35 +1,35 @@
-import { FormEvent } from "react";
-import { useFormContext } from "react-hook-form";
 import { EraserIcon } from "@navikt/aksel-icons";
 import { Button } from "@navikt/ds-react";
+import type { FormEvent } from "react";
+import { useFormContext } from "react-hook-form";
 import { useStore } from "../../store/AppState";
 import { SOK } from "../../umami/umami";
 
 export default function ResetButton({
-  clearError,
+	clearError,
 }: {
-  clearError: () => void;
+	clearError: () => void;
 }) {
-  const { resetState } = useStore();
-  const { reset } = useFormContext();
+	const { resetState } = useStore();
+	const { reset } = useFormContext();
 
-  function handleReset(e: FormEvent) {
-    e.preventDefault();
-    clearError();
-    resetState();
-    reset();
-  }
-  return (
-    <Button
-      data-umami-event={SOK.RESET}
-      id={"nullstill"}
-      variant="secondary"
-      size={"small"}
-      iconPosition="right"
-      icon={<EraserIcon title="Eraser icon" />}
-      onClick={handleReset}
-    >
-      Nullstill søk
-    </Button>
-  );
+	function handleReset(e: FormEvent) {
+		e.preventDefault();
+		clearError();
+		resetState();
+		reset();
+	}
+	return (
+		<Button
+			data-umami-event={SOK.RESET}
+			id={"nullstill"}
+			variant="secondary"
+			size={"small"}
+			iconPosition="right"
+			icon={<EraserIcon title="Eraser icon" />}
+			onClick={handleReset}
+		>
+			Nullstill søk
+		</Button>
+	);
 }
