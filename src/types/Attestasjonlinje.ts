@@ -1,7 +1,7 @@
-import { z } from "zod";
-import {
-  AttestasjonlinjeListSchema,
-  AttestasjonlinjeSchema,
+import type { z } from "zod";
+import type {
+	AttestasjonlinjeListSchema,
+	AttestasjonlinjeSchema,
 } from "./schema/AttestasjonlinjeSchema";
 
 export type AttestasjonlinjeList = z.infer<typeof AttestasjonlinjeListSchema>;

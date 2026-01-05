@@ -1,12 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Alert, Heading } from "@navikt/ds-react";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
-import { Alert, Heading } from "@navikt/ds-react";
 import { hentOppdrag } from "../../api/apiService";
 import { useStore } from "../../store/AppState";
-import { ErrorMessage } from "../../types/ErrorMessage";
-import { SokeData } from "../../types/SokeData";
+import type { ErrorMessage } from "../../types/ErrorMessage";
+import type { SokeData } from "../../types/SokeData";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
 import { SokeDataSchema } from "../../types/schema/SokeDataSchema";
@@ -23,109 +23,107 @@ import SokHelpText from "./SokHelpText";
 import styles from "./SokPage.module.css";
 import StatuserRadioButtons from "./StatuserRadioButtons";
 
-const Divider = () => <div className={styles["sok__divider"]} />;
+const Divider = () => <div className={styles.sok__divider} />;
 
 export default function SokPage() {
-  const navigate = useNavigate();
-  const [error, setError] = useState<ErrorMessage | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { setSokeData, sokeData, setOppdragDtoList, resetState } = useStore();
+	const navigate = useNavigate();
+	const [error, setError] = useState<ErrorMessage | null>(null);
+	const [isLoading, setIsLoading] = useState<boolean>(false);
+	const { setSokeData, sokeData, setOppdragDtoList, resetState } = useStore();
 
-  const form = useForm<SokeData>({
-    resolver: zodResolver(SokeDataSchema),
-    mode: "onSubmit",
-    reValidateMode: "onSubmit",
-    defaultValues: {
-      gjelderId: "",
-      fagSystemId: "",
-      fagGruppe: undefined,
-      fagOmraade: undefined,
-      alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
-    },
-  });
+	const form = useForm<SokeData>({
+		resolver: zodResolver(SokeDataSchema),
+		mode: "onSubmit",
+		reValidateMode: "onSubmit",
+		defaultValues: {
+			gjelderId: "",
+			fagSystemId: "",
+			fagGruppe: undefined,
+			fagOmraade: undefined,
+			alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
+		},
+	});
 
-  const { handleSubmit, setValue } = form;
+	const { handleSubmit, setValue } = form;
 
-  useEffect(() => {
-    if (sokeData) {
-      setValue("gjelderId", sokeData.gjelderId);
-      setValue("fagSystemId", sokeData.fagSystemId);
-      setValue("fagGruppe", sokeData.fagGruppe);
-      setValue("fagOmraade", sokeData.fagOmraade);
-      setValue("alternativer", sokeData.alternativer);
-    }
-  }, [setValue, sokeData]);
+	useEffect(() => {
+		if (sokeData) {
+			setValue("gjelderId", sokeData.gjelderId);
+			setValue("fagSystemId", sokeData.fagSystemId);
+			setValue("fagGruppe", sokeData.fagGruppe);
+			setValue("fagOmraade", sokeData.fagOmraade);
+			setValue("alternativer", sokeData.alternativer);
+		}
+	}, [setValue, sokeData]);
 
-  function onSubmit(sokeData: SokeData) {
-    resetState();
-    setSokeData(sokeData);
-    setIsLoading(true);
-    setError(null);
+	function onSubmit(sokeData: SokeData) {
+		resetState();
+		setSokeData(sokeData);
+		setIsLoading(true);
+		setError(null);
 
-    const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
+		const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
 
-    logSearchEvent(sokeData);
+		logSearchEvent(sokeData);
 
-    hentOppdrag(sokeParameter)
-      .then((response) => {
-        setIsLoading(false);
-        setError(null);
-        if (!isEmpty(response)) {
-          setOppdragDtoList(response);
-          navigate("/treffliste", { replace: false });
-        } else {
-          setError({
-            variant: "info",
-            message:
-              "Ingen treff på søket. Prøv igjen med andre søkekriterier.",
-          });
-        }
-      })
-      .catch((error) => {
-        setError({
-          variant: error.statusCode == 400 ? "warning" : "error",
-          message: error.message,
-        });
-        setIsLoading(false);
-      });
-  }
+		hentOppdrag(sokeParameter)
+			.then((response) => {
+				setIsLoading(false);
+				setError(null);
+				if (!isEmpty(response)) {
+					setOppdragDtoList(response);
+					navigate("/treffliste", { replace: false });
+				} else {
+					setError({
+						variant: "info",
+						message:
+							"Ingen treff på søket. Prøv igjen med andre søkekriterier.",
+					});
+				}
+			})
+			.catch((error) => {
+				setError({
+					variant: error.statusCode === 400 ? "warning" : "error",
+					message: error.message,
+				});
+				setIsLoading(false);
+			});
+	}
 
-  return (
-    <>
-      <div className={styles["sok"]}>
-        <Heading level="1" size="large" spacing align="center">
-          Attestasjon: Søk
-        </Heading>
-        <div className={styles["sok__box"]}>
-          <SokHelpText />
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormProvider {...form}>
-              <div className={styles["sok__form"]}>
-                <div className={styles["sok__input-fields"]}>
-                  <GjelderIdTextField />
-                  <FagsystemIdTextField />
-                  <FaggruppeCombobox />
-                  <FagomraadeCombobox />
-                </div>
-                <Divider />
-                <StatuserRadioButtons />
-              </div>
-              <SokFormFeilmeldinger />
-              <div className={styles["sok__buttons"]}>
-                <SokButton isLoading={isLoading} />
-                <ResetButton clearError={() => setError(null)} />
-              </div>
-            </FormProvider>
-          </form>
-        </div>
-        {error && (
-          <div className={styles["sok__error"]}>
-            <Alert variant={error.variant} role="status">
-              {error.message}
-            </Alert>
-          </div>
-        )}
-      </div>
-    </>
-  );
+	return (
+		<div className={styles.sok}>
+			<Heading level="1" size="large" spacing align="center">
+				Attestasjon: Søk
+			</Heading>
+			<div className={styles.sok__box}>
+				<SokHelpText />
+				<form onSubmit={handleSubmit(onSubmit)}>
+					<FormProvider {...form}>
+						<div className={styles.sok__form}>
+							<div className={styles["sok__input-fields"]}>
+								<GjelderIdTextField />
+								<FagsystemIdTextField />
+								<FaggruppeCombobox />
+								<FagomraadeCombobox />
+							</div>
+							<Divider />
+							<StatuserRadioButtons />
+						</div>
+						<SokFormFeilmeldinger />
+						<div className={styles.sok__buttons}>
+							<SokButton isLoading={isLoading} />
+							<ResetButton clearError={() => setError(null)} />
+						</div>
+					</FormProvider>
+				</form>
+			</div>
+			{error && (
+				<div className={styles.sok__error}>
+					<Alert variant={error.variant} role="status">
+						{error.message}
+					</Alert>
+				</div>
+			)}
+		</div>
+	);
 }

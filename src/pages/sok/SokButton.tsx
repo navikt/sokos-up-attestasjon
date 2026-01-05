@@ -3,17 +3,17 @@ import { Button } from "@navikt/ds-react";
 import { SOK } from "../../umami/umami";
 
 export default function SokButton({ isLoading }: { isLoading: boolean }) {
-  return (
-    <Button
-      data-umami-event={SOK.VALIDATE}
-      id={"search"}
-      type="submit"
-      size={"small"}
-      loading={isLoading}
-      icon={<MagnifyingGlassIcon title="Forstørrelsesglass ikon" />}
-      iconPosition="right"
-    >
-      Søk
-    </Button>
-  );
+	return (
+		<Button
+			data-umami-event={SOK.VALIDATE}
+			id={"search"}
+			type="submit"
+			size={"small"}
+			loading={isLoading}
+			icon={<MagnifyingGlassIcon title="Forstørrelsesglass ikon" />}
+			iconPosition="right"
+		>
+			Søk
+		</Button>
+	);
 }

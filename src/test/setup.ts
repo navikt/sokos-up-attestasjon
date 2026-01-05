@@ -5,10 +5,10 @@ import { afterEach, expect } from "vitest";
 expect.extend(matchers);
 
 afterEach(() => {
-  cleanup();
+	cleanup();
 });
 
 global.window = global.window || {};
 global.window.umami = {
-  track: () => {},
+	track: () => {},
 };
