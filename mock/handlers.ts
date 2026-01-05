@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { HttpResponse, http } from "msw";
 import { fagGrupperList } from "./data/faggrupper";
 import { fagomraadeList } from "./data/fagomraader";

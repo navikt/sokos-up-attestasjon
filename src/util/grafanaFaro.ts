@@ -23,6 +23,15 @@ const getTelemetryCollectorURL = (): TelemetryCollectorURL => {
 };
 
 export function initGrafanaFaro() {
+	// Don't initialize in mock/local environments
+	if (
+		import.meta.env.MODE === "mock" ||
+		import.meta.env.MODE === "backend" ||
+		import.meta.env.MODE === "backend-q1"
+	) {
+		return;
+	}
+
 	initializeFaro({
 		isolate: true,
 		url: getTelemetryCollectorURL(),

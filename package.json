@@ -10,7 +10,7 @@
 		"build": "tsc && vite build",
 		"playwright": "playwright test",
 		"vitest": "vitest",
-		"lint": "eslint",
+		"lint": "biome check --no-errors-on-unmatched",
 		"stylelint": "stylelint '**/*.css'",
 		"prepare": "husky"
 	},

@@ -24,7 +24,6 @@ export default function NoRecordsFound({
 			</Heading>
 			<Button
 				size="small"
-				// eslint-disable-next-line jsx-a11y/no-autofocus
 				autoFocus
 				className={styles.button}
 				onClick={handleClick}

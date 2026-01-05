@@ -9,12 +9,7 @@ import { BASENAME, DETALJER, ROOT, TREFFLISTE } from "./util/routenames";
 
 const App = () => {
 	useEffect(() => {
-		if (
-			import.meta.env.MODE !== "mock" &&
-			import.meta.env.MODE !== "backend" &&
-			import.meta.env.MODE !== "backend-q1"
-		)
-			initGrafanaFaro();
+		initGrafanaFaro();
 	}, []);
 
 	return (
