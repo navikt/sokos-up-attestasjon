@@ -1,14 +1,15 @@
 import * as matchers from "@testing-library/jest-dom/matchers";
-import { cleanup } from "@testing-library/react";
 import { afterEach, expect } from "vitest";
 
 expect.extend(matchers);
 
 afterEach(() => {
-	cleanup();
+	// Cleanup is handled automatically by @vitest/browser
 });
 
-global.window = global.window || {};
-global.window.umami = {
-	track: () => {},
-};
+// Browser environment already has window object
+if (typeof window !== "undefined") {
+	window.umami = {
+		track: () => {},
+	};
+}

@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
+import { userEvent } from "vitest/browser";
 import type { OppdragsDetaljerDTO } from "../../types/OppdragsDetaljerDTO";
 import DetaljerTabell from "./DetaljerTabell";
 
@@ -65,7 +65,6 @@ const mockOppdragsDetaljer: OppdragsDetaljerDTO = {
 
 describe("DetaljerTabell - Attester alle checkbox", () => {
 	it("should only include unattested lines when 'Attester alle' is checked", async () => {
-		const user = userEvent.setup();
 		const handleSubmit = vi.fn();
 
 		render(
@@ -84,10 +83,10 @@ describe("DetaljerTabell - Attester alle checkbox", () => {
 
 		// vi skal ha tak i den andre checkboxen; "Attester alle"
 		const attesterAlleCheckbox = allCheckboxes[1];
-		await user.click(attesterAlleCheckbox);
+		await userEvent.click(attesterAlleCheckbox);
 
 		const oppdaterButton = screen.getByRole("button", { name: /oppdater/i });
-		await user.click(oppdaterButton);
+		await userEvent.click(oppdaterButton);
 
 		await waitFor(() => {
 			expect(handleSubmit).toHaveBeenCalledTimes(1);
@@ -111,7 +110,6 @@ describe("DetaljerTabell - Attester alle checkbox", () => {
 	});
 
 	it("should only include attested lines when 'Avattester alle' is checked", async () => {
-		const user = userEvent.setup();
 		const handleSubmit = vi.fn();
 
 		render(
@@ -130,10 +128,10 @@ describe("DetaljerTabell - Attester alle checkbox", () => {
 
 		// vi skal ha tak i den første checkboxen; "Avattester alle"
 		const avattesterAlleCheckbox = allCheckboxes[0];
-		await user.click(avattesterAlleCheckbox);
+		await userEvent.click(avattesterAlleCheckbox);
 
 		const oppdaterButton = screen.getByRole("button", { name: /oppdater/i });
-		await user.click(oppdaterButton);
+		await userEvent.click(oppdaterButton);
 
 		await waitFor(() => {
 			expect(handleSubmit).toHaveBeenCalledTimes(1);
@@ -161,7 +159,6 @@ describe("DetaljerTabell - Attester alle checkbox", () => {
 	});
 
 	it("should not affect already attested line when checking individual unattested line", async () => {
-		const user = userEvent.setup();
 		const handleSubmit = vi.fn();
 
 		render(
@@ -179,10 +176,10 @@ describe("DetaljerTabell - Attester alle checkbox", () => {
 		});
 
 		// linje 1
-		await user.click(allCheckboxes[2]);
+		await userEvent.click(allCheckboxes[2]);
 
 		const oppdaterButton = screen.getByRole("button", { name: /oppdater/i });
-		await user.click(oppdaterButton);
+		await userEvent.click(oppdaterButton);
 
 		await waitFor(() => {
 			expect(handleSubmit).toHaveBeenCalledTimes(1);
@@ -200,7 +197,6 @@ describe("DetaljerTabell - Attester alle checkbox", () => {
 	});
 
 	it("should toggle off when clicking 'Attester alle' twice", async () => {
-		const user = userEvent.setup();
 		const handleSubmit = vi.fn();
 
 		render(
@@ -219,11 +215,11 @@ describe("DetaljerTabell - Attester alle checkbox", () => {
 
 		const attesterAlleCheckbox = allCheckboxes[1];
 
-		await user.click(attesterAlleCheckbox);
-		await user.click(attesterAlleCheckbox);
+		await userEvent.click(attesterAlleCheckbox);
+		await userEvent.click(attesterAlleCheckbox);
 
 		const oppdaterButton = screen.getByRole("button", { name: /oppdater/i });
-		await user.click(oppdaterButton);
+		await userEvent.click(oppdaterButton);
 
 		await waitFor(() => {
 			expect(handleSubmit).toHaveBeenCalledTimes(1);

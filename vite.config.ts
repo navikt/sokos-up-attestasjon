@@ -3,6 +3,7 @@
 import { resolve } from "node:path";
 import terser from "@rollup/plugin-terser";
 import react from "@vitejs/plugin-react";
+import { playwright } from "@vitest/browser-playwright";
 import { defineConfig } from "vite";
 import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 import EnvironmentPlugin from "vite-plugin-environment";
@@ -30,7 +31,19 @@ export default defineConfig(({ mode }) => {
 		},
 		test: {
 			globals: true,
-			environment: "jsdom",
+			// Unit tests for utilities run in Node.js (fast)
+			environment: "node",
+			// Component tests run in browser (realistic)
+			browser: {
+				enabled: true,
+				instances: [
+					{
+						browser: "chromium",
+						provider: playwright(),
+					},
+				],
+				headless: true,
+			},
 			setupFiles: "./src/test/setup.ts",
 			exclude: [
 				"**/node_modules/**",
