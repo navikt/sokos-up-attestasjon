@@ -10,7 +10,6 @@
 		"build": "tsc && vite build",
 		"playwright": "playwright test",
 		"vitest": "vitest",
-		"biome:check": "biome check --files-ignore-unknown=true",
 		"biome:fix": "biome check --write --no-errors-on-unmatched",
 		"stylelint:check": "stylelint '**/*.css'",
 		"stylelint:fix": "stylelint '**/*.css' --fix",
