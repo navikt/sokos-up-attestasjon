@@ -12,8 +12,8 @@
 		"vitest": "vitest",
 		"biome:check": "biome check --files-ignore-unknown=true",
 		"biome:fix": "biome check --write --no-errors-on-unmatched",
-		"stylelint:fix": "stylelint '**/*.css' --fix",
-		"prepare": "husky"
+		"stylelint:check": "stylelint '**/*.css'",
+		"stylelint:fix": "stylelint '**/*.css' --fix"
 	},
 	"dependencies": {
 		"@axe-core/playwright": "^4.11.0",
