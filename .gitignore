@@ -112,5 +112,6 @@ public/mockServiceWorker.js
 /blob-report/
 /playwright/.cache/
 
-# Vitest browser mode screenshots (failure debugging)
+# Vitest
 **/__screenshots__/
+/coverage/

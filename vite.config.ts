@@ -44,6 +44,20 @@ export default defineConfig(({ mode }) => {
 				],
 				headless: true,
 			},
+			coverage: {
+				provider: "istanbul",
+				reporter: ["text", "json", "html"],
+				exclude: [
+					"**/node_modules/**",
+					"**/dist/**",
+					"**/playwright-tests/**",
+					"**/*.test.{ts,tsx}",
+					"**/*.spec.{ts,tsx}",
+					"**/test/**",
+					"**/mock/**",
+					"**/*.config.{ts,js}",
+				],
+			},
 			setupFiles: "./src/test/setup.ts",
 			exclude: [
 				"**/node_modules/**",
