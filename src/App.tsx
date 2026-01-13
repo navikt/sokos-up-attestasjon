@@ -9,7 +9,6 @@ import { BASENAME, DETALJER, ROOT, TREFFLISTE } from "./util/routenames";
 
 const App = () => {
 	useEffect(() => {
-		// Initialize Grafana Faro for observability
 		initGrafanaFaro();
 	}, []);
 
