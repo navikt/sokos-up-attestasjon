@@ -58,8 +58,8 @@ importers:
         specifier: ^2.3.12
         version: 2.3.12
       '@navikt/aksel-stylelint':
-        specifier: ^7.37.0
-        version: 7.39.0
+        specifier: ^8.1.0
+        version: 8.1.0
       '@playwright/test':
         specifier: ^1.58.0
         version: 1.58.0
@@ -141,8 +141,8 @@ packages:
   '@asamuzakjp/css-color@4.1.1':
     resolution: {integrity: sha512-B0Hv6G3gWGMn0xKJ0txEi/jM5iFpT3MfDxmhZFb4W047GvytCf1DHQ1D69W3zHI4yWe2aTZAA0JnbMZ7Xc8DuQ==}
 
-  '@asamuzakjp/dom-selector@6.7.6':
-    resolution: {integrity: sha512-hBaJER6A9MpdG3WgdlOolHmbOYvSk46y7IQN/1+iqiCuUu6iWdQrs9DGKF8ocqsEqWujWf/V7b7vaDgiUmIvUg==}
+  '@asamuzakjp/dom-selector@6.7.7':
+    resolution: {integrity: sha512-8CO/UQ4tzDd7ula+/CVimJIVWez99UJlbMyIgk8xOnhAVPKLnBZmUFYVgugS441v2ZqUq5EnSh6B0Ua0liSFAA==}
 
   '@asamuzakjp/nwsapi@2.3.9':
     resolution: {integrity: sha512-n8GuYSrI9bF7FFZ/SjhwevlHc8xaVlb/7HmHelnc/PZXBD2ZR49NnN9sMMuDdEGPeeRQ5d0hqlSlEpgCX3Wl0Q==}
@@ -158,6 +158,10 @@ packages:
 
   '@babel/code-frame@7.28.6':
     resolution: {integrity: sha512-JYgintcMjRiCvS8mMECzaEn+m3PfoQiyqukOMCCVQtoJGYJw8j/8LBJEiqkHLkfwCcs74E3pbAUFNg7d9VNJ+Q==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/code-frame@7.29.0':
+    resolution: {integrity: sha512-9NhCeYjq9+3uxgdtp20LSiJXJvN0FeCtNGpJxuMFZ1Kv3cWUNb6DOhJwUvcVCzKGR66cw4njwM6hrJLqgOwbcw==}
     engines: {node: '>=6.9.0'}
 
   '@babel/compat-data@7.28.5':
@@ -559,8 +563,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@exodus/bytes@1.10.0':
-    resolution: {integrity: sha512-tf8YdcbirXdPnJ+Nd4UN1EXnz+IP2DI45YVEr3vvzcVTOyrApkmIB4zvOQVd3XPr7RXnfBtAx+PXImXOIU0Ajg==}
+  '@exodus/bytes@1.11.0':
+    resolution: {integrity: sha512-wO3vd8nsEHdumsXrjGO/v4p6irbg7hy9kvIeR6i2AwylZSk4HJdWgL0FNaVquW1+AweJcdvU1IEpuIWk/WaPnA==}
     engines: {node: ^20.19.0 || ^22.12.0 || >=24.0.0}
     peerDependencies:
       '@noble/hashes': ^1.8.0 || ^2.0.0
@@ -674,8 +678,8 @@ packages:
   '@navikt/aksel-icons@7.39.0':
     resolution: {integrity: sha512-M36ZJ1HRYxyonPJmxOBkK4gjEjT1AVNHRLEk3nNioJZhIj2EDGl7Uw/ALjyghfkxzsof5Q/2m7XXIu3DvInxYQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-icons/7.39.0/a085e7e78b32ffa64bd7319ab6ac697a59941067}
 
-  '@navikt/aksel-stylelint@7.39.0':
-    resolution: {integrity: sha512-sKQqF21qpZ9VtnL/2wxjvUnbhUFof6yFDB8lMSaorVxwYdiGPyUVOtemulQM6/xt0CZLXQuI/4W8EI+4sR5eLQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-stylelint/7.39.0/4ee8940ae9c808e62942c1d2aeff4c35d828bb1b}
+  '@navikt/aksel-stylelint@8.1.0':
+    resolution: {integrity: sha512-oXltnKmGWk7NO1lp9EbZue4uBspcjdmvGtbCU2JtFRMhxBVVsYYR8RFnHLEG5hv43oZ6OTeDkpQXnD+DsAgjbQ==, tarball: https://npm.pkg.github.com/download/@navikt/aksel-stylelint/8.1.0/ea111c3bdaa1b4e4a822548910d30ac55bfd3213}
 
   '@navikt/ds-css@7.39.0':
     resolution: {integrity: sha512-ngLTzI4StcpvDawTzmcPtT7PkU+AIHxrjUqdGX6+ABIQkDxAslta+fIIwVoGrQ8PwC8kAjR4tt4O9Zk2IDv77A==, tarball: https://npm.pkg.github.com/download/@navikt/ds-css/7.39.0/cffa34e23426bc9f15f8f9f8f02ca30f2ddfdb2b}
@@ -2416,7 +2420,7 @@ snapshots:
       lru-cache: 11.2.5
     optional: true
 
-  '@asamuzakjp/dom-selector@6.7.6':
+  '@asamuzakjp/dom-selector@6.7.7':
     dependencies:
       '@asamuzakjp/nwsapi': 2.3.9
       bidi-js: 1.0.3
@@ -2440,6 +2444,12 @@ snapshots:
       picocolors: 1.1.1
 
   '@babel/code-frame@7.28.6':
+    dependencies:
+      '@babel/helper-validator-identifier': 7.28.5
+      js-tokens: 4.0.0
+      picocolors: 1.1.1
+
+  '@babel/code-frame@7.29.0':
     dependencies:
       '@babel/helper-validator-identifier': 7.28.5
       js-tokens: 4.0.0
@@ -2805,7 +2815,7 @@ snapshots:
   '@esbuild/win32-x64@0.27.2':
     optional: true
 
-  '@exodus/bytes@1.10.0':
+  '@exodus/bytes@1.11.0':
     optional: true
 
   '@floating-ui/core@1.7.3':
@@ -2922,7 +2932,7 @@ snapshots:
 
   '@navikt/aksel-icons@7.39.0': {}
 
-  '@navikt/aksel-stylelint@7.39.0': {}
+  '@navikt/aksel-stylelint@8.1.0': {}
 
   '@navikt/ds-css@7.39.0': {}
 
@@ -3132,7 +3142,7 @@ snapshots:
 
   '@testing-library/dom@10.4.1':
     dependencies:
-      '@babel/code-frame': 7.28.6
+      '@babel/code-frame': 7.29.0
       '@babel/runtime': 7.28.6
       '@types/aria-query': 5.0.4
       aria-query: 5.3.0
@@ -3750,7 +3760,7 @@ snapshots:
 
   html-encoding-sniffer@6.0.0:
     dependencies:
-      '@exodus/bytes': 1.10.0
+      '@exodus/bytes': 1.11.0
     transitivePeerDependencies:
       - '@noble/hashes'
     optional: true
@@ -3849,8 +3859,8 @@ snapshots:
   jsdom@27.4.0:
     dependencies:
       '@acemir/cssom': 0.9.31
-      '@asamuzakjp/dom-selector': 6.7.6
-      '@exodus/bytes': 1.10.0
+      '@asamuzakjp/dom-selector': 6.7.7
+      '@exodus/bytes': 1.11.0
       cssstyle: 5.3.7
       data-urls: 6.0.1
       decimal.js: 10.6.0
