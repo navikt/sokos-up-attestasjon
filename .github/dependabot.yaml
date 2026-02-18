@@ -10,20 +10,33 @@ updates:
     registries: "*"
     schedule:
       interval: "daily"
-    groups:
-      all-minor-updates:
-        update-types:
-          - "minor"
-          - "patch"
     cooldown:
       default-days: 7
+    groups:
+      aksel:
+        patterns:
+          - "@navikt/aksel-*"
+          - "@navikt/ds-*"
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+      minor-and-patch:
+        update-types:
+          - "patch"
+          - "minor"
+        exclude-patterns:
+          - "react"
+          - "react-dom"
+          - "@navikt/aksel-*"
+          - "@navikt/ds-*"
 
   - package-ecosystem: "npm"
     directory: "/server"
     schedule:
       interval: "daily"
     groups:
-      all-minor-updates:
+      minor-and-patch:
         update-types:
           - "minor"
           - "patch"
