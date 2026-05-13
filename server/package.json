@@ -22,7 +22,7 @@
 	},
 	"engines": {
 		"pnpm": "10.28.2",
-		"node": "25.6.1"
+		"node": "24.14.1"
 	},
 	"pnpm": {
 		"overrides": {
