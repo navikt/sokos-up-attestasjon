@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Alert, Heading } from "@navikt/ds-react";
+import { Heading, LocalAlert } from "@navikt/ds-react";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -75,7 +75,7 @@ export default function SokPage() {
 					navigate("/treffliste", { replace: false });
 				} else {
 					setError({
-						variant: "info",
+						variant: "announcement",
 						message:
 							"Ingen treff på søket. Prøv igjen med andre søkekriterier.",
 					});
@@ -119,9 +119,11 @@ export default function SokPage() {
 			</div>
 			{error && (
 				<div className={styles.sok__error}>
-					<Alert variant={error.variant} role="status">
-						{error.message}
-					</Alert>
+					<LocalAlert status={error.variant} as="div">
+						<LocalAlert.Header>
+							<LocalAlert.Title as="h2">{error.message}</LocalAlert.Title>
+						</LocalAlert.Header>
+					</LocalAlert>
 				</div>
 			)}
 		</div>

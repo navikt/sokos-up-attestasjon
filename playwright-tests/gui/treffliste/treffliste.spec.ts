@@ -34,7 +34,7 @@ test.describe("Treffliste", () => {
 			page,
 		}) => {
 			await gotoAndAssertBeingOnTrefflistePage(page);
-			await page.getByRole("link", { name: "98765498765" }).click();
+			await page.getByRole("button", { name: "98765498765" }).click();
 			expect(page.getByText("Denne personen er skjermet")).toBeVisible();
 
 			backendWillReturn(page, oppdragsDetaljerDto);
