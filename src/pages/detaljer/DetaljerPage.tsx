@@ -1,4 +1,4 @@
-import { Heading, Loader } from "@navikt/ds-react";
+import { Heading, Loader, LocalAlert } from "@navikt/ds-react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import {
@@ -7,7 +7,6 @@ import {
 	oppdaterAttestasjon,
 	useFetchOppdragsdetaljer,
 } from "../../api/apiService";
-import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import LabelText from "../../components/LabelText";
 import NoRecordsFound from "../../components/NoRecordsFound";
@@ -152,13 +151,12 @@ export default function DetaljerPage() {
 				<Loader size="2xlarge" title="Laster ..." variant="interaction" />
 			)}
 			{!!alertMessage && (
-				<AlertWithCloseButton
-					show={!!alertMessage}
-					setShow={() => setAlertMessage(null)}
-					variant={alertMessage.variant}
-				>
-					{alertMessage.message}
-				</AlertWithCloseButton>
+				<LocalAlert status={alertMessage.variant}>
+					<LocalAlert.Header>
+						<LocalAlert.Title as="h2">{alertMessage.message}</LocalAlert.Title>
+						<LocalAlert.CloseButton onClick={() => setAlertMessage(null)} />
+					</LocalAlert.Header>
+				</LocalAlert>
 			)}
 			{linjerSomSkalVises && (
 				<DetaljerTabell

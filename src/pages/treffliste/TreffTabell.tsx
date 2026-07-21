@@ -18,9 +18,10 @@ export default function TreffTabell(props: TreffTabellProps) {
 
 	const { setOppdragDto } = useStore();
 	const [isSkjermet, setIsSkjermet] = useState(false);
-	const [skjermingAnchor, setSkjermingAnchor] =
-		useState<HTMLAnchorElement | null>(null);
-	const skjermingRowRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+	const [skjermingAnchor, setSkjermingAnchor] = useState<HTMLElement | null>(
+		null,
+	);
+	const skjermingRowRefs = useRef<(HTMLElement | null)[]>([]);
 	const [sort, setSort] = useState<ScopedSortState | undefined>();
 	const [page, setPage] = useState(1);
 	const [rowsPerPage, setRowsPerPage] = useState<number>(25);
@@ -116,25 +117,33 @@ export default function TreffTabell(props: TreffTabellProps) {
 						{pageData.map((oppdrag, row) => (
 							<Table.Row key={btoa(`${oppdrag.oppdragsId}`)}>
 								<Table.DataCell>
-									<Link
-										ref={(element) => {
-											skjermingRowRefs.current[row] = element;
-											return;
-										}}
-										to={oppdrag.erSkjermetForSaksbehandler ? "#" : "/detaljer"}
-										className={commonstyles.link}
-										replace
-										onClick={() => {
-											if (oppdrag.erSkjermetForSaksbehandler) {
+									{oppdrag.erSkjermetForSaksbehandler ? (
+										<button
+											ref={(element) => {
+												skjermingRowRefs.current[row] = element;
+											}}
+											type="button"
+											className={commonstyles["link-button"]}
+											aria-haspopup="dialog"
+											onClick={() => {
 												setSkjermingAnchor(skjermingRowRefs.current[row]);
 												setIsSkjermet(!isSkjermet);
-											} else {
+											}}
+										>
+											{oppdrag.oppdragGjelderId}
+										</button>
+									) : (
+										<Link
+											to="/detaljer"
+											className={commonstyles.link}
+											replace
+											onClick={() => {
 												setOppdragDto(oppdrag);
-											}
-										}}
-									>
-										{oppdrag.oppdragGjelderId}
-									</Link>
+											}}
+										>
+											{oppdrag.oppdragGjelderId}
+										</Link>
+									)}
 								</Table.DataCell>
 								<Table.DataCell>{oppdrag.navnFaggruppe}</Table.DataCell>
 								<Table.DataCell>{oppdrag.fagSystemId}</Table.DataCell>

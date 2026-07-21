@@ -16,7 +16,7 @@ type BreadcrumbsProps = {
 
 export default function Breadcrumbs(props: BreadcrumbsProps) {
 	return (
-		<nav className={styles.breadcrumbs}>
+		<nav className={styles.breadcrumbs} aria-label="Brødsmulesti">
 			<div className={styles.breadcrumbs__left}>
 				<div className={styles.breadcrumbs__contents}>
 					{props.searchLink && (

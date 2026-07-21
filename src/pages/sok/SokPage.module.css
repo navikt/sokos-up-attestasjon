@@ -8,8 +8,7 @@
 	padding: 1.5rem;
 	position: relative;
 	border-radius: 0.5rem;
-	background-color: var(--a-surface-alt-1-subtle);
-}
+	background: var(--ax-bg-meta-purple-moderateA);}
 
 .sok__form {
 	display: flex;
@@ -43,7 +42,7 @@
 .sok__divider {
 	width: 1px;
 	min-height: 180px;
-	background-color: var(--a-border-default);
+	background-color: var(--ax-border-neutral);
 	margin: 0 1rem;
 }
 

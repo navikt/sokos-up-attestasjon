@@ -227,7 +227,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
 						onChange={() => toggleAllCheckboxes("fjern")}
 						disabled={fjernAntallAttestasjoner === 0}
 					>
-						Avattester alle
+						Fjern alle
 					</Checkbox>
 					<Checkbox
 						checked={
