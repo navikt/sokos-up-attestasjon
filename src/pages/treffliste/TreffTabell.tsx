@@ -1,5 +1,12 @@
-import { Pagination, Popover, type SortState, Table } from "@navikt/ds-react";
-import { useRef, useState } from "react";
+import { EyeSlashIcon } from "@navikt/aksel-icons";
+import {
+	HStack,
+	Pagination,
+	type SortState,
+	Table,
+	Tag,
+} from "@navikt/ds-react";
+import { useState } from "react";
 import { Link } from "react-router";
 import RowsPerPageSelector from "../../components/RowsPerPageSelector";
 import { useStore } from "../../store/AppState";
@@ -17,11 +24,6 @@ export default function TreffTabell(props: TreffTabellProps) {
 	}
 
 	const { setOppdragDto } = useStore();
-	const [isSkjermet, setIsSkjermet] = useState(false);
-	const [skjermingAnchor, setSkjermingAnchor] = useState<HTMLElement | null>(
-		null,
-	);
-	const skjermingRowRefs = useRef<(HTMLElement | null)[]>([]);
 	const [sort, setSort] = useState<ScopedSortState | undefined>();
 	const [page, setPage] = useState(1);
 	const [rowsPerPage, setRowsPerPage] = useState<number>(25);
@@ -114,24 +116,17 @@ export default function TreffTabell(props: TreffTabellProps) {
 						</Table.Row>
 					</Table.Header>
 					<Table.Body>
-						{pageData.map((oppdrag, row) => (
+						{pageData.map((oppdrag) => (
 							<Table.Row key={btoa(`${oppdrag.oppdragsId}`)}>
 								<Table.DataCell>
 									{oppdrag.erSkjermetForSaksbehandler ? (
-										<button
-											ref={(element) => {
-												skjermingRowRefs.current[row] = element;
-											}}
-											type="button"
-											className={commonstyles["link-button"]}
-											aria-haspopup="dialog"
-											onClick={() => {
-												setSkjermingAnchor(skjermingRowRefs.current[row]);
-												setIsSkjermet(!isSkjermet);
-											}}
-										>
+										<HStack align="center" gap="space-8" as="span">
 											{oppdrag.oppdragGjelderId}
-										</button>
+											<Tag variant="strong" data-color="danger" size="small">
+												<EyeSlashIcon aria-label="Skjermet" />
+												Skjermet
+											</Tag>
+										</HStack>
 									) : (
 										<Link
 											to="/detaljer"
@@ -156,19 +151,6 @@ export default function TreffTabell(props: TreffTabellProps) {
 						))}
 					</Table.Body>
 				</Table>
-				<Popover
-					open={isSkjermet}
-					onClose={() => setIsSkjermet(false)}
-					anchorEl={skjermingAnchor}
-					flip={false}
-					placement="right"
-				>
-					<Popover.Content>
-						<div className={commonstyles["status--danger"]}>
-							Denne personen er skjermet. Du har ikke tilgang.
-						</div>
-					</Popover.Content>
-				</Popover>
 			</div>
 
 			{pagecount > 1 && (
