@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Heading, LocalAlert } from "@navikt/ds-react";
+import { Box, Heading, LocalAlert } from "@navikt/ds-react";
 import { useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
@@ -116,21 +116,20 @@ export default function SokPage() {
 					</FormProvider>
 				</form>
 			</div>
-			{error && (
+			{error && error.variant === "announcement" && (
+				<Box className={styles.sok__announcement}>
+					<Heading level="2" size="small">
+						{error.message}
+					</Heading>
+				</Box>
+			)}
+			{error && error.variant !== "announcement" && (
 				<div className={styles.sok__error}>
-					{error.variant === "announcement" ? (
-						<div className={styles.sok__announcement}>
-							<Heading level="2" size="small">
-								{error.message}
-							</Heading>
-						</div>
-					) : (
-						<LocalAlert status={error.variant} as="div">
-							<LocalAlert.Header>
-								<LocalAlert.Title as="h2">{error.message}</LocalAlert.Title>
-							</LocalAlert.Header>
-						</LocalAlert>
-					)}
+					<LocalAlert status={error.variant} as="div">
+						<LocalAlert.Header>
+							<LocalAlert.Title as="h2">{error.message}</LocalAlert.Title>
+						</LocalAlert.Header>
+					</LocalAlert>
 				</div>
 			)}
 		</div>

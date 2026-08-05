@@ -46,15 +46,16 @@
 	margin: 0 1rem;
 }
 
-.sok__error {
-	padding-top: 1.5rem;
-}
-
 .sok__announcement {
-  padding: 1rem 1.5rem;
+  margin-top: var(--ax-space-24);
+  padding: var(--ax-space-16) var(--ax-space-24);
   background: var(--ax-bg-accent-soft);
   border: 1px solid var(--ax-border-accent-subtle);
-  border-radius: 8px;
+  border-radius: var(--ax-radius-8);
+}
+
+.sok__error {
+  padding-top: var(--ax-space-24);
 }
 
 
