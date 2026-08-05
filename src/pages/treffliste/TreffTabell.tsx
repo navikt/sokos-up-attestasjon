@@ -1,11 +1,19 @@
-import { Pagination, Popover, type SortState, Table } from "@navikt/ds-react";
-import { useRef, useState } from "react";
+import { EyeSlashIcon } from "@navikt/aksel-icons";
+import {
+	HStack,
+	Pagination,
+	type SortState,
+	Table,
+	Tag,
+} from "@navikt/ds-react";
+import { useState } from "react";
 import { Link } from "react-router";
 import RowsPerPageSelector from "../../components/RowsPerPageSelector";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import type { OppdragDTOList } from "../../types/Oppdrag";
 import { logUserEvent, TREFFLISTE } from "../../umami/umami";
+import styles from "./TreffTabell.module.css";
 
 interface TreffTabellProps {
 	oppdragDtoList: OppdragDTOList;
@@ -17,10 +25,6 @@ export default function TreffTabell(props: TreffTabellProps) {
 	}
 
 	const { setOppdragDto } = useStore();
-	const [isSkjermet, setIsSkjermet] = useState(false);
-	const [skjermingAnchor, setSkjermingAnchor] =
-		useState<HTMLAnchorElement | null>(null);
-	const skjermingRowRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 	const [sort, setSort] = useState<ScopedSortState | undefined>();
 	const [page, setPage] = useState(1);
 	const [rowsPerPage, setRowsPerPage] = useState<number>(25);
@@ -113,28 +117,37 @@ export default function TreffTabell(props: TreffTabellProps) {
 						</Table.Row>
 					</Table.Header>
 					<Table.Body>
-						{pageData.map((oppdrag, row) => (
-							<Table.Row key={btoa(`${oppdrag.oppdragsId}`)}>
+						{pageData.map((oppdrag) => (
+							<Table.Row
+								key={btoa(`${oppdrag.oppdragsId}`)}
+								className={
+									oppdrag.erSkjermetForSaksbehandler
+										? styles["skjermet-rad"]
+										: undefined
+								}
+							>
+								{" "}
 								<Table.DataCell>
-									<Link
-										ref={(element) => {
-											skjermingRowRefs.current[row] = element;
-											return;
-										}}
-										to={oppdrag.erSkjermetForSaksbehandler ? "#" : "/detaljer"}
-										className={commonstyles.link}
-										replace
-										onClick={() => {
-											if (oppdrag.erSkjermetForSaksbehandler) {
-												setSkjermingAnchor(skjermingRowRefs.current[row]);
-												setIsSkjermet(!isSkjermet);
-											} else {
+									{oppdrag.erSkjermetForSaksbehandler ? (
+										<HStack align="center" gap="space-8" as="span">
+											{oppdrag.oppdragGjelderId}
+											<Tag variant="outline" data-color="warning" size="small">
+												<EyeSlashIcon aria-label="Skjermet" />
+												Skjermet
+											</Tag>
+										</HStack>
+									) : (
+										<Link
+											to="/detaljer"
+											className={commonstyles.link}
+											replace
+											onClick={() => {
 												setOppdragDto(oppdrag);
-											}
-										}}
-									>
-										{oppdrag.oppdragGjelderId}
-									</Link>
+											}}
+										>
+											{oppdrag.oppdragGjelderId}
+										</Link>
+									)}
 								</Table.DataCell>
 								<Table.DataCell>{oppdrag.navnFaggruppe}</Table.DataCell>
 								<Table.DataCell>{oppdrag.fagSystemId}</Table.DataCell>
@@ -147,19 +160,6 @@ export default function TreffTabell(props: TreffTabellProps) {
 						))}
 					</Table.Body>
 				</Table>
-				<Popover
-					open={isSkjermet}
-					onClose={() => setIsSkjermet(false)}
-					anchorEl={skjermingAnchor}
-					flip={false}
-					placement="right"
-				>
-					<Popover.Content>
-						<div className={commonstyles["status--danger"]}>
-							Denne personen er skjermet. Du har ikke tilgang.
-						</div>
-					</Popover.Content>
-				</Popover>
 			</div>
 
 			{pagecount > 1 && (

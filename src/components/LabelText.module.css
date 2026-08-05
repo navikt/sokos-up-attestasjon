@@ -5,5 +5,5 @@
 }
 
 .label__text {
-	font-weight: bold;
+	font-weight: var(--ax-font-weight-bold);
 }

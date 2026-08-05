@@ -30,12 +30,12 @@ test.describe("Treffliste", () => {
 		test.beforeEach(({ page }) => {
 			setStore(page);
 		});
-		test(`clicking on skjermet oppdrag shows warning while not skjermet takes user to detaljer page`, async ({
+		test(`skjermet oppdrag shows Skjermet tag while not skjermet takes user to detaljer page`, async ({
 			page,
 		}) => {
 			await gotoAndAssertBeingOnTrefflistePage(page);
-			await page.getByRole("link", { name: "98765498765" }).click();
-			expect(page.getByText("Denne personen er skjermet")).toBeVisible();
+
+			await expect(page.getByText("Skjermet")).toBeVisible();
 
 			backendWillReturn(page, oppdragsDetaljerDto);
 			await page.getByRole("link", { name: "12345612345" }).click();

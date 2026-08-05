@@ -8,8 +8,7 @@
 	padding: 1.5rem;
 	position: relative;
 	border-radius: 0.5rem;
-	background-color: var(--a-surface-alt-1-subtle);
-}
+	background: var(--ax-bg-meta-purple-moderateA);}
 
 .sok__form {
 	display: flex;
@@ -43,13 +42,22 @@
 .sok__divider {
 	width: 1px;
 	min-height: 180px;
-	background-color: var(--a-border-default);
+	background-color: var(--ax-border-neutral);
 	margin: 0 1rem;
 }
 
-.sok__error {
-	padding-top: 1.25rem;
+.sok__announcement {
+  margin-top: var(--ax-space-24);
+  padding: var(--ax-space-16) var(--ax-space-24);
+  background: var(--ax-bg-accent-soft);
+  border: 1px solid var(--ax-border-accent-subtle);
+  border-radius: var(--ax-radius-8);
 }
+
+.sok__error {
+  padding-top: var(--ax-space-24);
+}
+
 
 .sok__error--nowrap {
 	white-space: nowrap;

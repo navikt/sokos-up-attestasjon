@@ -25,17 +25,18 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	border-radius: 0.75rem;
-	background-color: white;
-	padding: 1.25rem;
+	border-radius: 0.5rem;
+	background-color: var(--ax-bg-accent-soft);
+	border: 1px solid var(--ax-border-accent-subtle);
+	padding: 1rem 1.5rem;
 	box-sizing: border-box;
+	gap: 1rem;
 }
 
 .page__top-sokekriterier__content {
 	display: flex;
 	flex-flow: row wrap;
 	gap: 2.5rem;
-	padding-top: 1rem;
 }
 
 .link {
@@ -46,14 +47,28 @@
 	text-decoration: none;
 }
 
+.link-button {
+	background: none;
+	border: none;
+	padding: 0;
+	cursor: pointer;
+	font: inherit;
+	color: var(--ax-text-accent-subtle);
+	text-decoration: underline;
+}
+
+.link-button:hover {
+	text-decoration: none;
+}
+
 .status--danger {
-	color: var(--a-nav-red);
+	color: var(--ax-text-danger-subtle);
 }
 
 .table {
 	min-width: var(--table-min-width);
 	border-radius: 0.5rem;
-	background-color: var(--a-white);
+	background-color: var(--ax-bg-default);
 }
 
 .table-container {
