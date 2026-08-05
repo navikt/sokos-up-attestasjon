@@ -47,8 +47,16 @@
 }
 
 .sok__error {
-	padding-top: 1.25rem;
+	padding-top: 1.5rem;
 }
+
+.sok__announcement {
+  padding: 1rem 1.5rem;
+  background: var(--ax-bg-accent-soft);
+  border: 1px solid var(--ax-border-accent-subtle);
+  border-radius: 8px;
+}
+
 
 .sok__error--nowrap {
 	white-space: nowrap;

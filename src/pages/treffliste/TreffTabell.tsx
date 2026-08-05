@@ -13,6 +13,7 @@ import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import type { OppdragDTOList } from "../../types/Oppdrag";
 import { logUserEvent, TREFFLISTE } from "../../umami/umami";
+import styles from "./TreffTabell.module.css";
 
 interface TreffTabellProps {
 	oppdragDtoList: OppdragDTOList;
@@ -117,12 +118,20 @@ export default function TreffTabell(props: TreffTabellProps) {
 					</Table.Header>
 					<Table.Body>
 						{pageData.map((oppdrag) => (
-							<Table.Row key={btoa(`${oppdrag.oppdragsId}`)}>
+							<Table.Row
+								key={btoa(`${oppdrag.oppdragsId}`)}
+								className={
+									oppdrag.erSkjermetForSaksbehandler
+										? styles["skjermet-rad"]
+										: undefined
+								}
+							>
+								{" "}
 								<Table.DataCell>
 									{oppdrag.erSkjermetForSaksbehandler ? (
 										<HStack align="center" gap="space-8" as="span">
 											{oppdrag.oppdragGjelderId}
-											<Tag variant="strong" data-color="danger" size="small">
+											<Tag variant="outline" data-color="warning" size="small">
 												<EyeSlashIcon aria-label="Skjermet" />
 												Skjermet
 											</Tag>

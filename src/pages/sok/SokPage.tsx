@@ -76,8 +76,7 @@ export default function SokPage() {
 				} else {
 					setError({
 						variant: "announcement",
-						message:
-							"Ingen treff på søket. Prøv igjen med andre søkekriterier.",
+						message: "Ingen treff på søket.",
 					});
 				}
 			})
@@ -119,11 +118,19 @@ export default function SokPage() {
 			</div>
 			{error && (
 				<div className={styles.sok__error}>
-					<LocalAlert status={error.variant} as="div">
-						<LocalAlert.Header>
-							<LocalAlert.Title as="h2">{error.message}</LocalAlert.Title>
-						</LocalAlert.Header>
-					</LocalAlert>
+					{error.variant === "announcement" ? (
+						<div className={styles.sok__announcement}>
+							<Heading level="2" size="small">
+								{error.message}
+							</Heading>
+						</div>
+					) : (
+						<LocalAlert status={error.variant} as="div">
+							<LocalAlert.Header>
+								<LocalAlert.Title as="h2">{error.message}</LocalAlert.Title>
+							</LocalAlert.Header>
+						</LocalAlert>
+					)}
 				</div>
 			)}
 		</div>
