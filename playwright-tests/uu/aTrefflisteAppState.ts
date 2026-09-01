@@ -1,4 +1,5 @@
 import type { AppState } from "../../src/store/AppState";
+import { AttestertStatus } from "../../src/types/schema/AttestertStatus";
 
 const state: { state: AppState; version: number } = {
 	state: {
@@ -22,7 +23,7 @@ const state: { state: AppState; version: number } = {
 
 		sokeData: {
 			gjelderId: "12345612345",
-			alternativer: "false",
+			alternativer: AttestertStatus.IKKE_FERDIG_ATTESTERT_INKL_EGNE,
 			fagSystemId: "",
 		},
 	},

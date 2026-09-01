@@ -13,6 +13,7 @@ export const BREADCRUMBS = {
 
 export const TREFFLISTE = {
 	SORTER: "sortert",
+	RELOAD: "last inn på nytt trykket",
 };
 
 export const DETALJER = {
