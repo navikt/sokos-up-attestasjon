@@ -22,7 +22,7 @@ export default function ReloadButton({
 			size={"small"}
 			loading={isLoading}
 			icon={<ArrowsCirclepathIcon title="Last inn på nytt ikon" />}
-			iconPosition="left"
+			iconPosition="right"
 			onClick={handleClick}
 		>
 			Last inn på nytt
