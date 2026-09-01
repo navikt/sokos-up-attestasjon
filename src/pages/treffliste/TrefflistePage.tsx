@@ -25,8 +25,8 @@ export default function TrefflistePage() {
 		setOppdragDtoList,
 	} = useStore();
 	const navigate = useNavigate();
-	// Starter i "loading"-tilstand siden trefflisten alltid hentes på nytt fra
-	// backend ved mount/refresh, og oppdragDtoList ikke lenger persisteres.
+	// Starter i "loading"-tilstand fordi trefflisten alltid hentes fra backend
+	// ved mount/refresh.
 	const [isReloading, setIsReloading] = useState<boolean>(true);
 	// Statusikonet gjelder kun manuelle klikk på "Last inn på nytt". Den
 	// automatiske hentingen ved mount/refresh skal ikke gi hake eller kryss.
@@ -74,8 +74,8 @@ export default function TrefflistePage() {
 		[sokeData, setOppdragDtoList],
 	);
 
-	// Sikrer at trefflisten hentes på nytt fra backend når siden lastes/refreshes,
-	// slik at man ikke viser en potensielt utdatert liste fra sessionStorage.
+	// Trefflisten hentes fra backend hver gang siden lastes eller monteres, slik
+	// at attestanten aldri ser en utdatert liste.
 	useEffect(() => {
 		hentTreffliste(false);
 	}, [hentTreffliste]);
@@ -98,9 +98,9 @@ export default function TrefflistePage() {
 		}
 	}
 
-	// sokeData persisteres fortsatt (den beskriver hva søket gjelder), så denne
-	// guarden fungerer likt som før også etter en nettleser-refresh: mangler
-	// søkekriteriene, er det ikke noe grunnlag for å vise trefflisten.
+	// sokeData persisteres i sessionStorage, så guarden holder også etter en
+	// nettleser-refresh: uten søkekriterier finnes det ikke noe grunnlag for å
+	// hente eller vise en treffliste.
 	useEffect(() => {
 		if (!sokeData) {
 			navigate(ROOT, { replace: true });

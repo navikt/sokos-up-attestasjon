@@ -9,9 +9,9 @@ async function setStore(page: Page) {
 	}, aTrefflisteAppState);
 }
 
-// TrefflistePage henter trefflisten på nytt fra backend ved mount/refresh,
-// så vi må mocke /sok med samme data som er injisert i sessionStorage
-// for at eksisterende testoppsett fortsatt skal gi forutsigbart resultat.
+// Trefflisten hentes fra backend ved mount, så /sok må mockes med de samme
+// dataene som er injisert i sessionStorage for at testene skal vise den
+// trefflisten de forventer.
 async function mockSokWillReturnInjectedTreffliste(page: Page) {
 	await page.route("**/attestasjon/sok", async (route) => {
 		await route.fulfill({
@@ -183,7 +183,8 @@ test.describe("Treffliste", () => {
 				page.getByRole("heading", { name: "Attestasjon: Treffliste" }),
 			).toBeVisible();
 
-			// Trefflisten skal reflektere det nye backend-svaret, ikke forrige visning.
+			// Trefflisten skal reflektere det siste svaret fra backend, ikke det som ble
+			// vist før navigasjonen.
 			await expect(
 				page.getByRole("link", { name: "98765498765" }),
 			).toBeVisible();
