@@ -11,8 +11,9 @@ import commonstyles from "../../styles/common-styles.module.css";
 import type { ErrorMessage } from "../../types/ErrorMessage";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
+import { formaterSistOppdatert } from "../../util/datoUtil";
 import { ROOT } from "../../util/routenames";
-import ReloadButton from "./ReloadButton";
+import ReloadButton, { type ReloadStatus } from "./ReloadButton";
 import TreffTabell from "./TreffTabell";
 
 export default function TrefflistePage() {
@@ -27,39 +28,57 @@ export default function TrefflistePage() {
 	// Starter i "loading"-tilstand siden trefflisten alltid hentes på nytt fra
 	// backend ved mount/refresh, og oppdragDtoList ikke lenger persisteres.
 	const [isReloading, setIsReloading] = useState<boolean>(true);
+	// Statusikonet gjelder kun manuelle klikk på "Last inn på nytt". Den
+	// automatiske hentingen ved mount/refresh skal ikke gi hake eller kryss.
+	const [reloadStatus, setReloadStatus] = useState<ReloadStatus>("idle");
 	const [reloadError, setReloadError] = useState<ErrorMessage | null>(null);
+	// Settes kun ved vellykket henting, slik at tidspunktet alltid beskriver den
+	// trefflisten som faktisk vises.
+	const [sistOppdatert, setSistOppdatert] = useState<Date | null>(null);
 
-	const reloadTreffliste = useCallback(() => {
-		if (!sokeData) {
-			return;
-		}
+	const hentTreffliste = useCallback(
+		(erManuell: boolean) => {
+			if (!sokeData) {
+				return;
+			}
 
-		setIsReloading(true);
-		setReloadError(null);
+			setIsReloading(true);
+			setReloadError(null);
+			setReloadStatus("idle");
 
-		const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
+			const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
 
-		hentOppdrag(sokeParameter)
-			.then((response) => {
-				setOppdragDtoList(response);
-			})
-			.catch((error) => {
-				setReloadError({
-					variant: "error",
-					message:
-						error.message || "Klarte ikke å oppdatere trefflisten. Prøv igjen.",
+			hentOppdrag(sokeParameter)
+				.then((response) => {
+					setOppdragDtoList(response);
+					setSistOppdatert(new Date());
+					if (erManuell) {
+						setReloadStatus("success");
+					}
+				})
+				.catch((error) => {
+					setReloadError({
+						variant: "error",
+						message:
+							error.message ||
+							"Klarte ikke å oppdatere trefflisten. Prøv igjen.",
+					});
+					if (erManuell) {
+						setReloadStatus("error");
+					}
+				})
+				.finally(() => {
+					setIsReloading(false);
 				});
-			})
-			.finally(() => {
-				setIsReloading(false);
-			});
-	}, [sokeData, setOppdragDtoList]);
+		},
+		[sokeData, setOppdragDtoList],
+	);
 
 	// Sikrer at trefflisten hentes på nytt fra backend når siden lastes/refreshes,
 	// slik at man ikke viser en potensielt utdatert liste fra sessionStorage.
 	useEffect(() => {
-		reloadTreffliste();
-	}, [reloadTreffliste]);
+		hentTreffliste(false);
+	}, [hentTreffliste]);
 
 	function getAttestertStatusText() {
 		if (
@@ -122,7 +141,16 @@ export default function TrefflistePage() {
 						/>
 					</div>
 					<div className={commonstyles["page__top-sokekriterier__footer"]}>
-						<ReloadButton isLoading={isReloading} onClick={reloadTreffliste} />
+						<ReloadButton
+							isLoading={isReloading}
+							status={reloadStatus}
+							lastUpdatedText={
+								sistOppdatert
+									? `Sist oppdatert ${formaterSistOppdatert(sistOppdatert)}`
+									: undefined
+							}
+							onClick={() => hentTreffliste(true)}
+						/>
 					</div>
 				</div>
 				{!!reloadError && (
