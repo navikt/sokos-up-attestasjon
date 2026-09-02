@@ -12,6 +12,7 @@ export default defineConfig(({ mode }) => {
 	return {
 		base: "/attestasjon",
 		build: {
+			copyPublicDir: false,
 			rolldownOptions: {
 				input: resolve(import.meta.dirname, "src/App.tsx"),
 				preserveEntrySignatures: "exports-only",
