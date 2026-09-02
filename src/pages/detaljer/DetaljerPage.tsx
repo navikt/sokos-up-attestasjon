@@ -1,5 +1,5 @@
 import { Heading, Loader } from "@navikt/ds-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import {
 	attesterOppdragRequest,
@@ -11,12 +11,16 @@ import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import LabelText from "../../components/LabelText";
 import NoRecordsFound from "../../components/NoRecordsFound";
+import ReloadButton, { type ReloadStatus } from "../../components/ReloadButton";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import type { AttestasjonlinjeList } from "../../types/Attestasjonlinje";
+import type { ErrorMessage } from "../../types/ErrorMessage";
 import type { OppdragsDetaljerDTO } from "../../types/OppdragsDetaljerDTO";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
+import { DETALJER } from "../../umami/umami";
+import { formaterSistOppdatert } from "../../util/datoUtil";
 import { ROOT } from "../../util/routenames";
 import DetaljerTabell from "./DetaljerTabell";
 
@@ -30,9 +34,43 @@ export default function DetaljerPage() {
 		variant: "success" | "error" | "warning";
 	} | null>(null);
 	const [isZosLoading, setIsZosLoading] = useState<boolean>(false);
+	// Statusikonet gjelder kun manuelle klikk på "Last inn på nytt". Den
+	// automatiske hentingen ved mount skal ikke gi hake eller kryss.
+	const [reloadStatus, setReloadStatus] = useState<ReloadStatus>("idle");
+	const [reloadError, setReloadError] = useState<ErrorMessage | null>(null);
+	// Settes kun ved vellykket henting, slik at tidspunktet alltid beskriver de
+	// oppdragslinjene som faktisk vises.
+	const [sistOppdatert, setSistOppdatert] = useState<Date | null>(null);
 
-	const { data, isLoading, mutate } = useFetchOppdragsdetaljer(
+	const { data, isLoading, isValidating, mutate } = useFetchOppdragsdetaljer(
 		oppdragDto?.oppdragsId,
+	);
+
+	const hentOppdragsdetaljer = useCallback(
+		(erManuell: boolean) => {
+			setReloadError(null);
+			setReloadStatus("idle");
+
+			mutate()
+				.then(() => {
+					setSistOppdatert(new Date());
+					if (erManuell) {
+						setReloadStatus("success");
+					}
+				})
+				.catch((error) => {
+					setReloadError({
+						variant: "error",
+						message:
+							error.message ||
+							"Klarte ikke å oppdatere oppdragslinjene. Prøv igjen.",
+					});
+					if (erManuell) {
+						setReloadStatus("error");
+					}
+				});
+		},
+		[mutate],
 	);
 
 	const linjerSomSkalVises: OppdragsDetaljerDTO | undefined = {
@@ -60,6 +98,13 @@ export default function DetaljerPage() {
 			navigate(ROOT, { replace: true });
 		}
 	}, [navigate, oppdragDto]);
+
+	// Oppdragslinjene hentes fra backend hver gang siden monteres, slik at
+	// saksbehandler ikke ser en utdatert attestert-status fra en tidligere
+	// visning av det samme oppdraget.
+	useEffect(() => {
+		hentOppdragsdetaljer(false);
+	}, [hentOppdragsdetaljer]);
 
 	async function handleSubmit(attestasjonlinjer: AttestasjonlinjeList) {
 		if (
@@ -104,7 +149,7 @@ export default function DetaljerPage() {
 						variant: "success",
 					});
 
-					mutate();
+					hentOppdragsdetaljer(false);
 				})
 				.catch((error) => {
 					setAlertMessage({ message: error.message, variant: "error" });
@@ -145,11 +190,35 @@ export default function DetaljerPage() {
 							/>
 							<LabelText label="Bilagstype" text={oppdragDto.typeBilag} />
 						</div>
+						<div className={commonstyles["page__top-sokekriterier__footer"]}>
+							<ReloadButton
+								isLoading={isValidating}
+								status={reloadStatus}
+								lastUpdatedText={
+									sistOppdatert
+										? `Sist oppdatert ${formaterSistOppdatert(sistOppdatert)}`
+										: undefined
+								}
+								umamiEvent={DETALJER.RELOAD}
+								onClick={() => hentOppdragsdetaljer(true)}
+							/>
+						</div>
 					</div>
 				)}
 			</div>
 			{isLoading && (
 				<Loader size="2xlarge" title="Laster ..." variant="interaction" />
+			)}
+			{!!reloadError && (
+				<div className={commonstyles["page__top-alert"]}>
+					<AlertWithCloseButton
+						show={!!reloadError}
+						setShow={() => setReloadError(null)}
+						variant={reloadError.variant}
+					>
+						{reloadError.message}
+					</AlertWithCloseButton>
+				</div>
 			)}
 			{!!alertMessage && (
 				<AlertWithCloseButton

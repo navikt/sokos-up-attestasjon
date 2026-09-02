@@ -6,14 +6,15 @@ import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import LabelText from "../../components/LabelText";
 import NoRecordsFound from "../../components/NoRecordsFound";
+import ReloadButton, { type ReloadStatus } from "../../components/ReloadButton";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
 import type { ErrorMessage } from "../../types/ErrorMessage";
 import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
+import { TREFFLISTE } from "../../umami/umami";
 import { formaterSistOppdatert } from "../../util/datoUtil";
 import { ROOT } from "../../util/routenames";
-import ReloadButton, { type ReloadStatus } from "./ReloadButton";
 import TreffTabell from "./TreffTabell";
 
 export default function TrefflistePage() {
@@ -149,6 +150,7 @@ export default function TrefflistePage() {
 									? `Sist oppdatert ${formaterSistOppdatert(sistOppdatert)}`
 									: undefined
 							}
+							umamiEvent={TREFFLISTE.RELOAD}
 							onClick={() => hentTreffliste(true)}
 						/>
 					</div>
