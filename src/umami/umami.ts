@@ -13,6 +13,7 @@ export const BREADCRUMBS = {
 
 export const TREFFLISTE = {
 	SORTER: "sortert",
+	RELOAD: "last inn på nytt trykket",
 };
 
 export const DETALJER = {
@@ -21,6 +22,7 @@ export const DETALJER = {
 	EDITED_DATE: "redigerte dato",
 	SUM_MODAL_OPENED: "summodal åpnet",
 	SELECT_ALL_CHECKBOX_CLICKED: "velg alle trykket",
+	RELOAD: "last inn på nytt trykket",
 };
 
 export function logUserEvent(name: string, data?: object): void {

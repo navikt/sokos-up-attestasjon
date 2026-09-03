@@ -12,12 +12,19 @@ export default defineConfig(({ mode }) => {
 	return {
 		base: "/attestasjon",
 		build: {
+			copyPublicDir: false,
 			rolldownOptions: {
 				input: resolve(import.meta.dirname, "src/App.tsx"),
 				preserveEntrySignatures: "exports-only",
 				plugins: [
 					esmExternalRequirePlugin({
-						external: ["react", "react-dom"],
+						external: [
+							"react",
+							"react/jsx-runtime",
+							"react-dom",
+							"react-dom/client",
+							"scheduler",
+						],
 					}),
 				],
 				output: {

@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import "dayjs/locale/nb";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 
 dayjs.extend(customParseFormat);
@@ -19,6 +20,12 @@ export function norskDatoTilIsoDato(norskDato?: string): string {
 
 export function dagensDato(): string {
 	return dayjs().format(datoFormatNorsk);
+}
+
+// Locale settes per instans (ikke globalt) slik at øvrig datoformatering i
+// appen ikke påvirkes.
+export function formaterSistOppdatert(tidspunkt: Date): string {
+	return dayjs(tidspunkt).locale("nb").format("DD. MMM [kl.] HH.mm");
 }
 
 export function isInvalidDateFormat(norskDato: string): boolean {
