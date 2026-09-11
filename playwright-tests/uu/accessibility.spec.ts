@@ -41,6 +41,16 @@ test.describe("Axe a11y", () => {
 				},
 			});
 		});
+		// TrefflistePage henter trefflisten på nytt ved mount, så vi mocker /sok
+		// med samme data som er injisert i sessionStorage for et forutsigbart resultat.
+		await page.route("*/**/attestasjon/sok", async (route) => {
+			await route.fulfill({
+				json: {
+					data: aTrefflisteAppState.state.oppdragDtoList,
+					errorMessage: "",
+				},
+			});
+		});
 		await page.goto("/attestasjon/treffliste");
 		await page.waitForLoadState("networkidle");
 
