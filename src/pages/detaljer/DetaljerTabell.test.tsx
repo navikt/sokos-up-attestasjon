@@ -77,12 +77,9 @@ describe("DetaljerTabell - Attester alle checkbox", () => {
 			/>,
 		);
 
-		const allCheckboxes = screen.getAllByRole("checkbox", {
-			name: /attester/i,
+		const attesterAlleCheckbox = screen.getByRole("checkbox", {
+			name: "Attester alle",
 		});
-
-		// vi skal ha tak i den andre checkboxen; "Attester alle"
-		const attesterAlleCheckbox = allCheckboxes[1];
 		await userEvent.click(attesterAlleCheckbox);
 
 		const oppdaterButton = screen.getByRole("button", { name: /oppdater/i });
@@ -122,13 +119,10 @@ describe("DetaljerTabell - Attester alle checkbox", () => {
 			/>,
 		);
 
-		const allCheckboxes = screen.getAllByRole("checkbox", {
-			name: /attester/i,
+		const fjernAlleCheckbox = screen.getByRole("checkbox", {
+			name: "Fjern alle",
 		});
-
-		// vi skal ha tak i den første checkboxen; "Avattester alle"
-		const avattesterAlleCheckbox = allCheckboxes[0];
-		await userEvent.click(avattesterAlleCheckbox);
+		await userEvent.click(fjernAlleCheckbox);
 
 		const oppdaterButton = screen.getByRole("button", { name: /oppdater/i });
 		await userEvent.click(oppdaterButton);
@@ -172,11 +166,11 @@ describe("DetaljerTabell - Attester alle checkbox", () => {
 		);
 
 		const allCheckboxes = screen.getAllByRole("checkbox", {
-			name: /attester/i,
+			name: "Attester",
 		});
 
-		// linje 1
-		await userEvent.click(allCheckboxes[2]);
+		// linje 1 (første unattested)
+		await userEvent.click(allCheckboxes[0]);
 
 		const oppdaterButton = screen.getByRole("button", { name: /oppdater/i });
 		await userEvent.click(oppdaterButton);
@@ -209,11 +203,9 @@ describe("DetaljerTabell - Attester alle checkbox", () => {
 			/>,
 		);
 
-		const allCheckboxes = screen.getAllByRole("checkbox", {
-			name: /attester/i,
+		const attesterAlleCheckbox = screen.getByRole("checkbox", {
+			name: "Attester alle",
 		});
-
-		const attesterAlleCheckbox = allCheckboxes[1];
 
 		await userEvent.click(attesterAlleCheckbox);
 		await userEvent.click(attesterAlleCheckbox);

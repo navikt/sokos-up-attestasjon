@@ -1,0 +1,15 @@
+.container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	border-radius: var(--ax-radius-12);
+	padding: var(--ax-space-32);
+	margin-left: var(--ax-space-48);
+	margin-right: var(--ax-space-48);
+	margin-top: var(--ax-space-16);
+	background-color: var(--ax-bg-default);
+}
+
+.button {
+	align-self: center;
+}

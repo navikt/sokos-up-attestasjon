@@ -1,8 +1,7 @@
-import { Heading, Loader } from "@navikt/ds-react";
+import { Heading, Loader, LocalAlert } from "@navikt/ds-react";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { hentNavn, hentOppdrag } from "../../api/apiService";
-import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import LabelText from "../../components/LabelText";
 import NoRecordsFound from "../../components/NoRecordsFound";
@@ -157,13 +156,14 @@ export default function TrefflistePage() {
 				</div>
 				{!!reloadError && (
 					<div className={commonstyles["page__top-alert"]}>
-						<AlertWithCloseButton
-							show={!!reloadError}
-							setShow={() => setReloadError(null)}
-							variant={reloadError.variant}
-						>
-							{reloadError.message}
-						</AlertWithCloseButton>
+						<LocalAlert status={reloadError.variant}>
+							<LocalAlert.Header>
+								<LocalAlert.Title as="h2">
+									{reloadError.message}
+								</LocalAlert.Title>
+								<LocalAlert.CloseButton onClick={() => setReloadError(null)} />
+							</LocalAlert.Header>
+						</LocalAlert>
 					</div>
 				)}
 			</div>
