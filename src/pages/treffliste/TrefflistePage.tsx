@@ -1,19 +1,85 @@
-import { Heading } from "@navikt/ds-react";
-import { useEffect } from "react";
+import { Heading, Loader } from "@navikt/ds-react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import { hentNavn } from "../../api/apiService";
+import { hentNavn, hentOppdrag } from "../../api/apiService";
+import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import LabelText from "../../components/LabelText";
 import NoRecordsFound from "../../components/NoRecordsFound";
+import ReloadButton, { type ReloadStatus } from "../../components/ReloadButton";
 import { useStore } from "../../store/AppState";
 import commonstyles from "../../styles/common-styles.module.css";
+import type { ErrorMessage } from "../../types/ErrorMessage";
+import { SokeDataToSokeParameter } from "../../types/SokeParameter";
 import { AttestertStatus } from "../../types/schema/AttestertStatus";
+import { TREFFLISTE } from "../../umami/umami";
+import { formaterSistOppdatert } from "../../util/datoUtil";
 import { ROOT } from "../../util/routenames";
 import TreffTabell from "./TreffTabell";
 
 export default function TrefflistePage() {
-	const { oppdragDtoList, sokeData, gjelderNavn, setGjelderNavn } = useStore();
+	const {
+		oppdragDtoList,
+		sokeData,
+		gjelderNavn,
+		setGjelderNavn,
+		setOppdragDtoList,
+	} = useStore();
 	const navigate = useNavigate();
+	// Starter i "loading"-tilstand fordi trefflisten alltid hentes fra backend
+	// ved mount/refresh.
+	const [isReloading, setIsReloading] = useState<boolean>(true);
+	// Statusikonet gjelder kun manuelle klikk på "Last inn på nytt". Den
+	// automatiske hentingen ved mount/refresh skal ikke gi hake eller kryss.
+	const [reloadStatus, setReloadStatus] = useState<ReloadStatus>("idle");
+	const [reloadError, setReloadError] = useState<ErrorMessage | null>(null);
+	// Settes kun ved vellykket henting, slik at tidspunktet alltid beskriver den
+	// trefflisten som faktisk vises.
+	const [sistOppdatert, setSistOppdatert] = useState<Date | null>(null);
+
+	const hentTreffliste = useCallback(
+		(erManuell: boolean) => {
+			if (!sokeData) {
+				return;
+			}
+
+			setIsReloading(true);
+			setReloadError(null);
+			setReloadStatus("idle");
+
+			const sokeParameter = SokeDataToSokeParameter.parse(sokeData);
+
+			hentOppdrag(sokeParameter)
+				.then((response) => {
+					setOppdragDtoList(response);
+					setSistOppdatert(new Date());
+					if (erManuell) {
+						setReloadStatus("success");
+					}
+				})
+				.catch((error) => {
+					setReloadError({
+						variant: "error",
+						message:
+							error.message ||
+							"Klarte ikke å oppdatere trefflisten. Prøv igjen.",
+					});
+					if (erManuell) {
+						setReloadStatus("error");
+					}
+				})
+				.finally(() => {
+					setIsReloading(false);
+				});
+		},
+		[sokeData, setOppdragDtoList],
+	);
+
+	// Trefflisten hentes fra backend hver gang siden lastes eller monteres, slik
+	// at attestanten aldri ser en utdatert liste.
+	useEffect(() => {
+		hentTreffliste(false);
+	}, [hentTreffliste]);
 
 	function getAttestertStatusText() {
 		if (
@@ -33,11 +99,14 @@ export default function TrefflistePage() {
 		}
 	}
 
+	// sokeData persisteres i sessionStorage, så guarden holder også etter en
+	// nettleser-refresh: uten søkekriterier finnes det ikke noe grunnlag for å
+	// hente eller vise en treffliste.
 	useEffect(() => {
-		if (!oppdragDtoList) {
+		if (!sokeData) {
 			navigate(ROOT, { replace: true });
 		}
-	}, [navigate, oppdragDtoList]);
+	}, [navigate, sokeData]);
 
 	useEffect(() => {
 		if (sokeData?.gjelderId !== "" && !gjelderNavn) {
@@ -72,11 +141,38 @@ export default function TrefflistePage() {
 							text={getAttestertStatusText()}
 						/>
 					</div>
+					<div className={commonstyles["page__top-sokekriterier__footer"]}>
+						<ReloadButton
+							isLoading={isReloading}
+							status={reloadStatus}
+							lastUpdatedText={
+								sistOppdatert
+									? `Sist oppdatert ${formaterSistOppdatert(sistOppdatert)}`
+									: undefined
+							}
+							umamiEvent={TREFFLISTE.RELOAD}
+							onClick={() => hentTreffliste(true)}
+						/>
+					</div>
 				</div>
+				{!!reloadError && (
+					<div className={commonstyles["page__top-alert"]}>
+						<AlertWithCloseButton
+							show={!!reloadError}
+							setShow={() => setReloadError(null)}
+							variant={reloadError.variant}
+						>
+							{reloadError.message}
+						</AlertWithCloseButton>
+					</div>
+				)}
 			</div>
 
+			{isReloading && !oppdragDtoList && (
+				<Loader size="2xlarge" title="Laster ..." variant="interaction" />
+			)}
 			{oppdragDtoList && <TreffTabell oppdragDtoList={oppdragDtoList} />}
-			{oppdragDtoList && oppdragDtoList.length === 0 && (
+			{oppdragDtoList && oppdragDtoList.length === 0 && !isReloading && (
 				<NoRecordsFound buttonText="Gå tilbake til Søk" navigateTo="/" />
 			)}
 		</div>

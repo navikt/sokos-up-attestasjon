@@ -59,14 +59,15 @@ export function useFetchFagomraader() {
 }
 
 export function useFetchOppdragsdetaljer(oppdragsId?: number) {
-	const { data, isLoading, mutate } = useSWRImmutable<OppdragsDetaljerDTO>(
-		oppdragsId ? `/${oppdragsId.toString()}/oppdragsdetaljer` : null,
-		swrConfig<OppdragsDetaljerDTO>((url) =>
-			axiosFetcher<OppdragsDetaljerDTO>(BASE_URI.ATTESTASJON_API, url),
-		),
-	);
+	const { data, isLoading, isValidating, mutate } =
+		useSWRImmutable<OppdragsDetaljerDTO>(
+			oppdragsId ? `/${oppdragsId.toString()}/oppdragsdetaljer` : null,
+			swrConfig<OppdragsDetaljerDTO>((url) =>
+				axiosFetcher<OppdragsDetaljerDTO>(BASE_URI.ATTESTASJON_API, url),
+			),
+		);
 
-	return { data, isLoading, mutate };
+	return { data, isLoading, isValidating, mutate };
 }
 
 export async function hentOppdrag(request: SokeParameter) {

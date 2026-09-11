@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vitest";
 import {
 	dagensDato,
+	formaterSistOppdatert,
 	isDateInThePast,
 	isInvalidDateFormat,
 	isoDatoTilNorskDato,
@@ -45,6 +46,17 @@ describe("datoUtil", () => {
 			expect(dagensDato()).toBe("15.03.2024");
 
 			vi.useRealTimers();
+		});
+	});
+
+	describe("formaterSistOppdatert", () => {
+		it("formaterer tidspunkt med norsk måned og klokkeslett", () => {
+			expect(formaterSistOppdatert(new Date(2026, 8, 1, 15, 27))).toBe(
+				"01. sep. kl. 15.27",
+			);
+			expect(formaterSistOppdatert(new Date(2026, 0, 9, 8, 5))).toBe(
+				"09. jan. kl. 08.05",
+			);
 		});
 	});
 
