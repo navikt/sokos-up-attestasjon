@@ -89,6 +89,8 @@ export default function TreffTabell(props: TreffTabellProps) {
 
 			<div className={commonstyles.table}>
 				<Table
+					aria-label="Attestasjonsliste"
+					zebraStripes
 					sort={sort}
 					onSortChange={(sortKey) =>
 						handleSort(sortKey as ScopedSortState["orderBy"])
@@ -132,7 +134,7 @@ export default function TreffTabell(props: TreffTabellProps) {
 										<HStack align="center" gap="space-8" as="span">
 											{oppdrag.oppdragGjelderId}
 											<Tag variant="outline" data-color="warning" size="small">
-												<EyeSlashIcon aria-label="Skjermet" />
+												<EyeSlashIcon aria-hidden />
 												Skjermet
 											</Tag>
 										</HStack>

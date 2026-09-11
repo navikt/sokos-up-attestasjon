@@ -184,10 +184,9 @@ test.describe("Treffliste", () => {
 			).toBeVisible();
 
 			// Trefflisten skal reflektere det siste svaret fra backend, ikke det som ble
-			// vist før navigasjonen.
-			await expect(
-				page.getByRole("link", { name: "98765498765" }),
-			).toBeVisible();
+			// vist før navigasjonen. 98765498765 er skjermet og vises derfor som
+			// tekst med "Skjermet"-tagg, ikke som lenke.
+			await expect(page.getByText("98765498765")).toBeVisible();
 			await expect(
 				page.getByRole("link", { name: "12345612345" }),
 			).toBeHidden();
@@ -296,9 +295,7 @@ test.describe("Treffliste", () => {
 			await gotoAndAssertBeingOnTrefflistePage(page);
 			await expect(page.getByText(feilmelding)).toBeVisible();
 
-			await expect(
-				page.getByRole("link", { name: "98765498765" }),
-			).toBeVisible();
+			await expect(page.getByText("98765498765")).toBeVisible();
 			await expect(
 				page.getByRole("link", { name: "12345612345" }),
 			).toBeVisible();

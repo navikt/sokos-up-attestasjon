@@ -280,9 +280,9 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
 										data-umami-event={DETALJER.EXPAND_ALL_ROWS_CLICKED}
 										icon={
 											toggleAllRows ? (
-												<ChevronUpIcon title="Pil opp" />
+												<ChevronUpIcon aria-hidden />
 											) : (
-												<ChevronDownIcon title="Pil ned" />
+												<ChevronDownIcon aria-hidden />
 											)
 										}
 										iconPosition="right"
