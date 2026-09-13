@@ -18,7 +18,7 @@ import {
 	isoDatoTilNorskDato,
 } from "../../util/datoUtil";
 import styles from "./DetaljerTabell.module.css";
-import { tranformToAttestasjonlinje } from "./detaljerUtils";
+import { transformToAttestasjonlinje } from "./detaljerUtils";
 import RowWrapper from "./RowWrapper";
 import SumModal from "./SumModal";
 
@@ -67,7 +67,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
 
 	useEffect(() => {
 		if (props.oppdragsDetaljer) {
-			const linjer = tranformToAttestasjonlinje(
+			const linjer = transformToAttestasjonlinje(
 				props.oppdragsDetaljer,
 				props.antallAttestanter,
 			);
