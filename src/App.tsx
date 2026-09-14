@@ -17,9 +17,9 @@ const App = () => {
 		<BrowserRouter basename={BASENAME}>
 			<Routes>
 				<Route path={ROOT} element={<SokPage />} />
-				<Route path={TREFFLISTE} element={<TrefflistePage />} />,
-				<Route path={DETALJER} element={<DetaljerPage />} />,
-				<Route path={"*"} element={<NotFound />} />,
+				<Route path={TREFFLISTE} element={<TrefflistePage />} />
+				<Route path={DETALJER} element={<DetaljerPage />} />
+				<Route path={"*"} element={<NotFound />} />
 			</Routes>
 		</BrowserRouter>
 	);
