@@ -42,6 +42,10 @@ i identrutinene. Det er derfor viktig å benytte riktig begrep i kommunikasjon m
 4. Start appen lokalt `pnpm run dev` (Mock Service Worker) eller mot backend lokalt `pnpm run dev:backend` [sokos-oppdrag](https://github.com/navikt/sokos-oppdrag)
 5. Appen nås på <http://localhost:5173/attestasjon>
 
+## Frontend APM
+
+`@nais/apm` rapporterer frontend-feil og traces. Init-oppsettet fjerner query-parametere fra rapporterte URL-er. Lokalt sendes ikke telemetri.
+
 NB! Anbefaler sette opp [ModHeader](https://modheader.com/) extension på Chrome for å sende med Obo-token i `Authorization` header når du kjører mot backend lokalt da den krever at token inneholder NavIdent.
 
 ### Flere instanser med msw samtidig

@@ -1,25 +1,21 @@
-import { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router";
 import NotFound from "./components/NotFound";
 import DetaljerPage from "./pages/detaljer/DetaljerPage";
 import SokPage from "./pages/sok/SokPage";
 import TrefflistePage from "./pages/treffliste/TrefflistePage";
-import { initGrafanaFaro } from "./util/grafanaFaro";
+import { initApm } from "./util/apm";
 import { BASENAME, DETALJER, ROOT, TREFFLISTE } from "./util/routenames";
 
-const App = () => {
-	useEffect(() => {
-		// Initialize Grafana Faro for monitoring and logging
-		initGrafanaFaro();
-	}, []);
+initApm();
 
+const App = () => {
 	return (
 		<BrowserRouter basename={BASENAME}>
 			<Routes>
 				<Route path={ROOT} element={<SokPage />} />
-				<Route path={TREFFLISTE} element={<TrefflistePage />} />,
-				<Route path={DETALJER} element={<DetaljerPage />} />,
-				<Route path={"*"} element={<NotFound />} />,
+				<Route path={TREFFLISTE} element={<TrefflistePage />} />
+				<Route path={DETALJER} element={<DetaljerPage />} />
+				<Route path={"*"} element={<NotFound />} />
 			</Routes>
 		</BrowserRouter>
 	);

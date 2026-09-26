@@ -16,7 +16,7 @@ type BreadcrumbsProps = {
 
 export default function Breadcrumbs(props: BreadcrumbsProps) {
 	return (
-		<nav className={styles.breadcrumbs}>
+		<nav className={styles.breadcrumbs} aria-label="Brødsmulesti">
 			<div className={styles.breadcrumbs__left}>
 				<div className={styles.breadcrumbs__contents}>
 					{props.searchLink && (
@@ -28,13 +28,13 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
 					)}
 					{props.treffliste && (
 						<>
-							<ChevronRightDoubleIcon focusable={"false"} title="Pil høyre" />
+							<ChevronRightDoubleIcon aria-hidden />
 							<BodyShort size="large">Treffliste</BodyShort>
 						</>
 					)}
 					{props.trefflistelink && (
 						<>
-							<ChevronRightDoubleIcon focusable={"false"} title="Pil høyre" />
+							<ChevronRightDoubleIcon aria-hidden />
 							<BodyShort size="large">
 								<Link to="/treffliste" replace className={commonstyles.link}>
 									Treffliste
@@ -44,13 +44,13 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
 					)}
 					{props.detaljer && (
 						<>
-							<ChevronRightDoubleIcon title="Chevron ikon" />
+							<ChevronRightDoubleIcon aria-hidden />
 							<BodyShort size="large">Detaljer</BodyShort>
 						</>
 					)}
 					{props.detaljerLink && (
 						<>
-							<ChevronRightDoubleIcon title="Pil høyre" />
+							<ChevronRightDoubleIcon aria-hidden />
 							<BodyShort size="large">
 								<Link to="/detaljer" replace className={commonstyles.link}>
 									Detaljer
@@ -60,7 +60,7 @@ export default function Breadcrumbs(props: BreadcrumbsProps) {
 					)}
 					{props.oppdragsdetaljer && (
 						<>
-							<ChevronRightDoubleIcon title="Pil høyre" />
+							<ChevronRightDoubleIcon aria-hidden />
 							Detaljer
 						</>
 					)}

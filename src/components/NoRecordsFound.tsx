@@ -1,6 +1,6 @@
 import { Button, Heading } from "@navikt/ds-react";
 import { useNavigate } from "react-router";
-import styles from "./EmptyList.module.css";
+import styles from "./NoRecordsFound.module.css";
 
 type NoRecordsFoundProps = {
 	buttonText?: string;
@@ -19,7 +19,7 @@ export default function NoRecordsFound({
 
 	return (
 		<div className={styles.container}>
-			<Heading size="medium" spacing align="center">
+			<Heading level="2" size="medium" spacing align="center">
 				Listen er tom. Alle radene er behandlet.
 			</Heading>
 			<Button

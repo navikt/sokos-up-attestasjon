@@ -29,7 +29,7 @@ async function backendWillReturn(
 }
 
 async function locateTableRows(page: Page) {
-	return page.locator("#detaljertabell tbody .navds-table__row");
+	return page.locator("#detaljertabell tbody .aksel-table__row");
 }
 
 test.describe("Detaljer", () => {

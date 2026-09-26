@@ -7,7 +7,7 @@ import type { OppdragsDetaljerDTO } from "../types/OppdragsDetaljerDTO";
 import type { SokeParameter } from "../types/SokeParameter";
 import type { WrappedResponseWithErrorDTO } from "../types/WrappedResponseWithErrorDTO";
 import { norskDatoTilIsoDato } from "../util/datoUtil";
-import { axiosFetcher, axiosPostFetcher } from "./apiConfig";
+import { axiosFetcher, axiosPostFetcher } from "./config/apiConfig";
 import type { AttesterOppdragRequest } from "./models/AttesterOppdragRequest";
 import type { AttesterOppdragResponse } from "./models/AttesterOppdragResponse";
 import type { GjelderIdRequest } from "./models/GjelderIdRequest";

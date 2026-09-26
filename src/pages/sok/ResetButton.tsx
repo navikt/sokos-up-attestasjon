@@ -26,7 +26,7 @@ export default function ResetButton({
 			variant="secondary"
 			size={"small"}
 			iconPosition="right"
-			icon={<EraserIcon title="Eraser icon" />}
+			icon={<EraserIcon aria-hidden />}
 			onClick={handleReset}
 		>
 			Nullstill søk
