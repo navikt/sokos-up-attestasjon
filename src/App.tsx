@@ -3,10 +3,7 @@ import NotFound from "./components/NotFound";
 import DetaljerPage from "./pages/detaljer/DetaljerPage";
 import SokPage from "./pages/sok/SokPage";
 import TrefflistePage from "./pages/treffliste/TrefflistePage";
-import { initApm } from "./util/apm";
 import { BASENAME, DETALJER, ROOT, TREFFLISTE } from "./util/routenames";
-
-initApm();
 
 const App = () => {
 	return (
