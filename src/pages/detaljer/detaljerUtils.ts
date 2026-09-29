@@ -56,7 +56,7 @@ function splittOgLeggTilEkstraLinjeForManuellePosteringer(
 	}
 }
 
-export function tranformToAttestasjonlinje(
+export function transformToAttestasjonlinje(
 	oppdragsdetaljerDto: OppdragsDetaljerDTO,
 	antallAttestanter: number,
 ): AttestasjonlinjeList {

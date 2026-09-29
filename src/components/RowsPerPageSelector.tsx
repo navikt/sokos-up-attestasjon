@@ -32,7 +32,8 @@ export default function RowsPerPageSelector(props: RowsPerPageSelectorProps) {
 				<Dropdown>
 					<Button
 						size={"xsmall"}
-						variant={"tertiary-neutral"}
+						variant="tertiary"
+						data-color="neutral"
 						as={Dropdown.Toggle}
 					>
 						<ChevronDownIcon

@@ -18,7 +18,7 @@ import {
 	isoDatoTilNorskDato,
 } from "../../util/datoUtil";
 import styles from "./DetaljerTabell.module.css";
-import { tranformToAttestasjonlinje } from "./detaljerUtils";
+import { transformToAttestasjonlinje } from "./detaljerUtils";
 import RowWrapper from "./RowWrapper";
 import SumModal from "./SumModal";
 
@@ -67,7 +67,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
 
 	useEffect(() => {
 		if (props.oppdragsDetaljer) {
-			const linjer = tranformToAttestasjonlinje(
+			const linjer = transformToAttestasjonlinje(
 				props.oppdragsDetaljer,
 				props.antallAttestanter,
 			);
@@ -227,7 +227,7 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
 						onChange={() => toggleAllCheckboxes("fjern")}
 						disabled={fjernAntallAttestasjoner === 0}
 					>
-						Avattester alle
+						Fjern alle
 					</Checkbox>
 					<Checkbox
 						checked={
@@ -280,9 +280,9 @@ export default function DetaljerTabell(props: DetaljerTabellProps) {
 										data-umami-event={DETALJER.EXPAND_ALL_ROWS_CLICKED}
 										icon={
 											toggleAllRows ? (
-												<ChevronUpIcon title="Pil opp" />
+												<ChevronUpIcon aria-hidden />
 											) : (
-												<ChevronDownIcon title="Pil ned" />
+												<ChevronDownIcon aria-hidden />
 											)
 										}
 										iconPosition="right"

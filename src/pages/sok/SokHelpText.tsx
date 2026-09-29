@@ -5,7 +5,7 @@ export default function SokHelpText() {
 	return (
 		<div className={styles["sok__help-text"]}>
 			<HelpText title="Søkekriterier" placement="left" strategy="fixed">
-				<Heading as="h3" size="small">
+				<Heading as="h2" size="small">
 					Minimum ett av kriteriene må være utfylt
 				</Heading>
 				<List as="ul" size="small">

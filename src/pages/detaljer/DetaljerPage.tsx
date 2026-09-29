@@ -1,4 +1,4 @@
-import { Heading, Loader } from "@navikt/ds-react";
+import { Heading, Loader, LocalAlert } from "@navikt/ds-react";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import {
@@ -7,7 +7,6 @@ import {
 	oppdaterAttestasjon,
 	useFetchOppdragsdetaljer,
 } from "../../api/apiService";
-import AlertWithCloseButton from "../../components/AlertWithCloseButton";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import LabelText from "../../components/LabelText";
 import NoRecordsFound from "../../components/NoRecordsFound";
@@ -211,23 +210,21 @@ export default function DetaljerPage() {
 			)}
 			{!!reloadError && (
 				<div className={commonstyles["page__top-alert"]}>
-					<AlertWithCloseButton
-						show={!!reloadError}
-						setShow={() => setReloadError(null)}
-						variant={reloadError.variant}
-					>
-						{reloadError.message}
-					</AlertWithCloseButton>
+					<LocalAlert status={reloadError.variant}>
+						<LocalAlert.Header>
+							<LocalAlert.Title as="h2">{reloadError.message}</LocalAlert.Title>
+							<LocalAlert.CloseButton onClick={() => setReloadError(null)} />
+						</LocalAlert.Header>
+					</LocalAlert>
 				</div>
 			)}
 			{!!alertMessage && (
-				<AlertWithCloseButton
-					show={!!alertMessage}
-					setShow={() => setAlertMessage(null)}
-					variant={alertMessage.variant}
-				>
-					{alertMessage.message}
-				</AlertWithCloseButton>
+				<LocalAlert status={alertMessage.variant}>
+					<LocalAlert.Header>
+						<LocalAlert.Title as="h2">{alertMessage.message}</LocalAlert.Title>
+						<LocalAlert.CloseButton onClick={() => setAlertMessage(null)} />
+					</LocalAlert.Header>
+				</LocalAlert>
 			)}
 			{linjerSomSkalVises && (
 				<DetaljerTabell

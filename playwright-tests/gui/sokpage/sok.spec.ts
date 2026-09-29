@@ -112,7 +112,7 @@ test.describe("When using Sok in Attestasjoner", () => {
 		const fnrfelt = page.getByLabel("Gjelder");
 		await fnrfelt.fill("12345612345");
 		await page.locator("#search").click();
-		await expect(page.getByText("Ingen treff på søket. Prøv")).toBeVisible();
+		await expect(page.getByText("Ingen treff på søket.")).toBeVisible();
 	});
 
 	test("Backspace should remove faggruppe", async ({ page }) => {
