@@ -3,7 +3,7 @@
 # Server-specific overrides live in server/pnpm-workspace.yaml and are NOT inherited.
 
 overrides:
-  source-map-js: 1.2.2
+  vite: 8.3.3
 engineStrict: true
 saveExact: true
 ignoreScripts: true
