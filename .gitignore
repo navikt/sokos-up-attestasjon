@@ -115,3 +115,5 @@ public/mockServiceWorker.js
 # Vitest
 **/__screenshots__/
 /coverage/
+
+/.pnpm-store/

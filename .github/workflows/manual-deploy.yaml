@@ -17,6 +17,7 @@ jobs:
       image-tag: snapshot
       has-vitest: true
       has-playwright: true
+      server-prune-dev-deps: pnpm run prune:production
 
   deploy-dev:
     permissions:

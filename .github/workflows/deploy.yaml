@@ -34,6 +34,7 @@ jobs:
     with:
       has-vitest: true
       has-playwright: true
+      server-prune-dev-deps: pnpm run prune:production
     secrets: inherit
 
   deploy-dev:
