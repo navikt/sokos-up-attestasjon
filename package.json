@@ -20,7 +20,7 @@
 		"pnpm:resolve": "node scripts/resolve-pnpm-version.mjs"
 	},
 	"dependencies": {
-		"@hookform/resolvers": "5.9.1",
+		"@hookform/resolvers": "7.0.3",
 		"@navikt/aksel-icons": "8.21.0",
 		"@navikt/ds-css": "8.21.0",
 		"@navikt/ds-react": "8.21.0",
