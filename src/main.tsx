@@ -16,7 +16,7 @@ const startMsw = async () => {
 				serviceWorker: {
 					url: serviceWorkerUrl,
 				},
-				onUnhandledRequest: "bypass", // for assets o.l.
+				onUnhandledFrame: "bypass", // for assets o.l.
 				quiet: false,
 			});
 		} catch (error) {
