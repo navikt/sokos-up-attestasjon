@@ -20,7 +20,7 @@
 		"pnpm:resolve": "node scripts/resolve-pnpm-version.mjs"
 	},
 	"dependencies": {
-		"@hookform/resolvers": "7.0.6",
+		"@hookform/resolvers": "7.0.7",
 		"@navikt/aksel-icons": "8.22.1",
 		"@navikt/ds-css": "8.22.1",
 		"@navikt/ds-react": "8.22.1",
@@ -36,9 +36,9 @@
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "4.14.0",
-		"@biomejs/biome": "2.6.7",
+		"@biomejs/biome": "2.6.8",
 		"@navikt/aksel-stylelint": "8.22.1",
-		"@playwright/test": "1.65.0",
+		"@playwright/test": "1.65.1",
 		"@testing-library/jest-dom": "7.0.1",
 		"@testing-library/react": "16.3.3",
 		"@types/node": "26.6.6",
@@ -49,8 +49,8 @@
 		"@vitest/coverage-istanbul": "4.1.11",
 		"@vitest/ui": "4.1.11",
 		"husky": "9.1.7",
-		"lint-staged": "17.6.0",
-		"msw": "3.0.5",
+		"lint-staged": "17.6.1",
+		"msw": "3.0.6",
 		"stylelint": "17.16.0",
 		"stylelint-config-standard": "40.0.0",
 		"typescript": "7.0.2",
